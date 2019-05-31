@@ -14,9 +14,9 @@ struct BreakfastFood {
     
     var name: String
     var calories: Int
-    var protein: Int
-    var carbs: Int
-    var fat: Int
+    var protein: Double
+    var carbs: Double
+    var fat: Double
     
     
     

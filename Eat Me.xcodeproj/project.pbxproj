@@ -3,19 +3,20 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		377208B52291A1F8002DDA29 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377208B42291A1F8002DDA29 /* AppDelegate.swift */; };
 		377208B72291A1F8002DDA29 /* EatMeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377208B62291A1F8002DDA29 /* EatMeViewController.swift */; };
 		377208BA2291A1F8002DDA29 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 377208B82291A1F8002DDA29 /* Main.storyboard */; };
-		377208BD2291A1F8002DDA29 /* Eat_Me.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 377208BB2291A1F8002DDA29 /* Eat_Me.xcdatamodeld */; };
 		377208BF2291A1FA002DDA29 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 377208BE2291A1FA002DDA29 /* Assets.xcassets */; };
 		377208C22291A1FA002DDA29 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 377208C02291A1FA002DDA29 /* LaunchScreen.storyboard */; };
 		377208CD2291A260002DDA29 /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377208CC2291A260002DDA29 /* Food.swift */; };
 		377208D22291B002002DDA29 /* MealOverviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377208D02291B002002DDA29 /* MealOverviewCell.swift */; };
 		377208D32291B002002DDA29 /* MealOverviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 377208D12291B002002DDA29 /* MealOverviewCell.xib */; };
+		37CA772D22A1BB4F00C03A06 /* NewEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CA772C22A1BB4F00C03A06 /* NewEntryViewController.swift */; };
+		37CA772F22A1C6EC00C03A06 /* MealPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CA772E22A1C6EC00C03A06 /* MealPickerCell.swift */; };
 		37CCACC7229F22A2002C7C1A /* BreakfastFood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CCACC6229F22A2002C7C1A /* BreakfastFood.swift */; };
 		37CCACC9229F22B0002C7C1A /* LunchFood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CCACC8229F22B0002C7C1A /* LunchFood.swift */; };
 		37CCACCB229F22B9002C7C1A /* DinnerFood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CCACCA229F22B9002C7C1A /* DinnerFood.swift */; };
@@ -31,13 +32,14 @@
 		377208B42291A1F8002DDA29 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		377208B62291A1F8002DDA29 /* EatMeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EatMeViewController.swift; sourceTree = "<group>"; };
 		377208B92291A1F8002DDA29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		377208BC2291A1F8002DDA29 /* Eat_Me.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Eat_Me.xcdatamodel; sourceTree = "<group>"; };
 		377208BE2291A1FA002DDA29 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		377208C12291A1FA002DDA29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		377208C32291A1FA002DDA29 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		377208CC2291A260002DDA29 /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
 		377208D02291B002002DDA29 /* MealOverviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealOverviewCell.swift; sourceTree = "<group>"; };
 		377208D12291B002002DDA29 /* MealOverviewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MealOverviewCell.xib; sourceTree = "<group>"; };
+		37CA772C22A1BB4F00C03A06 /* NewEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEntryViewController.swift; sourceTree = "<group>"; };
+		37CA772E22A1C6EC00C03A06 /* MealPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealPickerCell.swift; sourceTree = "<group>"; };
 		37CCACC6229F22A2002C7C1A /* BreakfastFood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakfastFood.swift; sourceTree = "<group>"; };
 		37CCACC8229F22B0002C7C1A /* LunchFood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LunchFood.swift; sourceTree = "<group>"; };
 		37CCACCA229F22B9002C7C1A /* DinnerFood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DinnerFood.swift; sourceTree = "<group>"; };
@@ -90,7 +92,6 @@
 				377208CB2291A223002DDA29 /* Controller */,
 				377208BE2291A1FA002DDA29 /* Assets.xcassets */,
 				377208C32291A1FA002DDA29 /* Info.plist */,
-				377208BB2291A1F8002DDA29 /* Eat_Me.xcdatamodeld */,
 			);
 			path = "Eat Me";
 			sourceTree = "<group>";
@@ -121,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				377208B62291A1F8002DDA29 /* EatMeViewController.swift */,
+				37CA772C22A1BB4F00C03A06 /* NewEntryViewController.swift */,
 				377208B42291A1F8002DDA29 /* AppDelegate.swift */,
 			);
 			path = Controller;
@@ -131,6 +133,7 @@
 			children = (
 				377208D02291B002002DDA29 /* MealOverviewCell.swift */,
 				377208D12291B002002DDA29 /* MealOverviewCell.xib */,
+				37CA772E22A1C6EC00C03A06 /* MealPickerCell.swift */,
 			);
 			path = "Custom Cell";
 			sourceTree = "<group>";
@@ -141,7 +144,6 @@
 				2C593C770C04CCCE21F115B0 /* Pods-Eat Me.debug.xcconfig */,
 				10E32B840DC7A266A9830B25 /* Pods-Eat Me.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -262,12 +264,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				37CCACC9229F22B0002C7C1A /* LunchFood.swift in Sources */,
+				37CA772D22A1BB4F00C03A06 /* NewEntryViewController.swift in Sources */,
+				37CA772F22A1C6EC00C03A06 /* MealPickerCell.swift in Sources */,
 				377208D22291B002002DDA29 /* MealOverviewCell.swift in Sources */,
 				377208B72291A1F8002DDA29 /* EatMeViewController.swift in Sources */,
 				37CCACCB229F22B9002C7C1A /* DinnerFood.swift in Sources */,
 				37CCACCD229F22C1002C7C1A /* OtherFood.swift in Sources */,
 				377208CD2291A260002DDA29 /* Food.swift in Sources */,
-				377208BD2291A1F8002DDA29 /* Eat_Me.xcdatamodeld in Sources */,
 				377208B52291A1F8002DDA29 /* AppDelegate.swift in Sources */,
 				37CCACC7229F22A2002C7C1A /* BreakfastFood.swift in Sources */,
 			);
@@ -471,19 +474,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		377208BB2291A1F8002DDA29 /* Eat_Me.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				377208BC2291A1F8002DDA29 /* Eat_Me.xcdatamodel */,
-			);
-			currentVersion = 377208BC2291A1F8002DDA29 /* Eat_Me.xcdatamodel */;
-			path = Eat_Me.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 377208A92291A1F8002DDA29 /* Project object */;
 }
