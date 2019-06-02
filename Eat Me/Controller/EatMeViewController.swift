@@ -41,15 +41,15 @@ class EatMeViewController: UIViewController, UITableViewDelegate, UITableViewDat
         refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
         eatMeTableView.addSubview(refreshControl)
         
-        loadBreakfastFood()
+        loadAllFood()
         
     }
     override func viewDidAppear(_ animated: Bool) {
-        loadBreakfastFood()
+        loadAllFood()
     }
     
     @objc func refresh() {
-        loadBreakfastFood()
+        loadAllFood()
         refreshControl.endRefreshing()
     }
     
@@ -132,9 +132,12 @@ class EatMeViewController: UIViewController, UITableViewDelegate, UITableViewDat
 //        cell.fatLabel.text = (fat?.stringValue ?? "0") + " g"
 //    }
     
-    func loadBreakfastFood() {
+    func loadAllFood() {
         
         breakfastFoods = realm.objects(BreakfastFood.self)
+        lunchFoods = realm.objects(LunchFood.self)
+        dinnerFoods = realm.objects(DinnerFood.self)
+        otherFoods = realm.objects(OtherFood.self)
         
         totalCaloriesLabel.text = "Total Calories: \(totalCals)"
         
@@ -148,6 +151,7 @@ class EatMeViewController: UIViewController, UITableViewDelegate, UITableViewDat
         var proteinArray = [NSNumber]()
         var carbsArray = [NSNumber]()
         var fatArray = [NSNumber]()
+        
         var breakfastCalories = 0
         var breakfastProtein = 0.0
         var breakfastCarbs = 0.0
