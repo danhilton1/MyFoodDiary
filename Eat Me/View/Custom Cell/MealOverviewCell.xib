@@ -82,6 +82,12 @@
                 </subviews>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="calorieLabel" destination="BL3-ke-CAD" id="yKP-NB-VZY"/>
+                <outlet property="carbsLabel" destination="pfD-Pe-JcJ" id="3O8-5P-9Ek"/>
+                <outlet property="fatLabel" destination="S44-Ll-WO3" id="1lf-kt-5dk"/>
+                <outlet property="proteinLabel" destination="sBj-c3-fO2" id="yCx-jl-saZ"/>
+            </connections>
             <point key="canvasLocation" x="137.68115942028987" y="130.58035714285714"/>
         </tableViewCell>
     </objects>

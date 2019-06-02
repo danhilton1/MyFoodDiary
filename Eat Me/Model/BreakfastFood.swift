@@ -7,16 +7,27 @@
 //
 
 import Foundation
+import RealmSwift
 
 
-
-struct BreakfastFood {
+class BreakfastFood: Object {
     
-    var name: String
-    var calories: Int
-    var protein: Double
-    var carbs: Double
-    var fat: Double
+    @objc dynamic var name: String?
+    @objc dynamic var calories: String?
+    @objc dynamic var protein: String?
+    @objc dynamic var carbs: String?
+    @objc dynamic var fat: String?
+    
+    func updateProperties(name: String?, calories: String?, protein: String?, carbs: String?, fat: String?) {
+        
+        self.name = name
+        self.calories = calories
+        self.protein = protein
+        self.carbs = carbs
+        self.fat = fat
+        
+        
+    }
     
     
     

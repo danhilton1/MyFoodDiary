@@ -143,9 +143,6 @@
                                                 </segmentedControl>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="mealPicker" destination="LU1-qH-ZSO" id="Nwf-nL-lZD"/>
-                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NameCell" id="ZPz-zn-nQ6">
                                         <rect key="frame" x="0.0" y="65" width="414" height="65"/>
@@ -289,7 +286,12 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="mealPicker" destination="LU1-qH-ZSO" id="Aip-k5-N3q"/>
+                        <outlet property="caloriesTextField" destination="sY1-Fc-VZn" id="Mv1-Iy-L0K"/>
+                        <outlet property="carbsTextField" destination="XDG-nc-GsW" id="o82-md-sPO"/>
+                        <outlet property="fatTextField" destination="K88-e6-Z6V" id="10C-55-Xfn"/>
+                        <outlet property="foodNameTextField" destination="R9T-qm-662" id="n4H-aa-ZFW"/>
+                        <outlet property="mealPicker" destination="LU1-qH-ZSO" id="7f2-lu-dtK"/>
+                        <outlet property="proteinTextField" destination="fyv-gI-CEj" id="hr2-Ki-MjV"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cNn-17-kP4" userLabel="First Responder" sceneMemberID="firstResponder"/>
