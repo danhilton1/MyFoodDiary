@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class DinnerFood {
+class DinnerFood: Object {
     
     @objc dynamic var name: String?
     @objc dynamic var calories: String?

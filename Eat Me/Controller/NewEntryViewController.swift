@@ -51,29 +51,7 @@ class NewEntryViewController: UITableViewController {
     
 //    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
-//        switch indexPath.row {
-//        case 0:
-//            let cell0 = tableView.dequeueReusableCell(withIdentifier: "MealCell", for: indexPath)
-//            return cell0
-//        case 1:
-//            let cell1 = tableView.dequeueReusableCell(withIdentifier: "NameCell", for: indexPath)
-//            return cell1
-//        case 2:
-//            let cell2 = tableView.dequeueReusableCell(withIdentifier: "CaloriesCell", for: indexPath)
-//            return cell2
-//        case 3:
-//            let cell3 = tableView.dequeueReusableCell(withIdentifier: "ProteinCell", for: indexPath)
-//            return cell3
-//        case 4:
-//            let cell4 = tableView.dequeueReusableCell(withIdentifier: "CarbsCell", for: indexPath)
-//            return cell4
-//        case 5:
-//            let cell5 = tableView.dequeueReusableCell(withIdentifier: "FatCell", for: indexPath)
-//            return cell5
-//        default:
-//            let defaultCell = UITableViewCell()
-//            return defaultCell
-//        }
+//     
         
       
 //    }
@@ -96,7 +74,7 @@ class NewEntryViewController: UITableViewController {
             
             let newBreakfastFood = BreakfastFood()
             
-            newBreakfastFood.updateProperties(name: foodNameTextField.text, calories: caloriesTextField.text, protein: proteinTextField.text, carbs: carbsTextField.text, fat: fatTextField.text)
+            newBreakfastFood.updateProperties(name: foodNameTextField.text, calories: NSNumber(value: Int(caloriesTextField.text!)!), protein: NSNumber(value: Double(proteinTextField.text!)!), carbs: NSNumber(value: Double(carbsTextField.text!)!), fat: NSNumber(value: Double(fatTextField.text!)!))
             
             save(food: newBreakfastFood)
             
@@ -116,8 +94,6 @@ class NewEntryViewController: UITableViewController {
             otherFood.name = foodNameTextField.text
         }
         
-        print(mealPicker.selectedSegmentIndex)
-        print(breakfastFood.name)
         self.dismiss(animated: true, completion: nil)
     }
     

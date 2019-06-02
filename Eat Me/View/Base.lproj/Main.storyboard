@@ -97,6 +97,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="eatMeTableView" destination="Xbh-gk-J6y" id="BzM-YB-GZ5"/>
+                        <outlet property="totalCaloriesLabel" destination="sbF-JA-Wwl" id="SJX-hN-C21"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W77-Of-O69" userLabel="First Responder" sceneMemberID="firstResponder"/>

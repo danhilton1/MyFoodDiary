@@ -13,14 +13,16 @@ class EatMeViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     let realm = try! Realm()
     
-    var foodList: Results<BreakfastFood>?
+    var breakfastFoods: Results<BreakfastFood>?
+    var lunchFoods: Results<LunchFood>?
+    var dinnerFoods: Results<DinnerFood>?
+    var otherFoods: Results<OtherFood>?
 
     @IBOutlet weak var eatMeTableView: UITableView!
+    @IBOutlet weak var totalCaloriesLabel: UILabel!
     
-//    let breakfastFood = BreakfastFood()
-//    let lunchFood = LunchFood()
-//    let dinnerFood = DinnerFood()
-//    let otherFood = OtherFood()
+    var totalCals = 0
+    
     
     var refreshControl = UIRefreshControl()
     
@@ -39,15 +41,15 @@ class EatMeViewController: UIViewController, UITableViewDelegate, UITableViewDat
         refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
         eatMeTableView.addSubview(refreshControl)
         
-        loadFood()
+        loadBreakfastFood()
         
     }
     override func viewDidAppear(_ animated: Bool) {
-        loadFood()
+        loadBreakfastFood()
     }
     
     @objc func refresh() {
-        loadFood()
+        loadBreakfastFood()
         refreshControl.endRefreshing()
     }
     
@@ -91,24 +93,29 @@ class EatMeViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let cell = tableView.dequeueReusableCell(withIdentifier: "mealOverviewCell", for: indexPath) as! MealOverviewCell
         
 //        let food = foodList?[indexPath.section] ?? BreakfastFood()
-        var breakfastFood = BreakfastFood()
-        if let lastFoodIndex = foodList?.endIndex {
-            breakfastFood = foodList?[lastFoodIndex - 1] ?? BreakfastFood()
-        } else {
-            breakfastFood = foodList?[indexPath.section] ?? BreakfastFood()
-        }
+//        var breakfastFood = BreakfastFood()
+//        if let lastFoodIndex = breakfastFoods?.endIndex {
+//            if lastFoodIndex > 0 {
+//            breakfastFood = breakfastFoods?[lastFoodIndex - 1] ?? BreakfastFood()
+//            }
+//        }
         
         switch indexPath.section {
         case 0:
-            setCellData(cell: cell, calories: breakfastFood.calories, protein: breakfastFood.protein, carbs: breakfastFood.carbs, fat: breakfastFood.fat)
-        case 1:
-            setCellData(cell: cell, calories: lunchFood.calories, protein: lunchFood.protein, carbs: lunchFood.carbs, fat: lunchFood.fat)
-        case 2:
-            setCellData(cell: cell, calories: dinnerFood.calories, protein: dinnerFood.protein, carbs: dinnerFood.carbs, fat: dinnerFood.fat)
-        case 3:
-            setCellData(cell: cell, calories: otherFood.calories, protein: otherFood.protein, carbs: otherFood.carbs, fat: otherFood.fat)
+//            setCellData(cell: cell, calories: breakfastFood.calories, protein: breakfastFood.protein, carbs: breakfastFood.carbs, fat: breakfastFood.fat)
+            getSumOfPropertiesForMeal(meal: breakfastFoods, cell: cell)
+            
+//        case 1:
+//            setCellData(cell: cell, calories: lunchFood.calories, protein: lunchFood.protein, carbs: lunchFood.carbs, fat: lunchFood.fat)
+//        case 2:
+//            setCellData(cell: cell, calories: dinnerFood.calories, protein: dinnerFood.protein, carbs: dinnerFood.carbs, fat: dinnerFood.fat)
+//        case 3:
+//            setCellData(cell: cell, calories: otherFood.calories, protein: otherFood.protein, carbs: otherFood.carbs, fat: otherFood.fat)
         default:
-            setCellData(cell: cell, calories: "0kcal", protein: "0g", carbs: "0g", fat: "0g")
+            cell.calorieLabel.text = "0"
+            cell.proteinLabel.text = "0"
+            cell.carbsLabel.text = "0"
+            cell.fatLabel.text = "0"
         }
         
         
@@ -118,20 +125,84 @@ class EatMeViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
     }
     
-    func setCellData(cell: MealOverviewCell, calories: String?, protein: String?, carbs: String?, fat: String?) {
-        cell.calorieLabel.text = (calories ?? "0") + "kcal"
-        cell.proteinLabel.text = (protein ?? "0") + "g"
-        cell.carbsLabel.text = (carbs ?? "0") + "g"
-        cell.fatLabel.text = (fat ?? "0") + "g"
-    }
+//    func setCellData(cell: MealOverviewCell, calories: NSNumber?, protein: NSNumber?, carbs: NSNumber?, fat: NSNumber?) {
+//        cell.calorieLabel.text = (calories?.stringValue ?? "0") + "kcal"
+//        cell.proteinLabel.text = (protein?.stringValue ?? "0") + " g"
+//        cell.carbsLabel.text = (carbs?.stringValue ?? "0") + " g"
+//        cell.fatLabel.text = (fat?.stringValue ?? "0") + " g"
+//    }
     
-    func loadFood() {
+    func loadBreakfastFood() {
         
-        foodList = realm.objects(BreakfastFood.self)
+        breakfastFoods = realm.objects(BreakfastFood.self)
+        
+        totalCaloriesLabel.text = "Total Calories: \(totalCals)"
         
         eatMeTableView.reloadData()
         
     }
+    
+    func getSumOfPropertiesForMeal(meal: Results<BreakfastFood>?, cell: MealOverviewCell) {
+        
+        var calorieArray = [NSNumber]()
+        var proteinArray = [NSNumber]()
+        var carbsArray = [NSNumber]()
+        var fatArray = [NSNumber]()
+        var breakfastCalories = 0
+        var breakfastProtein = 0.0
+        var breakfastCarbs = 0.0
+        var breakfastFat = 0.0
+        
+        if let foodList = meal {
+            for i in 0..<foodList.count {
+                calorieArray.append(foodList[i].calories ?? 0)
+                proteinArray.append(foodList[i].protein ?? 0)
+                carbsArray.append(foodList[i].carbs ?? 0)
+                fatArray.append(foodList[i].fat ?? 0)
+            }
+            
+            for i in 0..<calorieArray.count {
+                breakfastCalories += Int(truncating: calorieArray[i])
+                breakfastProtein += Double(truncating: proteinArray[i])
+                breakfastCarbs += Double(truncating: carbsArray[i])
+                breakfastFat += Double(truncating: fatArray[i])
+                
+            }
+            
+        }
+        cell.calorieLabel.text = "\(breakfastCalories) kcal"
+        cell.proteinLabel.text = "\(breakfastProtein) g"
+        cell.carbsLabel.text = "\(breakfastCarbs) g"
+        cell.fatLabel.text = "\(breakfastFat) g"
+        
+        totalCals += breakfastCalories
+        
+    }
+    
+//    func getSumOfProteinForMeal(meal: Results<BreakfastFood>?, cell: MealOverviewCell) {
+//
+//        var proteinArray = [NSNumber]()
+//        var breakfastProtein = 0
+//
+//        if let foodList = meal {
+//            for i in 0..<foodList.count {
+//                proteinArray.append(foodList[i].protein ?? 0)
+//            }
+//
+//            for i in 0..<proteinArray.count {
+//                breakfastProtein += Int(proteinArray[i])
+//            }
+//
+//        }
+//        cell.proteinLabel.text = "\(breakfastProtein) g"
+//
+//    }
+    
+//    func getSumOfFoodEntries(list: Results<AnyRealmCollection>) {
+//
+//
+//
+//    }
 
 
 }
