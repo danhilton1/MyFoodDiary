@@ -4,7 +4,9 @@
 //
 //  Created by Daniel Hilton on 19/05/2019.
 //  Copyright © 2019 Daniel Hilton. All rights reserved.
-//
+
+// TODO: - Configue the Lunch, Dinner and Other cells to update with new entries.
+
 
 import UIKit
 import RealmSwift
@@ -12,6 +14,8 @@ import RealmSwift
 class EatMeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     let realm = try! Realm()
+    
+    //MARK: - Properties and Objects
     
     var breakfastFoods: Results<BreakfastFood>?
     var lunchFoods: Results<LunchFood>?
@@ -26,6 +30,7 @@ class EatMeViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     var refreshControl = UIRefreshControl()
     
+    //MARK: - view Methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,7 +81,7 @@ class EatMeViewController: UIViewController, UITableViewDelegate, UITableViewDat
             label.text = ""
         }
         
-       return label
+        return label
             
     }
     
@@ -102,15 +107,13 @@ class EatMeViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         switch indexPath.section {
         case 0:
-//            setCellData(cell: cell, calories: breakfastFood.calories, protein: breakfastFood.protein, carbs: breakfastFood.carbs, fat: breakfastFood.fat)
-            getSumOfPropertiesForMeal(meal: breakfastFoods, cell: cell)
-            
-//        case 1:
-//            setCellData(cell: cell, calories: lunchFood.calories, protein: lunchFood.protein, carbs: lunchFood.carbs, fat: lunchFood.fat)
-//        case 2:
-//            setCellData(cell: cell, calories: dinnerFood.calories, protein: dinnerFood.protein, carbs: dinnerFood.carbs, fat: dinnerFood.fat)
-//        case 3:
-//            setCellData(cell: cell, calories: otherFood.calories, protein: otherFood.protein, carbs: otherFood.carbs, fat: otherFood.fat)
+            getSumOfPropertiesForMeal(meal1: breakfastFoods, meal2: nil, meal3: nil, meal4: nil, cell: cell)
+        case 1:
+            getSumOfPropertiesForMeal(meal1: nil, meal2: lunchFoods, meal3: nil, meal4: nil, cell: cell)
+        case 2:
+            getSumOfPropertiesForMeal(meal1: nil, meal2: nil, meal3: dinnerFoods, meal4: nil, cell: cell)
+        case 3:
+            getSumOfPropertiesForMeal(meal1: nil, meal2: nil, meal3: nil, meal4: otherFoods, cell: cell)
         default:
             cell.calorieLabel.text = "0"
             cell.proteinLabel.text = "0"
@@ -125,12 +128,6 @@ class EatMeViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
     }
     
-//    func setCellData(cell: MealOverviewCell, calories: NSNumber?, protein: NSNumber?, carbs: NSNumber?, fat: NSNumber?) {
-//        cell.calorieLabel.text = (calories?.stringValue ?? "0") + "kcal"
-//        cell.proteinLabel.text = (protein?.stringValue ?? "0") + " g"
-//        cell.carbsLabel.text = (carbs?.stringValue ?? "0") + " g"
-//        cell.fatLabel.text = (fat?.stringValue ?? "0") + " g"
-//    }
     
     func loadAllFood() {
         
@@ -145,19 +142,21 @@ class EatMeViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
     }
     
-    func getSumOfPropertiesForMeal(meal: Results<BreakfastFood>?, cell: MealOverviewCell) {
+    func getSumOfPropertiesForMeal(meal1: Results<BreakfastFood>?, meal2: Results<LunchFood>?, meal3: Results<DinnerFood>?, meal4: Results<OtherFood>?, cell: MealOverviewCell) {
         
         var calorieArray = [NSNumber]()
         var proteinArray = [NSNumber]()
         var carbsArray = [NSNumber]()
         var fatArray = [NSNumber]()
         
-        var breakfastCalories = 0
-        var breakfastProtein = 0.0
-        var breakfastCarbs = 0.0
-        var breakfastFat = 0.0
+        var calories = 0
+        var protein = 0.0
+        var carbs = 0.0
+        var fat = 0.0
         
-        if let foodList = meal {
+       
+        
+        if let foodList = meal1 {
             for i in 0..<foodList.count {
                 calorieArray.append(foodList[i].calories ?? 0)
                 proteinArray.append(foodList[i].protein ?? 0)
@@ -166,47 +165,78 @@ class EatMeViewController: UIViewController, UITableViewDelegate, UITableViewDat
             }
             
             for i in 0..<calorieArray.count {
-                breakfastCalories += Int(truncating: calorieArray[i])
-                breakfastProtein += Double(truncating: proteinArray[i])
-                breakfastCarbs += Double(truncating: carbsArray[i])
-                breakfastFat += Double(truncating: fatArray[i])
+                calories += Int(truncating: calorieArray[i])
+                protein += Double(truncating: proteinArray[i])
+                carbs += Double(truncating: carbsArray[i])
+                fat += Double(truncating: fatArray[i])
+                
+            }
+            
+        } else if let foodList = meal2 {
+            
+            for i in 0..<foodList.count {
+                calorieArray.append(foodList[i].calories ?? 0)
+                proteinArray.append(foodList[i].protein ?? 0)
+                carbsArray.append(foodList[i].carbs ?? 0)
+                fatArray.append(foodList[i].fat ?? 0)
+            }
+            
+            for i in 0..<calorieArray.count {
+                calories += Int(truncating: calorieArray[i])
+                protein += Double(truncating: proteinArray[i])
+                carbs += Double(truncating: carbsArray[i])
+                fat += Double(truncating: fatArray[i])
+                
+            }
+            
+        } else if let foodList = meal3 {
+            
+            for i in 0..<foodList.count {
+                calorieArray.append(foodList[i].calories ?? 0)
+                proteinArray.append(foodList[i].protein ?? 0)
+                carbsArray.append(foodList[i].carbs ?? 0)
+                fatArray.append(foodList[i].fat ?? 0)
+            }
+            
+            for i in 0..<calorieArray.count {
+                calories += Int(truncating: calorieArray[i])
+                protein += Double(truncating: proteinArray[i])
+                carbs += Double(truncating: carbsArray[i])
+                fat += Double(truncating: fatArray[i])
+                
+            }
+            
+        } else if let foodList = meal4 {
+            
+            for i in 0..<foodList.count {
+                calorieArray.append(foodList[i].calories ?? 0)
+                proteinArray.append(foodList[i].protein ?? 0)
+                carbsArray.append(foodList[i].carbs ?? 0)
+                fatArray.append(foodList[i].fat ?? 0)
+            }
+            
+            for i in 0..<calorieArray.count {
+                calories += Int(truncating: calorieArray[i])
+                protein += Double(truncating: proteinArray[i])
+                carbs += Double(truncating: carbsArray[i])
+                fat += Double(truncating: fatArray[i])
                 
             }
             
         }
-        cell.calorieLabel.text = "\(breakfastCalories) kcal"
-        cell.proteinLabel.text = "\(breakfastProtein) g"
-        cell.carbsLabel.text = "\(breakfastCarbs) g"
-        cell.fatLabel.text = "\(breakfastFat) g"
         
-        totalCals += breakfastCalories
+        cell.calorieLabel.text = "\(calories) kcal"
+        cell.proteinLabel.text = "\(protein) g"
+        cell.carbsLabel.text = "\(carbs) g"
+        cell.fatLabel.text = "\(fat) g"
+        
+        totalCals += calories
+        
+//        eatMeTableView.reloadData()
         
     }
     
-//    func getSumOfProteinForMeal(meal: Results<BreakfastFood>?, cell: MealOverviewCell) {
-//
-//        var proteinArray = [NSNumber]()
-//        var breakfastProtein = 0
-//
-//        if let foodList = meal {
-//            for i in 0..<foodList.count {
-//                proteinArray.append(foodList[i].protein ?? 0)
-//            }
-//
-//            for i in 0..<proteinArray.count {
-//                breakfastProtein += Int(proteinArray[i])
-//            }
-//
-//        }
-//        cell.proteinLabel.text = "\(breakfastProtein) g"
-//
-//    }
-    
-//    func getSumOfFoodEntries(list: Results<AnyRealmCollection>) {
-//
-//
-//
-//    }
+
 
 
 }

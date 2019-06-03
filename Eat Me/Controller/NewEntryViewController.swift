@@ -23,10 +23,6 @@ class NewEntryViewController: UITableViewController {
     @IBOutlet weak var carbsTextField: UITextField!
     @IBOutlet weak var fatTextField: UITextField!
     
-    var breakfastFood = BreakfastFood()
-    var lunchFood = LunchFood()
-    var dinnerFood = DinnerFood()
-    var otherFood = OtherFood()
     
     //MARK: - viewDidLoad
     
@@ -38,10 +34,6 @@ class NewEntryViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-//    override func numberOfSections(in tableView: UITableView) -> Int {
-//        // #warning Incomplete implementation, return the number of sections
-//        return 0
-//    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -78,26 +70,38 @@ class NewEntryViewController: UITableViewController {
             
             save(food: newBreakfastFood)
             
-//            breakfastFood.name = foodNameTextField.text
-//            breakfastFood.calories = caloriesTextField.text ?? "0"
-//            breakfastFood.protein = proteinTextField.text ?? "0"
-//            breakfastFood.carbs = carbsTextField.text ?? "0"
-//            breakfastFood.fat = fatTextField.text ?? "0"
         case 1:
-            lunchFood.name = foodNameTextField.text
-            lunchFood.calories = caloriesTextField.text
             
+            let newLunchFood = LunchFood()
             
+            newLunchFood.updateProperties(name: foodNameTextField.text, calories: NSNumber(value: Int(caloriesTextField.text!)!), protein: NSNumber(value: Double(proteinTextField.text!)!), carbs: NSNumber(value: Double(carbsTextField.text!)!), fat: NSNumber(value: Double(fatTextField.text!)!))
             
+            save(food: newLunchFood)
+            
+        case 2:
+            
+            let newDinnerFood = DinnerFood()
+            
+            newDinnerFood.updateProperties(name: foodNameTextField.text, calories: NSNumber(value: Int(caloriesTextField.text!)!), protein: NSNumber(value: Double(proteinTextField.text!)!), carbs: NSNumber(value: Double(carbsTextField.text!)!), fat: NSNumber(value: Double(fatTextField.text!)!))
+            
+            save(food: newDinnerFood)
+            
+        case 3:
+            
+            let newOtherFood = OtherFood()
+            
+            newOtherFood.updateProperties(name: foodNameTextField.text, calories: NSNumber(value: Int(caloriesTextField.text!)!), protein: NSNumber(value: Double(proteinTextField.text!)!), carbs: NSNumber(value: Double(carbsTextField.text!)!), fat: NSNumber(value: Double(fatTextField.text!)!))
+            
+            save(food: newOtherFood)
             
         default:
-            otherFood.name = foodNameTextField.text
+            self.dismiss(animated: true, completion: nil)
         }
         
         self.dismiss(animated: true, completion: nil)
     }
     
-    func save(food: BreakfastFood) {
+    func save(food: Object) {
         
         do {
             try realm.write {
