@@ -243,7 +243,8 @@ class EatMeViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToNewEntry" {
-            let vc = segue.destination as! NewEntryViewController
+            let nc = segue.destination as! UINavigationController
+            let vc = nc.topViewController as! NewEntryViewController
             vc.delegate = self
         }
     }
@@ -252,7 +253,7 @@ class EatMeViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         totalCals += data
         defaults.set(totalCals, forKey: "totalCalories")
-        print(data)
+    
     }
     
 

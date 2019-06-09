@@ -57,61 +57,8 @@ class NewEntryViewController: UITableViewController {
         
     }
     
-    
-//    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-//
-//        switch mealPicker.selectedSegmentIndex {
-//        case 0:
-//
-//            let newBreakfastFood = BreakfastFood()
-//
-//            newBreakfastFood.updateProperties(name: foodNameTextField.text, calories: NSNumber(value: Int(caloriesTextField.text!)!), protein: NSNumber(value: Double(proteinTextField.text!)!), carbs: NSNumber(value: Double(carbsTextField.text!)!), fat: NSNumber(value: Double(fatTextField.text!)!))
-//
-//
-//            if let newEntryCalories = caloriesTextField.text {
-//                print(newEntryCalories)
-//                delegate?.getCalorieDataFromNewEntry(data: Int(newEntryCalories)!)
-//            }
-//
-//            save(food: newBreakfastFood)
-//
-//        case 1:
-//
-//            let newLunchFood = LunchFood()
-//
-//            newLunchFood.updateProperties(name: foodNameTextField.text, calories: NSNumber(value: Int(caloriesTextField.text!)!), protein: NSNumber(value: Double(proteinTextField.text!)!), carbs: NSNumber(value: Double(carbsTextField.text!)!), fat: NSNumber(value: Double(fatTextField.text!)!))
-//
-//            if let newEntryCalories = caloriesTextField.text {
-//                print(newEntryCalories)
-//                delegate?.getCalorieDataFromNewEntry(data: Int(newEntryCalories)!)
-//            }
-//
-//            save(food: newLunchFood)
-//
-//        case 2:
-//
-//            let newDinnerFood = DinnerFood()
-//
-//            newDinnerFood.updateProperties(name: foodNameTextField.text, calories: NSNumber(value: Int(caloriesTextField.text!)!), protein: NSNumber(value: Double(proteinTextField.text!)!), carbs: NSNumber(value: Double(carbsTextField.text!)!), fat: NSNumber(value: Double(fatTextField.text!)!))
-//
-//            save(food: newDinnerFood)
-//
-//        case 3:
-//
-//            let newOtherFood = OtherFood()
-//
-//            newOtherFood.updateProperties(name: foodNameTextField.text, calories: NSNumber(value: Int(caloriesTextField.text!)!), protein: NSNumber(value: Double(proteinTextField.text!)!), carbs: NSNumber(value: Double(carbsTextField.text!)!), fat: NSNumber(value: Double(fatTextField.text!)!))
-//
-//            save(food: newOtherFood)
-//
-//        default:
-//            self.dismiss(animated: true, completion: nil)
-//        }
-//
-//        self.dismiss(animated: true, completion: nil)
-//    }
-    
-    @IBAction func testPressed(_ sender: UIButton) {
+
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         
         switch mealPicker.selectedSegmentIndex {
         case 0:
@@ -122,7 +69,6 @@ class NewEntryViewController: UITableViewController {
             
             
             if let newEntryCalories = caloriesTextField.text {
-                print(newEntryCalories)
                 delegate?.getCalorieDataFromNewEntry(data: Int(newEntryCalories)!)
             }
             
@@ -135,7 +81,6 @@ class NewEntryViewController: UITableViewController {
             newLunchFood.updateProperties(name: foodNameTextField.text, calories: NSNumber(value: Int(caloriesTextField.text!)!), protein: NSNumber(value: Double(proteinTextField.text!)!), carbs: NSNumber(value: Double(carbsTextField.text!)!), fat: NSNumber(value: Double(fatTextField.text!)!))
             
             if let newEntryCalories = caloriesTextField.text {
-                print(newEntryCalories)
                 delegate?.getCalorieDataFromNewEntry(data: Int(newEntryCalories)!)
             }
             
@@ -148,7 +93,6 @@ class NewEntryViewController: UITableViewController {
             newDinnerFood.updateProperties(name: foodNameTextField.text, calories: NSNumber(value: Int(caloriesTextField.text!)!), protein: NSNumber(value: Double(proteinTextField.text!)!), carbs: NSNumber(value: Double(carbsTextField.text!)!), fat: NSNumber(value: Double(fatTextField.text!)!))
             
             if let newEntryCalories = caloriesTextField.text {
-                print(newEntryCalories)
                 delegate?.getCalorieDataFromNewEntry(data: Int(newEntryCalories)!)
             }
             
@@ -161,7 +105,6 @@ class NewEntryViewController: UITableViewController {
             newOtherFood.updateProperties(name: foodNameTextField.text, calories: NSNumber(value: Int(caloriesTextField.text!)!), protein: NSNumber(value: Double(proteinTextField.text!)!), carbs: NSNumber(value: Double(carbsTextField.text!)!), fat: NSNumber(value: Double(fatTextField.text!)!))
             
             if let newEntryCalories = caloriesTextField.text {
-                print(newEntryCalories)
                 delegate?.getCalorieDataFromNewEntry(data: Int(newEntryCalories)!)
             }
             
@@ -172,6 +115,7 @@ class NewEntryViewController: UITableViewController {
         }
         
         self.dismiss(animated: true, completion: nil)
+        
     }
         
     
