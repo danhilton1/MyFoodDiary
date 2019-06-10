@@ -144,9 +144,6 @@
                                                         <segment title="Dinner"/>
                                                         <segment title="Other"/>
                                                     </segments>
-                                                    <connections>
-                                                        <action selector="mealPickerPressed:" destination="IYF-za-1ww" eventType="valueChanged" id="ZgL-Kl-6DL"/>
-                                                    </connections>
                                                 </segmentedControl>
                                             </subviews>
                                         </tableViewCellContentView>

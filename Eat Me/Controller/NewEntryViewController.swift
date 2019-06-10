@@ -46,10 +46,6 @@ class NewEntryViewController: UITableViewController {
         return 6
     }
 
- 
-    @IBAction func mealPickerPressed(_ sender: Any) {
-//        print(mealPicker.titleForSegment(at: mealPicker.selectedSegmentIndex))
-    }
     
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
         
@@ -65,11 +61,12 @@ class NewEntryViewController: UITableViewController {
             
             let newBreakfastFood = BreakfastFood()
             
-            newBreakfastFood.updateProperties(name: foodNameTextField.text, calories: NSNumber(value: Int(caloriesTextField.text!)!), protein: NSNumber(value: Double(proteinTextField.text!)!), carbs: NSNumber(value: Double(carbsTextField.text!)!), fat: NSNumber(value: Double(fatTextField.text!)!))
+            
+            newBreakfastFood.updateProperties(name: foodNameTextField.text, calories: NSNumber(value: Int(caloriesTextField.text!) ?? 0), protein: NSNumber(value: Double(proteinTextField.text!) ?? 0), carbs: NSNumber(value: Double(carbsTextField.text!) ?? 0), fat: NSNumber(value: Double(fatTextField.text!) ?? 0))
             
             
             if let newEntryCalories = caloriesTextField.text {
-                delegate?.getCalorieDataFromNewEntry(data: Int(newEntryCalories)!)
+                delegate?.getCalorieDataFromNewEntry(data: Int(newEntryCalories) ?? 0)
             }
             
             save(food: newBreakfastFood)
@@ -131,5 +128,7 @@ class NewEntryViewController: UITableViewController {
         
         
     }
+    
+//    func
     
 }
