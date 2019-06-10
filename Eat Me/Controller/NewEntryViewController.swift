@@ -60,55 +60,27 @@ class NewEntryViewController: UITableViewController {
         case 0:
             
             let newBreakfastFood = BreakfastFood()
-            
-            
-            newBreakfastFood.updateProperties(name: foodNameTextField.text, calories: NSNumber(value: Int(caloriesTextField.text!) ?? 0), protein: NSNumber(value: Double(proteinTextField.text!) ?? 0), carbs: NSNumber(value: Double(carbsTextField.text!) ?? 0), fat: NSNumber(value: Double(fatTextField.text!) ?? 0))
-            
-            
-            if let newEntryCalories = caloriesTextField.text {
-                delegate?.getCalorieDataFromNewEntry(data: Int(newEntryCalories) ?? 0)
-            }
-            
-            save(food: newBreakfastFood)
+            addAndSaveNewEntry(meal1: newBreakfastFood, meal2: nil, meal3: nil, meal4: nil)
             
         case 1:
             
             let newLunchFood = LunchFood()
-            
-            newLunchFood.updateProperties(name: foodNameTextField.text, calories: NSNumber(value: Int(caloriesTextField.text!) ?? 0), protein: NSNumber(value: Double(proteinTextField.text!) ?? 0), carbs: NSNumber(value: Double(carbsTextField.text!) ?? 0), fat: NSNumber(value: Double(fatTextField.text!) ?? 0))
-            
-            if let newEntryCalories = caloriesTextField.text {
-                delegate?.getCalorieDataFromNewEntry(data: Int(newEntryCalories) ?? 0)
-            }
-            
-            save(food: newLunchFood)
+            addAndSaveNewEntry(meal1: nil, meal2: newLunchFood, meal3: nil, meal4: nil)
             
         case 2:
             
             let newDinnerFood = DinnerFood()
-            
-            newDinnerFood.updateProperties(name: foodNameTextField.text, calories: NSNumber(value: Int(caloriesTextField.text!) ?? 0), protein: NSNumber(value: Double(proteinTextField.text!) ?? 0), carbs: NSNumber(value: Double(carbsTextField.text!) ?? 0), fat: NSNumber(value: Double(fatTextField.text!) ?? 0))
-            
-            if let newEntryCalories = caloriesTextField.text {
-                delegate?.getCalorieDataFromNewEntry(data: Int(newEntryCalories) ?? 0)
-            }
-            
-            save(food: newDinnerFood)
+            addAndSaveNewEntry(meal1: nil, meal2: nil, meal3: newDinnerFood, meal4: nil)
             
         case 3:
             
             let newOtherFood = OtherFood()
-            
-            newOtherFood.updateProperties(name: foodNameTextField.text, calories: NSNumber(value: Int(caloriesTextField.text!) ?? 0), protein: NSNumber(value: Double(proteinTextField.text!) ?? 0), carbs: NSNumber(value: Double(carbsTextField.text!) ?? 0), fat: NSNumber(value: Double(fatTextField.text!) ?? 0))
-            
-            if let newEntryCalories = caloriesTextField.text {
-                delegate?.getCalorieDataFromNewEntry(data: Int(newEntryCalories) ?? 0)
-            }
-            
-            save(food: newOtherFood)
+            addAndSaveNewEntry(meal1: nil, meal2: nil, meal3: nil, meal4: newOtherFood)
             
         default:
+            
             self.dismiss(animated: true, completion: nil)
+            
         }
         
         self.dismiss(animated: true, completion: nil)
@@ -129,6 +101,56 @@ class NewEntryViewController: UITableViewController {
         
     }
     
-//    func
+    func addAndSaveNewEntry(meal1: BreakfastFood?, meal2: LunchFood?, meal3: DinnerFood?, meal4: OtherFood?) {
+        
+        if let breakfastEntry = meal1 {
+            
+            breakfastEntry.updateProperties(name: foodNameTextField.text, calories: NSNumber(value: Int(caloriesTextField.text!) ?? 0), protein: NSNumber(value: Double(proteinTextField.text!) ?? 0), carbs: NSNumber(value: Double(carbsTextField.text!) ?? 0), fat: NSNumber(value: Double(fatTextField.text!) ?? 0))
+            
+            
+            if let newEntryCalories = caloriesTextField.text {
+                delegate?.getCalorieDataFromNewEntry(data: Int(newEntryCalories) ?? 0)
+            }
+            
+            
+            save(food: breakfastEntry)
+            
+        }
+        
+        if let lunchEntry = meal2 {
+    
+            lunchEntry.updateProperties(name: foodNameTextField.text, calories: NSNumber(value: Int(caloriesTextField.text!) ?? 0), protein: NSNumber(value: Double(proteinTextField.text!) ?? 0), carbs: NSNumber(value: Double(carbsTextField.text!) ?? 0), fat: NSNumber(value: Double(fatTextField.text!) ?? 0))
+            
+            if let newEntryCalories = caloriesTextField.text {
+                delegate?.getCalorieDataFromNewEntry(data: Int(newEntryCalories) ?? 0)
+            }
+            
+            save(food: lunchEntry)
+            
+        }
+        
+        if let dinnerEntry = meal3 {
+            
+            dinnerEntry.updateProperties(name: foodNameTextField.text, calories: NSNumber(value: Int(caloriesTextField.text!) ?? 0), protein: NSNumber(value: Double(proteinTextField.text!) ?? 0), carbs: NSNumber(value: Double(carbsTextField.text!) ?? 0), fat: NSNumber(value: Double(fatTextField.text!) ?? 0))
+            
+            if let newEntryCalories = caloriesTextField.text {
+                delegate?.getCalorieDataFromNewEntry(data: Int(newEntryCalories) ?? 0)
+            }
+            
+            save(food: dinnerEntry)
+            
+        }
+        
+        if let otherFoodEntry = meal4 {
+        
+            otherFoodEntry.updateProperties(name: foodNameTextField.text, calories: NSNumber(value: Int(caloriesTextField.text!) ?? 0), protein: NSNumber(value: Double(proteinTextField.text!) ?? 0), carbs: NSNumber(value: Double(carbsTextField.text!) ?? 0), fat: NSNumber(value: Double(fatTextField.text!) ?? 0))
+            
+            if let newEntryCalories = caloriesTextField.text {
+                delegate?.getCalorieDataFromNewEntry(data: Int(newEntryCalories) ?? 0)
+            }
+            
+            save(food: otherFoodEntry)
+        }
+    }
     
 }
