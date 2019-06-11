@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Charts
 
 class MealOverviewCell: UITableViewCell {
 
@@ -15,6 +16,7 @@ class MealOverviewCell: UITableViewCell {
     @IBOutlet weak var proteinLabel: UILabel!
     @IBOutlet weak var carbsLabel: UILabel!
     @IBOutlet weak var fatLabel: UILabel!
+    @IBOutlet weak var pieChat: PieChartView!
     
     
     

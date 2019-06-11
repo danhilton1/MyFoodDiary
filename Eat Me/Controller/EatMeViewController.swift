@@ -10,6 +10,7 @@
 
 import UIKit
 import RealmSwift
+import Charts
 
 class EatMeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NewEntryDelegate {
     
@@ -39,7 +40,6 @@ class EatMeViewController: UIViewController, UITableViewDelegate, UITableViewDat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        self.newEntryVC.delegate = self
         totalCals = defaults.integer(forKey: "totalCalories")
         
         eatMeTableView.delegate = self
@@ -49,13 +49,13 @@ class EatMeViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         eatMeTableView.register(UINib(nibName: "MealOverviewCell", bundle: nil), forCellReuseIdentifier: "mealOverviewCell")
         
-//        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
         eatMeTableView.addSubview(refreshControl)
         
         loadAllFood()
         
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         loadAllFood()
     }
@@ -151,7 +151,10 @@ class EatMeViewController: UIViewController, UITableViewDelegate, UITableViewDat
         var carbs = 0.0
         var fat = 0.0
         
+        
+        
         if let foodList = meal1 {
+            
             for i in 0..<foodList.count {
                 calorieArray.append(foodList[i].calories ?? 0)
                 proteinArray.append(foodList[i].protein ?? 0)
@@ -221,6 +224,17 @@ class EatMeViewController: UIViewController, UITableViewDelegate, UITableViewDat
         cell.carbsLabel.text = "\(carbs) g"
         cell.fatLabel.text = "\(fat) g"
         
+        let proteinPieChartDataEntry = PieChartDataEntry(value: protein)
+        let carbsPieChartDataEntry = PieChartDataEntry(value: carbs)
+        let fatsPieChartDataEntry = PieChartDataEntry(value: fat)
+        
+        let pieChartEntries = [proteinPieChartDataEntry, carbsPieChartDataEntry, fatsPieChartDataEntry]
+        let chartDataSet = PieChartDataSet(entries: pieChartEntries, label: nil)
+        let chartData = PieChartData(dataSet: chartDataSet)
+        
+        chartDataSet.colors = [UIColor.blue, UIColor.green, UIColor.orange]
+        
+        cell.pieChat.data = chartData
         
     }
     
@@ -242,6 +256,7 @@ class EatMeViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         if segue.identifier == "goToNewEntry" {
             let nc = segue.destination as! UINavigationController
             let vc = nc.topViewController as! NewEntryViewController

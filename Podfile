@@ -7,5 +7,6 @@ target 'Eat Me' do
   # Pods for Eat Me
 
 pod 'RealmSwift'
+pod 'Charts'
 
 end
