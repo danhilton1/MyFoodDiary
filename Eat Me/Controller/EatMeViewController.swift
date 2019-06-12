@@ -231,10 +231,15 @@ class EatMeViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let pieChartEntries = [proteinPieChartDataEntry, carbsPieChartDataEntry, fatsPieChartDataEntry]
         let chartDataSet = PieChartDataSet(entries: pieChartEntries, label: nil)
         let chartData = PieChartData(dataSet: chartDataSet)
+        let legend = cell.pieChat.legend
         
-        chartDataSet.colors = [UIColor.blue, UIColor.green, UIColor.orange]
-        
+        chartDataSet.colors = [(UIColor(red:0.25882, green:0.52549, blue:0.91765, alpha:1.0)),                                        (UIColor(red:0.00000, green:0.56471, blue:0.31765, alpha:1.0)),
+                               (UIColor(red:1.00000, green:0.57647, blue:0.00000, alpha:1.0))]
+        legend.enabled = false
+        chartDataSet.drawValuesEnabled = false
+        cell.pieChat.holeRadiusPercent = 0.4
         cell.pieChat.data = chartData
+        
         
     }
     

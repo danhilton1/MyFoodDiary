@@ -55,10 +55,6 @@
                             </label>
                         </subviews>
                     </stackView>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FTk-hj-aFc" customClass="PieChartView" customModule="Charts">
-                        <rect key="frame" x="146.5" y="4" width="110" height="111.5"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </view>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="IaT-aK-k6i">
                         <rect key="frame" x="266.5" y="18" width="50.5" height="83.5"/>
                         <subviews>
@@ -82,17 +78,18 @@
                             </label>
                         </subviews>
                     </stackView>
+                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FTk-hj-aFc" customClass="PieChartView" customModule="Charts">
+                        <rect key="frame" x="136" y="-12" width="144" height="144"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="BL3-ke-CAD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="Dpq-oO-tMx"/>
-                    <constraint firstAttribute="bottom" secondItem="FTk-hj-aFc" secondAttribute="bottom" constant="4" id="ENi-eM-450"/>
-                    <constraint firstItem="IaT-aK-k6i" firstAttribute="leading" secondItem="FTk-hj-aFc" secondAttribute="trailing" constant="10" id="NT6-Rj-sAa"/>
-                    <constraint firstItem="FTk-hj-aFc" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="RXG-rB-gC1"/>
                     <constraint firstItem="4N0-iF-bfk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="18" id="Yf2-dl-Hc1"/>
                     <constraint firstAttribute="trailing" secondItem="4N0-iF-bfk" secondAttribute="trailing" constant="0.5" id="bJh-cn-A1d"/>
                     <constraint firstItem="4N0-iF-bfk" firstAttribute="leading" secondItem="IaT-aK-k6i" secondAttribute="trailing" constant="4" id="fh3-x0-NDl"/>
                     <constraint firstAttribute="bottom" secondItem="4N0-iF-bfk" secondAttribute="bottom" constant="18" id="gVT-59-MuS"/>
-                    <constraint firstItem="FTk-hj-aFc" firstAttribute="leading" secondItem="BL3-ke-CAD" secondAttribute="trailing" constant="40" id="gzZ-IU-UZF"/>
                     <constraint firstItem="IaT-aK-k6i" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="18" id="kMB-rP-NXP"/>
                     <constraint firstAttribute="bottom" secondItem="IaT-aK-k6i" secondAttribute="bottom" constant="18" id="szO-Ny-nUl"/>
                     <constraint firstAttribute="bottom" secondItem="BL3-ke-CAD" secondAttribute="bottom" constant="10.5" id="xWo-eg-gul"/>
