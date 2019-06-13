@@ -14,6 +14,7 @@
 		377208C22291A1FA002DDA29 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 377208C02291A1FA002DDA29 /* LaunchScreen.storyboard */; };
 		377208D22291B002002DDA29 /* MealOverviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377208D02291B002002DDA29 /* MealOverviewCell.swift */; };
 		377208D32291B002002DDA29 /* MealOverviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 377208D12291B002002DDA29 /* MealOverviewCell.xib */; };
+		379DB00622B2EBB300F3DC5B /* MealDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379DB00522B2EBB300F3DC5B /* MealDetailViewController.swift */; };
 		37CA772D22A1BB4F00C03A06 /* NewEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CA772C22A1BB4F00C03A06 /* NewEntryViewController.swift */; };
 		37CCACC7229F22A2002C7C1A /* BreakfastFood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CCACC6229F22A2002C7C1A /* BreakfastFood.swift */; };
 		37CCACC9229F22B0002C7C1A /* LunchFood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CCACC8229F22B0002C7C1A /* LunchFood.swift */; };
@@ -35,6 +36,7 @@
 		377208C32291A1FA002DDA29 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		377208D02291B002002DDA29 /* MealOverviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealOverviewCell.swift; sourceTree = "<group>"; };
 		377208D12291B002002DDA29 /* MealOverviewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MealOverviewCell.xib; sourceTree = "<group>"; };
+		379DB00522B2EBB300F3DC5B /* MealDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDetailViewController.swift; sourceTree = "<group>"; };
 		37CA772C22A1BB4F00C03A06 /* NewEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEntryViewController.swift; sourceTree = "<group>"; };
 		37CCACC6229F22A2002C7C1A /* BreakfastFood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakfastFood.swift; sourceTree = "<group>"; };
 		37CCACC8229F22B0002C7C1A /* LunchFood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LunchFood.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 			children = (
 				377208B62291A1F8002DDA29 /* EatMeViewController.swift */,
 				37CA772C22A1BB4F00C03A06 /* NewEntryViewController.swift */,
+				379DB00522B2EBB300F3DC5B /* MealDetailViewController.swift */,
 				377208B42291A1F8002DDA29 /* AppDelegate.swift */,
 			);
 			path = Controller;
@@ -259,6 +262,7 @@
 			files = (
 				37CCACC9229F22B0002C7C1A /* LunchFood.swift in Sources */,
 				37CA772D22A1BB4F00C03A06 /* NewEntryViewController.swift in Sources */,
+				379DB00622B2EBB300F3DC5B /* MealDetailViewController.swift in Sources */,
 				377208D22291B002002DDA29 /* MealOverviewCell.swift in Sources */,
 				377208B72291A1F8002DDA29 /* EatMeViewController.swift in Sources */,
 				37CCACCB229F22B9002C7C1A /* DinnerFood.swift in Sources */,

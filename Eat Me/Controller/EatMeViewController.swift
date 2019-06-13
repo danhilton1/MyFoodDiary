@@ -78,6 +78,22 @@ class EatMeViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
     }
     
+    @IBAction func clearButtonPressed(_ sender: UIBarButtonItem) {
+        
+        do {
+            try realm.write {
+                realm.deleteAll()
+            }
+        } catch {
+            print("Error deleting data - \(error)")
+        }
+        
+        totalCals = 0
+        defaults.set(0, forKey: "totalCalories")
+        loadAllFood()
+        
+    }
+    
     
     //MARK: - Tableview Data Source Methods
     
@@ -137,6 +153,8 @@ class EatMeViewController: UIViewController, UITableViewDelegate, UITableViewDat
         return cell
         
     }
+    
+    //MARK: - Update UI with user's entry data methods
     
     
     func getSumOfPropertiesForMeal(meal1: Results<BreakfastFood>?, meal2: Results<LunchFood>?, meal3: Results<DinnerFood>?, meal4: Results<OtherFood>?, cell: MealOverviewCell) {
@@ -222,18 +240,19 @@ class EatMeViewController: UIViewController, UITableViewDelegate, UITableViewDat
         cell.carbsLabel.text = "\(carbs) g"
         cell.fatLabel.text = "\(fat) g"
         
-        cell.pieChat.legend.enabled = false
-        cell.pieChat.holeRadiusPercent = 0.4
+        cell.pieChart.legend.enabled = false
+        cell.pieChart.holeRadiusPercent = 0.5
         let colors = [(UIColor(red:0.25882, green:0.52549, blue:0.91765, alpha:1.0)),                                        (UIColor(red:0.00000, green:0.56471, blue:0.31765, alpha:1.0)),
                       (UIColor(red:1.00000, green:0.57647, blue:0.00000, alpha:1.0))]
         
         if protein == 0 && carbs == 0 && fat == 0 {
             
-            let chartDataSet = PieChartDataSet(entries: [PieChartDataEntry(value: 1.0), PieChartDataEntry(value: 1.0), PieChartDataEntry(value: 1.0)], label: nil)
+            let chartDataSet = PieChartDataSet(entries: [PieChartDataEntry(value: 1.0), PieChartDataEntry(value:
+                               1.0), PieChartDataEntry(value: 1.0)], label: nil)
             let chartData = PieChartData(dataSet: chartDataSet)
             chartDataSet.drawValuesEnabled = false
             chartDataSet.colors = colors
-            cell.pieChat.data = chartData
+            cell.pieChart.data = chartData
             
         } else {
         
@@ -244,24 +263,15 @@ class EatMeViewController: UIViewController, UITableViewDelegate, UITableViewDat
             chartDataSet.drawValuesEnabled = false
             chartDataSet.colors = colors
             
-            cell.pieChat.data = chartData
+            cell.pieChart.data = chartData
         }
         
     }
     
-    @IBAction func clearButtonPressed(_ sender: UIBarButtonItem) {
+    func getCalorieDataFromNewEntry(data: Int) {
         
-        do {
-            try realm.write {
-                realm.deleteAll()
-            }
-        } catch {
-            print("Error deleting data - \(error)")
-        }
-        
-        totalCals = 0
-        defaults.set(0, forKey: "totalCalories")
-        loadAllFood()
+        totalCals += data
+        defaults.set(totalCals, forKey: "totalCalories")
         
     }
     
@@ -275,12 +285,7 @@ class EatMeViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
     }
     
-    func getCalorieDataFromNewEntry(data: Int) {
-        
-        totalCals += data
-        defaults.set(totalCals, forKey: "totalCalories")
     
-    }
     
 
 
