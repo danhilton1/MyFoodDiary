@@ -16,6 +16,11 @@ class MealOverviewCell: UITableViewCell {
     @IBOutlet weak var proteinLabel: UILabel!
     @IBOutlet weak var carbsLabel: UILabel!
     @IBOutlet weak var fatLabel: UILabel!
+   
+    @IBOutlet weak var proteinTextLabel: UILabel!
+    @IBOutlet weak var carbsTextLabel: UILabel!
+    @IBOutlet weak var fatTextLabel: UILabel!
+    
     @IBOutlet weak var pieChart: PieChartView!
     
     
@@ -23,6 +28,10 @@ class MealOverviewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        proteinTextLabel.textColor = UIColor.flatSkyBlue()
+        carbsTextLabel.textColor = UIColor.flatMint()
+        fatTextLabel.textColor = UIColor.flatWatermelon()
         
     }
 

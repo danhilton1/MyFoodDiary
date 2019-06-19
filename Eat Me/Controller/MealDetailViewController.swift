@@ -16,6 +16,7 @@ class MealDetailViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.navigationController?.navigationBar.tintColor = .white
         
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.

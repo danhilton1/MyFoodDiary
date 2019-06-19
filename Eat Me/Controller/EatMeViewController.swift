@@ -11,12 +11,11 @@
 import UIKit
 import RealmSwift
 import Charts
+import ChameleonFramework
 
 class EatMeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NewEntryDelegate {
     
     let realm = try! Realm()
-    
-    let newEntryVC = NewEntryViewController()
     
     //MARK: - Properties and Objects
     
@@ -31,7 +30,6 @@ class EatMeViewController: UIViewController, UITableViewDelegate, UITableViewDat
     var totalCals: Int!
     
     let defaults = UserDefaults.standard
-    
     
     var refreshControl = UIRefreshControl()
     
@@ -133,6 +131,10 @@ class EatMeViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "mealOverviewCell", for: indexPath) as! MealOverviewCell
         
+        cell.pieChart.legend.enabled = false
+        cell.pieChart.holeRadiusPercent = 0.5
+        cell.pieChart.highlightPerTapEnabled = false
+        
         
         switch indexPath.section {
         case 0:
@@ -151,6 +153,12 @@ class EatMeViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
         
         return cell
+        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        performSegue(withIdentifier: "goToMealDetail", sender: nil)
         
     }
     
@@ -240,8 +248,8 @@ class EatMeViewController: UIViewController, UITableViewDelegate, UITableViewDat
         cell.carbsLabel.text = "\(carbs) g"
         cell.fatLabel.text = "\(fat) g"
         
-        cell.pieChart.legend.enabled = false
-        cell.pieChart.holeRadiusPercent = 0.5
+        
+        
         let colors = [(UIColor(red:0.25882, green:0.52549, blue:0.91765, alpha:1.0)),                                        (UIColor(red:0.00000, green:0.56471, blue:0.31765, alpha:1.0)),
                       (UIColor(red:1.00000, green:0.57647, blue:0.00000, alpha:1.0))]
         
@@ -251,7 +259,8 @@ class EatMeViewController: UIViewController, UITableViewDelegate, UITableViewDat
                                1.0), PieChartDataEntry(value: 1.0)], label: nil)
             let chartData = PieChartData(dataSet: chartDataSet)
             chartDataSet.drawValuesEnabled = false
-            chartDataSet.colors = colors
+//            chartDataSet.colors = colors
+            chartDataSet.colors = [UIColor.flatSkyBlue(), UIColor.flatMint(), UIColor.flatWatermelon()]
             cell.pieChart.data = chartData
             
         } else {

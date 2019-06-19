@@ -8,5 +8,6 @@ target 'Eat Me' do
 
 pod 'RealmSwift'
 pod 'Charts'
+pod 'ChameleonFramework/Swift'
 
 end
