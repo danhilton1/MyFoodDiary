@@ -62,6 +62,26 @@ class MealDetailViewController: UITableViewController {
         
         let cell = UITableViewCell()
         
+        if let food = selectedMeal {
+            for i in 0..<food.count {
+                if indexPath.section == i {
+                    switch indexPath.row {
+                    case 0:
+                        cell.textLabel?.text = "Calories: \(food[i].calories ?? 0) kcal"
+                    case 1:
+                        cell.textLabel?.text = "Protein: \(food[i].protein ?? 0) g"
+                    case 2:
+                        cell.textLabel?.text = "Carbs: \(food[i].carbs ?? 0) g"
+                    case 3:
+                        cell.textLabel?.text = "Fat: \(food[i].fat ?? 0) g"
+                    default:
+                        cell.textLabel?.text = "0"
+                    }
+                }
+               
+            }
+        }
+        
         return cell
         
     }

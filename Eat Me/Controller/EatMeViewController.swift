@@ -18,21 +18,17 @@ class EatMeViewController: UIViewController, UITableViewDelegate, UITableViewDat
     let realm = try! Realm()
     
     //MARK: - Properties and Objects
-    var foodList: Results<Food>?
-    let food = Food()
-//    var breakfastFoods: Results<BreakfastFood>?
-//    var lunchFoods: Results<LunchFood>?
-//    var dinnerFoods: Results<DinnerFood>?
-//    var otherFoods: Results<OtherFood>?
+    private var foodList: Results<Food>?
+    private let food = Food()
 
     @IBOutlet weak var eatMeTableView: UITableView!
     @IBOutlet weak var totalCaloriesLabel: UILabel!
     
-    var totalCals: Int!
+    private var totalCals: Int!
     
-    let defaults = UserDefaults.standard
+    private let defaults = UserDefaults.standard
     
-    var refreshControl = UIRefreshControl()
+    private var refreshControl = UIRefreshControl()
     
     //MARK: - view Methods
 
@@ -59,10 +55,6 @@ class EatMeViewController: UIViewController, UITableViewDelegate, UITableViewDat
         loadAllFood()
     }
     
-    @objc func refresh() {
-        loadAllFood()
-        refreshControl.endRefreshing()
-    }
     
     func loadAllFood() {
         
@@ -72,6 +64,11 @@ class EatMeViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         eatMeTableView.reloadData()
         
+    }
+    
+    @objc func refresh() {
+        loadAllFood()
+        refreshControl.endRefreshing()
     }
     
     @IBAction func clearButtonPressed(_ sender: UIBarButtonItem) {

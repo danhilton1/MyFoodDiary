@@ -129,24 +129,32 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="64.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Meal:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="098-Df-7ZN">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Meal:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="098-Df-7ZN">
                                                     <rect key="frame" x="20" y="18" width="58" height="29"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="LU1-qH-ZSO">
-                                                    <rect key="frame" x="88" y="19" width="306" height="29"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="LU1-qH-ZSO">
+                                                    <rect key="frame" x="88" y="15" width="311" height="35.5"/>
                                                     <segments>
                                                         <segment title="Breakfast"/>
                                                         <segment title="Lunch"/>
                                                         <segment title="Dinner"/>
                                                         <segment title="Other"/>
                                                     </segments>
+                                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </segmentedControl>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="LU1-qH-ZSO" secondAttribute="bottom" constant="15" id="1UF-7g-j2q"/>
+                                                <constraint firstItem="098-Df-7ZN" firstAttribute="top" secondItem="Gxq-5d-mN6" secondAttribute="topMargin" constant="7" id="9xR-U1-jtd"/>
+                                                <constraint firstItem="098-Df-7ZN" firstAttribute="leading" secondItem="Gxq-5d-mN6" secondAttribute="leadingMargin" id="Hdv-Ud-wlP"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="098-Df-7ZN" secondAttribute="bottom" constant="7" id="Oln-I1-RWj"/>
+                                                <constraint firstItem="LU1-qH-ZSO" firstAttribute="top" secondItem="Gxq-5d-mN6" secondAttribute="top" constant="15" id="hXT-J5-ono"/>
+                                                <constraint firstAttribute="trailing" secondItem="LU1-qH-ZSO" secondAttribute="trailing" constant="15" id="r0L-5t-KU1"/>
+                                                <constraint firstItem="LU1-qH-ZSO" firstAttribute="leading" secondItem="098-Df-7ZN" secondAttribute="trailing" constant="10" id="yOR-uk-qQ0"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NameCell" id="ZPz-zn-nQ6">
@@ -156,21 +164,28 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="64.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GZZ-fu-eOn">
-                                                    <rect key="frame" x="20" y="18" width="68" height="29"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GZZ-fu-eOn">
+                                                    <rect key="frame" x="20" y="7" width="68" height="50.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a name for the food" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="R9T-qm-662">
-                                                    <rect key="frame" x="96" y="17" width="298" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a name for the food" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="R9T-qm-662">
+                                                    <rect key="frame" x="96" y="15" width="303" height="34.5"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="R9T-qm-662" secondAttribute="bottom" constant="15" id="0IR-5y-CoW"/>
+                                                <constraint firstAttribute="bottom" secondItem="GZZ-fu-eOn" secondAttribute="bottom" constant="7" id="1Qs-xc-xax"/>
+                                                <constraint firstItem="GZZ-fu-eOn" firstAttribute="top" secondItem="Q38-zA-KM5" secondAttribute="top" constant="7" id="ETX-sq-HWM"/>
+                                                <constraint firstItem="GZZ-fu-eOn" firstAttribute="leading" secondItem="Q38-zA-KM5" secondAttribute="leading" constant="20" id="Gyr-hX-Q4t"/>
+                                                <constraint firstItem="R9T-qm-662" firstAttribute="leading" secondItem="GZZ-fu-eOn" secondAttribute="trailing" constant="8" id="cZy-Ev-yln"/>
+                                                <constraint firstAttribute="trailing" secondItem="R9T-qm-662" secondAttribute="trailing" constant="15" id="k9o-xK-YlN"/>
+                                                <constraint firstItem="R9T-qm-662" firstAttribute="top" secondItem="Q38-zA-KM5" secondAttribute="top" constant="15" id="oqa-ZE-6OA"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CaloriesCell" id="2Wc-ch-zUF">
@@ -180,21 +195,28 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="64.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Calories:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="koK-zC-a67">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calories:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="koK-zC-a67">
                                                     <rect key="frame" x="20" y="18" width="92" height="29"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter number of calories" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sY1-Fc-VZn">
-                                                    <rect key="frame" x="120" y="17" width="274" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter number of calories" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sY1-Fc-VZn">
+                                                    <rect key="frame" x="120" y="15" width="279" height="34.5"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                 </textField>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="sY1-Fc-VZn" secondAttribute="trailing" constant="15" id="0qk-FA-bQ4"/>
+                                                <constraint firstItem="koK-zC-a67" firstAttribute="leading" secondItem="nxz-6E-A0w" secondAttribute="leadingMargin" id="5Ki-IC-U6j"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="koK-zC-a67" secondAttribute="bottom" constant="7" id="K2c-WG-T7d"/>
+                                                <constraint firstItem="sY1-Fc-VZn" firstAttribute="leading" secondItem="koK-zC-a67" secondAttribute="trailing" constant="8" id="MhW-Se-h9q"/>
+                                                <constraint firstAttribute="bottom" secondItem="sY1-Fc-VZn" secondAttribute="bottom" constant="15" id="RRb-mU-v3P"/>
+                                                <constraint firstItem="sY1-Fc-VZn" firstAttribute="top" secondItem="nxz-6E-A0w" secondAttribute="top" constant="15" id="kU5-gZ-6M4"/>
+                                                <constraint firstItem="koK-zC-a67" firstAttribute="top" secondItem="nxz-6E-A0w" secondAttribute="topMargin" constant="7" id="t1f-2a-o8g"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProteinCell" id="Jiv-vi-PlP">
@@ -204,21 +226,28 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="64.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Protein:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ay6-wi-Fzd">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Protein:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ay6-wi-Fzd">
                                                     <rect key="frame" x="20" y="18" width="80" height="29"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter grams of protein" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fyv-gI-CEj">
-                                                    <rect key="frame" x="108" y="17" width="286" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter grams of protein" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fyv-gI-CEj">
+                                                    <rect key="frame" x="108" y="15" width="291" height="34.5"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                 </textField>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="fyv-gI-CEj" firstAttribute="top" secondItem="i3j-gj-2ur" secondAttribute="top" constant="15" id="0ml-gn-HSn"/>
+                                                <constraint firstItem="fyv-gI-CEj" firstAttribute="leading" secondItem="ay6-wi-Fzd" secondAttribute="trailing" constant="8" id="F6j-jD-DkG"/>
+                                                <constraint firstItem="ay6-wi-Fzd" firstAttribute="leading" secondItem="i3j-gj-2ur" secondAttribute="leadingMargin" id="MQg-uH-XUh"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="ay6-wi-Fzd" secondAttribute="bottom" constant="7" id="NGK-Hu-ziQ"/>
+                                                <constraint firstAttribute="bottom" secondItem="fyv-gI-CEj" secondAttribute="bottom" constant="15" id="erR-yx-ERx"/>
+                                                <constraint firstItem="ay6-wi-Fzd" firstAttribute="top" secondItem="i3j-gj-2ur" secondAttribute="topMargin" constant="7" id="w6p-L5-fXw"/>
+                                                <constraint firstAttribute="trailing" secondItem="fyv-gI-CEj" secondAttribute="trailing" constant="15" id="wW3-lP-kC8"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CarbsCell" id="c30-mP-fkN">
@@ -228,21 +257,28 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="64.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Carbohydrates:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GIA-e7-Hyx">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Carbohydrates:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GIA-e7-Hyx">
                                                     <rect key="frame" x="20" y="18" width="161" height="29"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter grams of carbs" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XDG-nc-GsW">
-                                                    <rect key="frame" x="189" y="17" width="205" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter grams of carbs" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XDG-nc-GsW">
+                                                    <rect key="frame" x="189" y="15" width="210" height="34.5"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                 </textField>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="XDG-nc-GsW" firstAttribute="leading" secondItem="GIA-e7-Hyx" secondAttribute="trailing" constant="8" id="3Px-6I-5Ba"/>
+                                                <constraint firstItem="XDG-nc-GsW" firstAttribute="top" secondItem="2JE-Vk-wAQ" secondAttribute="top" constant="15" id="9Xy-mh-F3u"/>
+                                                <constraint firstItem="GIA-e7-Hyx" firstAttribute="leading" secondItem="2JE-Vk-wAQ" secondAttribute="leadingMargin" id="Xr2-ui-Hd8"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="GIA-e7-Hyx" secondAttribute="bottom" constant="7" id="Y7M-GS-ddV"/>
+                                                <constraint firstAttribute="trailing" secondItem="XDG-nc-GsW" secondAttribute="trailing" constant="15" id="cEa-EV-DHc"/>
+                                                <constraint firstItem="GIA-e7-Hyx" firstAttribute="top" secondItem="2JE-Vk-wAQ" secondAttribute="topMargin" constant="7" id="r8t-Ec-51L"/>
+                                                <constraint firstAttribute="bottom" secondItem="XDG-nc-GsW" secondAttribute="bottom" constant="15" id="tKo-qe-seq"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FatCell" id="hjh-kY-W8Q">
@@ -252,21 +288,28 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="64.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Fat:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kr4-F4-lge">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fat:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kr4-F4-lge">
                                                     <rect key="frame" x="20" y="18" width="39" height="29"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter grams of fat" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="K88-e6-Z6V">
-                                                    <rect key="frame" x="67" y="17" width="327" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter grams of fat" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="K88-e6-Z6V">
+                                                    <rect key="frame" x="67" y="15" width="332" height="34.5"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                 </textField>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="K88-e6-Z6V" firstAttribute="leading" secondItem="Kr4-F4-lge" secondAttribute="trailing" constant="8" id="7ro-yg-7qf"/>
+                                                <constraint firstItem="Kr4-F4-lge" firstAttribute="top" secondItem="JPW-Ej-FFv" secondAttribute="topMargin" constant="7" id="ZmP-S2-60a"/>
+                                                <constraint firstAttribute="bottom" secondItem="K88-e6-Z6V" secondAttribute="bottom" constant="15" id="bAq-6z-Omi"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Kr4-F4-lge" secondAttribute="bottom" constant="7" id="gvp-sV-gAi"/>
+                                                <constraint firstItem="K88-e6-Z6V" firstAttribute="top" secondItem="JPW-Ej-FFv" secondAttribute="top" constant="15" id="k8b-pm-jEc"/>
+                                                <constraint firstItem="Kr4-F4-lge" firstAttribute="leading" secondItem="JPW-Ej-FFv" secondAttribute="leadingMargin" id="oOI-GM-P26"/>
+                                                <constraint firstAttribute="trailing" secondItem="K88-e6-Z6V" secondAttribute="trailing" constant="15" id="oVe-T1-Qbe"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -312,7 +355,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="uIP-t5-eDA">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="mealDetailCell" id="uIP-t5-eDA">
                                 <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uIP-t5-eDA" id="IGh-jF-cex">
