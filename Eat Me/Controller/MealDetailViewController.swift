@@ -13,14 +13,28 @@ class MealDetailViewController: UITableViewController {
     
     let realm = try! Realm()
     
-    var selectedMeal: Results<Food>?
+    var calories = 0
+    var selectedMeal: Results<Food>? {
+        didSet {
+            if let foodList = selectedMeal {
+                for food in 0..<foodList.count {
+                    calories += Int(truncating: foodList[food].calories!)
+                }
+            }
+        }
+    }
     
-
+    @IBOutlet weak var caloriesLabel: UILabel!
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+//        self.navigationController?.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "big-plus2"), style: .plain, target: <#T##Any?#>, action: <#T##Selector?#>)
         self.navigationController?.navigationBar.tintColor = .white
         
+        caloriesLabel.text = "   Calories: \(calories)"
     }
 
     // MARK: - Table view data source
@@ -40,9 +54,9 @@ class MealDetailViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let label = UILabel()
-        label.backgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
-        label.textColor = UIColor.black
-        label.font = UIFont(name: "HelveticaNeue-Thin", size: 18)
+        label.backgroundColor = UIColor.flatMint() // UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
+        label.textColor = UIColor.white
+        label.font = UIFont(name: "HelveticaNeue-Medium", size: 18)
         
         if let foodList = selectedMeal {
             for i in 0..<foodList.count {
@@ -61,6 +75,8 @@ class MealDetailViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = UITableViewCell()
+        
+        cell.textLabel?.font = UIFont(name: "HelveticaNeue-Thin", size: 20)
         
         if let food = selectedMeal {
             for i in 0..<food.count {
@@ -84,6 +100,10 @@ class MealDetailViewController: UITableViewController {
         
         return cell
         
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 55
     }
 
     
