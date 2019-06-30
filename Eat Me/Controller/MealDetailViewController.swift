@@ -18,7 +18,7 @@ class MealDetailViewController: UITableViewController {
         didSet {
             if let foodList = selectedMeal {
                 for food in 0..<foodList.count {
-                    calories += Int(truncating: foodList[food].calories!)
+                    calories += Int(truncating: foodList[food].calories ?? 0)
                 }
             }
         }

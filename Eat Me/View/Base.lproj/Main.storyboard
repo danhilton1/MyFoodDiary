@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Eat Me-->
+        <!--Overview-->
         <scene sceneID="HzX-gD-JO5">
             <objects>
                 <viewController id="5FM-xa-IT0" customClass="EatMeViewController" customModule="Eat_Me" customModuleProvider="target" sceneMemberID="viewController">
@@ -106,7 +106,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="VeI-XT-ytu"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Eat Me" largeTitleDisplayMode="always" id="vx3-hL-em1">
+                    <navigationItem key="navigationItem" title="Overview" largeTitleDisplayMode="always" id="vx3-hL-em1">
                         <barButtonItem key="leftBarButtonItem" title="Clear" id="QIp-e4-5V3">
                             <color key="tintColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
@@ -116,9 +116,7 @@
                         <barButtonItem key="rightBarButtonItem" image="big-plus2" largeContentSizeImage="big-plus" id="moy-Qk-U32">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
-                                <segue destination="LTy-J0-xZd" kind="popoverPresentation" identifier="goToNewEntry" popoverAnchorBarButtonItem="moy-Qk-U32" id="lNU-7S-Ftr">
-                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                </segue>
+                                <segue destination="LTy-J0-xZd" kind="presentation" id="9kx-KE-iYN"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -195,7 +193,7 @@
                                                     <rect key="frame" x="96" y="15" width="303" height="34.5"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -365,7 +363,98 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cNn-17-kP4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1913" y="115"/>
+            <point key="canvasLocation" x="2704" y="-190"/>
+        </scene>
+        <!--Pop Up New Entry View Controller-->
+        <scene sceneID="I7F-kQ-nMu">
+            <objects>
+                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="GsZ-0Q-v0R" customClass="PopUpNewEntryViewController" customModule="Eat_Me" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="EtL-Xu-1AI">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3AZ-wV-aqe">
+                                <rect key="frame" x="97" y="373" width="220" height="150"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add New Entry" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DNs-fI-mFu">
+                                        <rect key="frame" x="0.0" y="0.0" width="220" height="40"/>
+                                        <color key="backgroundColor" red="0.46890127660000003" green="0.9363101721" blue="0.71369820829999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="7XW-E4-b4A"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="TJs-rc-ruX">
+                                        <rect key="frame" x="0.0" y="40" width="220" height="110"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Kh-1r-0Pd">
+                                                <rect key="frame" x="0.0" y="0.0" width="220" height="54.5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="54.5" id="7gc-BZ-zEd"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="17"/>
+                                                <state key="normal" title="Enter Manually">
+                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <segue destination="IYF-za-1ww" kind="show" id="iyE-Ca-d3k"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="13o-vx-BJb">
+                                                <rect key="frame" x="0.0" y="54.5" width="220" height="1"/>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="1" id="95l-w7-L4c"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3tw-2j-oI4">
+                                                <rect key="frame" x="0.0" y="55.5" width="220" height="54.5"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="17"/>
+                                                <state key="normal" title="Scan Barcode">
+                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="13o-vx-BJb" firstAttribute="top" secondItem="0Kh-1r-0Pd" secondAttribute="bottom" id="y1t-SB-KQd"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="DNs-fI-mFu" firstAttribute="top" secondItem="3AZ-wV-aqe" secondAttribute="top" id="8OD-uK-Z1v"/>
+                                    <constraint firstItem="TJs-rc-ruX" firstAttribute="top" secondItem="DNs-fI-mFu" secondAttribute="bottom" id="JTJ-zx-x7j"/>
+                                    <constraint firstItem="TJs-rc-ruX" firstAttribute="leading" secondItem="3AZ-wV-aqe" secondAttribute="leading" id="Ndg-Y8-ArV"/>
+                                    <constraint firstAttribute="bottom" secondItem="TJs-rc-ruX" secondAttribute="bottom" id="e2N-I8-Ome"/>
+                                    <constraint firstAttribute="width" constant="220" id="eA3-sD-Xky"/>
+                                    <constraint firstAttribute="trailing" secondItem="DNs-fI-mFu" secondAttribute="trailing" id="klE-PT-IBK"/>
+                                    <constraint firstItem="DNs-fI-mFu" firstAttribute="leading" secondItem="3AZ-wV-aqe" secondAttribute="leading" id="pfa-Dg-9Se"/>
+                                    <constraint firstAttribute="height" constant="150" id="wAz-mX-zP7"/>
+                                    <constraint firstAttribute="trailing" secondItem="TJs-rc-ruX" secondAttribute="trailing" id="xvH-Ko-v1X"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="3AZ-wV-aqe" firstAttribute="centerY" secondItem="EtL-Xu-1AI" secondAttribute="centerY" id="Bpf-sK-fJj"/>
+                            <constraint firstItem="3AZ-wV-aqe" firstAttribute="centerX" secondItem="EtL-Xu-1AI" secondAttribute="centerX" id="QVM-1m-OTn"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="xE2-JG-pp7"/>
+                    </view>
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="FNy-RO-PAC"/>
+                    <connections>
+                        <outlet property="popUpView" destination="3AZ-wV-aqe" id="4nU-Sm-09e"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0ww-vJ-oEs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1912" y="115"/>
         </scene>
         <!--Meal Detail View Controller-->
         <scene sceneID="wik-Ry-uNc">
@@ -403,7 +492,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="07n-fx-je1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2688" y="115"/>
+            <point key="canvasLocation" x="3514" y="115"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="m17-Ya-PX6">
@@ -434,12 +523,12 @@
         <!--Navigation Controller-->
         <scene sceneID="eom-1y-CLj">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LTy-J0-xZd" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="LTy-J0-xZd" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="UQ0-A9-wPo">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.46890127658843994" green="0.93631017208099365" blue="0.71369820833206177" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="barTintColor" red="0.46894598007202148" green="0.94023269414901733" blue="0.71761983633041382" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </textAttributes>
@@ -449,7 +538,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
-                        <segue destination="IYF-za-1ww" kind="relationship" relationship="rootViewController" id="Ugx-eY-vDd"/>
+                        <segue destination="GsZ-0Q-v0R" kind="relationship" relationship="rootViewController" id="2zs-Gt-4RS"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QlQ-7a-Edo" userLabel="First Responder" sceneMemberID="firstResponder"/>

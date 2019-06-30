@@ -5,7 +5,7 @@
 //  Created by Daniel Hilton on 19/05/2019.
 //  Copyright © 2019 Daniel Hilton. All rights reserved.
 
-// TODO: - Configue the Lunch, Dinner and Other cells to update with new entries.
+// TODO: -
 
 
 import UIKit

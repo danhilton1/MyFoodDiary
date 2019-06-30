@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		374BC02522BABA8800013610 /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374BC02422BABA8800013610 /* Food.swift */; };
+		37563BD822C69E8F0032D94E /* PopUpNewEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37563BD722C69E8F0032D94E /* PopUpNewEntryViewController.swift */; };
 		377208B52291A1F8002DDA29 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377208B42291A1F8002DDA29 /* AppDelegate.swift */; };
 		377208B72291A1F8002DDA29 /* EatMeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377208B62291A1F8002DDA29 /* EatMeViewController.swift */; };
 		377208BA2291A1F8002DDA29 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 377208B82291A1F8002DDA29 /* Main.storyboard */; };
@@ -17,10 +18,6 @@
 		377208D32291B002002DDA29 /* MealOverviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 377208D12291B002002DDA29 /* MealOverviewCell.xib */; };
 		379DB00622B2EBB300F3DC5B /* MealDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379DB00522B2EBB300F3DC5B /* MealDetailViewController.swift */; };
 		37CA772D22A1BB4F00C03A06 /* NewEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CA772C22A1BB4F00C03A06 /* NewEntryViewController.swift */; };
-		37CCACC7229F22A2002C7C1A /* BreakfastFood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CCACC6229F22A2002C7C1A /* BreakfastFood.swift */; };
-		37CCACC9229F22B0002C7C1A /* LunchFood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CCACC8229F22B0002C7C1A /* LunchFood.swift */; };
-		37CCACCB229F22B9002C7C1A /* DinnerFood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CCACCA229F22B9002C7C1A /* DinnerFood.swift */; };
-		37CCACCD229F22C1002C7C1A /* OtherFood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CCACCC229F22C1002C7C1A /* OtherFood.swift */; };
 		4A86E26E8500BDD1AB336A1F /* Pods_Eat_Me.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A8041E9BAE8535B593488AE /* Pods_Eat_Me.framework */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +26,7 @@
 		2A8041E9BAE8535B593488AE /* Pods_Eat_Me.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Eat_Me.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C593C770C04CCCE21F115B0 /* Pods-Eat Me.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Eat Me.debug.xcconfig"; path = "Target Support Files/Pods-Eat Me/Pods-Eat Me.debug.xcconfig"; sourceTree = "<group>"; };
 		374BC02422BABA8800013610 /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
+		37563BD722C69E8F0032D94E /* PopUpNewEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpNewEntryViewController.swift; sourceTree = "<group>"; };
 		377208B12291A1F8002DDA29 /* Eat Me.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Eat Me.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		377208B42291A1F8002DDA29 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		377208B62291A1F8002DDA29 /* EatMeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EatMeViewController.swift; sourceTree = "<group>"; };
@@ -40,10 +38,6 @@
 		377208D12291B002002DDA29 /* MealOverviewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MealOverviewCell.xib; sourceTree = "<group>"; };
 		379DB00522B2EBB300F3DC5B /* MealDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDetailViewController.swift; sourceTree = "<group>"; };
 		37CA772C22A1BB4F00C03A06 /* NewEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEntryViewController.swift; sourceTree = "<group>"; };
-		37CCACC6229F22A2002C7C1A /* BreakfastFood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakfastFood.swift; sourceTree = "<group>"; };
-		37CCACC8229F22B0002C7C1A /* LunchFood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LunchFood.swift; sourceTree = "<group>"; };
-		37CCACCA229F22B9002C7C1A /* DinnerFood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DinnerFood.swift; sourceTree = "<group>"; };
-		37CCACCC229F22C1002C7C1A /* OtherFood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherFood.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,10 +93,6 @@
 		377208C92291A218002DDA29 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				37CCACC6229F22A2002C7C1A /* BreakfastFood.swift */,
-				37CCACC8229F22B0002C7C1A /* LunchFood.swift */,
-				37CCACCA229F22B9002C7C1A /* DinnerFood.swift */,
-				37CCACCC229F22C1002C7C1A /* OtherFood.swift */,
 				374BC02422BABA8800013610 /* Food.swift */,
 			);
 			path = Model;
@@ -125,6 +115,7 @@
 				37CA772C22A1BB4F00C03A06 /* NewEntryViewController.swift */,
 				379DB00522B2EBB300F3DC5B /* MealDetailViewController.swift */,
 				377208B42291A1F8002DDA29 /* AppDelegate.swift */,
+				37563BD722C69E8F0032D94E /* PopUpNewEntryViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -263,16 +254,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				37CCACC9229F22B0002C7C1A /* LunchFood.swift in Sources */,
 				37CA772D22A1BB4F00C03A06 /* NewEntryViewController.swift in Sources */,
+				37563BD822C69E8F0032D94E /* PopUpNewEntryViewController.swift in Sources */,
 				379DB00622B2EBB300F3DC5B /* MealDetailViewController.swift in Sources */,
 				377208D22291B002002DDA29 /* MealOverviewCell.swift in Sources */,
 				377208B72291A1F8002DDA29 /* EatMeViewController.swift in Sources */,
-				37CCACCB229F22B9002C7C1A /* DinnerFood.swift in Sources */,
-				37CCACCD229F22C1002C7C1A /* OtherFood.swift in Sources */,
 				374BC02522BABA8800013610 /* Food.swift in Sources */,
 				377208B52291A1F8002DDA29 /* AppDelegate.swift in Sources */,
-				37CCACC7229F22A2002C7C1A /* BreakfastFood.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
