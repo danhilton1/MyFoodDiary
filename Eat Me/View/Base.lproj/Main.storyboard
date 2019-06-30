@@ -116,7 +116,7 @@
                         <barButtonItem key="rightBarButtonItem" image="big-plus2" largeContentSizeImage="big-plus" id="moy-Qk-U32">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
-                                <segue destination="LTy-J0-xZd" kind="presentation" id="9kx-KE-iYN"/>
+                                <segue destination="LTy-J0-xZd" kind="presentation" identifier="goToPopUp" id="9sY-3m-dyA"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -374,10 +374,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3AZ-wV-aqe">
-                                <rect key="frame" x="97" y="373" width="220" height="150"/>
+                                <rect key="frame" x="67" y="373" width="280" height="150"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add New Entry" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DNs-fI-mFu">
-                                        <rect key="frame" x="0.0" y="0.0" width="220" height="40"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="280" height="40"/>
                                         <color key="backgroundColor" red="0.46890127660000003" green="0.9363101721" blue="0.71369820829999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="7XW-E4-b4A"/>
@@ -387,10 +387,10 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="TJs-rc-ruX">
-                                        <rect key="frame" x="0.0" y="40" width="220" height="110"/>
+                                        <rect key="frame" x="0.0" y="40" width="280" height="110"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Kh-1r-0Pd">
-                                                <rect key="frame" x="0.0" y="0.0" width="220" height="54.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="280" height="54.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="54.5" id="7gc-BZ-zEd"/>
                                                 </constraints>
@@ -399,11 +399,11 @@
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="IYF-za-1ww" kind="show" id="iyE-Ca-d3k"/>
+                                                    <segue destination="IYF-za-1ww" kind="show" identifier="goToManualEntry" id="DcE-gC-QC3"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="13o-vx-BJb">
-                                                <rect key="frame" x="0.0" y="54.5" width="220" height="1"/>
+                                                <rect key="frame" x="0.0" y="54.5" width="280" height="1"/>
                                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="95l-w7-L4c"/>
@@ -413,13 +413,14 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3tw-2j-oI4">
-                                                <rect key="frame" x="0.0" y="55.5" width="220" height="54.5"/>
+                                                <rect key="frame" x="0.0" y="55.5" width="280" height="54.5"/>
                                                 <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="17"/>
                                                 <state key="normal" title="Scan Barcode">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="ZBk-MS-8G1" kind="show" id="peM-yf-1EM"/>
+                                                    <action selector="scanBarcodePressed:" destination="GsZ-0Q-v0R" eventType="touchUpInside" id="fRw-OE-TWU"/>
+                                                    <segue destination="ZBk-MS-8G1" kind="show" id="7F2-nV-Bz8"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -435,7 +436,7 @@
                                     <constraint firstItem="TJs-rc-ruX" firstAttribute="top" secondItem="DNs-fI-mFu" secondAttribute="bottom" id="JTJ-zx-x7j"/>
                                     <constraint firstItem="TJs-rc-ruX" firstAttribute="leading" secondItem="3AZ-wV-aqe" secondAttribute="leading" id="Ndg-Y8-ArV"/>
                                     <constraint firstAttribute="bottom" secondItem="TJs-rc-ruX" secondAttribute="bottom" id="e2N-I8-Ome"/>
-                                    <constraint firstAttribute="width" constant="220" id="eA3-sD-Xky"/>
+                                    <constraint firstAttribute="width" constant="280" id="eA3-sD-Xky"/>
                                     <constraint firstAttribute="trailing" secondItem="DNs-fI-mFu" secondAttribute="trailing" id="klE-PT-IBK"/>
                                     <constraint firstItem="DNs-fI-mFu" firstAttribute="leading" secondItem="3AZ-wV-aqe" secondAttribute="leading" id="pfa-Dg-9Se"/>
                                     <constraint firstAttribute="height" constant="150" id="wAz-mX-zP7"/>
@@ -450,8 +451,16 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="xE2-JG-pp7"/>
                     </view>
-                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="FNy-RO-PAC"/>
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="FNy-RO-PAC">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="v4O-MI-RZA">
+                            <color key="tintColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="cancelPressed:" destination="GsZ-0Q-v0R" id="U0X-ME-37G"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="enterManuallyButton" destination="0Kh-1r-0Pd" id="4d6-0T-iq6"/>
                         <outlet property="popUpView" destination="3AZ-wV-aqe" id="4nU-Sm-09e"/>
                     </connections>
                 </viewController>
@@ -505,7 +514,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Lj-77-DVp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2703" y="476"/>
+            <point key="canvasLocation" x="2703" y="469"/>
         </scene>
         <!--Meal Detail View Controller-->
         <scene sceneID="wik-Ry-uNc">
@@ -543,7 +552,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="07n-fx-je1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3514" y="115"/>
+            <point key="canvasLocation" x="1106" y="887"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="m17-Ya-PX6">
@@ -589,7 +598,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
-                        <segue destination="GsZ-0Q-v0R" kind="relationship" relationship="rootViewController" id="2zs-Gt-4RS"/>
+                        <segue destination="GsZ-0Q-v0R" kind="relationship" relationship="rootViewController" id="7TU-TD-nZU"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QlQ-7a-Edo" userLabel="First Responder" sceneMemberID="firstResponder"/>

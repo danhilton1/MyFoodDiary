@@ -26,7 +26,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     
     var totalCals: Int!
     
-    private let defaults = UserDefaults.standard
+    let defaults = UserDefaults.standard
     
     private var refreshControl = UIRefreshControl()
     
@@ -36,6 +36,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         super.viewDidLoad()
         
         totalCals = defaults.integer(forKey: "totalCalories")
+        print(defaults.integer(forKey: "totalCalories"))
         
         eatMeTableView.delegate = self
         eatMeTableView.dataSource = self
@@ -287,10 +288,11 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "goToNewEntry" {
-            let nc = segue.destination as! UINavigationController
-            let vc = nc.topViewController as! NewEntryViewController
-            vc.delegate = self
+        if segue.identifier == "goToPopUp" {
+
+            let navController = segue.destination as! UINavigationController
+            let viewController = navController.topViewController as! PopUpNewEntryViewController
+            viewController.delegate = self
             
         }
         else if segue.identifier == "goToMealDetail" {
