@@ -13,7 +13,7 @@
         <!--Overview-->
         <scene sceneID="HzX-gD-JO5">
             <objects>
-                <viewController id="5FM-xa-IT0" customClass="EatMeViewController" customModule="Eat_Me" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="5FM-xa-IT0" customClass="OverviewViewController" customModule="Eat_Me" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LtX-DP-b4r">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -418,6 +418,9 @@
                                                 <state key="normal" title="Scan Barcode">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
+                                                <connections>
+                                                    <segue destination="ZBk-MS-8G1" kind="show" id="peM-yf-1EM"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -455,6 +458,54 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0ww-vJ-oEs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1912" y="115"/>
+        </scene>
+        <!--Scan Barcode-->
+        <scene sceneID="mGu-uo-bcr">
+            <objects>
+                <viewController title="Scan Barcode" id="ZBk-MS-8G1" customClass="BarcodeScannerViewController" customModule="Eat_Me" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ZbI-LU-BEw">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9O9-Bl-mQy">
+                                <rect key="frame" x="0.0" y="88" width="414" height="654"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Barcode Manually" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SZh-cG-sAk">
+                                <rect key="frame" x="0.0" y="742" width="414" height="60"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="9O9-Bl-mQy" firstAttribute="top" secondItem="usX-MV-gR9" secondAttribute="top" id="1aK-xc-A6E"/>
+                            <constraint firstItem="usX-MV-gR9" firstAttribute="trailing" secondItem="SZh-cG-sAk" secondAttribute="trailing" id="Amv-NN-vXj"/>
+                            <constraint firstItem="usX-MV-gR9" firstAttribute="trailing" secondItem="9O9-Bl-mQy" secondAttribute="trailing" id="HkX-rL-DyO"/>
+                            <constraint firstItem="SZh-cG-sAk" firstAttribute="top" secondItem="9O9-Bl-mQy" secondAttribute="bottom" id="SCq-Kp-mM9"/>
+                            <constraint firstItem="9O9-Bl-mQy" firstAttribute="leading" secondItem="usX-MV-gR9" secondAttribute="leading" id="WDp-tI-TNN"/>
+                            <constraint firstItem="usX-MV-gR9" firstAttribute="bottom" secondItem="9O9-Bl-mQy" secondAttribute="bottom" constant="120" id="k4G-gr-Cmr"/>
+                            <constraint firstItem="SZh-cG-sAk" firstAttribute="leading" secondItem="usX-MV-gR9" secondAttribute="leading" id="mZC-bY-i11"/>
+                            <constraint firstItem="usX-MV-gR9" firstAttribute="bottom" secondItem="SZh-cG-sAk" secondAttribute="bottom" constant="60" id="qbW-fR-rfX"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="usX-MV-gR9"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Scan Barcode" id="dLb-c8-9N7">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="pfS-Gm-8d4">
+                            <color key="tintColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="cancelPressed:" destination="ZBk-MS-8G1" id="Zie-6k-v0G"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="cameraView" destination="9O9-Bl-mQy" id="Non-v6-x0u"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Lj-77-DVp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2703" y="476"/>
         </scene>
         <!--Meal Detail View Controller-->
         <scene sceneID="wik-Ry-uNc">

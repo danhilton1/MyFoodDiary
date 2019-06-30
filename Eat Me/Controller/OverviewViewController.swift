@@ -13,7 +13,7 @@ import RealmSwift
 import Charts
 import ChameleonFramework
 
-class EatMeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NewEntryDelegate {
+class OverviewViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NewEntryDelegate {
     
     let realm = try! Realm()
     
@@ -24,7 +24,7 @@ class EatMeViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var eatMeTableView: UITableView!
     @IBOutlet weak var totalCaloriesLabel: UILabel!
     
-    private var totalCals: Int!
+    var totalCals: Int!
     
     private let defaults = UserDefaults.standard
     

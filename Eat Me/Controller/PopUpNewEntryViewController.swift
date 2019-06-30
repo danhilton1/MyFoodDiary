@@ -22,6 +22,9 @@ class PopUpNewEntryViewController: UIViewController {
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
     
     
 

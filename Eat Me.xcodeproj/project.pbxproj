@@ -10,12 +10,13 @@
 		374BC02522BABA8800013610 /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374BC02422BABA8800013610 /* Food.swift */; };
 		37563BD822C69E8F0032D94E /* PopUpNewEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37563BD722C69E8F0032D94E /* PopUpNewEntryViewController.swift */; };
 		377208B52291A1F8002DDA29 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377208B42291A1F8002DDA29 /* AppDelegate.swift */; };
-		377208B72291A1F8002DDA29 /* EatMeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377208B62291A1F8002DDA29 /* EatMeViewController.swift */; };
+		377208B72291A1F8002DDA29 /* OverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377208B62291A1F8002DDA29 /* OverviewViewController.swift */; };
 		377208BA2291A1F8002DDA29 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 377208B82291A1F8002DDA29 /* Main.storyboard */; };
 		377208BF2291A1FA002DDA29 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 377208BE2291A1FA002DDA29 /* Assets.xcassets */; };
 		377208C22291A1FA002DDA29 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 377208C02291A1FA002DDA29 /* LaunchScreen.storyboard */; };
 		377208D22291B002002DDA29 /* MealOverviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377208D02291B002002DDA29 /* MealOverviewCell.swift */; };
 		377208D32291B002002DDA29 /* MealOverviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 377208D12291B002002DDA29 /* MealOverviewCell.xib */; };
+		378917C022C8DC3B00571181 /* BarcodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378917BF22C8DC3B00571181 /* BarcodeScannerViewController.swift */; };
 		379DB00622B2EBB300F3DC5B /* MealDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379DB00522B2EBB300F3DC5B /* MealDetailViewController.swift */; };
 		37CA772D22A1BB4F00C03A06 /* NewEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CA772C22A1BB4F00C03A06 /* NewEntryViewController.swift */; };
 		4A86E26E8500BDD1AB336A1F /* Pods_Eat_Me.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A8041E9BAE8535B593488AE /* Pods_Eat_Me.framework */; };
@@ -29,13 +30,14 @@
 		37563BD722C69E8F0032D94E /* PopUpNewEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpNewEntryViewController.swift; sourceTree = "<group>"; };
 		377208B12291A1F8002DDA29 /* Eat Me.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Eat Me.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		377208B42291A1F8002DDA29 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		377208B62291A1F8002DDA29 /* EatMeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EatMeViewController.swift; sourceTree = "<group>"; };
+		377208B62291A1F8002DDA29 /* OverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewViewController.swift; sourceTree = "<group>"; };
 		377208B92291A1F8002DDA29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		377208BE2291A1FA002DDA29 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		377208C12291A1FA002DDA29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		377208C32291A1FA002DDA29 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		377208D02291B002002DDA29 /* MealOverviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealOverviewCell.swift; sourceTree = "<group>"; };
 		377208D12291B002002DDA29 /* MealOverviewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MealOverviewCell.xib; sourceTree = "<group>"; };
+		378917BF22C8DC3B00571181 /* BarcodeScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeScannerViewController.swift; sourceTree = "<group>"; };
 		379DB00522B2EBB300F3DC5B /* MealDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDetailViewController.swift; sourceTree = "<group>"; };
 		37CA772C22A1BB4F00C03A06 /* NewEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEntryViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -111,11 +113,12 @@
 		377208CB2291A223002DDA29 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				377208B62291A1F8002DDA29 /* EatMeViewController.swift */,
+				377208B62291A1F8002DDA29 /* OverviewViewController.swift */,
 				37CA772C22A1BB4F00C03A06 /* NewEntryViewController.swift */,
 				379DB00522B2EBB300F3DC5B /* MealDetailViewController.swift */,
-				377208B42291A1F8002DDA29 /* AppDelegate.swift */,
 				37563BD722C69E8F0032D94E /* PopUpNewEntryViewController.swift */,
+				378917BF22C8DC3B00571181 /* BarcodeScannerViewController.swift */,
+				377208B42291A1F8002DDA29 /* AppDelegate.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -258,8 +261,9 @@
 				37563BD822C69E8F0032D94E /* PopUpNewEntryViewController.swift in Sources */,
 				379DB00622B2EBB300F3DC5B /* MealDetailViewController.swift in Sources */,
 				377208D22291B002002DDA29 /* MealOverviewCell.swift in Sources */,
-				377208B72291A1F8002DDA29 /* EatMeViewController.swift in Sources */,
+				377208B72291A1F8002DDA29 /* OverviewViewController.swift in Sources */,
 				374BC02522BABA8800013610 /* Food.swift in Sources */,
+				378917C022C8DC3B00571181 /* BarcodeScannerViewController.swift in Sources */,
 				377208B52291A1F8002DDA29 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
