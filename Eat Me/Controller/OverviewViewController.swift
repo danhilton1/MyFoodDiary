@@ -52,6 +52,10 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         
     }
     
+//    override func viewWillAppear(_ animated: Bool) {
+//        loadAllFood()
+//    }
+    
     override func viewDidAppear(_ animated: Bool) {
         loadAllFood()
     }
@@ -156,6 +160,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         performSegue(withIdentifier: "goToMealDetail", sender: nil)
+        tableView.deselectRow(at: indexPath, animated: false)
         
     }
     
@@ -282,6 +287,14 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         
         totalCals += data
         defaults.set(totalCals, forKey: "totalCalories")
+        
+    }
+    
+    func reloadFood() {
+        let deadlineTime = DispatchTime.now() + 0.6
+        DispatchQueue.main.asyncAfter(deadline: deadlineTime) {
+            self.loadAllFood()
+        }
         
     }
     

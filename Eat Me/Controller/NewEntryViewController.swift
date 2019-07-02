@@ -11,6 +11,7 @@ import RealmSwift
 
 protocol NewEntryDelegate: class {
     func getCalorieDataFromNewEntry(data: Int)
+    func reloadFood()
 }
 
 class NewEntryViewController: UITableViewController {
@@ -89,9 +90,15 @@ class NewEntryViewController: UITableViewController {
             self.dismiss(animated: true, completion: nil)
             
         }
-        
-        self.dismiss(animated: true, completion: nil)
-        
+        let transition: CATransition = CATransition()
+        transition.duration = 0.5
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        transition.type = CATransitionType.reveal
+        transition.subtype = CATransitionSubtype.fromBottom
+        self.view.window!.layer.add(transition, forKey: nil)
+        self.dismiss(animated: false, completion: nil)
+//        self.dismiss(animated: true, completion: nil)
+        delegate?.reloadFood()
     }
         
     

@@ -12,7 +12,7 @@ class PopUpNewEntryViewController: UIViewController {
 
     @IBOutlet weak var popUpView: UIView!
     
-    var delegate: NewEntryDelegate?
+    weak var delegate: NewEntryDelegate?
     
     @IBOutlet weak var enterManuallyButton: UIButton!
     
@@ -29,13 +29,16 @@ class PopUpNewEntryViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
-//    override func viewDidDisappear(_ animated: Bool) {
-//        self.dismiss(animated: true, completion: nil)
-//    }
-//    
-//    override func addChild(_ childController: UIViewController) {
-//        self.addChild(NewEntryViewController())
-//    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        let touch = touches.first
+        guard let location = touch?.location(in: self.view) else { return }
+        if !popUpView.frame.contains(location) {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+
     
     @IBAction func cancelPressed(_ sender: UIBarButtonItem) {
         
@@ -46,7 +49,6 @@ class PopUpNewEntryViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "goToManualEntry" {
-//            let destNC = segue.destination as! UINavigationController
             let destVC = segue.destination as! NewEntryViewController
             destVC.delegate = delegate
             
