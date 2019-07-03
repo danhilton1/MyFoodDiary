@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		37241ABD22CD127800AF85AB /* MealDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37241ABC22CD127800AF85AB /* MealDetailCell.swift */; };
 		374BC02522BABA8800013610 /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374BC02422BABA8800013610 /* Food.swift */; };
 		37563BD822C69E8F0032D94E /* PopUpNewEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37563BD722C69E8F0032D94E /* PopUpNewEntryViewController.swift */; };
 		377208B52291A1F8002DDA29 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377208B42291A1F8002DDA29 /* AppDelegate.swift */; };
@@ -26,6 +27,7 @@
 		10E32B840DC7A266A9830B25 /* Pods-Eat Me.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Eat Me.release.xcconfig"; path = "Target Support Files/Pods-Eat Me/Pods-Eat Me.release.xcconfig"; sourceTree = "<group>"; };
 		2A8041E9BAE8535B593488AE /* Pods_Eat_Me.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Eat_Me.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C593C770C04CCCE21F115B0 /* Pods-Eat Me.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Eat Me.debug.xcconfig"; path = "Target Support Files/Pods-Eat Me/Pods-Eat Me.debug.xcconfig"; sourceTree = "<group>"; };
+		37241ABC22CD127800AF85AB /* MealDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDetailCell.swift; sourceTree = "<group>"; };
 		374BC02422BABA8800013610 /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
 		37563BD722C69E8F0032D94E /* PopUpNewEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpNewEntryViewController.swift; sourceTree = "<group>"; };
 		377208B12291A1F8002DDA29 /* Eat Me.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Eat Me.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -128,6 +130,7 @@
 			children = (
 				377208D02291B002002DDA29 /* MealOverviewCell.swift */,
 				377208D12291B002002DDA29 /* MealOverviewCell.xib */,
+				37241ABC22CD127800AF85AB /* MealDetailCell.swift */,
 			);
 			path = "Custom Cell";
 			sourceTree = "<group>";
@@ -261,6 +264,7 @@
 				37563BD822C69E8F0032D94E /* PopUpNewEntryViewController.swift in Sources */,
 				379DB00622B2EBB300F3DC5B /* MealDetailViewController.swift in Sources */,
 				377208D22291B002002DDA29 /* MealOverviewCell.swift in Sources */,
+				37241ABD22CD127800AF85AB /* MealDetailCell.swift in Sources */,
 				377208B72291A1F8002DDA29 /* OverviewViewController.swift in Sources */,
 				374BC02522BABA8800013610 /* Food.swift in Sources */,
 				378917C022C8DC3B00571181 /* BarcodeScannerViewController.swift in Sources */,

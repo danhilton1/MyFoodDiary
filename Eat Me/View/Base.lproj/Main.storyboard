@@ -532,13 +532,42 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="mealDetailCell" rowHeight="60" id="uIP-t5-eDA">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="mealDetailCell" rowHeight="60" id="uIP-t5-eDA" customClass="MealDetailCell" customModule="Eat_Me" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="88" width="414" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uIP-t5-eDA" id="IGh-jF-cex">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="59.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Lma-MX-KjE">
+                                            <rect key="frame" x="20" y="5" width="374" height="49.5"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Protein:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oPL-i2-h8v" userLabel="typeLabel">
+                                                    <rect key="frame" x="0.0" y="0.0" width="187" height="49.5"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="18"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="28.4 g" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UQw-ZG-zYT" userLabel="numberLabel">
+                                                    <rect key="frame" x="187" y="0.0" width="187" height="49.5"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Lma-MX-KjE" firstAttribute="top" secondItem="IGh-jF-cex" secondAttribute="top" constant="5" id="PXt-i0-fvi"/>
+                                        <constraint firstAttribute="bottom" secondItem="Lma-MX-KjE" secondAttribute="bottom" constant="5" id="WRd-zU-c90"/>
+                                        <constraint firstItem="Lma-MX-KjE" firstAttribute="leading" secondItem="IGh-jF-cex" secondAttribute="leading" constant="20" id="a8i-bN-rgR"/>
+                                        <constraint firstAttribute="trailing" secondItem="Lma-MX-KjE" secondAttribute="trailing" constant="20" id="g0M-c8-f8c"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="numberLabel" destination="UQw-ZG-zYT" id="Pmy-S0-p83"/>
+                                    <outlet property="typeLabel" destination="oPL-i2-h8v" id="s5P-dm-uS4"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -552,7 +581,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="07n-fx-je1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1106" y="887"/>
+            <point key="canvasLocation" x="1105.7971014492755" y="886.60714285714278"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="m17-Ya-PX6">

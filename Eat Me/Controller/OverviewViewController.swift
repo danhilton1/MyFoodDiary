@@ -5,7 +5,7 @@
 //  Created by Daniel Hilton on 19/05/2019.
 //  Copyright © 2019 Daniel Hilton. All rights reserved.
 
-// TODO: -
+// TODO: - Change meal detail cells, round macro numbers, parse JSON from barcode scan, show food history
 
 
 import UIKit
@@ -56,9 +56,9 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
 //        loadAllFood()
 //    }
     
-    override func viewDidAppear(_ animated: Bool) {
-        loadAllFood()
-    }
+//    override func viewDidAppear(_ animated: Bool) {
+//        loadAllFood()
+//    }
     
     
     func loadAllFood() {
@@ -291,8 +291,8 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func reloadFood() {
-        let deadlineTime = DispatchTime.now() + 0.6
-        DispatchQueue.main.asyncAfter(deadline: deadlineTime) {
+        let delayTime = DispatchTime.now() + 0.5
+        DispatchQueue.main.asyncAfter(deadline: delayTime) {
             self.loadAllFood()
         }
         

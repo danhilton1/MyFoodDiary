@@ -74,24 +74,27 @@ class MealDetailViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = UITableViewCell()
-        
-        cell.textLabel?.font = UIFont(name: "HelveticaNeue-Thin", size: 20)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "mealDetailCell", for: indexPath) as! MealDetailCell
         
         if let food = selectedMeal {
             for i in 0..<food.count {
                 if indexPath.section == i {
                     switch indexPath.row {
                     case 0:
-                        cell.textLabel?.text = "Calories: \(food[i].calories ?? 0) kcal"
+                        cell.typeLabel?.text = "Calories:"
+                        cell.numberLabel.text = "\(food[i].calories ?? 0) kcal"
                     case 1:
-                        cell.textLabel?.text = "Protein: \(food[i].protein ?? 0) g"
+                        cell.typeLabel.text = "Protein:"
+                        cell.numberLabel.text = "\(food[i].protein ?? 0) g"
                     case 2:
-                        cell.textLabel?.text = "Carbs: \(food[i].carbs ?? 0) g"
+                        cell.typeLabel.text = "Carbs:"
+                        cell.numberLabel.text = "\(food[i].carbs ?? 0) g"
                     case 3:
-                        cell.textLabel?.text = "Fat: \(food[i].fat ?? 0) g"
+                        cell.typeLabel.text = "Fat:"
+                        cell.numberLabel.text = "\(food[i].fat ?? 0) g"
                     default:
-                        cell.textLabel?.text = "0"
+                        cell.typeLabel.text = ""
+                        cell.numberLabel.text = ""
                     }
                 }
                
@@ -103,7 +106,7 @@ class MealDetailViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 55
+        return 35
     }
 
     
