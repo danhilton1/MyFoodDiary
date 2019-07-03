@@ -97,7 +97,7 @@ class NewEntryViewController: UITableViewController {
         transition.subtype = CATransitionSubtype.fromBottom
         self.view.window!.layer.add(transition, forKey: nil)
         self.dismiss(animated: false, completion: nil)
-//        self.dismiss(animated: true, completion: nil)
+
         delegate?.reloadFood()
     }
         

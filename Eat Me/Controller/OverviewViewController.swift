@@ -250,9 +250,9 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         
         
         cell.calorieLabel.text = "\(calories) kcal"
-        cell.proteinLabel.text = "\(protein) g"
-        cell.carbsLabel.text = "\(carbs) g"
-        cell.fatLabel.text = "\(fat) g"
+        cell.proteinLabel.text = "\(round(10 * protein) / 10) g"
+        cell.carbsLabel.text = "\(round(10 * carbs) / 10) g"
+        cell.fatLabel.text = "\(round(10 * fat) / 10) g"
         
         
         

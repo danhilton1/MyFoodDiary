@@ -85,13 +85,13 @@ class MealDetailViewController: UITableViewController {
                         cell.numberLabel.text = "\(food[i].calories ?? 0) kcal"
                     case 1:
                         cell.typeLabel.text = "Protein:"
-                        cell.numberLabel.text = "\(food[i].protein ?? 0) g"
+                        cell.numberLabel.text = "\(round(10 * Double(truncating: food[i].protein ?? 0)) / 10) g"
                     case 2:
                         cell.typeLabel.text = "Carbs:"
-                        cell.numberLabel.text = "\(food[i].carbs ?? 0) g"
+                        cell.numberLabel.text = "\(round(10 * Double(truncating: food[i].carbs ?? 0)) / 10) g"
                     case 3:
                         cell.typeLabel.text = "Fat:"
-                        cell.numberLabel.text = "\(food[i].fat ?? 0) g"
+                        cell.numberLabel.text = "\(round(10 * Double(truncating: food[i].fat ?? 0)) / 10) g"
                     default:
                         cell.typeLabel.text = ""
                         cell.numberLabel.text = ""
