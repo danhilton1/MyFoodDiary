@@ -20,6 +20,7 @@ class Food: Object {
         
     }
     
+    @objc dynamic var date: String?
     @objc dynamic var meal: String?
     @objc dynamic var name: String? = ""
     @objc dynamic var calories: NSNumber? = NSNumber(value: 0)
@@ -28,7 +29,7 @@ class Food: Object {
     @objc dynamic var fat: NSNumber? = NSNumber(value: 0.0)
     
     
-    func updateProperties(meal: Meal, name: String?, calories: NSNumber?, protein: NSNumber?, carbs: NSNumber?, fat: NSNumber?) {
+    func updateProperties(date: String?, meal: Meal, name: String?, calories: NSNumber?, protein: NSNumber?, carbs: NSNumber?, fat: NSNumber?) {
         
         self.meal = meal.rawValue
         self.name = name

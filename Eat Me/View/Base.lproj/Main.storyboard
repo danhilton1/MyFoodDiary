@@ -13,7 +13,7 @@
         <!--Overview-->
         <scene sceneID="HzX-gD-JO5">
             <objects>
-                <viewController id="5FM-xa-IT0" customClass="OverviewViewController" customModule="Eat_Me" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OverviewVC" id="5FM-xa-IT0" customClass="OverviewViewController" customModule="Eat_Me" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LtX-DP-b4r">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -107,12 +107,15 @@
                         <viewLayoutGuide key="safeArea" id="VeI-XT-ytu"/>
                     </view>
                     <navigationItem key="navigationItem" title="Overview" largeTitleDisplayMode="always" id="vx3-hL-em1">
-                        <barButtonItem key="leftBarButtonItem" title="Clear" id="QIp-e4-5V3">
-                            <color key="tintColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <connections>
-                                <action selector="clearButtonPressed:" destination="5FM-xa-IT0" id="KVX-iq-x4U"/>
-                            </connections>
-                        </barButtonItem>
+                        <leftBarButtonItems>
+                            <barButtonItem title="Clear" id="QIp-e4-5V3">
+                                <color key="tintColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="clearButtonPressed:" destination="5FM-xa-IT0" id="KVX-iq-x4U"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Date" id="LXm-T2-DQw"/>
+                        </leftBarButtonItems>
                         <barButtonItem key="rightBarButtonItem" image="big-plus2" largeContentSizeImage="big-plus" id="moy-Qk-U32">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
@@ -121,6 +124,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="dayLabel" destination="4x8-gE-ihy" id="kVk-Un-l7W"/>
                         <outlet property="eatMeTableView" destination="Xbh-gk-J6y" id="BzM-YB-GZ5"/>
                         <outlet property="totalCaloriesLabel" destination="sbF-JA-Wwl" id="SJX-hN-C21"/>
                         <segue destination="be3-9g-cDs" kind="show" identifier="goToMealDetail" id="Vk7-Ln-S9g"/>
@@ -583,6 +587,19 @@
             </objects>
             <point key="canvasLocation" x="1105.7971014492755" y="886.60714285714278"/>
         </scene>
+        <!--Overview Page View Controller-->
+        <scene sceneID="tJj-FD-Qcc">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="zZb-S5-xpY" customClass="OverviewPageViewController" customModule="Eat_Me" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="9Wi-8z-4aN"/>
+                    <connections>
+                        <segue destination="5FM-xa-IT0" kind="show" identifier="goToOverview" id="jbu-8C-5xm"/>
+                    </connections>
+                </pageViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oqe-kB-tWn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1106" y="-558"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="m17-Ya-PX6">
             <objects>
@@ -602,7 +619,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="5FM-xa-IT0" kind="relationship" relationship="rootViewController" id="kgk-Ai-02G"/>
+                        <segue destination="zZb-S5-xpY" kind="relationship" relationship="rootViewController" id="2ty-WJ-VTD"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LTg-Yq-TK7" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -41,7 +41,7 @@ class NewEntryViewController: UITableViewController {
        
     }
 
-    // MARK: - Table view data source
+    // MARK: - Table view data source methods
 
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -49,6 +49,7 @@ class NewEntryViewController: UITableViewController {
         return 6
     }
 
+    //MARK: - Nav Bar Button Methods
     
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
         
@@ -90,6 +91,7 @@ class NewEntryViewController: UITableViewController {
             self.dismiss(animated: true, completion: nil)
             
         }
+        
         let transition: CATransition = CATransition()
         transition.duration = 0.5
         transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
@@ -101,6 +103,7 @@ class NewEntryViewController: UITableViewController {
         delegate?.reloadFood()
     }
         
+    //MARK: - New Entry Add and Save methods
     
     func save(food: Object) {
         
@@ -117,14 +120,21 @@ class NewEntryViewController: UITableViewController {
     
     func addAndSaveNewEntry(newFood: Food?, meal: Food.Meal) {
         
-        if let newFoodEntry = newFood {
-        newFoodEntry.updateProperties(meal: meal, name: foodNameTextField.text, calories: NSNumber(value: Int(caloriesTextField.text!) ?? 0), protein: NSNumber(value: Double(proteinTextField.text!) ?? 0), carbs: NSNumber(value: Double(carbsTextField.text!) ?? 0), fat: NSNumber(value: Double(fatTextField.text!) ?? 0))
+        if let newFoodEntry = newFood
+        {
+            
+            let date = Date()
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd.MM.yyyy"
+            
+            newFoodEntry.updateProperties(date: formatter.string(from: date), meal: meal, name: foodNameTextField.text, calories: NSNumber(value: Int(caloriesTextField.text!) ?? 0), protein: NSNumber(value: Double(proteinTextField.text!) ?? 0), carbs: NSNumber(value: Double(carbsTextField.text!) ?? 0), fat: NSNumber(value: Double(fatTextField.text!) ?? 0))
+            
+            if let newEntryCalories = caloriesTextField.text
+            {
+                delegate?.getCalorieDataFromNewEntry(data: Int(newEntryCalories) ?? 0)
+            }
         
-        if let newEntryCalories = caloriesTextField.text {
-            delegate?.getCalorieDataFromNewEntry(data: Int(newEntryCalories) ?? 0)
-        }
-        
-        save(food: newFoodEntry)
+            save(food: newFoodEntry)
         }
         
         

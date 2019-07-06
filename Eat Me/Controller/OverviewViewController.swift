@@ -5,7 +5,7 @@
 //  Created by Daniel Hilton on 19/05/2019.
 //  Copyright © 2019 Daniel Hilton. All rights reserved.
 
-// TODO: - Change meal detail cells, round macro numbers, parse JSON from barcode scan, show food history
+// TODO: - parse JSON from barcode scan, show food history, dates
 
 
 import UIKit
@@ -20,11 +20,26 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     //MARK: - Properties and Objects
     private var foodList: Results<Food>?
     private let food = Food()
+    
+    var date: Date? {
+        didSet {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd.MM.yyyy"
+            guard let date = date else { return }
+            let dateAsString = formatter.string(from: date)
+            dayLabel.text = dateAsString
+            
+            let predicate = NSPredicate(format: "meal contains[c] %@", dateAsString)
+            foodList = foodList?.filter(predicate)
+            
+        }
+    }
 
+    @IBOutlet weak var dayLabel: UILabel!
     @IBOutlet weak var eatMeTableView: UITableView!
     @IBOutlet weak var totalCaloriesLabel: UILabel!
     
-    var totalCals: Int!
+    private var totalCals: Int!
     
     let defaults = UserDefaults.standard
     
@@ -51,14 +66,6 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         loadAllFood()
         
     }
-    
-//    override func viewWillAppear(_ animated: Bool) {
-//        loadAllFood()
-//    }
-    
-//    override func viewDidAppear(_ animated: Bool) {
-//        loadAllFood()
-//    }
     
     
     func loadAllFood() {

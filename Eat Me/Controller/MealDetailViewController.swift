@@ -31,7 +31,6 @@ class MealDetailViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        self.navigationController?.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "big-plus2"), style: .plain, target: <#T##Any?#>, action: <#T##Selector?#>)
         self.navigationController?.navigationBar.tintColor = .white
         
         caloriesLabel.text = "   Calories: \(calories)"
@@ -84,14 +83,17 @@ class MealDetailViewController: UITableViewController {
                         cell.typeLabel?.text = "Calories:"
                         cell.numberLabel.text = "\(food[i].calories ?? 0) kcal"
                     case 1:
+                        let roundedNumberOfGrams = round(10 * Double(truncating: food[i].protein ?? 0)) / 10
                         cell.typeLabel.text = "Protein:"
-                        cell.numberLabel.text = "\(round(10 * Double(truncating: food[i].protein ?? 0)) / 10) g"
+                        cell.numberLabel.text = "\(roundedNumberOfGrams) g"
                     case 2:
+                        let roundedNumberOfGrams = round(10 * Double(truncating: food[i].carbs ?? 0)) / 10
                         cell.typeLabel.text = "Carbs:"
-                        cell.numberLabel.text = "\(round(10 * Double(truncating: food[i].carbs ?? 0)) / 10) g"
+                        cell.numberLabel.text = "\(roundedNumberOfGrams) g"
                     case 3:
+                        let roundedNumberOfGrams = round(10 * Double(truncating: food[i].fat ?? 0)) / 10
                         cell.typeLabel.text = "Fat:"
-                        cell.numberLabel.text = "\(round(10 * Double(truncating: food[i].fat ?? 0)) / 10) g"
+                        cell.numberLabel.text = "\(roundedNumberOfGrams) g"
                     default:
                         cell.typeLabel.text = ""
                         cell.numberLabel.text = ""
