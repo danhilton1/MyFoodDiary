@@ -31,6 +31,7 @@ class Food: Object {
     
     func updateProperties(date: String?, meal: Meal, name: String?, calories: NSNumber?, protein: NSNumber?, carbs: NSNumber?, fat: NSNumber?) {
         
+        self.date = date
         self.meal = meal.rawValue
         self.name = name
         self.calories = calories

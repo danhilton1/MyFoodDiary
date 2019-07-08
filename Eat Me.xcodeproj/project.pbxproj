@@ -117,13 +117,13 @@
 		377208CB2291A223002DDA29 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				37DE59D622D1055D00079A6A /* OverviewPageViewController.swift */,
 				377208B62291A1F8002DDA29 /* OverviewViewController.swift */,
 				37CA772C22A1BB4F00C03A06 /* NewEntryViewController.swift */,
 				379DB00522B2EBB300F3DC5B /* MealDetailViewController.swift */,
 				37563BD722C69E8F0032D94E /* PopUpNewEntryViewController.swift */,
 				378917BF22C8DC3B00571181 /* BarcodeScannerViewController.swift */,
 				377208B42291A1F8002DDA29 /* AppDelegate.swift */,
-				37DE59D622D1055D00079A6A /* OverviewPageViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";

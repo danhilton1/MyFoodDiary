@@ -20,6 +20,9 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     //MARK: - Properties and Objects
     private var foodList: Results<Food>?
     private let food = Food()
+    private var totalCals: Int!
+    private let defaults = UserDefaults.standard
+    private var refreshControl = UIRefreshControl()
     
     var date: Date? {
         didSet {
@@ -27,10 +30,13 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             formatter.dateFormat = "dd.MM.yyyy"
             guard let date = date else { return }
             let dateAsString = formatter.string(from: date)
-            dayLabel.text = dateAsString
+//            print(dateAsString)
+//            dayLabel.text = dateAsString
             
-            let predicate = NSPredicate(format: "meal contains[c] %@", dateAsString)
-            foodList = foodList?.filter(predicate)
+            let predicate = NSPredicate(format: "date contains[c] %@", dateAsString)
+            foodList = foodList?.filter(predicate) ?? realm.objects(Food.self)
+            print(foodList)
+//            eatMeTableView.reloadData()
             
         }
     }
@@ -39,11 +45,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var eatMeTableView: UITableView!
     @IBOutlet weak var totalCaloriesLabel: UILabel!
     
-    private var totalCals: Int!
     
-    let defaults = UserDefaults.standard
-    
-    private var refreshControl = UIRefreshControl()
     
     //MARK: - view Methods
 
@@ -64,6 +66,8 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         eatMeTableView.addSubview(refreshControl)
         
         loadAllFood()
+        
+        date = Date()
         
     }
     
@@ -89,7 +93,8 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             try realm.write {
                 realm.deleteAll()
             }
-        } catch {
+        }
+        catch {
             print("Error deleting data - \(error)")
         }
         
@@ -290,6 +295,8 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         
     }
     
+    //MARK:- NewEntryDelegate protocol methods
+    
     func getCalorieDataFromNewEntry(data: Int) {
         
         totalCals += data
@@ -305,6 +312,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         
     }
     
+    //MARK:- Segue Methods
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -322,30 +330,36 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             if let indexPath = eatMeTableView.indexPathForSelectedRow {
                 
                 if indexPath.section == 0 {
-                    let resultPredicate = NSPredicate(format: "meal contains[c] %@", "breakfast")
-                    destVC.selectedMeal = foodList?.filter(resultPredicate)
-                    destVC.navigationItem.title = "Breakfast"
+                    
+                    filterFoodForMealDetail(meal: "Breakfast", destVC: destVC)
+                    
                 }
                 else if indexPath.section == 1 {
-                    let resultPredicate = NSPredicate(format: "meal contains[c] %@", "lunch")
-                    destVC.selectedMeal = foodList?.filter(resultPredicate)
-                    destVC.navigationItem.title = "Lunch"
+                    
+                    filterFoodForMealDetail(meal: "Lunch", destVC: destVC)
+                    
                 }
                 else if indexPath.section == 2 {
-                    let resultPredicate = NSPredicate(format: "meal contains[c] %@", "dinner")
-                    destVC.selectedMeal = foodList?.filter(resultPredicate)
-                    destVC.navigationItem.title = "Dinner"
+                    
+                    filterFoodForMealDetail(meal: "Dinner", destVC: destVC)
+                    
                 }
                 else if indexPath.section == 3 {
-                    let resultPredicate = NSPredicate(format: "meal contains[c] %@", "other")
-                    destVC.selectedMeal = foodList?.filter(resultPredicate)
-                    destVC.navigationItem.title = "Other"
+                    
+                    filterFoodForMealDetail(meal: "Other", destVC: destVC)
+                    
                 }
             }
         }
     }
     
-    
+    func filterFoodForMealDetail(meal: String, destVC: MealDetailViewController) {
+        
+        let resultPredicate = NSPredicate(format: "meal contains[c] %@", meal)
+        destVC.selectedMeal = foodList?.filter(resultPredicate)
+        destVC.navigationItem.title = meal
+        
+    }
     
 
 
