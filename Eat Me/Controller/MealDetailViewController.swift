@@ -35,6 +35,10 @@ class MealDetailViewController: UITableViewController {
         
         caloriesLabel.text = "   Calories: \(calories)"
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        self.navigationController?.navigationBar.tintColor = .blue
+    }
 
     // MARK: - Table view data source
 

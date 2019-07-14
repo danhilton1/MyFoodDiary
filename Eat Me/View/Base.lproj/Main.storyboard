@@ -114,7 +114,11 @@
                                     <action selector="clearButtonPressed:" destination="5FM-xa-IT0" id="KVX-iq-x4U"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Date" id="LXm-T2-DQw"/>
+                            <barButtonItem title="Date" id="LXm-T2-DQw">
+                                <connections>
+                                    <action selector="goToToday:" destination="Ryy-b5-GLd" id="drv-MU-swa"/>
+                                </connections>
+                            </barButtonItem>
                         </leftBarButtonItems>
                         <barButtonItem key="rightBarButtonItem" image="big-plus2" largeContentSizeImage="big-plus" id="moy-Qk-U32">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -131,6 +135,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W77-Of-O69" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Ryy-b5-GLd" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1105.7971014492755" y="114.50892857142857"/>
         </scene>
@@ -423,8 +428,8 @@
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="scanBarcodePressed:" destination="GsZ-0Q-v0R" eventType="touchUpInside" id="fRw-OE-TWU"/>
-                                                    <segue destination="ZBk-MS-8G1" kind="show" id="7F2-nV-Bz8"/>
+                                                    <action selector="scanButtonPressed:" destination="GsZ-0Q-v0R" eventType="touchUpInside" id="r7t-tY-OIz"/>
+                                                    <segue destination="ZBk-MS-8G1" kind="show" identifier="goToBarcodeScanner" id="7F2-nV-Bz8"/>
                                                 </connections>
                                             </button>
                                         </subviews>

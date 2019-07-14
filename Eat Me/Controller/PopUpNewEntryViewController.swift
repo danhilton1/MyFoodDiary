@@ -46,6 +46,14 @@ class PopUpNewEntryViewController: UIViewController {
         
     }
     
+    
+    @IBAction func scanButtonPressed(_ sender: UIButton) {
+        
+//        performSegue(withIdentifier: "goToBarcodeScanner", sender: self)
+        
+    }
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "goToManualEntry" {

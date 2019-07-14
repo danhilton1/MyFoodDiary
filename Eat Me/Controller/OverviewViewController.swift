@@ -13,6 +13,8 @@ import RealmSwift
 import Charts
 import ChameleonFramework
 
+let dateNotificationKey = "co.danhiltonapps.date"
+
 class OverviewViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NewEntryDelegate {
     
     let realm = try! Realm()
@@ -26,16 +28,21 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     
     var date: Date? {
         didSet {
+//            print(date)
             let formatter = DateFormatter()
             formatter.dateFormat = "dd.MM.yyyy"
             guard let date = date else { return }
             let dateAsString = formatter.string(from: date)
-//            print(dateAsString)
-//            dayLabel.text = dateAsString
+            
+            if dateAsString == formatter.string(from: Date()) {
+                dayLabel.text = "Today"
+            } else {
+                dayLabel.text = dateAsString
+            }
             
             let predicate = NSPredicate(format: "date contains[c] %@", dateAsString)
-            foodList = foodList?.filter(predicate) ?? realm.objects(Food.self)
-            print(foodList)
+            foodList = foodList?.filter(predicate) //?? realm.objects(Food.self)
+//            print(foodList)
 //            eatMeTableView.reloadData()
             
         }
@@ -52,8 +59,10 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(updateDateFromNotification), name: .dateNotification, object: nil)
+        
         totalCals = defaults.integer(forKey: "totalCalories")
-        print(defaults.integer(forKey: "totalCalories"))
+//        print(defaults.integer(forKey: "totalCalories"))
         
         eatMeTableView.delegate = self
         eatMeTableView.dataSource = self
@@ -65,16 +74,25 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
         eatMeTableView.addSubview(refreshControl)
         
+        
         loadAllFood()
         
-        date = Date()
+        
         
     }
     
     
     func loadAllFood() {
         
-        foodList = realm.objects(Food.self)
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.yyyy"
+        
+        let predicate = NSPredicate(format: "date contains[c] %@", formatter.string(from: date ?? Date()))
+        foodList = foodList?.filter(predicate) //?? realm.objects(Food.self)
+        
+        
+        
+//        foodList = realm.objects(Food.self)
         
         totalCaloriesLabel.text = "Total Calories: \(totalCals!)"
         
@@ -305,12 +323,23 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func reloadFood() {
+        
         let delayTime = DispatchTime.now() + 0.5
         DispatchQueue.main.asyncAfter(deadline: delayTime) {
             self.loadAllFood()
         }
         
     }
+    
+    //MARK:- Observer method
+    
+    @objc func updateDateFromNotification(notification: Notification) {
+        
+        date = notification.object as? Date
+        
+    }
+    
+
     
     //MARK:- Segue Methods
     
