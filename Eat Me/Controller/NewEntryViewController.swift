@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 
 protocol NewEntryDelegate: class {
-    func getCalorieDataFromNewEntry(data: Int)
+    func getCalorieDataFromNewEntry(data: Int, date: Date)
     func reloadFood()
 }
 
@@ -131,7 +131,7 @@ class NewEntryViewController: UITableViewController {
             
             if let newEntryCalories = caloriesTextField.text
             {
-                delegate?.getCalorieDataFromNewEntry(data: Int(newEntryCalories) ?? 0)
+                delegate?.getCalorieDataFromNewEntry(data: Int(newEntryCalories) ?? 0, date: Date())
             }
         
             save(food: newFoodEntry)

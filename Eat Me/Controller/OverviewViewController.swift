@@ -25,11 +25,12 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     private var totalCals: Int!
     private let defaults = UserDefaults.standard
     private var refreshControl = UIRefreshControl()
+    private let formatter = DateFormatter()
     
     var date: Date? {
         didSet {
 //            print(date)
-            let formatter = DateFormatter()
+//            let formatter = DateFormatter()
             formatter.dateFormat = "dd.MM.yyyy"
             guard let date = date else { return }
             let dateAsString = formatter.string(from: date)
@@ -39,11 +40,12 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             } else {
                 dayLabel.text = dateAsString
             }
-            
+
+            foodList = realm.objects(Food.self)
             let predicate = NSPredicate(format: "date contains[c] %@", dateAsString)
-            foodList = foodList?.filter(predicate) //?? realm.objects(Food.self)
-//            print(foodList)
-//            eatMeTableView.reloadData()
+            foodList = foodList?.filter(predicate)
+
+            eatMeTableView.reloadData()
             
         }
     }
@@ -84,15 +86,14 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     
     func loadAllFood() {
         
-        let formatter = DateFormatter()
+        foodList = realm.objects(Food.self)
+
         formatter.dateFormat = "dd.MM.yyyy"
         
         let predicate = NSPredicate(format: "date contains[c] %@", formatter.string(from: date ?? Date()))
-        foodList = foodList?.filter(predicate) //?? realm.objects(Food.self)
-        
-        
-        
-//        foodList = realm.objects(Food.self)
+
+        foodList = foodList?.filter(predicate)
+
         
         totalCaloriesLabel.text = "Total Calories: \(totalCals!)"
         
@@ -315,10 +316,12 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     
     //MARK:- NewEntryDelegate protocol methods
     
-    func getCalorieDataFromNewEntry(data: Int) {
+    func getCalorieDataFromNewEntry(data: Int, date: Date) {
         
         totalCals += data
         defaults.set(totalCals, forKey: "totalCalories")
+        let dateAsString = formatter.string(from: date)
+        defaults.set(dateAsString, forKey: "date")
         
     }
     

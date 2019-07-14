@@ -18,7 +18,8 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
         dataSource = self
         
         if let overviewVC = storyboard?.instantiateViewController(withIdentifier: "OverviewVC") as? OverviewViewController {
-
+            
+            // Set the PageViewController nav bar to the same as OverviewViewController
             self.navigationItem.title = overviewVC.navigationItem.title
             self.navigationItem.leftBarButtonItems = overviewVC.navigationItem.leftBarButtonItems
             self.navigationItem.rightBarButtonItems = overviewVC.navigationItem.rightBarButtonItems
@@ -26,8 +27,8 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
             setViewControllers([overviewVC], direction: .forward, animated: true, completion: nil)
             
             // Set the inital view controller date property
-            let vc = viewControllers?.first as! OverviewViewController
-            vc.date = Date()
+            let initalVC = viewControllers?.first as! OverviewViewController
+            initalVC.date = Date()
         }
         
         
@@ -35,7 +36,7 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
     
     
     private func overviewPage(for date: Date) -> OverviewViewController? {
-        // Create a new OverviewViewController and set the date property.
+        // Return a new instance of OverviewViewController and set the date property.
         
         guard let overviewPage = storyboard?.instantiateViewController(withIdentifier: "OverviewVC") as? OverviewViewController else { return nil }
         
@@ -54,6 +55,7 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         
         guard let today = (viewController as! OverviewViewController).date else { return nil }
+        print(today)
         
         // Yesterday's date at time: 00:00
         guard var yesterday = calendar.date(byAdding: .day, value: -1, to: today) else { return nil }
