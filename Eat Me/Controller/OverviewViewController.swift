@@ -29,8 +29,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     
     var date: Date? {
         didSet {
-//            print(date)
-//            let formatter = DateFormatter()
+
             formatter.dateFormat = "dd.MM.yyyy"
             guard let date = date else { return }
             let dateAsString = formatter.string(from: date)
@@ -63,41 +62,44 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateDateFromNotification), name: .dateNotification, object: nil)
         
-        totalCals = defaults.integer(forKey: "totalCalories")
-//        print(defaults.integer(forKey: "totalCalories"))
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Montserrat-Regular", size: 30)!]
         
-        eatMeTableView.delegate = self
-        eatMeTableView.dataSource = self
-        
-        eatMeTableView.separatorStyle = .none
-        
-        eatMeTableView.register(UINib(nibName: "MealOverviewCell", bundle: nil), forCellReuseIdentifier: "mealOverviewCell")
+        setUpTableView()
         
         refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
         eatMeTableView.addSubview(refreshControl)
         
+        totalCals = defaults.integer(forKey: "totalCalories")
         
         loadAllFood()
         
+    }
+    
+    private func setUpTableView() {
         
+        eatMeTableView.delegate = self
+        eatMeTableView.dataSource = self
+        eatMeTableView.separatorStyle = .none
+        eatMeTableView.register(UINib(nibName: "MealOverviewCell", bundle: nil), forCellReuseIdentifier: "mealOverviewCell")
         
     }
     
     
+    //MARK:- Data methods
+    
     func loadAllFood() {
         
-        foodList = realm.objects(Food.self)
-
         formatter.dateFormat = "dd.MM.yyyy"
         
+        foodList = realm.objects(Food.self)
         let predicate = NSPredicate(format: "date contains[c] %@", formatter.string(from: date ?? Date()))
-
         foodList = foodList?.filter(predicate)
 
-        
         totalCaloriesLabel.text = "Total Calories: \(totalCals!)"
-        
+//        print(totalCals)
         eatMeTableView.reloadData()
+        
+        print("load food")
         
     }
     
@@ -131,7 +133,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         let label = UILabel()
         label.backgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
         label.textColor = UIColor.black
-        label.font = UIFont(name: "HelveticaNeue-Thin", size: 21)
+        label.font = UIFont(name: "Montserrat-Light", size: 18)
         
         switch section {
         case 0:
@@ -162,9 +164,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "mealOverviewCell", for: indexPath) as! MealOverviewCell
         
-        cell.pieChart.legend.enabled = false
-        cell.pieChart.holeRadiusPercent = 0.5
-        cell.pieChart.highlightPerTapEnabled = false
+        
         
         
         switch indexPath.section {
@@ -198,7 +198,8 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     //MARK: - Methods to Update UI with user's entry data
     
     
-    func getSumOfPropertiesForMeal(food: Results<Food>?, meal: Food.Meal, cell: MealOverviewCell) {
+    private func getSumOfPropertiesForMeal(food: Results<Food>?, meal: Food.Meal, cell: MealOverviewCell) {
+        // Updates the total amount of cals and macros for user entries
         
         var calorieArray = [NSNumber]()
         var proteinArray = [NSNumber]()
@@ -211,7 +212,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         var fat = 0.0
         
         
-        
+        // Checks the meal type and then appends each food property (cals, carbs, ..) to corresponding array
         if let foodlist = food {
             if meal == .breakfast {
                 for i in 0..<foodlist.count {
@@ -222,6 +223,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
                         fatArray.append(foodlist[i].fat ?? 0)
                     }
                 }
+                // Add each value of array to the corresponding property to give total amount
                 for i in 0..<calorieArray.count {
                     calories += Int(truncating: calorieArray[i])
                     protein += Double(truncating: proteinArray[i])
@@ -281,27 +283,34 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         
         
         cell.calorieLabel.text = "\(calories) kcal"
-        cell.proteinLabel.text = "\(round(10 * protein) / 10) g"
+        cell.proteinLabel.text = "\(round(10 * protein) / 10) g"   // Round to 1 d.p.
         cell.carbsLabel.text = "\(round(10 * carbs) / 10) g"
         cell.fatLabel.text = "\(round(10 * fat) / 10) g"
         
+        setUpPieChart(cell, protein, carbs, fat)
         
         
-//        let colors = [(UIColor(red:0.57, green:0.76, blue:0.86, alpha:1.0)),                                                 (UIColor(red:0.47, green:0.86, blue:0.74, alpha:1.0)),
-//                      (UIColor(red:0.99, green:0.53, blue:0.94, alpha:1.0))]
+    }
+    
+    func setUpPieChart(_ cell: MealOverviewCell, _ protein: Double, _ carbs: Double, _ fat: Double) {
         
+        cell.pieChart.legend.enabled = false
+        cell.pieChart.holeRadiusPercent = 0.5
+        cell.pieChart.highlightPerTapEnabled = false
+        
+        // If no user entries/data then set default equal values of pie chart to display equal sections
         if protein == 0 && carbs == 0 && fat == 0 {
             
             let chartDataSet = PieChartDataSet(entries: [PieChartDataEntry(value: 1.0),
-                               PieChartDataEntry(value:
-                               1.0), PieChartDataEntry(value: 1.0)], label: nil)
+                                                         PieChartDataEntry(value:
+                                                            1.0), PieChartDataEntry(value: 1.0)], label: nil)
             let chartData = PieChartData(dataSet: chartDataSet)
             chartDataSet.drawValuesEnabled = false
             chartDataSet.colors = [UIColor.flatSkyBlue(), UIColor.flatMint(), UIColor.flatWatermelon()]
             cell.pieChart.data = chartData
             
         } else {
-        
+            // Set pie chart data to the total values of protein, carbs and fat from user's entries
             let pieChartEntries = [PieChartDataEntry(value: protein), PieChartDataEntry(value: carbs),
                                    PieChartDataEntry(value: fat)]
             let chartDataSet = PieChartDataSet(entries: pieChartEntries, label: nil)
@@ -312,7 +321,9 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             cell.pieChart.data = chartData
         }
         
+        
     }
+    
     
     //MARK:- NewEntryDelegate protocol methods
     
@@ -320,13 +331,13 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         
         totalCals += data
         defaults.set(totalCals, forKey: "totalCalories")
-        let dateAsString = formatter.string(from: date)
-        defaults.set(dateAsString, forKey: "date")
+//        let dateAsString = formatter.string(from: date)
+//        defaults.set(dateAsString, forKey: "date")
         
     }
     
     func reloadFood() {
-        
+    
         let delayTime = DispatchTime.now() + 0.5
         DispatchQueue.main.asyncAfter(deadline: delayTime) {
             self.loadAllFood()
@@ -353,6 +364,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             let navController = segue.destination as! UINavigationController
             let viewController = navController.topViewController as! PopUpNewEntryViewController
             viewController.delegate = self
+            viewController.date = date
             
         }
         else if segue.identifier == "goToMealDetail" {

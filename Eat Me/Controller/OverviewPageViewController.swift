@@ -20,9 +20,11 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
         if let overviewVC = storyboard?.instantiateViewController(withIdentifier: "OverviewVC") as? OverviewViewController {
             
             // Set the PageViewController nav bar to the same as OverviewViewController
+            self.navigationController!.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Montserrat-Regular", size: 30)!]
             self.navigationItem.title = overviewVC.navigationItem.title
             self.navigationItem.leftBarButtonItems = overviewVC.navigationItem.leftBarButtonItems
             self.navigationItem.rightBarButtonItems = overviewVC.navigationItem.rightBarButtonItems
+            
             
             setViewControllers([overviewVC], direction: .forward, animated: true, completion: nil)
             
@@ -55,7 +57,7 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         
         guard let today = (viewController as! OverviewViewController).date else { return nil }
-        print(today)
+//        print(today)
         
         // Yesterday's date at time: 00:00
         guard var yesterday = calendar.date(byAdding: .day, value: -1, to: today) else { return nil }

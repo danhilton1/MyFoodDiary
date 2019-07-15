@@ -12,6 +12,7 @@ class PopUpNewEntryViewController: UIViewController {
 
     @IBOutlet weak var popUpView: UIView!
     
+    var date: Date?
     weak var delegate: NewEntryDelegate?
     
     @IBOutlet weak var enterManuallyButton: UIButton!
@@ -59,6 +60,7 @@ class PopUpNewEntryViewController: UIViewController {
         if segue.identifier == "goToManualEntry" {
             let destVC = segue.destination as! NewEntryViewController
             destVC.delegate = delegate
+            destVC.date = date
             
         }
     }

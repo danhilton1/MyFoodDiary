@@ -19,7 +19,7 @@ class NewEntryViewController: UITableViewController {
     let realm = try! Realm()
     
     weak var delegate: NewEntryDelegate?
-    
+    var date: Date?
 
     //MARK: - Properties and Objects
     
@@ -118,16 +118,15 @@ class NewEntryViewController: UITableViewController {
         
     }
     
-    func addAndSaveNewEntry(newFood: Food?, meal: Food.Meal) {
+    private func addAndSaveNewEntry(newFood: Food?, meal: Food.Meal) {
         
         if let newFoodEntry = newFood
         {
             
-            let date = Date()
             let formatter = DateFormatter()
             formatter.dateFormat = "dd.MM.yyyy"
             
-            newFoodEntry.updateProperties(date: formatter.string(from: date), meal: meal, name: foodNameTextField.text, calories: NSNumber(value: Int(caloriesTextField.text!) ?? 0), protein: NSNumber(value: Double(proteinTextField.text!) ?? 0), carbs: NSNumber(value: Double(carbsTextField.text!) ?? 0), fat: NSNumber(value: Double(fatTextField.text!) ?? 0))
+            newFoodEntry.updateProperties(date: formatter.string(from: date ?? Date()), meal: meal, name: foodNameTextField.text, calories: NSNumber(value: Int(caloriesTextField.text!) ?? 0), protein: NSNumber(value: Double(proteinTextField.text!) ?? 0), carbs: NSNumber(value: Double(carbsTextField.text!) ?? 0), fat: NSNumber(value: Double(fatTextField.text!) ?? 0))
             
             if let newEntryCalories = caloriesTextField.text
             {
