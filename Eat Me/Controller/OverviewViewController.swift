@@ -34,12 +34,14 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             guard let date = date else { return }
             let dateAsString = formatter.string(from: date)
             
+            // Check if date is the same as current date and if so, display "Today" in label
             if dateAsString == formatter.string(from: Date()) {
                 dayLabel.text = "Today"
             } else {
                 dayLabel.text = dateAsString
             }
-
+            
+            // Filter all entries in Realm database by date
             foodList = realm.objects(Food.self)
             let predicate = NSPredicate(format: "date contains[c] %@", dateAsString)
             foodList = foodList?.filter(predicate)
@@ -62,7 +64,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateDateFromNotification), name: .dateNotification, object: nil)
         
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Montserrat-Regular", size: 30)!]
+//        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Montserrat-Regular", size: 30)!]
         
         setUpTableView()
         
@@ -97,9 +99,9 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
 
         totalCaloriesLabel.text = "Total Calories: \(totalCals!)"
 //        print(totalCals)
-        eatMeTableView.reloadData()
         
-        print("load food")
+        self.eatMeTableView.reloadData()
+        
         
     }
     
@@ -287,12 +289,12 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         cell.carbsLabel.text = "\(round(10 * carbs) / 10) g"
         cell.fatLabel.text = "\(round(10 * fat) / 10) g"
         
-        setUpPieChart(cell, protein, carbs, fat)
+        setUpPieChart(cell: cell, section1: protein, section2: carbs, section3: fat)
         
         
     }
     
-    func setUpPieChart(_ cell: MealOverviewCell, _ protein: Double, _ carbs: Double, _ fat: Double) {
+    func setUpPieChart(cell: MealOverviewCell, section1 protein: Double, section2 carbs: Double, section3 fat: Double) {
         
         cell.pieChart.legend.enabled = false
         cell.pieChart.holeRadiusPercent = 0.5
@@ -302,8 +304,8 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         if protein == 0 && carbs == 0 && fat == 0 {
             
             let chartDataSet = PieChartDataSet(entries: [PieChartDataEntry(value: 1.0),
-                                                         PieChartDataEntry(value:
-                                                            1.0), PieChartDataEntry(value: 1.0)], label: nil)
+                                                         PieChartDataEntry(value: 1.0),
+                                                         PieChartDataEntry(value: 1.0)], label: nil)
             let chartData = PieChartData(dataSet: chartDataSet)
             chartDataSet.drawValuesEnabled = false
             chartDataSet.colors = [UIColor.flatSkyBlue(), UIColor.flatMint(), UIColor.flatWatermelon()]
@@ -311,7 +313,8 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             
         } else {
             // Set pie chart data to the total values of protein, carbs and fat from user's entries
-            let pieChartEntries = [PieChartDataEntry(value: protein), PieChartDataEntry(value: carbs),
+            let pieChartEntries = [PieChartDataEntry(value: protein),
+                                   PieChartDataEntry(value: carbs),
                                    PieChartDataEntry(value: fat)]
             let chartDataSet = PieChartDataSet(entries: pieChartEntries, label: nil)
             let chartData = PieChartData(dataSet: chartDataSet)

@@ -115,9 +115,9 @@
 		377208CA2291A21E002DDA29 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				37A07E3B22DD028300E4A351 /* Custom Fonts */,
 				377208B82291A1F8002DDA29 /* Main.storyboard */,
 				377208C02291A1FA002DDA29 /* LaunchScreen.storyboard */,
+				37A07E3B22DD028300E4A351 /* Custom Fonts */,
 				377208D42291E012002DDA29 /* Custom Cell */,
 			);
 			path = View;
