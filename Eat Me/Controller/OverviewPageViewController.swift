@@ -20,7 +20,7 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
         if let overviewVC = storyboard?.instantiateViewController(withIdentifier: "OverviewVC") as? OverviewViewController {
             
             // Set the PageViewController nav bar to the same as OverviewViewController
-//            self.navigationController!.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Montserrat-Regular", size: 30)!]
+            //            self.navigationController!.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Montserrat-Regular", size: 30)!]
             self.navigationItem.title = overviewVC.navigationItem.title
             self.navigationItem.leftBarButtonItems = overviewVC.navigationItem.leftBarButtonItems
             self.navigationItem.rightBarButtonItems = overviewVC.navigationItem.rightBarButtonItems
@@ -32,24 +32,17 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
             initalVC.date = Date()
             
         }
-        
-        
     }
-    
-    
     
     private func overviewViewController(for date: Date) -> OverviewViewController? {
         // Return a new instance of OverviewViewController and set the date property.
         
         guard let overviewPage = storyboard?.instantiateViewController(withIdentifier: "OverviewVC") as? OverviewViewController else { return nil }
         
-        self.navigationItem.leftBarButtonItems = overviewPage.navigationItem.leftBarButtonItems
-        self.navigationItem.rightBarButtonItems = overviewPage.navigationItem.rightBarButtonItems
+        navigationItem.leftBarButtonItems = overviewPage.navigationItem.leftBarButtonItems
+        navigationItem.rightBarButtonItems = overviewPage.navigationItem.rightBarButtonItems
         
-        // Add a delay to the Notification post to allow time for the receiving view controller to add an observer
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            NotificationCenter.default.post(name: .dateNotification, object: date)
-        }
+        overviewPage.configureWith(date: date)
         
         return overviewPage
     }
