@@ -356,7 +356,11 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         
     }
     
-
+    func configureWith(date: Date) {
+        self.date = date
+    }
+    
+    
     
     //MARK:- Segue Methods
     
