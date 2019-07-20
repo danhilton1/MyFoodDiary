@@ -132,7 +132,7 @@ class NewEntryViewController: UITableViewController {
             {
                 delegate?.getCalorieDataFromNewEntry(data: Int(newEntryCalories) ?? 0, date: Date())
             }
-        
+            print(date)
             save(food: newFoodEntry)
         }
         

@@ -13,7 +13,6 @@ import RealmSwift
 import Charts
 import ChameleonFramework
 
-let dateNotificationKey = "co.danhiltonapps.date"
 
 class OverviewViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NewEntryDelegate {
     
@@ -62,7 +61,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     private func configureDateView() {
-        formatter.dateFormat = "dd.MM.yyyy"
+        formatter.dateFormat = "E, d MMM"
         guard let date = date else { return }
         let dateAsString = formatter.string(from: date)
         
@@ -83,13 +82,15 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     
     func loadAllFood() {
         
-        formatter.dateFormat = "dd.MM.yyyy"
+        formatter.dateFormat = "E, d MMM"
         
         foodList = realm.objects(Food.self)
         let predicate = NSPredicate(format: "date contains[c] %@", formatter.string(from: date ?? Date()))
         foodList = foodList?.filter(predicate)
         
         totalCaloriesLabel.text = "Total Calories: \(totalCals!)"
+        
+        eatMeTableView.reloadData()
         //        print(totalCals)
         
     }
@@ -278,6 +279,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         setUpPieChart(cell: cell, section1: protein, section2: carbs, section3: fat)
     }
     
+    
     func setUpPieChart(cell: MealOverviewCell, section1 protein: Double, section2 carbs: Double, section3 fat: Double) {
         
         cell.pieChart.legend.enabled = false
@@ -332,13 +334,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         
     }
     
-    //MARK:- Observer method
-    
-    @objc func updateDateFromNotification(notification: Notification) {
-        
-        date = notification.object as? Date
-        
-    }
+    //MARK:- Configure date method
     
     func configureWith(date: Date) {
         self.date = date
@@ -356,12 +352,12 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             let viewController = navController.topViewController as! PopUpNewEntryViewController
             viewController.delegate = self
             viewController.date = date
-            
+            print(date)
         }
         else if segue.identifier == "goToMealDetail" {
             
             let destVC = segue.destination as! MealDetailViewController
-            
+            print(date)
             if let indexPath = eatMeTableView.indexPathForSelectedRow {
                 
                 if indexPath.section == 0 {

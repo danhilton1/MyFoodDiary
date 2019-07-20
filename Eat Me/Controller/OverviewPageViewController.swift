@@ -83,8 +83,5 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
 
 }
 
-extension Notification.Name {
-    // Create a new notification name
-    static let dateNotification = Notification.Name(rawValue: dateNotificationKey)
-}
+
 
