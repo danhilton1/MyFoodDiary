@@ -322,7 +322,6 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         defaults.set(totalCals, forKey: "totalCalories")
 //        let dateAsString = formatter.string(from: date)
 //        defaults.set(dateAsString, forKey: "date")
-        
     }
     
     func reloadFood() {
