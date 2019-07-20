@@ -27,44 +27,19 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     private var refreshControl = UIRefreshControl()
     private let formatter = DateFormatter()
     
-    var date: Date? {
-        didSet {
-
-            formatter.dateFormat = "dd.MM.yyyy"
-            guard let date = date else { return }
-            let dateAsString = formatter.string(from: date)
-            
-            // Check if date is the same as current date and if so, display "Today" in label
-            if dateAsString == formatter.string(from: Date()) {
-                dayLabel.text = "Today"
-            } else {
-                dayLabel.text = dateAsString
-            }
-            
-            // Filter all entries in Realm database by date
-            foodList = realm.objects(Food.self)
-            let predicate = NSPredicate(format: "date contains[c] %@", dateAsString)
-            foodList = foodList?.filter(predicate)
-
-            eatMeTableView.reloadData()
-            
-        }
-    }
-
+    //  Required to be set before VC presented
+    var date: Date?
+    
     @IBOutlet weak var dayLabel: UILabel!
     @IBOutlet weak var eatMeTableView: UITableView!
     @IBOutlet weak var totalCaloriesLabel: UILabel!
-    
-    
     
     //MARK: - view Methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(updateDateFromNotification), name: .dateNotification, object: nil)
-        
-//        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Montserrat-Regular", size: 30)!]
+        //        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Montserrat-Regular", size: 30)!]
         
         setUpTableView()
         
@@ -74,18 +49,35 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         totalCals = defaults.integer(forKey: "totalCalories")
         
         loadAllFood()
+        configureDateView()
         
+        eatMeTableView.reloadData()
     }
     
     private func setUpTableView() {
-        
         eatMeTableView.delegate = self
         eatMeTableView.dataSource = self
         eatMeTableView.separatorStyle = .none
         eatMeTableView.register(UINib(nibName: "MealOverviewCell", bundle: nil), forCellReuseIdentifier: "mealOverviewCell")
-        
     }
     
+    private func configureDateView() {
+        formatter.dateFormat = "dd.MM.yyyy"
+        guard let date = date else { return }
+        let dateAsString = formatter.string(from: date)
+        
+        // Check if date is the same as current date and if so, display "Today" in label
+        if dateAsString == formatter.string(from: Date()) {
+            dayLabel.text = "Today"
+        } else {
+            dayLabel.text = dateAsString
+        }
+        
+        // Filter all entries in Realm database by date
+        foodList = realm.objects(Food.self)
+        let predicate = NSPredicate(format: "date contains[c] %@", dateAsString)
+        foodList = foodList?.filter(predicate)
+    }
     
     //MARK:- Data methods
     
@@ -96,12 +88,9 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         foodList = realm.objects(Food.self)
         let predicate = NSPredicate(format: "date contains[c] %@", formatter.string(from: date ?? Date()))
         foodList = foodList?.filter(predicate)
-
+        
         totalCaloriesLabel.text = "Total Calories: \(totalCals!)"
-//        print(totalCals)
-        
-        self.eatMeTableView.reloadData()
-        
+        //        print(totalCals)
         
     }
     
@@ -165,9 +154,6 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "mealOverviewCell", for: indexPath) as! MealOverviewCell
-        
-        
-        
         
         switch indexPath.section {
             
@@ -290,8 +276,6 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         cell.fatLabel.text = "\(round(10 * fat) / 10) g"
         
         setUpPieChart(cell: cell, section1: protein, section2: carbs, section3: fat)
-        
-        
     }
     
     func setUpPieChart(cell: MealOverviewCell, section1 protein: Double, section2 carbs: Double, section3 fat: Double) {
