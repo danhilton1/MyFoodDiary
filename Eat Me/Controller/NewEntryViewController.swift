@@ -124,7 +124,7 @@ class NewEntryViewController: UITableViewController {
         {
             
             let formatter = DateFormatter()
-            formatter.dateFormat = "dd.MM.yyyy"
+            formatter.dateFormat = "E, d MMM"
             
             newFoodEntry.updateProperties(date: formatter.string(from: date ?? Date()), meal: meal, name: foodNameTextField.text, calories: NSNumber(value: Int(caloriesTextField.text!) ?? 0), protein: NSNumber(value: Double(proteinTextField.text!) ?? 0), carbs: NSNumber(value: Double(carbsTextField.text!) ?? 0), fat: NSNumber(value: Double(fatTextField.text!) ?? 0))
             
@@ -132,7 +132,6 @@ class NewEntryViewController: UITableViewController {
             {
                 delegate?.getCalorieDataFromNewEntry(data: Int(newEntryCalories) ?? 0, date: Date())
             }
-            print(date)
             save(food: newFoodEntry)
         }
         

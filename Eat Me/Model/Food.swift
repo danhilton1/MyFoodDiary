@@ -11,13 +11,25 @@ import RealmSwift
 
 class Food: Object {
     
-    enum Meal: String {
+    enum Meal: Int {
         
         case breakfast
         case lunch
         case dinner
         case other
         
+        var stringValue: String {
+            switch self {
+            case .breakfast:
+                return "Breakfast"
+            case .lunch:
+                return "Lunch"
+            case .dinner:
+                return "Dinner"
+            case .other:
+                return "Other"
+            }
+        }
     }
     
     @objc dynamic var date: String?
@@ -32,7 +44,7 @@ class Food: Object {
     func updateProperties(date: String?, meal: Meal, name: String?, calories: NSNumber?, protein: NSNumber?, carbs: NSNumber?, fat: NSNumber?) {
         
         self.date = date
-        self.meal = meal.rawValue
+        self.meal = meal.stringValue
         self.name = name
         self.calories = calories
         self.protein = protein

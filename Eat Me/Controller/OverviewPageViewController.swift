@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class OverviewPageViewController: UIPageViewController, UIPageViewControllerDataSource {
+class OverviewPageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     
     let calendar = Calendar.current
     
@@ -19,30 +19,22 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
         
         if let overviewVC = storyboard?.instantiateViewController(withIdentifier: "OverviewVC") as? OverviewViewController {
             
-            // Set the PageViewController nav bar to the same as OverviewViewController
-            //            self.navigationController!.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Montserrat-Regular", size: 30)!]
-            self.navigationItem.title = overviewVC.navigationItem.title
-            self.navigationItem.leftBarButtonItems = overviewVC.navigationItem.leftBarButtonItems
-            self.navigationItem.rightBarButtonItems = overviewVC.navigationItem.rightBarButtonItems
-            
+            // Set the inital VC date property to current date
+            overviewVC.date = Date()
+
             setViewControllers([overviewVC], direction: .forward, animated: true, completion: nil)
-            
-            // Set the inital view controller date property
-            let initalVC = viewControllers?.first as! OverviewViewController
-            initalVC.date = Date()
             
         }
     }
+    
     
     private func overviewViewController(for date: Date) -> OverviewViewController? {
         // Return a new instance of OverviewViewController and set the date property.
         
         guard let overviewPage = storyboard?.instantiateViewController(withIdentifier: "OverviewVC") as? OverviewViewController else { return nil }
         
-        navigationItem.leftBarButtonItems = overviewPage.navigationItem.leftBarButtonItems
-        navigationItem.rightBarButtonItems = overviewPage.navigationItem.rightBarButtonItems
-        
         overviewPage.configureWith(date: date)
+        
         
         return overviewPage
     }
@@ -74,11 +66,26 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
     }
     
     
-    @IBAction func goToToday(_ sender: Any) {
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         
-        present(overviewViewController(for: Date())!, animated: true, completion: nil)
+        guard
+            let popupNav = storyboard?.instantiateViewController(withIdentifier: "PopUpVCNav") as? UINavigationController,
+            let popupVC = popupNav.viewControllers.first as? PopUpNewEntryViewController,
+            let vc = viewControllers?[0] as? OverviewViewController
+            else {
+                return
+        }
+        popupVC.delegate = vc
+        popupVC.date = vc.date
+        present(popupNav, animated: true)
         
     }
+    
+    @IBAction func clearButtonPressed(_ sender: UIBarButtonItem) {
+        let vc = viewControllers?[0] as? OverviewViewController
+        vc?.deleteData()
+    }
+    
 
 
 }

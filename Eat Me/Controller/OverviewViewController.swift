@@ -38,19 +38,19 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Montserrat-Regular", size: 30)!]
-        
         setUpTableView()
         
         refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
         eatMeTableView.addSubview(refreshControl)
         
-        totalCals = defaults.integer(forKey: "totalCalories")
-        
-        loadAllFood()
         configureDateView()
+        loadAllFood()
         
-        eatMeTableView.reloadData()
+    }
+    
+
+    override func viewWillAppear(_ animated: Bool) {
+        loadAllFood()
     }
     
     private func setUpTableView() {
@@ -72,10 +72,6 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             dayLabel.text = dateAsString
         }
         
-        // Filter all entries in Realm database by date
-        foodList = realm.objects(Food.self)
-        let predicate = NSPredicate(format: "date contains[c] %@", dateAsString)
-        foodList = foodList?.filter(predicate)
     }
     
     //MARK:- Data methods
@@ -88,10 +84,10 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         let predicate = NSPredicate(format: "date contains[c] %@", formatter.string(from: date ?? Date()))
         foodList = foodList?.filter(predicate)
         
+        totalCals = defaults.integer(forKey: "totalCalories")
         totalCaloriesLabel.text = "Total Calories: \(totalCals!)"
         
         eatMeTableView.reloadData()
-        //        print(totalCals)
         
     }
     
@@ -100,8 +96,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         refreshControl.endRefreshing()
     }
     
-    @IBAction func clearButtonPressed(_ sender: UIBarButtonItem) {
-        
+    func deleteData() {
         do {
             try realm.write {
                 realm.deleteAll()
@@ -205,7 +200,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         if let foodlist = food {
             if meal == .breakfast {
                 for i in 0..<foodlist.count {
-                    if foodlist[i].meal == "breakfast" {
+                    if foodlist[i].meal == "Breakfast" {
                         calorieArray.append(foodlist[i].calories ?? 0)
                         proteinArray.append(foodlist[i].protein ?? 0)
                         carbsArray.append(foodlist[i].carbs ?? 0)
@@ -222,7 +217,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             }
             else if meal == .lunch {
                 for i in 0..<foodlist.count {
-                    if foodlist[i].meal == "lunch" {
+                    if foodlist[i].meal == "Lunch" {
                         calorieArray.append(foodlist[i].calories ?? 0)
                         proteinArray.append(foodlist[i].protein ?? 0)
                         carbsArray.append(foodlist[i].carbs ?? 0)
@@ -238,7 +233,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             }
             else if meal == .dinner {
                 for i in 0..<foodlist.count {
-                    if foodlist[i].meal == "dinner" {
+                    if foodlist[i].meal == "Dinner" {
                         calorieArray.append(foodlist[i].calories ?? 0)
                         proteinArray.append(foodlist[i].protein ?? 0)
                         carbsArray.append(foodlist[i].carbs ?? 0)
@@ -254,7 +249,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             }
             else if meal == .other {
                 for i in 0..<foodlist.count {
-                    if foodlist[i].meal == "other" {
+                    if foodlist[i].meal == "Other" {
                         calorieArray.append(foodlist[i].calories ?? 0)
                         proteinArray.append(foodlist[i].protein ?? 0)
                         carbsArray.append(foodlist[i].carbs ?? 0)
@@ -326,8 +321,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     
     func reloadFood() {
     
-        let delayTime = DispatchTime.now() + 0.5
-        DispatchQueue.main.asyncAfter(deadline: delayTime) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5 ) {
             self.loadAllFood()
         }
         
@@ -340,23 +334,15 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     
-    
     //MARK:- Segue Methods
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "goToPopUp" {
 
-            let navController = segue.destination as! UINavigationController
-            let viewController = navController.topViewController as! PopUpNewEntryViewController
-            viewController.delegate = self
-            viewController.date = date
-            print(date)
-        }
-        else if segue.identifier == "goToMealDetail" {
+        if segue.identifier ==  "goToMealDetail" {
             
             let destVC = segue.destination as! MealDetailViewController
-            print(date)
+            
             if let indexPath = eatMeTableView.indexPathForSelectedRow {
                 
                 if indexPath.section == 0 {

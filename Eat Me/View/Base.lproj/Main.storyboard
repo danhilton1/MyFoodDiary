@@ -30,11 +30,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="120" estimatedRowHeight="-1" sectionHeaderHeight="25" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Xbh-gk-J6y">
-                                <rect key="frame" x="0.0" y="262" width="414" height="551"/>
+                                <rect key="frame" x="0.0" y="210" width="414" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4x8-gE-ihy">
-                                <rect key="frame" x="50" y="140" width="314" height="50"/>
+                                <rect key="frame" x="50" y="88" width="314" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="wG5-mD-Y0K"/>
@@ -44,7 +44,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bqB-KW-UEO">
-                                <rect key="frame" x="364" y="140" width="50" height="50"/>
+                                <rect key="frame" x="364" y="88" width="50" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="jHb-h0-MIF"/>
@@ -53,7 +53,7 @@
                                 <state key="normal" title="O"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e8Z-Lq-VGw">
-                                <rect key="frame" x="0.0" y="140" width="50" height="50"/>
+                                <rect key="frame" x="0.0" y="88" width="50" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="04q-EV-aZZ"/>
@@ -70,7 +70,7 @@
                                 </items>
                             </tabBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ouM-1t-XKu">
-                                <rect key="frame" x="0.0" y="190" width="414" height="2"/>
+                                <rect key="frame" x="0.0" y="138" width="414" height="2"/>
                                 <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="2" id="XZR-MU-Bgv"/>
@@ -80,7 +80,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Calories: 2000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sbF-JA-Wwl">
-                                <rect key="frame" x="10" y="192" width="404" height="70"/>
+                                <rect key="frame" x="10" y="140" width="404" height="70"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="FP1-aV-xeV"/>
@@ -117,7 +117,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="VeI-XT-ytu"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Overview" largeTitleDisplayMode="always" id="vx3-hL-em1">
+                    <navigationItem key="navigationItem" title="Overview" largeTitleDisplayMode="never" id="vx3-hL-em1">
                         <leftBarButtonItems>
                             <barButtonItem title="Clear" id="QIp-e4-5V3">
                                 <color key="tintColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -127,14 +127,14 @@
                             </barButtonItem>
                             <barButtonItem title="Date" id="LXm-T2-DQw">
                                 <connections>
-                                    <action selector="goToToday:" destination="Ryy-b5-GLd" id="drv-MU-swa"/>
+                                    <action selector="datePressed:" destination="5FM-xa-IT0" id="2ed-aH-oxv"/>
                                 </connections>
                             </barButtonItem>
                         </leftBarButtonItems>
                         <barButtonItem key="rightBarButtonItem" image="big-plus2" largeContentSizeImage="big-plus" id="moy-Qk-U32">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
-                                <segue destination="LTy-J0-xZd" kind="presentation" identifier="goToPopUp" id="9sY-3m-dyA"/>
+                                <segue destination="LTy-J0-xZd" kind="presentation" identifier="goToPopUp" id="Vpn-DS-ftJ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -146,7 +146,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W77-Of-O69" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="Ryy-b5-GLd" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1105.7971014492755" y="114.50892857142857"/>
         </scene>
@@ -471,14 +470,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="xE2-JG-pp7"/>
                     </view>
-                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="FNy-RO-PAC">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="v4O-MI-RZA">
-                            <color key="tintColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <connections>
-                                <action selector="cancelPressed:" destination="GsZ-0Q-v0R" id="U0X-ME-37G"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="FNy-RO-PAC"/>
                     <connections>
                         <outlet property="enterManuallyButton" destination="0Kh-1r-0Pd" id="4d6-0T-iq6"/>
                         <outlet property="popUpView" destination="3AZ-wV-aqe" id="4nU-Sm-09e"/>
@@ -603,11 +595,24 @@
             </objects>
             <point key="canvasLocation" x="1105.7971014492755" y="886.60714285714278"/>
         </scene>
-        <!--Overview Page View Controller-->
+        <!--Overview-->
         <scene sceneID="tJj-FD-Qcc">
             <objects>
                 <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="zZb-S5-xpY" customClass="OverviewPageViewController" customModule="Eat_Me" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="9Wi-8z-4aN"/>
+                    <navigationItem key="navigationItem" title="Overview" largeTitleDisplayMode="never" id="9Wi-8z-4aN">
+                        <barButtonItem key="leftBarButtonItem" title="Clear" id="PTo-Zb-ml5">
+                            <color key="tintColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="clearButtonPressed:" destination="zZb-S5-xpY" id="Zqm-km-Zfn"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="big-plus2" largeContentSizeImage="big-plus" id="UKB-pf-IEb">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="addButtonPressed:" destination="zZb-S5-xpY" id="cUF-re-5QG"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <segue destination="5FM-xa-IT0" kind="show" identifier="goToOverview" id="jbu-8C-5xm"/>
                     </connections>
@@ -621,7 +626,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="02g-WF-Vpv" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" largeTitleDisplayMode="always" id="d8t-pi-Xsh"/>
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="d8t-pi-Xsh"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="yGq-GE-FPE">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -645,7 +650,7 @@
         <!--Navigation Controller-->
         <scene sceneID="eom-1y-CLj">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="LTy-J0-xZd" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="PopUpVCNav" automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="LTy-J0-xZd" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="UQ0-A9-wPo">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
