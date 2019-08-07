@@ -20,7 +20,7 @@ class PopUpNewEntryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        popUpView.layer.cornerRadius = 12
+        popUpView.layer.cornerRadius = 13
         
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class OverviewPageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
+class OverviewPageViewController: UIPageViewController, UIPageViewControllerDataSource {
     
     let calendar = Calendar.current
     
@@ -28,16 +28,7 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
     }
     
     
-    private func overviewViewController(for date: Date) -> OverviewViewController? {
-        // Return a new instance of OverviewViewController and set the date property.
-        
-        guard let overviewPage = storyboard?.instantiateViewController(withIdentifier: "OverviewVC") as? OverviewViewController else { return nil }
-        
-        overviewPage.configureWith(date: date)
-        
-        
-        return overviewPage
-    }
+    //MARK:- PageViewController Datasource Methods
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         
@@ -65,6 +56,19 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
         
     }
     
+    
+    private func overviewViewController(for date: Date) -> OverviewViewController? {
+        // Return a new instance of OverviewViewController and set the date property.
+        
+        guard let overviewPage = storyboard?.instantiateViewController(withIdentifier: "OverviewVC") as? OverviewViewController else { return nil }
+        
+        overviewPage.configureWith(date: date)
+        
+        
+        return overviewPage
+    }
+    
+    //MARK:- Button Methods
     
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         

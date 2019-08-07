@@ -21,8 +21,8 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     //MARK: - Properties and Objects
     private var foodList: Results<Food>?
     private let food = Food()
-    private var totalCals: Int!
-    private let defaults = UserDefaults.standard
+    private var totalCalories = 0
+    private var totalCalsArray = [Int]()
     private var refreshControl = UIRefreshControl()
     private let formatter = DateFormatter()
     
@@ -84,8 +84,10 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         let predicate = NSPredicate(format: "date contains[c] %@", formatter.string(from: date ?? Date()))
         foodList = foodList?.filter(predicate)
         
-        totalCals = defaults.integer(forKey: "totalCalories")
-        totalCaloriesLabel.text = "Total Calories: \(totalCals!)"
+        totalCalsArray = (foodList?.value(forKey: "calories")) as! [Int]
+        totalCalories = totalCalsArray.reduce(0, +)
+        
+        totalCaloriesLabel.text = "Total Calories: \(totalCalories)"
         
         eatMeTableView.reloadData()
         
@@ -106,8 +108,6 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             print("Error deleting data - \(error)")
         }
         
-        totalCals = 0
-        defaults.set(0, forKey: "totalCalories")
         loadAllFood()
         
     }
@@ -309,20 +309,14 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     
-    //MARK:- NewEntryDelegate protocol methods
+    //MARK:- NewEntryDelegate protocol method
     
-    func getCalorieDataFromNewEntry(data: Int, date: Date) {
-        
-        totalCals += data
-        defaults.set(totalCals, forKey: "totalCalories")
-//        let dateAsString = formatter.string(from: date)
-//        defaults.set(dateAsString, forKey: "date")
-    }
     
     func reloadFood() {
     
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5 ) {
             self.loadAllFood()
+            
         }
         
     }
@@ -346,24 +340,16 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             if let indexPath = eatMeTableView.indexPathForSelectedRow {
                 
                 if indexPath.section == 0 {
-                    
                     filterFoodForMealDetail(meal: "Breakfast", destVC: destVC)
-                    
                 }
                 else if indexPath.section == 1 {
-                    
                     filterFoodForMealDetail(meal: "Lunch", destVC: destVC)
-                    
                 }
                 else if indexPath.section == 2 {
-                    
                     filterFoodForMealDetail(meal: "Dinner", destVC: destVC)
-                    
                 }
                 else if indexPath.section == 3 {
-                    
                     filterFoodForMealDetail(meal: "Other", destVC: destVC)
-                    
                 }
             }
         }
