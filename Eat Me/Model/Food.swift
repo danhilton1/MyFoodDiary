@@ -54,6 +54,28 @@ class Food: Object {
         
     }
     
+}
+
+struct Product: Decodable {
     
+    let nutriments: Nutriments
+    let product_name: String
+    let serving_size: String
+    
+}
+
+struct DatabaseFood: Decodable {
+    
+    let product: Product
+    let status: Int
+    
+}
+
+struct Nutriments: Decodable {
+    
+        let energy_100g: Int
+        let proteins_100g: Double
+        let carbohydrates_100g: Double
+        let fat_100g: Double
     
 }

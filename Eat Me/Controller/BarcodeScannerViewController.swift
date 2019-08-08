@@ -15,13 +15,33 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
     @IBOutlet weak var cameraView: UIView!
     let session = AVCaptureSession()
     let captureDevice = AVCaptureDevice.default(for: AVMediaType.video)
+    
+    let urlString = "https://world.openfoodfacts.org/api/v0/product/737628064502.json"
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         
+        guard let url = URL(string: urlString) else { return }
+
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            
+            guard let data = data else { return }
+            
+            do {
+                let food = try JSONDecoder().decode(DatabaseFood.self, from: data)
+                print(food.product.nutriments.carbohydrates_100g)
+            } catch {
+                print("Error parsing JSON - \(error)")
+            }
+
+            }.resume()
+        
         setUpCameraDisplay()
+        
+        
         
     }
     
@@ -92,3 +112,11 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
     }
     
 }
+
+
+//extension JSONDecoder {
+//    func decode<T: Decodable>(_ type: T.Type, withJSONObject object: Any, options opt: JSONSerialization.WritingOptions = []) throws -> T {
+//        let data = try JSONSerialization.data(withJSONObject: object, options: opt)
+//        return try decode(T.self, from: data)
+//    }
+//}

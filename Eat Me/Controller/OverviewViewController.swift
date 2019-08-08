@@ -154,13 +154,13 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         switch indexPath.section {
             
         case 0:
-            getSumOfPropertiesForMeal(food: foodList, meal: .breakfast, cell: cell)
+            getTotalValueOfMealData(food: foodList, meal: .breakfast, cell: cell)
         case 1:
-            getSumOfPropertiesForMeal(food: foodList, meal: .lunch, cell: cell)
+            getTotalValueOfMealData(food: foodList, meal: .lunch, cell: cell)
         case 2:
-            getSumOfPropertiesForMeal(food: foodList, meal: .dinner, cell: cell)
+            getTotalValueOfMealData(food: foodList, meal: .dinner, cell: cell)
         case 3:
-            getSumOfPropertiesForMeal(food: foodList, meal: .other, cell: cell)
+            getTotalValueOfMealData(food: foodList, meal: .other, cell: cell)
         default:
             cell.calorieLabel.text = "0"
             cell.proteinLabel.text = "0"
@@ -182,7 +182,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     //MARK: - Methods to Update UI with user's entry data
     
     
-    private func getSumOfPropertiesForMeal(food: Results<Food>?, meal: Food.Meal, cell: MealOverviewCell) {
+    private func getTotalValueOfMealData(food: Results<Food>?, meal: Food.Meal, cell: MealOverviewCell) {
         // Updates the total amount of cals and macros for user entries
         
         var calorieArray = [NSNumber]()
@@ -198,30 +198,31 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         
         // Checks the meal type and then appends each food property (cals, carbs, ..) to corresponding array
         if let foodlist = food {
+            
             if meal == .breakfast {
-                for i in 0..<foodlist.count {
-                    if foodlist[i].meal == "Breakfast" {
-                        calorieArray.append(foodlist[i].calories ?? 0)
-                        proteinArray.append(foodlist[i].protein ?? 0)
-                        carbsArray.append(foodlist[i].carbs ?? 0)
-                        fatArray.append(foodlist[i].fat ?? 0)
+                for food in foodlist {
+                    if food.meal == "Breakfast" {
+                        calorieArray.append(food.calories ?? 0)
+                        proteinArray.append(food.protein ?? 0)
+                        carbsArray.append(food.carbs ?? 0)
+                        fatArray.append(food.fat ?? 0)
                     }
                 }
                 // Add each value of array to the corresponding property to give total amount
-                for i in 0..<calorieArray.count {
-                    calories += Int(truncating: calorieArray[i])
-                    protein += Double(truncating: proteinArray[i])
-                    carbs += Double(truncating: carbsArray[i])
-                    fat += Double(truncating: fatArray[i])
+                for index in 0..<calorieArray.count {
+                    calories += Int(truncating: calorieArray[index])
+                    protein += Double(truncating: proteinArray[index])
+                    carbs += Double(truncating: carbsArray[index])
+                    fat += Double(truncating: fatArray[index])
                 }
             }
             else if meal == .lunch {
-                for i in 0..<foodlist.count {
-                    if foodlist[i].meal == "Lunch" {
-                        calorieArray.append(foodlist[i].calories ?? 0)
-                        proteinArray.append(foodlist[i].protein ?? 0)
-                        carbsArray.append(foodlist[i].carbs ?? 0)
-                        fatArray.append(foodlist[i].fat ?? 0)
+                for food in foodlist {
+                    if food.meal == "Lunch" {
+                        calorieArray.append(food.calories ?? 0)
+                        proteinArray.append(food.protein ?? 0)
+                        carbsArray.append(food.carbs ?? 0)
+                        fatArray.append(food.fat ?? 0)
                     }
                 }
                 for i in 0..<calorieArray.count {
@@ -232,12 +233,12 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
                 }
             }
             else if meal == .dinner {
-                for i in 0..<foodlist.count {
-                    if foodlist[i].meal == "Dinner" {
-                        calorieArray.append(foodlist[i].calories ?? 0)
-                        proteinArray.append(foodlist[i].protein ?? 0)
-                        carbsArray.append(foodlist[i].carbs ?? 0)
-                        fatArray.append(foodlist[i].fat ?? 0)
+                for food in foodlist {
+                    if food.meal == "Dinner" {
+                        calorieArray.append(food.calories ?? 0)
+                        proteinArray.append(food.protein ?? 0)
+                        carbsArray.append(food.carbs ?? 0)
+                        fatArray.append(food.fat ?? 0)
                     }
                 }
                 for i in 0..<calorieArray.count {
@@ -248,12 +249,12 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
                 }
             }
             else if meal == .other {
-                for i in 0..<foodlist.count {
-                    if foodlist[i].meal == "Other" {
-                        calorieArray.append(foodlist[i].calories ?? 0)
-                        proteinArray.append(foodlist[i].protein ?? 0)
-                        carbsArray.append(foodlist[i].carbs ?? 0)
-                        fatArray.append(foodlist[i].fat ?? 0)
+                for food in foodlist {
+                    if food.meal == "Other" {
+                        calorieArray.append(food.calories ?? 0)
+                        proteinArray.append(food.protein ?? 0)
+                        carbsArray.append(food.carbs ?? 0)
+                        fatArray.append(food.fat ?? 0)
                     }
                 }
                 for i in 0..<calorieArray.count {
