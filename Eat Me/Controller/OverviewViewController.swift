@@ -38,6 +38,8 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        navigationController?.navigationBar.backgroundColor = UIColor.flatSkyBlue()
+        
         setUpTableView()
         
         refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
@@ -120,7 +122,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         let label = UILabel()
         label.backgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
         label.textColor = UIColor.black
-        label.font = UIFont(name: "Montserrat-Light", size: 18)
+        label.font = UIFont(name: "Montserrat-SemiBold", size: 17)
         
         switch section {
         case 0:
@@ -301,7 +303,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             let chartDataSet = PieChartDataSet(entries: pieChartEntries, label: nil)
             let chartData = PieChartData(dataSet: chartDataSet)
             chartDataSet.drawValuesEnabled = false
-            chartDataSet.colors = [UIColor.flatSkyBlue(), UIColor.flatMint(), UIColor.flatWatermelon()]
+            chartDataSet.colors = [UIColor.flatMint(), UIColor.flatSkyBlue(), UIColor.flatWatermelon()]
             
             cell.pieChart.data = chartData
         }

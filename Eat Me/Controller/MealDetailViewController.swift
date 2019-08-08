@@ -57,9 +57,9 @@ class MealDetailViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let label = UILabel()
-        label.backgroundColor = UIColor.flatMint() // UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
+        label.backgroundColor =  UIColor.flatSkyBlue() // UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
         label.textColor = UIColor.white
-        label.font = UIFont(name: "Montserrat-Regular", size: 18)
+        label.font = UIFont(name: "Montserrat-SemiBold", size: 18)
         
         if let foodList = selectedMeal {
             for i in 0..<foodList.count {

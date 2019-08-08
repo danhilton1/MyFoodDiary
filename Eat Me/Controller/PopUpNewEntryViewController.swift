@@ -11,6 +11,7 @@ import UIKit
 class PopUpNewEntryViewController: UIViewController {
 
     @IBOutlet weak var popUpView: UIView!
+    @IBOutlet weak var popUpTitleLabel: UILabel!
     
     var date: Date?
     weak var delegate: NewEntryDelegate?
@@ -22,7 +23,10 @@ class PopUpNewEntryViewController: UIViewController {
 
         popUpView.layer.cornerRadius = 13
         
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        navigationController?.setNavigationBarHidden(true, animated: true)
+        navigationController?.navigationBar.barTintColor = UIColor.flatSkyBlue()
+        
+        popUpTitleLabel.backgroundColor = UIColor.flatSkyBlue()
         
     }
     

@@ -59,8 +59,8 @@ class Food: Object {
 struct Product: Decodable {
     
     let nutriments: Nutriments
-    let productName: String
-    let servingSize: String
+    let product_name: String
+    let serving_size: String
     
 }
 

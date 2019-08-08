@@ -10,11 +10,11 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Montserrat-ExtraLight.otf">
-            <string>Montserrat-ExtraLight</string>
-        </array>
         <array key="Montserrat-Light.otf">
             <string>Montserrat-Light</string>
+        </array>
+        <array key="Montserrat-Regular.otf">
+            <string>Montserrat-Regular</string>
         </array>
     </customFonts>
     <objects>
@@ -35,8 +35,8 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="400 kcal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BL3-ke-CAD">
-                        <rect key="frame" x="20" y="79.5" width="100" height="29.5"/>
-                        <fontDescription key="fontDescription" name="Montserrat-ExtraLight" family="Montserrat" pointSize="24"/>
+                        <rect key="frame" x="20" y="79.5" width="102" height="29.5"/>
+                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="24"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>

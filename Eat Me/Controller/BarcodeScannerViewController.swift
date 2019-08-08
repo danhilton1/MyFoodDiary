@@ -11,10 +11,11 @@ import AVFoundation
 
 class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
-//    var video = AVCaptureVideoPreviewLayer()
     @IBOutlet weak var cameraView: UIView!
+
     let session = AVCaptureSession()
     let captureDevice = AVCaptureDevice.default(for: AVMediaType.video)
+    
     
     var urlString: String!
     
@@ -22,7 +23,8 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
+//        navigationController?.navigationBar.barTintColor = UIColor.flatSkyBlue()
+        navigationController?.setNavigationBarHidden(false, animated: true)
         
         setUpCameraDisplay()
         
@@ -61,8 +63,9 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         
         let video = AVCaptureVideoPreviewLayer(session: session)
         video.videoGravity = AVLayerVideoGravity.resizeAspectFill
-        cameraView.frame.size = CGSize(width: self.view.frame.width, height: self.view.frame.height * 0.75)
+        cameraView.frame.size = CGSize(width: self.view.frame.width, height: self.view.frame.height * 0.754)
         video.frame = cameraView.layer.bounds
+//        video.masksToBounds = true
         
         cameraView.layer.addSublayer(video)
         
@@ -78,6 +81,14 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
             if let object = metadataObjects[0] as? AVMetadataMachineReadableCodeObject {
                 if object.type == AVMetadataObject.ObjectType.ean13 {
                     
+                    let activityIndicator = UIActivityIndicatorView()
+                    activityIndicator.style = .gray
+                    activityIndicator.frame.size = CGSize(width: 80, height: 80)
+                    activityIndicator.center = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
+                    view.addSubview(activityIndicator)
+                    view.bringSubviewToFront(activityIndicator)
+                    activityIndicator.startAnimating()
+                    
                     guard let barcodeAsString = object.stringValue else { return }
                     urlString = "https://world.openfoodfacts.org/api/v0/product/\(barcodeAsString).json"
                     
@@ -87,8 +98,17 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                         guard let data = data else { return }
                         
                         do {
+                            
                             let food = try JSONDecoder().decode(DatabaseFood.self, from: data)
                             print(food.product.nutriments.calories)
+                            print(food.product.nutriments.proteins_100g)
+                            print(food.product.nutriments.carbohydrates_100g)
+                            print(food.product.nutriments.fat_100g)
+                            print(food.product.serving_size)
+                            print(food.product.product_name)
+                            
+                            
+                            
                         } catch {
                             print("Error parsing JSON - \(error)")
                         }
@@ -97,6 +117,11 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                     
                     
                     session.stopRunning()
+                    
+                    activityIndicator.stopAnimating()
+                    
+                    animateDismiss()
+                    
                 } else {
                     print("Invaled barcode type")
                     session.stopRunning()
@@ -109,19 +134,74 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         
     }
     
+    @IBAction func enterManuallyTapped(_ sender: UIButton) {
+        
+        let alertController = UIAlertController(title: "Enter Barcode", message: nil, preferredStyle: .alert)
+        
+        alertController.addTextField { (textField) in
+            textField.placeholder = "Enter barcode here"
+        }
+        
+        alertController.addAction(UIAlertAction(title: "Submit", style: .default, handler: { (action) in
+            
+            guard let barcodeAsString = alertController.textFields![0].text else { return }
+            self.urlString = "https://world.openfoodfacts.org/api/v0/product/\(barcodeAsString).json"
+            
+            guard let url = URL(string: self.urlString) else { return }
+            URLSession.shared.dataTask(with: url) { (data, response, error) in
+                
+                guard let data = data else { return }
+                
+                do {
+                    
+                    let food = try JSONDecoder().decode(DatabaseFood.self, from: data)
+                    print(food.product.nutriments.calories)
+                    print(food.product.nutriments.proteins_100g)
+                    print(food.product.nutriments.carbohydrates_100g)
+                    print(food.product.nutriments.fat_100g)
+                    print(food.product.serving_size)
+                    print(food.product.product_name)
+                    
+                    self.animateDismiss()
+                    
+                } catch {
+                    print("Error parsing JSON - \(error)")
+                    self.animateDismiss()
+                }
+                
+                }.resume()
+            
+            self.animateDismiss()
+        }))
+    
+        
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        
+        present(alertController, animated: true)
+        
+    }
+    
+    
 
     @IBAction func cancelPressed(_ sender: UIBarButtonItem) {
         
-        self.dismiss(animated: true, completion: nil)
+        animateDismiss()
+        
+    }
+    
+    
+    func animateDismiss() {
+        
+        let transition: CATransition = CATransition()
+        transition.duration = 0.4
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        transition.type = CATransitionType.reveal
+        transition.subtype = CATransitionSubtype.fromBottom
+        self.view.window!.layer.add(transition, forKey: nil)
+        self.dismiss(animated: false, completion: nil)
         
     }
     
 }
 
 
-//extension JSONDecoder {
-//    func decode<T: Decodable>(_ type: T.Type, withJSONObject object: Any, options opt: JSONSerialization.WritingOptions = []) throws -> T {
-//        let data = try JSONSerialization.data(withJSONObject: object, options: opt)
-//        return try decode(T.self, from: data)
-//    }
-//}

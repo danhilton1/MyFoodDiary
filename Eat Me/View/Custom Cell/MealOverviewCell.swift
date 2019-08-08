@@ -29,8 +29,8 @@ class MealOverviewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
-        proteinTextLabel.textColor = UIColor.flatSkyBlue()
-        carbsTextLabel.textColor = UIColor.flatMint()
+        proteinTextLabel.textColor = UIColor.flatMint()
+        carbsTextLabel.textColor = UIColor.flatSkyBlue()
         fatTextLabel.textColor = UIColor.flatWatermelon()
         
     }

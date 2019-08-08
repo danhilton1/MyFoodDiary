@@ -13,7 +13,7 @@ protocol NewEntryDelegate: class {
     func reloadFood()
 }
 
-class NewEntryViewController: UITableViewController {
+class NewEntryViewController: UITableViewController, UITextFieldDelegate {
     
     let realm = try! Realm()
     
@@ -28,16 +28,25 @@ class NewEntryViewController: UITableViewController {
     @IBOutlet weak var proteinTextField: UITextField!
     @IBOutlet weak var carbsTextField: UITextField!
     @IBOutlet weak var fatTextField: UITextField!
-    
+
     
     //MARK: - viewDidLoad
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.setNavigationBarHidden(false, animated: true)
 
-       
+        mealPicker.tintColor = UIColor.flatSkyBlue()
+        
+        foodNameTextField.delegate = self
+        caloriesTextField.delegate = self
+        proteinTextField.delegate = self
+        carbsTextField.delegate = self
+        fatTextField.delegate = self
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tableViewTapped))
+        tableView.addGestureRecognizer(tapGesture)
     }
 
     // MARK: - Table view data source methods
@@ -52,7 +61,7 @@ class NewEntryViewController: UITableViewController {
     
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
         
-        self.dismiss(animated: true, completion: nil)
+        animateDismiss()
         
     }
     
@@ -64,25 +73,21 @@ class NewEntryViewController: UITableViewController {
         case 0:
             
             let newBreakfastFood = Food()
-                
             addAndSaveNewEntry(newFood: newBreakfastFood, meal: .breakfast)
             
         case 1:
             
             let newLunchFood = Food()
-            
             addAndSaveNewEntry(newFood: newLunchFood, meal: .lunch)
             
         case 2:
             
             let newDinnerFood = Food()
-            
             addAndSaveNewEntry(newFood: newDinnerFood, meal: .dinner)
             
         case 3:
             
             let newOtherFood = Food()
-            
             addAndSaveNewEntry(newFood: newOtherFood, meal: .other)
             
         default:
@@ -91,13 +96,7 @@ class NewEntryViewController: UITableViewController {
             
         }
         
-        let transition: CATransition = CATransition()
-        transition.duration = 0.5
-        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-        transition.type = CATransitionType.reveal
-        transition.subtype = CATransitionSubtype.fromBottom
-        self.view.window!.layer.add(transition, forKey: nil)
-        self.dismiss(animated: false, completion: nil)
+        animateDismiss()
 
         delegate?.reloadFood()
     }
@@ -130,6 +129,46 @@ class NewEntryViewController: UITableViewController {
             save(food: newFoodEntry)
         }
         
+        
+    }
+    
+    func animateDismiss() {
+        
+        let transition: CATransition = CATransition()
+        transition.duration = 0.4
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        transition.type = CATransitionType.reveal
+        transition.subtype = CATransitionSubtype.fromBottom
+        self.view.window!.layer.add(transition, forKey: nil)
+        self.dismiss(animated: false, completion: nil)
+        
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        
+        if textField == foodNameTextField { // Switch focus to other text field
+            caloriesTextField.becomeFirstResponder()
+        }
+        else if textField == caloriesTextField {
+            proteinTextField.becomeFirstResponder()
+        }
+        else if textField == proteinTextField {
+            carbsTextField.becomeFirstResponder()
+        }
+        else {
+            fatTextField.becomeFirstResponder()
+        }
+        return true
+    }
+    
+    @objc func tableViewTapped() {
+        
+        foodNameTextField.endEditing(true)
+        caloriesTextField.endEditing(true)
+        proteinTextField.endEditing(true)
+        carbsTextField.endEditing(true)
+        fatTextField.endEditing(true)
         
     }
     
