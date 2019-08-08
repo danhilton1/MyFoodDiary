@@ -16,7 +16,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
     let session = AVCaptureSession()
     let captureDevice = AVCaptureDevice.default(for: AVMediaType.video)
     
-    let urlString = "https://world.openfoodfacts.org/api/v0/product/737628064502.json"
+    var urlString: String!
     
 
     override func viewDidLoad() {
@@ -24,24 +24,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
 
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         
-        guard let url = URL(string: urlString) else { return }
-
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            
-            guard let data = data else { return }
-            
-            do {
-                let food = try JSONDecoder().decode(DatabaseFood.self, from: data)
-                print(food.product.nutriments.carbohydrates_100g)
-            } catch {
-                print("Error parsing JSON - \(error)")
-            }
-
-            }.resume()
-        
         setUpCameraDisplay()
-        
-        
         
     }
     
@@ -77,8 +60,12 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         output.metadataObjectTypes = [AVMetadataObject.ObjectType.ean13]
         
         let video = AVCaptureVideoPreviewLayer(session: session)
+        video.videoGravity = AVLayerVideoGravity.resizeAspectFill
+        cameraView.frame.size = CGSize(width: self.view.frame.width, height: self.view.frame.height * 0.75)
         video.frame = cameraView.layer.bounds
+        
         cameraView.layer.addSublayer(video)
+        
         
         session.startRunning()
         
@@ -90,7 +77,25 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         if metadataObjects.count != 0 {
             if let object = metadataObjects[0] as? AVMetadataMachineReadableCodeObject {
                 if object.type == AVMetadataObject.ObjectType.ean13 {
-                    print(object.stringValue)
+                    
+                    guard let barcodeAsString = object.stringValue else { return }
+                    urlString = "https://world.openfoodfacts.org/api/v0/product/\(barcodeAsString).json"
+                    
+                    guard let url = URL(string: urlString) else { return }
+                    URLSession.shared.dataTask(with: url) { (data, response, error) in
+                        
+                        guard let data = data else { return }
+                        
+                        do {
+                            let food = try JSONDecoder().decode(DatabaseFood.self, from: data)
+                            print(food.product.nutriments.calories)
+                        } catch {
+                            print("Error parsing JSON - \(error)")
+                        }
+                        
+                        }.resume()
+                    
+                    
                     session.stopRunning()
                 } else {
                     print("Invaled barcode type")
