@@ -11,6 +11,14 @@ import AVFoundation
 
 class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
+    var foodName: String?
+    var servingSize: String?
+    var calories: Int?
+    var protein: Int?
+    var carbs: Double?
+    var fat: Double?
+    
+    
     @IBOutlet weak var cameraView: UIView!
 
     let session = AVCaptureSession()
@@ -100,7 +108,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                         do {
                             
                             let food = try JSONDecoder().decode(DatabaseFood.self, from: data)
-                            print(food.product.nutriments.calories)
+                            self.calories = food.product.nutriments.calories
                             print(food.product.nutriments.proteins_100g)
                             print(food.product.nutriments.carbohydrates_100g)
                             print(food.product.nutriments.fat_100g)
@@ -120,7 +128,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                     
                     activityIndicator.stopAnimating()
                     
-                    animateDismiss()
+                    dismissViewWithAnimation()
                     
                 } else {
                     print("Invaled barcode type")
@@ -162,16 +170,16 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                     print(food.product.serving_size)
                     print(food.product.product_name)
                     
-                    self.animateDismiss()
+                    self.dismissViewWithAnimation()
                     
                 } catch {
                     print("Error parsing JSON - \(error)")
-                    self.animateDismiss()
+                    self.dismissViewWithAnimation()
                 }
                 
                 }.resume()
             
-            self.animateDismiss()
+            self.dismissViewWithAnimation()
         }))
     
         
@@ -185,12 +193,12 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
 
     @IBAction func cancelPressed(_ sender: UIBarButtonItem) {
         
-        animateDismiss()
+        dismissViewWithAnimation()
         
     }
     
     
-    func animateDismiss() {
+    func dismissViewWithAnimation() {
         
         let transition: CATransition = CATransition()
         transition.duration = 0.4
@@ -199,6 +207,20 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         transition.subtype = CATransitionSubtype.fromBottom
         self.view.window!.layer.add(transition, forKey: nil)
         self.dismiss(animated: false, completion: nil)
+        
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "goToFoodDetail" {
+            
+            let vc = segue.destination as! FoodDetailViewController
+            
+            
+            
+        }
+        
         
     }
     

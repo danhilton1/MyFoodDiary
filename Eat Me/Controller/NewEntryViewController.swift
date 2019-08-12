@@ -24,10 +24,14 @@ class NewEntryViewController: UITableViewController, UITextFieldDelegate {
     
     @IBOutlet weak var mealPicker: UISegmentedControl!
     @IBOutlet weak var foodNameTextField: UITextField!
+    @IBOutlet weak var servingSizeTextField: UITextField!
+    @IBOutlet weak var servingTextField: UITextField!
     @IBOutlet weak var caloriesTextField: UITextField!
     @IBOutlet weak var proteinTextField: UITextField!
     @IBOutlet weak var carbsTextField: UITextField!
     @IBOutlet weak var fatTextField: UITextField!
+    
+
 
     
     //MARK: - viewDidLoad
@@ -47,21 +51,25 @@ class NewEntryViewController: UITableViewController, UITextFieldDelegate {
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tableViewTapped))
         tableView.addGestureRecognizer(tapGesture)
+        
+        tableView.keyboardDismissMode = .interactive
+        
     }
 
     // MARK: - Table view data source methods
 
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        return 6
+        return (tableView.frame.height) / 12
+        
     }
 
     //MARK: - Nav Bar Button Methods
     
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
         
-        animateDismiss()
+        dismissViewWithAnimation()
         
     }
     
@@ -96,7 +104,7 @@ class NewEntryViewController: UITableViewController, UITextFieldDelegate {
             
         }
         
-        animateDismiss()
+        dismissViewWithAnimation()
 
         delegate?.reloadFood()
     }
@@ -124,7 +132,17 @@ class NewEntryViewController: UITableViewController, UITextFieldDelegate {
             let formatter = DateFormatter()
             formatter.dateFormat = "E, d MMM"
             
-            newFoodEntry.updateProperties(date: formatter.string(from: date ?? Date()), meal: meal, name: foodNameTextField.text, calories: NSNumber(value: Int(caloriesTextField.text!) ?? 0), protein: NSNumber(value: Double(proteinTextField.text!) ?? 0), carbs: NSNumber(value: Double(carbsTextField.text!) ?? 0), fat: NSNumber(value: Double(fatTextField.text!) ?? 0))
+            newFoodEntry.updateProperties(
+                date: formatter.string(from: date ?? Date()),
+                meal: meal,
+                name: foodNameTextField.text,
+                servingSize: Int(servingSizeTextField.text!) ?? 100,
+                serving: Double(servingTextField.text!) ?? 1,
+                calories: NSNumber(value: Int(caloriesTextField.text!) ?? 0),
+                protein: NSNumber(value: Double(proteinTextField.text!) ?? 0),
+                carbs: NSNumber(value: Double(carbsTextField.text!) ?? 0),
+                fat: NSNumber(value: Double(fatTextField.text!) ?? 0)
+                )
             
             save(food: newFoodEntry)
         }
@@ -132,7 +150,7 @@ class NewEntryViewController: UITableViewController, UITextFieldDelegate {
         
     }
     
-    func animateDismiss() {
+    func dismissViewWithAnimation() {
         
         let transition: CATransition = CATransition()
         transition.duration = 0.4
@@ -144,10 +162,19 @@ class NewEntryViewController: UITableViewController, UITextFieldDelegate {
         
     }
     
+    
+    //MARK:- TextFieldDelegate methods
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         
         if textField == foodNameTextField { // Switch focus to other text field
+            servingSizeTextField.becomeFirstResponder()
+        }
+        else if textField == servingSizeTextField {
+            servingTextField.becomeFirstResponder()
+        }
+        else if textField == servingTextField {
             caloriesTextField.becomeFirstResponder()
         }
         else if textField == caloriesTextField {
@@ -156,7 +183,7 @@ class NewEntryViewController: UITableViewController, UITextFieldDelegate {
         else if textField == proteinTextField {
             carbsTextField.becomeFirstResponder()
         }
-        else {
+        else if textField == carbsTextField {
             fatTextField.becomeFirstResponder()
         }
         return true
@@ -165,6 +192,8 @@ class NewEntryViewController: UITableViewController, UITextFieldDelegate {
     @objc func tableViewTapped() {
         
         foodNameTextField.endEditing(true)
+        servingSizeTextField.endEditing(true)
+        servingTextField.endEditing(true)
         caloriesTextField.endEditing(true)
         proteinTextField.endEditing(true)
         carbsTextField.endEditing(true)

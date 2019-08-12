@@ -35,17 +35,21 @@ class Food: Object {
     @objc dynamic var date: String?
     @objc dynamic var meal: String?
     @objc dynamic var name: String? = ""
+    @objc dynamic var servingSize: Int = 0
+    @objc dynamic var serving: Double = 0.0
     @objc dynamic var calories: NSNumber? = NSNumber(value: 0)
     @objc dynamic var protein: NSNumber? = NSNumber(value: 0.0)
     @objc dynamic var carbs: NSNumber? = NSNumber(value: 0.0)
     @objc dynamic var fat: NSNumber? = NSNumber(value: 0.0)
     
     
-    func updateProperties(date: String?, meal: Meal, name: String?, calories: NSNumber?, protein: NSNumber?, carbs: NSNumber?, fat: NSNumber?) {
+    func updateProperties(date: String?, meal: Meal, name: String?, servingSize: Int, serving: Double, calories: NSNumber?, protein: NSNumber?, carbs: NSNumber?, fat: NSNumber?) {
         
         self.date = date
         self.meal = meal.stringValue
         self.name = name
+        self.servingSize = servingSize
+        self.serving = serving
         self.calories = calories
         self.protein = protein
         self.carbs = carbs
@@ -73,8 +77,17 @@ struct DatabaseFood: Decodable {
 
 struct Nutriments: Decodable {
     
-    let energy_100g: Int
+    let energy_serving: Int
     var calories: Int {
+        return Int(round(Double(energy_serving) / 4.184))
+    }
+    let proteins_serving: Double
+    let carbohydrates_serving: Double
+    let fat_serving: Double
+    
+    
+    let energy_100g: Int
+    var calories_100g: Int {
         return Int(round(Double(energy_100g) / 4.184))
     }
     let proteins_100g: Double

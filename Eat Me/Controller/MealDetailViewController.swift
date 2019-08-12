@@ -56,23 +56,53 @@ class MealDetailViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
+        let header = UITableViewCell()
+        header.frame.size.height = 30
+        header.backgroundColor = UIColor.flatSkyBlue()
+        
         let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor =  UIColor.flatSkyBlue() // UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
         label.textColor = UIColor.white
         label.font = UIFont(name: "Montserrat-SemiBold", size: 18)
+        header.addSubview(label)
+        
+        let servingLabel = UILabel()
+        servingLabel.translatesAutoresizingMaskIntoConstraints = false
+        servingLabel.backgroundColor =  UIColor.flatSkyBlue() // UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
+        servingLabel.textColor = UIColor.white
+        servingLabel.font = UIFont(name: "Montserrat-Regular", size: 18)
+        servingLabel.textAlignment = .right
+        header.addSubview(servingLabel)
         
         if let foodList = selectedMeal {
-            for i in 0..<foodList.count {
-                if section == i {
-                    label.text = "    \(foodList[i].name!)"
+            for food in foodList {
+                for i in 0..<foodList.count {
+                    if section == i {
+                        label.text = "    \(food.name!)"
+                        servingLabel.text = "\(Double(food.servingSize) * food.serving) g"
+                    }
                 }
             }
         }
         
-       
+        NSLayoutConstraint.activate([
+            label.centerYAnchor.constraint(equalTo: header.centerYAnchor),
+            label.leadingAnchor.constraint(equalTo: header.leadingAnchor),
+            
+            servingLabel.centerYAnchor.constraint(equalTo: header.centerYAnchor),
+            servingLabel.trailingAnchor.constraint(equalTo: header.layoutMarginsGuide.trailingAnchor)
         
-        return label
+        ])
         
+        
+        
+        return header
+        
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
