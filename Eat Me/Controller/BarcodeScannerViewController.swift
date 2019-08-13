@@ -11,12 +11,21 @@ import AVFoundation
 
 class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
+    var date: Date?
     var foodName: String?
     var servingSize: String?
     var calories: Int?
-    var protein: Int?
+    var calories100g: Int?
+    var protein: Double?
+    var protein100g: Double?
     var carbs: Double?
+    var carbs100g: Double?
     var fat: Double?
+    var fat100g: Double?
+    
+    weak var delegate: NewEntryDelegate?
+    
+    let activityIndicator = UIActivityIndicatorView()
     
     
     @IBOutlet weak var cameraView: UIView!
@@ -24,8 +33,9 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
     let session = AVCaptureSession()
     let captureDevice = AVCaptureDevice.default(for: AVMediaType.video)
     
-    
     var urlString: String!
+    
+    let dispatchGroup = DispatchGroup()
     
 
     override func viewDidLoad() {
@@ -36,6 +46,16 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         
         setUpCameraDisplay()
         
+        activityIndicator.style = .whiteLarge
+        activityIndicator.frame.size = CGSize(width: 80, height: 80)
+        activityIndicator.center = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
+        view.addSubview(activityIndicator)
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+//        setUpCameraDisplay()
+        session.startRunning()
     }
     
     func setUpCameraDisplay() {
@@ -87,15 +107,17 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         
         if metadataObjects.count != 0 {
             if let object = metadataObjects[0] as? AVMetadataMachineReadableCodeObject {
-                if object.type == AVMetadataObject.ObjectType.ean13 {
+                if object.type == AVMetadataObject.ObjectType.ean13 || object.type == AVMetadataObject.ObjectType.ean8 {
                     
-                    let activityIndicator = UIActivityIndicatorView()
-                    activityIndicator.style = .gray
-                    activityIndicator.frame.size = CGSize(width: 80, height: 80)
-                    activityIndicator.center = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
-                    view.addSubview(activityIndicator)
+                    session.stopRunning()
+                    let dimmedView = UIView()
+                    dimmedView.backgroundColor = .black
+                    dimmedView.alpha = 0.55
+                    dimmedView.frame = cameraView.frame
+                    view.addSubview(dimmedView)
                     view.bringSubviewToFront(activityIndicator)
                     activityIndicator.startAnimating()
+                    dispatchGroup.enter()
                     
                     guard let barcodeAsString = object.stringValue else { return }
                     urlString = "https://world.openfoodfacts.org/api/v0/product/\(barcodeAsString).json"
@@ -108,14 +130,21 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                         do {
                             
                             let food = try JSONDecoder().decode(DatabaseFood.self, from: data)
+                            
+                            self.foodName = food.product.productName
+                            self.servingSize = food.product.servingSize
                             self.calories = food.product.nutriments.calories
-                            print(food.product.nutriments.proteins_100g)
-                            print(food.product.nutriments.carbohydrates_100g)
-                            print(food.product.nutriments.fat_100g)
-                            print(food.product.serving_size)
-                            print(food.product.product_name)
+                            self.protein = food.product.nutriments.proteinServing
+                            self.carbs = food.product.nutriments.carbServing
+                            self.fat = food.product.nutriments.fatServing
                             
+                            self.calories100g = food.product.nutriments.calories100g
+                            self.protein100g = food.product.nutriments.protein100g
+                            self.carbs100g = food.product.nutriments.carbs100g
+                            self.fat100g = food.product.nutriments.fat100g
                             
+                            self.session.stopRunning()
+                            self.dispatchGroup.leave()
                             
                         } catch {
                             print("Error parsing JSON - \(error)")
@@ -123,21 +152,24 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                         
                         }.resume()
                     
-                    
-                    session.stopRunning()
-                    
-                    activityIndicator.stopAnimating()
-                    
-                    dismissViewWithAnimation()
+                    dispatchGroup.notify(queue: .main) {
+                        self.session.stopRunning()
+                        
+                        self.activityIndicator.stopAnimating()
+                        self.performSegue(withIdentifier: "goToFoodDetail", sender: nil)
+                        dimmedView.removeFromSuperview()
+                    }
                     
                 } else {
                     print("Invaled barcode type")
                     session.stopRunning()
+                    dismissViewWithAnimation()
                 }
             }
         } else {
             print("There was an error retrieving information for this barcode.")
             session.stopRunning()
+            dismissViewWithAnimation()
         }
         
     }
@@ -156,6 +188,14 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
             self.urlString = "https://world.openfoodfacts.org/api/v0/product/\(barcodeAsString).json"
             
             guard let url = URL(string: self.urlString) else { return }
+            self.dispatchGroup.enter()
+            let dimmedView = UIView()
+            dimmedView.backgroundColor = .black
+            dimmedView.alpha = 0.55
+            dimmedView.frame = self.cameraView.frame
+            self.view.addSubview(dimmedView)
+            self.view.bringSubviewToFront(self.activityIndicator)
+            self.activityIndicator.startAnimating()
             URLSession.shared.dataTask(with: url) { (data, response, error) in
                 
                 guard let data = data else { return }
@@ -163,14 +203,20 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                 do {
                     
                     let food = try JSONDecoder().decode(DatabaseFood.self, from: data)
-                    print(food.product.nutriments.calories)
-                    print(food.product.nutriments.proteins_100g)
-                    print(food.product.nutriments.carbohydrates_100g)
-                    print(food.product.nutriments.fat_100g)
-                    print(food.product.serving_size)
-                    print(food.product.product_name)
                     
-                    self.dismissViewWithAnimation()
+                    self.foodName = food.product.productName
+                    self.servingSize = food.product.servingSize
+                    self.calories = food.product.nutriments.calories
+                    self.protein = food.product.nutriments.proteinServing
+                    self.carbs = food.product.nutriments.carbServing
+                    self.fat = food.product.nutriments.fatServing
+                    
+                    self.calories100g = food.product.nutriments.calories100g
+                    self.protein100g = food.product.nutriments.protein100g
+                    self.carbs100g = food.product.nutriments.carbs100g
+                    self.fat100g = food.product.nutriments.fat100g
+                    
+                    self.dispatchGroup.leave()
                     
                 } catch {
                     print("Error parsing JSON - \(error)")
@@ -179,7 +225,12 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                 
                 }.resume()
             
-            self.dismissViewWithAnimation()
+            self.dispatchGroup.notify(queue: .main, execute: {
+                self.activityIndicator.stopAnimating()
+                self.performSegue(withIdentifier: "goToFoodDetail", sender: nil)
+                dimmedView.removeFromSuperview()
+            })
+
         }))
     
         
@@ -217,7 +268,20 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
             
             let vc = segue.destination as! FoodDetailViewController
             
+            vc.delegate = delegate
+            vc.date = date
             
+            vc.foodName = foodName!
+            vc.servingSize = servingSize!
+            vc.calories = calories!
+            vc.protein = protein
+            vc.carbs = carbs
+            vc.fat = fat
+            
+            vc.calories100g = calories100g!
+            vc.protein100g = protein100g!
+            vc.carbs100g = carbs100g!
+            vc.fat100g = fat100g!
             
         }
         

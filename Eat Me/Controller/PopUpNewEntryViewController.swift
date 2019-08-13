@@ -65,7 +65,11 @@ class PopUpNewEntryViewController: UIViewController {
             let destVC = segue.destination as! NewEntryViewController
             destVC.delegate = delegate
             destVC.date = date
-            
+        }
+        else if segue.identifier == "goToBarcodeScanner" {
+            let destVC = segue.destination as! BarcodeScannerViewController
+            destVC.date = date
+            destVC.delegate = delegate
         }
     }
 }

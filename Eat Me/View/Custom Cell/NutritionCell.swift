@@ -1,8 +1,8 @@
 //
-//  NutritionCell.swift
+//  NutritionViewCell.swift
 //  Eat Me
 //
-//  Created by Daniel Hilton on 12/08/2019.
+//  Created by Daniel Hilton on 13/08/2019.
 //  Copyright © 2019 Daniel Hilton. All rights reserved.
 //
 
@@ -10,7 +10,7 @@ import UIKit
 
 class NutritionCell: UITableViewCell {
 
-    @IBOutlet weak var nutritionTypeLabel: UILabel!
+    @IBOutlet weak var nutrientLabel: UILabel!
     @IBOutlet weak var quantityLabel: UILabel!
     
     
@@ -24,5 +24,5 @@ class NutritionCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    
 }

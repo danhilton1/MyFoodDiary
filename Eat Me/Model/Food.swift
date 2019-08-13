@@ -35,7 +35,7 @@ class Food: Object {
     @objc dynamic var date: String?
     @objc dynamic var meal: String?
     @objc dynamic var name: String? = ""
-    @objc dynamic var servingSize: Int = 0
+    @objc dynamic var servingSize: String = ""
     @objc dynamic var serving: Double = 0.0
     @objc dynamic var calories: NSNumber? = NSNumber(value: 0)
     @objc dynamic var protein: NSNumber? = NSNumber(value: 0.0)
@@ -43,7 +43,7 @@ class Food: Object {
     @objc dynamic var fat: NSNumber? = NSNumber(value: 0.0)
     
     
-    func updateProperties(date: String?, meal: Meal, name: String?, servingSize: Int, serving: Double, calories: NSNumber?, protein: NSNumber?, carbs: NSNumber?, fat: NSNumber?) {
+    func updateProperties(date: String?, meal: Meal, name: String?, servingSize: String, serving: Double, calories: NSNumber?, protein: NSNumber?, carbs: NSNumber?, fat: NSNumber?) {
         
         self.date = date
         self.meal = meal.stringValue
@@ -60,38 +60,60 @@ class Food: Object {
     
 }
 
-struct Product: Decodable {
-    
-    let nutriments: Nutriments
-    let product_name: String
-    let serving_size: String
-    
-}
 
-struct DatabaseFood: Decodable {
+struct DatabaseFood: Codable {
     
     let product: Product
-    let status: Int
     
 }
 
-struct Nutriments: Decodable {
+struct Product: Codable {
     
-    let energy_serving: Int
+    let nutriments: Nutriments
+    let productName: String
+    let servingSize: String
+    
+    enum CodingKeys: String, CodingKey {
+        
+        case nutriments = "nutriments"
+        case productName = "product_name"
+        case servingSize = "serving_size"
+        
+    }
+    
+}
+
+struct Nutriments: Codable {
+    
+    let energyServing: Int
     var calories: Int {
-        return Int(round(Double(energy_serving) / 4.184))
+        return Int(round(Double(energyServing) / 4.184))
     }
-    let proteins_serving: Double
-    let carbohydrates_serving: Double
-    let fat_serving: Double
+    let proteinServing: Double
+    let carbServing: Double
+    let fatServing: Double
     
     
-    let energy_100g: Int
-    var calories_100g: Int {
-        return Int(round(Double(energy_100g) / 4.184))
+    let energy100g: Int
+    var calories100g: Int {
+        return Int(round(Double(energy100g) / 4.184))
     }
-    let proteins_100g: Double
-    let carbohydrates_100g: Double
-    let fat_100g: Double
+    let protein100g: Double
+    let carbs100g: Double
+    let fat100g: Double
+    
+    enum CodingKeys: String, CodingKey {
+        
+        case energyServing = "energy_serving"
+        case proteinServing = "proteins_serving"
+        case carbServing = "carbohydrates_serving"
+        case fatServing = "fat_serving"
+        
+        case energy100g = "energy_100g"
+        case protein100g = "proteins_100g"
+        case carbs100g = "carbohydrates_100g"
+        case fat100g = "fat_100g"
+        
+    }
     
 }

@@ -80,7 +80,7 @@ class MealDetailViewController: UITableViewController {
                 for i in 0..<foodList.count {
                     if section == i {
                         label.text = "    \(food.name!)"
-                        servingLabel.text = "\(Double(food.servingSize) * food.serving) g"
+                        servingLabel.text = "\(Double(food.servingSize)! * food.serving) g"
                     }
                 }
             }

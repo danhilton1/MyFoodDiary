@@ -136,7 +136,7 @@ class NewEntryViewController: UITableViewController, UITextFieldDelegate {
                 date: formatter.string(from: date ?? Date()),
                 meal: meal,
                 name: foodNameTextField.text,
-                servingSize: Int(servingSizeTextField.text!) ?? 100,
+                servingSize: servingSizeTextField.text ?? "100g",
                 serving: Double(servingTextField.text!) ?? 1,
                 calories: NSNumber(value: Int(caloriesTextField.text!) ?? 0),
                 protein: NSNumber(value: Double(proteinTextField.text!) ?? 0),
