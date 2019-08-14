@@ -27,6 +27,7 @@ class MealDetailViewController: UITableViewController {
     @IBOutlet weak var caloriesLabel: UILabel!
     
     
+    //MARK: View Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,18 +41,15 @@ class MealDetailViewController: UITableViewController {
         self.navigationController?.navigationBar.tintColor = .blue
     }
 
-    // MARK: - Table view data source
+    
+    // MARK: - Table view data source and delegate methods
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-    
         return selectedMeal?.count ?? 0
-        
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return 4
-        
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -80,7 +78,10 @@ class MealDetailViewController: UITableViewController {
                 for i in 0..<foodList.count {
                     if section == i {
                         label.text = "    \(food.name!)"
-                        servingLabel.text = "\(Double(food.servingSize)! * food.serving) g"
+                        let result = food.servingSize.filter("01234567890.".contains)
+                        if let servingSize = Double(result) {
+                            servingLabel.text = "\(servingSize * food.serving) g"
+                        }
                     }
                 }
             }
@@ -94,8 +95,6 @@ class MealDetailViewController: UITableViewController {
             servingLabel.trailingAnchor.constraint(equalTo: header.layoutMarginsGuide.trailingAnchor)
         
         ])
-        
-        
         
         return header
         

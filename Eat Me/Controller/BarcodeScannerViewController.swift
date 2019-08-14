@@ -11,6 +11,8 @@ import AVFoundation
 
 class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
+    //MARK:- Properties and Objects
+    
     var date: Date?
     var foodName: String?
     var servingSize: String?
@@ -23,25 +25,21 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
     var fat: Double?
     var fat100g: Double?
     
+    @IBOutlet weak var cameraView: UIView!
+    private let activityIndicator = UIActivityIndicatorView()
+
+    private let session = AVCaptureSession()
+    private let captureDevice = AVCaptureDevice.default(for: AVMediaType.video)
+    private var urlString: String!
+    private let dispatchGroup = DispatchGroup()
+    
     weak var delegate: NewEntryDelegate?
     
-    let activityIndicator = UIActivityIndicatorView()
+    //MARK:- View Methods
     
-    
-    @IBOutlet weak var cameraView: UIView!
-
-    let session = AVCaptureSession()
-    let captureDevice = AVCaptureDevice.default(for: AVMediaType.video)
-    
-    var urlString: String!
-    
-    let dispatchGroup = DispatchGroup()
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        navigationController?.navigationBar.barTintColor = UIColor.flatSkyBlue()
         navigationController?.setNavigationBarHidden(false, animated: true)
         
         setUpCameraDisplay()
@@ -53,17 +51,41 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-//        setUpCameraDisplay()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        // Start running the camera session again if user navigates back to this VC again scanning an item
         session.startRunning()
     }
     
-    func setUpCameraDisplay() {
+    
+    private func dismissViewWithAnimation() {
+        
+        // Custom animation to dismiss the VC from top to bottom as anmiation of NavController is fade
+        let transition: CATransition = CATransition()
+        transition.duration = 0.4
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        transition.type = CATransitionType.reveal
+        transition.subtype = CATransitionSubtype.fromBottom
+        self.view.window!.layer.add(transition, forKey: nil)
+        self.dismiss(animated: false, completion: nil)
+        
+    }
+    
+    
+    @IBAction func cancelPressed(_ sender: UIBarButtonItem) {
+        dismissViewWithAnimation()
+    }
+    
+    
+    //MARK:- Camera and Barcode Scanning Methods
+    
+    private func setUpCameraDisplay() {
         
         do {
             guard let captureDevice = captureDevice else {
                 print("Error establishing capture device")
                 
+                // Display an error label on screen if camera fails to connect
                 let errorLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 60))
                 errorLabel.center = CGPoint(x: cameraView.bounds.midX, y: cameraView.bounds.midY)
                 errorLabel.textAlignment = .center
@@ -87,7 +109,8 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         session.addOutput(output)
         
         output.setMetadataObjectsDelegate(self, queue: .main)
-        output.metadataObjectTypes = [AVMetadataObject.ObjectType.ean13]
+        // Set the barcode types the camera can scan
+        output.metadataObjectTypes = [AVMetadataObject.ObjectType.ean13, AVMetadataObject.ObjectType.ean8]
         
         let video = AVCaptureVideoPreviewLayer(session: session)
         video.videoGravity = AVLayerVideoGravity.resizeAspectFill
@@ -96,8 +119,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
 //        video.masksToBounds = true
         
         cameraView.layer.addSublayer(video)
-        
-        
+
         session.startRunning()
         
     }
@@ -105,11 +127,12 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
     
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         
-        if metadataObjects.count != 0 {
+        if metadataObjects.count != 0 {    // Check if there is a scanned barcode
             if let object = metadataObjects[0] as? AVMetadataMachineReadableCodeObject {
-                if object.type == AVMetadataObject.ObjectType.ean13 || object.type == AVMetadataObject.ObjectType.ean8 {
+                if object.type == AVMetadataObject.ObjectType.ean13 || object.type == AVMetadataObject.ObjectType.ean8 {   // Check the barcode type is EAN13 or EAN8
                     
                     session.stopRunning()
+                    // Dim the view while loading
                     let dimmedView = UIView()
                     dimmedView.backgroundColor = .black
                     dimmedView.alpha = 0.55
@@ -117,6 +140,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                     view.addSubview(dimmedView)
                     view.bringSubviewToFront(activityIndicator)
                     activityIndicator.startAnimating()
+                    
                     dispatchGroup.enter()
                     
                     guard let barcodeAsString = object.stringValue else { return }
@@ -147,7 +171,14 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                             self.dispatchGroup.leave()
                             
                         } catch {
-                            print("Error parsing JSON - \(error)")
+                            DispatchQueue.main.async {
+                                print("Error parsing JSON - \(error)")
+                                
+                                self.activityIndicator.stopAnimating()
+                                dimmedView.removeFromSuperview()
+                                self.displayErrorAlert(message: "There was an error retrieving information for this barcode.")
+                            }
+                            
                         }
                         
                         }.resume()
@@ -162,17 +193,21 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                     
                 } else {
                     print("Invaled barcode type")
+                    displayErrorAlert(message: "This barcode type is not valid.")
                     session.stopRunning()
-                    dismissViewWithAnimation()
+                    
                 }
             }
         } else {
-            print("There was an error retrieving information for this barcode.")
+            displayErrorAlert(message: "There was an error retrieving information for this barcode.")
             session.stopRunning()
-            dismissViewWithAnimation()
+            
         }
         
     }
+    
+    
+    //MARK:- Manual Barcode Entry Method
     
     @IBAction func enterManuallyTapped(_ sender: UIButton) {
         
@@ -188,7 +223,9 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
             self.urlString = "https://world.openfoodfacts.org/api/v0/product/\(barcodeAsString).json"
             
             guard let url = URL(string: self.urlString) else { return }
+            
             self.dispatchGroup.enter()
+            
             let dimmedView = UIView()
             dimmedView.backgroundColor = .black
             dimmedView.alpha = 0.55
@@ -196,6 +233,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
             self.view.addSubview(dimmedView)
             self.view.bringSubviewToFront(self.activityIndicator)
             self.activityIndicator.startAnimating()
+            
             URLSession.shared.dataTask(with: url) { (data, response, error) in
                 
                 guard let data = data else { return }
@@ -219,8 +257,15 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                     self.dispatchGroup.leave()
                     
                 } catch {
-                    print("Error parsing JSON - \(error)")
-                    self.dismissViewWithAnimation()
+
+                    DispatchQueue.main.async {
+                        print("Error parsing JSON - \(error)")
+                        
+                        self.activityIndicator.stopAnimating()
+                        dimmedView.removeFromSuperview()
+                        self.displayErrorAlert(message: "There was an error retrieving information for this barcode.")
+                    }
+                    
                 }
                 
                 }.resume()
@@ -237,30 +282,25 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         
         present(alertController, animated: true)
+        session.stopRunning()
         
     }
     
     
-
-    @IBAction func cancelPressed(_ sender: UIBarButtonItem) {
+    func displayErrorAlert(message: String) {
         
-        dismissViewWithAnimation()
+        let alertController = UIAlertController(title: "Error!", message: message, preferredStyle: .alert)
         
-    }
-    
-    
-    func dismissViewWithAnimation() {
+        alertController.addAction(UIAlertAction(title: "OK", style: .default))
         
-        let transition: CATransition = CATransition()
-        transition.duration = 0.4
-        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-        transition.type = CATransitionType.reveal
-        transition.subtype = CATransitionSubtype.fromBottom
-        self.view.window!.layer.add(transition, forKey: nil)
-        self.dismiss(animated: false, completion: nil)
+        present(alertController, animated: true)
+        
         
     }
     
+    
+    
+    //MARK:- Segue Method
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         

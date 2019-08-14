@@ -35,7 +35,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="400 kcal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BL3-ke-CAD">
-                        <rect key="frame" x="20" y="79.5" width="102" height="29.5"/>
+                        <rect key="frame" x="10" y="79.5" width="102" height="29.5"/>
                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="24"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -97,7 +97,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="FTk-hj-aFc" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" constant="18" id="0D8-QX-Qfr"/>
-                    <constraint firstItem="BL3-ke-CAD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="Dpq-oO-tMx"/>
+                    <constraint firstItem="BL3-ke-CAD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Dpq-oO-tMx"/>
                     <constraint firstItem="IaT-aK-k6i" firstAttribute="leading" secondItem="FTk-hj-aFc" secondAttribute="trailing" constant="-11" id="Fqt-C7-x0Q"/>
                     <constraint firstItem="FTk-hj-aFc" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Q23-gX-Vto"/>
                     <constraint firstItem="4N0-iF-bfk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="18" id="Yf2-dl-Hc1"/>

@@ -30,11 +30,11 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NO7-i2-x5f">
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1" textAlignment="center" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="NO7-i2-x5f">
                         <rect key="frame" x="160" y="11" width="144" height="24"/>
                         <color key="textColor" red="0.25443011519999997" green="0.47597199680000002" blue="0.87062877419999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="20"/>
-                        <textInputTraits key="textInputTraits"/>
+                        <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                     </textField>
                 </subviews>
                 <constraints>

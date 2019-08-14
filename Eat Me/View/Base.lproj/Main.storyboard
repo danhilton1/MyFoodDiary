@@ -33,7 +33,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="120" estimatedRowHeight="-1" sectionHeaderHeight="25" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Xbh-gk-J6y">
-                                <rect key="frame" x="0.0" y="112" width="414" height="613"/>
+                                <rect key="frame" x="0.0" y="112" width="414" height="662"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4x8-gE-ihy">
@@ -62,14 +62,6 @@
                                 </constraints>
                                 <state key="normal" title="&lt;-"/>
                             </button>
-                            <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mUc-Y0-BsJ">
-                                <rect key="frame" x="0.0" y="725" width="414" height="83"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <items>
-                                    <tabBarItem systemItem="favorites" id="jbf-ar-28W"/>
-                                    <tabBarItem systemItem="more" id="DcC-NL-ze5"/>
-                                </items>
-                            </tabBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ouM-1t-XKu">
                                 <rect key="frame" x="0.0" y="40" width="414" height="2"/>
                                 <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -93,7 +85,6 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="mUc-Y0-BsJ" firstAttribute="trailing" secondItem="VeI-XT-ytu" secondAttribute="trailing" id="5ON-G8-cZI"/>
                             <constraint firstItem="e8Z-Lq-VGw" firstAttribute="top" secondItem="VeI-XT-ytu" secondAttribute="top" id="9LA-Dg-6xK"/>
                             <constraint firstItem="ouM-1t-XKu" firstAttribute="top" secondItem="4x8-gE-ihy" secondAttribute="bottom" id="AIs-ZZ-EHf"/>
                             <constraint firstItem="Xbh-gk-J6y" firstAttribute="trailing" secondItem="VeI-XT-ytu" secondAttribute="trailing" id="Axg-y9-AgG"/>
@@ -105,7 +96,6 @@
                             <constraint firstItem="4x8-gE-ihy" firstAttribute="height" secondItem="e8Z-Lq-VGw" secondAttribute="height" id="Hu7-A2-37r"/>
                             <constraint firstItem="sbF-JA-Wwl" firstAttribute="leading" secondItem="VeI-XT-ytu" secondAttribute="leading" constant="10" id="J9E-Zg-RNZ"/>
                             <constraint firstItem="ouM-1t-XKu" firstAttribute="leading" secondItem="VeI-XT-ytu" secondAttribute="leading" id="MPo-sV-9vk"/>
-                            <constraint firstItem="mUc-Y0-BsJ" firstAttribute="top" secondItem="Xbh-gk-J6y" secondAttribute="bottom" id="RDw-FL-YSj"/>
                             <constraint firstItem="bqB-KW-UEO" firstAttribute="height" secondItem="4x8-gE-ihy" secondAttribute="height" id="cUn-eL-qdT"/>
                             <constraint firstItem="bqB-KW-UEO" firstAttribute="leading" secondItem="4x8-gE-ihy" secondAttribute="trailing" id="f5e-I6-8Cb"/>
                             <constraint firstItem="sbF-JA-Wwl" firstAttribute="top" secondItem="ouM-1t-XKu" secondAttribute="bottom" id="lYD-6v-2Ej"/>
@@ -113,10 +103,9 @@
                             <constraint firstItem="Xbh-gk-J6y" firstAttribute="top" secondItem="sbF-JA-Wwl" secondAttribute="bottom" id="sQn-kP-IPb"/>
                             <constraint firstItem="VeI-XT-ytu" firstAttribute="trailing" secondItem="bqB-KW-UEO" secondAttribute="trailing" id="uyw-2y-jhw"/>
                             <constraint firstItem="bqB-KW-UEO" firstAttribute="top" secondItem="VeI-XT-ytu" secondAttribute="top" id="w7U-TJ-a1g"/>
-                            <constraint firstAttribute="bottom" secondItem="mUc-Y0-BsJ" secondAttribute="bottom" id="wZ2-66-OkH"/>
                             <constraint firstItem="e8Z-Lq-VGw" firstAttribute="leading" secondItem="VeI-XT-ytu" secondAttribute="leading" id="x7I-90-6b5"/>
+                            <constraint firstItem="VeI-XT-ytu" firstAttribute="bottom" secondItem="Xbh-gk-J6y" secondAttribute="bottom" id="xHc-gf-GhD"/>
                             <constraint firstItem="Xbh-gk-J6y" firstAttribute="leading" secondItem="VeI-XT-ytu" secondAttribute="leading" id="yTf-Fq-OO8"/>
-                            <constraint firstItem="mUc-Y0-BsJ" firstAttribute="leading" secondItem="VeI-XT-ytu" secondAttribute="leading" id="zx2-11-o9r"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="VeI-XT-ytu"/>
                     </view>
@@ -160,7 +149,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="NUq-Ts-sqZ">
+                        <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="NUq-Ts-sqZ">
                             <rect key="frame" x="0.0" y="512" width="414" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.90786181469271543" green="0.90347600882463464" blue="0.91224762056079611" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -667,7 +656,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <label key="tableHeaderView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calories: 500" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8sW-5c-CnZ">
+                        <label key="tableHeaderView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Calories: 500" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8sW-5c-CnZ">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="24"/>

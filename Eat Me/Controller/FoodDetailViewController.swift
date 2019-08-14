@@ -13,6 +13,8 @@ class FoodDetailViewController: UITableViewController {
     
     let realm = try! Realm()
     
+    //MARK:- Properties
+    
     var date: Date?
     var foodName: String = ""
     var servingSize: String = ""
@@ -25,9 +27,25 @@ class FoodDetailViewController: UITableViewController {
     var protein100g: Double? = 0
     var carbs100g: Double? = 0
     var fat100g: Double? = 0
+    var calories1g: Int {
+        return calories100g / 100
+    }
+    var protein1g: Double {
+        return protein100g ?? 0 / 100
+    }
+    var carbs1g: Double {
+        return carbs100g ?? 0 / 100
+    }
+    var fat1g: Double {
+        return fat100g ?? 0 / 100
+    }
     
     weak var delegate: NewEntryDelegate?
     
+    var servingCell: ServingCell?
+    var servingTextField: UITextField!
+    
+    //MARK:- View methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,16 +57,127 @@ class FoodDetailViewController: UITableViewController {
         tableView.register(UINib(nibName: "NutritionCell", bundle: nil), forCellReuseIdentifier: "NutritionCell")
         
         navigationController?.navigationBar.tintColor = .white
+        
+        servingCell = tableView(tableView, cellForRowAt: IndexPath(row: 3, section: 0)) as? ServingCell
+        servingTextField = servingCell?.servingTextField
+        print(servingTextField.text)
+        servingTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        
+        tableView.keyboardDismissMode = .interactive
+        tableView.allowsSelection = false
 
     }
-
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    
+    private func dismissViewWithAnimation() {
         
+        let transition: CATransition = CATransition()
+        transition.duration = 0.4
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        transition.type = CATransitionType.reveal
+        transition.subtype = CATransitionSubtype.fromBottom
+        self.view.window!.layer.add(transition, forKey: nil)
+        self.dismiss(animated: false, completion: nil)
+        
+    }
+
+    // MARK: - Add and save data methods
+
+    @IBAction func addButtonTapped(_ sender: UIBarButtonItem) {
+        
+        let mealPickerCell = tableView(tableView, cellForRowAt: IndexPath(row: 0, section: 0)) as! MealPickerCell
+        
+        switch mealPickerCell.mealPicker.selectedSegmentIndex {
+        case 0:
+            addAndSaveNewEntry(meal: .breakfast)
+        case 1:
+            addAndSaveNewEntry(meal: .lunch)
+        case 2:
+            addAndSaveNewEntry(meal: .dinner)
+        case 3:
+            addAndSaveNewEntry(meal: .other)
+        default:
+            print("Error determining meal type.")
+        }
+        
+        
+    }
+    
+    private func addAndSaveNewEntry(meal: Food.Meal) {
+        
+        let newFoodEntry = Food()
+        let servingCell = tableView(tableView, cellForRowAt: IndexPath(row: 3, section: 0)) as! ServingCell
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "E, d MMM"
+        
+        newFoodEntry.updateProperties(
+            date: formatter.string(from: date ?? Date()),
+            meal: meal,
+            name: foodName,
+            servingSize: servingSize,
+            serving: Double(servingCell.servingTextField.text ?? "1")!,
+            calories: calories as NSNumber,
+            protein: protein as NSNumber?,
+            carbs: carbs as NSNumber?,
+            fat: fat as NSNumber?
+        )
+        
+        save(food: newFoodEntry)
+        
+        dismissViewWithAnimation()
+        delegate?.reloadFood()
+
+    }
+    
+    
+    private func save(food: Object) {
+        
+        do {
+            try realm.write {
+                realm.add(food)
+            }
+        } catch {
+            print(error)
+        }
+        
+        
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        print("Textfield Method Working")
+        var totalServing: Double {
+            let servingSizeNumber = servingSize.filter("01234567890.".contains)
+            return Double(textField.text!)! * Double(servingSizeNumber)!
+        }
+        
+        if textField.text == "" {
+            calories = 0
+            protein = 0
+            carbs = 0
+            fat = 0
+            tableView.reloadData()
+        } else {
+            calories = Int(round(Double(calories1g) * totalServing))
+            protein = protein1g * totalServing
+            carbs = carbs1g * totalServing
+            fat = fat1g * totalServing
+            tableView.reloadData()
+        }
+        
+    }
+    
+    
+
+}
+
+//MARK:- Table view data source and delegate methods
+
+extension FoodDetailViewController {
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         switch section {
@@ -65,10 +194,6 @@ class FoodDetailViewController: UITableViewController {
         
         let header = UITableViewHeaderFooterView()
         header.textLabel?.font = UIFont(name: "Montserrat-SemiBold", size: 17)
-//        let label = UILabel()
-//        label.backgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
-//        label.textColor = UIColor.black
-//        label.font = UIFont(name: "Montserrat-SemiBold", size: 17)
         
         switch section {
         case 0:
@@ -86,17 +211,17 @@ class FoodDetailViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
         let headerHeight: CGFloat
- 
+        
         if section == 0 {
             headerHeight = CGFloat.leastNonzeroMagnitude
         } else {
             headerHeight = 23
         }
-
+        
         return headerHeight
     }
-
-
+    
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let mealPickerCell = tableView.dequeueReusableCell(withIdentifier: "MealPickerCell", for: indexPath) as! MealPickerCell
@@ -148,63 +273,10 @@ class FoodDetailViewController: UITableViewController {
         default:
             return UITableViewCell()
         }
-
-        
-    }
-    
-    
-    @IBAction func addButtonTapped(_ sender: UIBarButtonItem) {
-        
-        let newFoodEntry = Food()
-        let servingCell = tableView(tableView, cellForRowAt: IndexPath(row: 3, section: 0)) as! ServingCell
-        let mealPickerCell = tableView(tableView, cellForRowAt: IndexPath(row: 0, section: 0)) as! MealPickerCell
-        
-        let formatter = DateFormatter()
-        formatter.dateFormat = "E, d MMM"
-        
-        newFoodEntry.updateProperties(
-            date: formatter.string(from: date ?? Date()),
-            meal: .breakfast,
-            name: foodName,
-            servingSize: servingSize,
-            serving: Double(servingCell.servingTextField.text ?? "1")!,
-            calories: calories as NSNumber,
-            protein: protein as NSNumber?,
-            carbs: carbs as NSNumber?,
-            fat: fat as NSNumber?
-        )
-        
-        save(food: newFoodEntry)
-        
-        dismissViewWithAnimation()
-        delegate?.reloadFood()
-    }
-    
-    
-    
-    func save(food: Object) {
-        
-        do {
-            try realm.write {
-                realm.add(food)
-            }
-        } catch {
-            print(error)
-        }
         
         
     }
     
-    func dismissViewWithAnimation() {
-        
-        let transition: CATransition = CATransition()
-        transition.duration = 0.4
-        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-        transition.type = CATransitionType.reveal
-        transition.subtype = CATransitionSubtype.fromBottom
-        self.view.window!.layer.add(transition, forKey: nil)
-        self.dismiss(animated: false, completion: nil)
-        
-    }
-
+    
+    
 }
