@@ -35,6 +35,8 @@ class MealDetailViewController: UITableViewController {
         self.navigationController?.navigationBar.tintColor = .white
         
         caloriesLabel.text = "   Calories: \(calories)"
+        
+        tableView.allowsSelection = false
     }
     
     override func viewDidDisappear(_ animated: Bool) {

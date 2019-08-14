@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class FoodDetailViewController: UITableViewController {
+class FoodDetailViewController: UITableViewController, UIPopoverPresentationControllerDelegate {
     
     let realm = try! Realm()
     
@@ -31,14 +31,20 @@ class FoodDetailViewController: UITableViewController {
         return calories100g / 100
     }
     var protein1g: Double {
-        return protein100g ?? 0 / 100
+        return (protein100g ?? 0) / 100
     }
     var carbs1g: Double {
-        return carbs100g ?? 0 / 100
+        return (carbs100g ?? 0) / 100
     }
     var fat1g: Double {
-        return fat100g ?? 0 / 100
+        return (fat100g ?? 0) / 100
     }
+    
+    var originalServingSize: String?
+    var originalCalories: Int = 0
+    var originalProtein: Double?
+    var originalCarbs: Double?
+    var originalFat: Double?
     
     weak var delegate: NewEntryDelegate?
     
@@ -65,6 +71,12 @@ class FoodDetailViewController: UITableViewController {
         
         tableView.keyboardDismissMode = .interactive
         tableView.allowsSelection = false
+        
+        originalServingSize = servingSize
+        originalCalories = calories
+        originalProtein = protein
+        originalCarbs = carbs
+        originalFat = fat
 
     }
     
@@ -86,15 +98,19 @@ class FoodDetailViewController: UITableViewController {
         
         let mealPickerCell = tableView(tableView, cellForRowAt: IndexPath(row: 0, section: 0)) as! MealPickerCell
         
-        switch mealPickerCell.mealPicker.selectedSegmentIndex {
+        switch mealPickerCell.mealPicker.selectedSegmentIndex {  // NEEDS FIXING
         case 0:
-            addAndSaveNewEntry(meal: .breakfast)
+            let newBreakfastEntry = Food()
+            addAndSaveNewEntry(food: newBreakfastEntry, meal: .breakfast)
         case 1:
-            addAndSaveNewEntry(meal: .lunch)
+            let newFoodEntry = Food()
+            addAndSaveNewEntry(food: newFoodEntry, meal: .lunch)
         case 2:
-            addAndSaveNewEntry(meal: .dinner)
+            let newFoodEntry = Food()
+            addAndSaveNewEntry(food: newFoodEntry, meal: .dinner)
         case 3:
-            addAndSaveNewEntry(meal: .other)
+            let newOtherFoodEntry = Food()
+            addAndSaveNewEntry(food: newOtherFoodEntry, meal: .other)
         default:
             print("Error determining meal type.")
         }
@@ -102,15 +118,14 @@ class FoodDetailViewController: UITableViewController {
         
     }
     
-    private func addAndSaveNewEntry(meal: Food.Meal) {
+    private func addAndSaveNewEntry(food: Food, meal: Food.Meal) {
         
-        let newFoodEntry = Food()
         let servingCell = tableView(tableView, cellForRowAt: IndexPath(row: 3, section: 0)) as! ServingCell
         
         let formatter = DateFormatter()
         formatter.dateFormat = "E, d MMM"
         
-        newFoodEntry.updateProperties(
+        food.updateProperties(
             date: formatter.string(from: date ?? Date()),
             meal: meal,
             name: foodName,
@@ -122,7 +137,7 @@ class FoodDetailViewController: UITableViewController {
             fat: fat as NSNumber?
         )
         
-        save(food: newFoodEntry)
+        save(food: food)
         
         dismissViewWithAnimation()
         delegate?.reloadFood()
@@ -165,6 +180,45 @@ class FoodDetailViewController: UITableViewController {
         }
         
     }
+    
+    @objc func servingButtonTapped(_ sender: UIButton) {   // NEEDS CLEANING UP
+        
+        let alertController = UIAlertController(title: "Serving Size", message: nil, preferredStyle: .actionSheet)
+        
+        alertController.addAction(UIAlertAction(title: "1g", style: .default, handler: { (UIAlertAction) in
+            self.servingSize = "1g"
+            self.calories = self.calories1g
+            self.protein = self.protein1g
+            self.carbs = self.carbs1g
+            self.fat = self.fat1g
+            self.tableView.reloadData()
+        }))
+        
+        alertController.addAction(UIAlertAction(title: originalServingSize, style: .default, handler: { (UIAlertAction) in
+            self.servingSize = self.originalServingSize!
+            self.calories = self.originalCalories
+            self.protein = self.originalProtein
+            self.carbs = self.originalCarbs
+            self.fat = self.originalFat
+            self.tableView.reloadData()
+        }))
+        
+        alertController.addAction(UIAlertAction(title: "100g", style: .default, handler: { (UIAlertAction) in
+            self.servingSize = "100g"
+            self.calories = self.calories100g
+            self.protein = self.protein100g
+            self.carbs = self.carbs100g
+            self.fat = self.fat100g
+            self.tableView.reloadData()
+        }))
+        
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        
+        present(alertController, animated: true)
+        
+    }
+    
+    
     
     
 
@@ -233,6 +287,7 @@ extension FoodDetailViewController {
         mealPickerCell.mealPicker.tintColor = UIColor.flatSkyBlue()
         foodNameCell.foodNameLabel.text = foodName
         servingSizeCell.servingSizeButton.setTitle(servingSize, for: .normal)
+        servingSizeCell.servingSizeButton.addTarget(self, action: #selector(servingButtonTapped), for: .touchUpInside)
         servingCell.servingTextField.text = String(serving)
         
         switch indexPath.section {
