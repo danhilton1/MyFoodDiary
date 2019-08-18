@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class Food: Object {
+class Food: Object, NSCopying {
     
     enum Meal: Int {
         
@@ -58,6 +58,11 @@ class Food: Object {
         
     }
     
+    func copy(with zone: NSZone? = nil) -> Any {
+        let copy = Food(value: self)
+        return copy
+    }
+    
 }
 
 
@@ -71,7 +76,7 @@ struct Product: Codable {
     
     let nutriments: Nutriments
     let productName: String
-    let servingSize: String
+    let servingSize: String?
     
     enum CodingKeys: String, CodingKey {
         
@@ -104,10 +109,10 @@ struct Nutriments: Codable {
     
     enum CodingKeys: String, CodingKey {
         
-        case energyServing = "energy_serving"
-        case proteinServing = "proteins_serving"
-        case carbServing = "carbohydrates_serving"
-        case fatServing = "fat_serving"
+        case energyServing = "energy"
+        case proteinServing = "proteins"
+        case carbServing = "carbohydrates"
+        case fatServing = "fat"
         
         case energy100g = "energy_100g"
         case protein100g = "proteins_100g"

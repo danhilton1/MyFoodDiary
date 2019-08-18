@@ -5,7 +5,7 @@
 //  Created by Daniel Hilton on 19/05/2019.
 //  Copyright © 2019 Daniel Hilton. All rights reserved.
 
-// TODO: - parse JSON from barcode scan, show food history, dates
+// TODO: - Fix copy() method for Food. Remove '.0' from serving. Change tableview cells to static.
 
 
 import UIKit

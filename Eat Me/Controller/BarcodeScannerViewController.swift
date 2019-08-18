@@ -152,20 +152,35 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                         guard let data = data else { return }
                         
                         do {
-                            
+                            // ERROR - not all food on database have the same values. Need to fix
                             let food = try JSONDecoder().decode(DatabaseFood.self, from: data)
                             
                             self.foodName = food.product.productName
-                            self.servingSize = food.product.servingSize
-                            self.calories = food.product.nutriments.calories
-                            self.protein = food.product.nutriments.proteinServing
-                            self.carbs = food.product.nutriments.carbServing
-                            self.fat = food.product.nutriments.fatServing
+                            if food.product.servingSize == nil {
+                                
+                                self.servingSize = "100g"
+                                self.calories = food.product.nutriments.calories100g
+                                self.protein = food.product.nutriments.protein100g
+                                self.carbs = food.product.nutriments.carbs100g
+                                self.fat = food.product.nutriments.fat100g
+                                
+                                self.calories100g = food.product.nutriments.calories100g
+                                self.protein100g = food.product.nutriments.protein100g
+                                self.carbs100g = food.product.nutriments.carbs100g
+                                self.fat100g = food.product.nutriments.fat100g
+                            } else {
                             
-                            self.calories100g = food.product.nutriments.calories100g
-                            self.protein100g = food.product.nutriments.protein100g
-                            self.carbs100g = food.product.nutriments.carbs100g
-                            self.fat100g = food.product.nutriments.fat100g
+                                self.servingSize = food.product.servingSize
+                                self.calories = food.product.nutriments.calories
+                                self.protein = food.product.nutriments.proteinServing
+                                self.carbs = food.product.nutriments.carbServing
+                                self.fat = food.product.nutriments.fatServing
+                                
+                                self.calories100g = food.product.nutriments.calories100g
+                                self.protein100g = food.product.nutriments.protein100g
+                                self.carbs100g = food.product.nutriments.carbs100g
+                                self.fat100g = food.product.nutriments.fat100g
+                            }
                             
                             self.session.stopRunning()
                             self.dispatchGroup.leave()
@@ -243,17 +258,31 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                     let food = try JSONDecoder().decode(DatabaseFood.self, from: data)
                     
                     self.foodName = food.product.productName
-                    self.servingSize = food.product.servingSize
-                    self.calories = food.product.nutriments.calories
-                    self.protein = food.product.nutriments.proteinServing
-                    self.carbs = food.product.nutriments.carbServing
-                    self.fat = food.product.nutriments.fatServing
-                    
-                    self.calories100g = food.product.nutriments.calories100g
-                    self.protein100g = food.product.nutriments.protein100g
-                    self.carbs100g = food.product.nutriments.carbs100g
-                    self.fat100g = food.product.nutriments.fat100g
-                    
+                    if food.product.servingSize == nil {
+                        self.servingSize = "100g"
+                        self.calories = food.product.nutriments.calories100g
+                        self.protein = food.product.nutriments.protein100g
+                        self.carbs = food.product.nutriments.carbs100g
+                        self.fat = food.product.nutriments.fat100g
+                        
+                        self.calories100g = food.product.nutriments.calories100g
+                        self.protein100g = food.product.nutriments.protein100g
+                        self.carbs100g = food.product.nutriments.carbs100g
+                        self.fat100g = food.product.nutriments.fat100g
+                    } else {
+                        
+                        self.servingSize = food.product.servingSize
+                        self.calories = food.product.nutriments.calories
+                        self.protein = food.product.nutriments.proteinServing
+                        self.carbs = food.product.nutriments.carbServing
+                        self.fat = food.product.nutriments.fatServing
+                        
+                        self.calories100g = food.product.nutriments.calories100g
+                        self.protein100g = food.product.nutriments.protein100g
+                        self.carbs100g = food.product.nutriments.carbs100g
+                        self.fat100g = food.product.nutriments.fat100g
+                    }
+                    self.session.stopRunning()
                     self.dispatchGroup.leave()
                     
                 } catch {
@@ -291,7 +320,9 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         
         let alertController = UIAlertController(title: "Error!", message: message, preferredStyle: .alert)
         
-        alertController.addAction(UIAlertAction(title: "OK", style: .default))
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+            self.session.startRunning()
+        }))
         
         present(alertController, animated: true)
         
