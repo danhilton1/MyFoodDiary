@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class Food: Object, NSCopying {
+class Food: Object {
     
     enum Meal: Int {
         
@@ -58,10 +58,10 @@ class Food: Object, NSCopying {
         
     }
     
-    func copy(with zone: NSZone? = nil) -> Any {
-        let copy = Food(value: self)
-        return copy
-    }
+//    func copy(with zone: NSZone? = nil) -> Any {
+//        let copy = Food(value: self)
+//        return copy
+//    }
     
 }
 

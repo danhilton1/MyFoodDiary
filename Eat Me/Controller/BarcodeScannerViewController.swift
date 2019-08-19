@@ -14,10 +14,10 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
     //MARK:- Properties and Objects
     
     var date: Date?
-    var foodName: String?
-    var servingSize: String?
-    var calories: Int?
-    var calories100g: Int?
+    var foodName: String = ""
+    var servingSize: String? = ""
+    var calories: Int = 0
+    var calories100g: Int = 0
     var protein: Double?
     var protein100g: Double?
     var carbs: Double?
@@ -152,12 +152,11 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                         guard let data = data else { return }
                         
                         do {
-                            // ERROR - not all food on database have the same values. Need to fix
                             let food = try JSONDecoder().decode(DatabaseFood.self, from: data)
                             
                             self.foodName = food.product.productName
                             if food.product.servingSize == nil {
-                                
+                                // If no serving size information is available, use a default value of 100g
                                 self.servingSize = "100g"
                                 self.calories = food.product.nutriments.calories100g
                                 self.protein = food.product.nutriments.protein100g
@@ -186,7 +185,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                             self.dispatchGroup.leave()
                             
                         } catch {
-                            DispatchQueue.main.async {
+                            DispatchQueue.main.async {  // This needs to be exectued on main thread
                                 print("Error parsing JSON - \(error)")
                                 
                                 self.activityIndicator.stopAnimating()
@@ -259,6 +258,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                     
                     self.foodName = food.product.productName
                     if food.product.servingSize == nil {
+                        
                         self.servingSize = "100g"
                         self.calories = food.product.nutriments.calories100g
                         self.protein = food.product.nutriments.protein100g
@@ -269,6 +269,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                         self.protein100g = food.product.nutriments.protein100g
                         self.carbs100g = food.product.nutriments.carbs100g
                         self.fat100g = food.product.nutriments.fat100g
+                        
                     } else {
                         
                         self.servingSize = food.product.servingSize
@@ -282,7 +283,6 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                         self.carbs100g = food.product.nutriments.carbs100g
                         self.fat100g = food.product.nutriments.fat100g
                     }
-                    self.session.stopRunning()
                     self.dispatchGroup.leave()
                     
                 } catch {
@@ -342,17 +342,17 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
             vc.delegate = delegate
             vc.date = date
             
-            vc.foodName = foodName!
-            vc.servingSize = servingSize!
-            vc.calories = calories!
+            vc.foodName = foodName
+            vc.servingSize = servingSize ?? "100g"
+            vc.calories = calories
             vc.protein = protein
             vc.carbs = carbs
             vc.fat = fat
             
-            vc.calories100g = calories100g!
-            vc.protein100g = protein100g!
-            vc.carbs100g = carbs100g!
-            vc.fat100g = fat100g!
+            vc.calories100g = calories100g
+            vc.protein100g = protein100g
+            vc.carbs100g = carbs100g
+            vc.fat100g = fat100g
             
         }
         

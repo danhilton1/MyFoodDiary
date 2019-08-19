@@ -26,11 +26,11 @@ class FoodDetailViewController: UITableViewController, UIPopoverPresentationCont
     var carbs: Double? = 0
     var fat: Double? = 0
     var calories100g: Int = 0
-    var protein100g: Double? = 0
-    var carbs100g: Double? = 0
-    var fat100g: Double? = 0
-    var calories1g: Int {
-        return calories100g / 100
+    var protein100g: Double?
+    var carbs100g: Double?
+    var fat100g: Double?
+    var calories1g: Double {
+        return Double(calories100g) / 100
     }
     var protein1g: Double {
         return (protein100g ?? 0) / 100
@@ -75,10 +75,10 @@ class FoodDetailViewController: UITableViewController, UIPopoverPresentationCont
         originalCarbs = carbs
         originalFat = fat
         
-        var originalFood = food?.copy() as? Food
-        originalFood?.calories = 9999
-        print(calories)
-        print(originalFood?.calories)
+//        var originalFood = food?.copy() as? Food
+//        originalFood?.calories = 9999
+//        print(calories)
+//        print(originalFood?.calories)
         
         setUpCells()
         
@@ -179,17 +179,24 @@ class FoodDetailViewController: UITableViewController, UIPopoverPresentationCont
         
         var totalServing: Double {
             let servingSizeNumber = servingSize.filter("01234567890.".contains)
-            return Double(textField.text!)! * Double(servingSizeNumber)!
+            return (Double(textField.text ?? "0") ?? 1) * (Double(servingSizeNumber) ?? 1)
         }
-        
+
         if textField.text == "" {
             caloriesLabel.text = "0"
-            proteinLabel.text = "0"
-            carbsLabel.text = "0"
-            fatLabel.text = "0"
+            proteinLabel.text = "0 g"
+            carbsLabel.text = "0 g"
+            fatLabel.text = "0 g"
 
-        } else {
-            calories = Int(round(Double(calories1g) * totalServing))
+        }
+        else if totalServing == 100 {
+            caloriesLabel.text = String(calories100g)
+            proteinLabel.text = "\(protein100g ?? 0) g"
+            carbsLabel.text = "\(carbs100g ?? 0) g"
+            fatLabel.text = "\(fat100g ?? 0) g"
+        }
+        else {
+            calories = Int(round(calories1g * totalServing))
             protein = round(10 * (protein1g * totalServing)) / 10
             carbs = round(10 * (carbs1g * totalServing)) / 10
             fat = round(10 * (fat1g * totalServing)) / 10
@@ -198,65 +205,66 @@ class FoodDetailViewController: UITableViewController, UIPopoverPresentationCont
             proteinLabel.text = "\(protein ?? 0) g"
             carbsLabel.text = "\(carbs ?? 0) g"
             fatLabel.text = "\(fat ?? 0) g"
-            
+
         }
-        
+
     }
     
     @objc func servingButtonTapped(_ sender: UIButton) {   // NEEDS CLEANING UP
-        
-        let alertController = UIAlertController(title: "Serving Size", message: nil, preferredStyle: .actionSheet)
-        
+
+
+        let alertController = UIAlertController(title: "Choose Serving Size", message: nil, preferredStyle: .actionSheet)
+
         if servingSize != "100g" {
             alertController.addAction(UIAlertAction(title: "1g", style: .default, handler: { (UIAlertAction) in
-                self.servingSize = "1g"
-                self.calories = self.calories1g
-                self.protein = self.protein1g
-                self.carbs = self.carbs1g
-                self.fat = self.fat1g
-                self.tableView.reloadData()
+                self.servingSizeButton.setTitle("1g", for: .normal)
+                self.caloriesLabel.text = String(self.calories1g)
+                self.proteinLabel.text = String(self.protein1g)
+                self.carbsLabel.text = String(self.carbs1g)
+                self.fatLabel.text = String(self.fat1g)
+
             }))
-            
+
             alertController.addAction(UIAlertAction(title: originalServingSize, style: .default, handler: { (UIAlertAction) in
-                self.servingSize = self.originalServingSize!
-                self.calories = self.originalCalories
-                self.protein = self.originalProtein
-                self.carbs = self.originalCarbs
-                self.fat = self.originalFat
-                self.tableView.reloadData()
+                self.servingSizeButton.setTitle(self.originalServingSize, for: .normal)
+                self.caloriesLabel.text = String(self.originalCalories)
+                self.proteinLabel.text = "\(self.originalProtein ?? 0) g"
+                self.carbsLabel.text = "\(self.originalCarbs ?? 0) g"
+                self.fatLabel.text = "\(self.originalFat ?? 0) g"
             }))
-            
+
             alertController.addAction(UIAlertAction(title: "100g", style: .default, handler: { (UIAlertAction) in
-                self.servingSize = "100g"
-                self.calories = self.calories100g
-                self.protein = self.protein100g
-                self.carbs = self.carbs100g
-                self.fat = self.fat100g
-                self.tableView.reloadData()
+                self.servingSizeButton.setTitle("100g", for: .normal)
+                self.caloriesLabel.text = String(self.calories100g)
+                self.proteinLabel.text = "\(self.protein100g ?? 0) g"
+                self.carbsLabel.text = "\(self.carbs100g ?? 0) g"
+                self.fatLabel.text = "\(self.fat100g ?? 0) g"
             }))
         } else {
             alertController.addAction(UIAlertAction(title: "1g", style: .default, handler: { (UIAlertAction) in
+                self.servingSizeButton.setTitle("1g", for: .normal)
                 self.servingSize = "1g"
-                self.calories = self.calories1g
-                self.protein = self.protein1g
-                self.carbs = self.carbs1g
-                self.fat = self.fat1g
-                self.tableView.reloadData()
+                self.servingTextField.text = "1"
+                self.caloriesLabel.text = String(Int(round(self.calories1g)))
+                self.proteinLabel.text = "\(round(100 * self.protein1g) / 100) g"
+                self.carbsLabel.text = "\(round(100 * self.carbs1g) / 100) g"
+                self.fatLabel.text = "\(round(100 * self.fat1g) / 100) g"
             }))
             alertController.addAction(UIAlertAction(title: "100g", style: .default, handler: { (UIAlertAction) in
+                self.servingSizeButton.setTitle("100g", for: .normal)
                 self.servingSize = "100g"
-                self.calories = self.calories100g
-                self.protein = self.protein100g
-                self.carbs = self.carbs100g
-                self.fat = self.fat100g
-                self.tableView.reloadData()
+                self.servingTextField.text = "1"
+                self.caloriesLabel.text = String(self.calories100g)
+                self.proteinLabel.text = "\(self.protein100g ?? 0) g"
+                self.carbsLabel.text = "\(self.carbs100g ?? 0) g"
+                self.fatLabel.text = "\(self.fat100g ?? 0) g"
             }))
         }
-        
+
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        
+
         present(alertController, animated: true)
-        
+
     }
     
     
@@ -267,8 +275,8 @@ class FoodDetailViewController: UITableViewController, UIPopoverPresentationCont
 
 //MARK:- Table view data source and delegate methods
 
-extension FoodDetailViewController {
-    
+//extension FoodDetailViewController {
+
     
 //    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 //
@@ -361,4 +369,4 @@ extension FoodDetailViewController {
     
     
     
-}
+//}

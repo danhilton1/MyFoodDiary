@@ -61,7 +61,7 @@ class NewEntryViewController: UITableViewController, UITextFieldDelegate {
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        return (tableView.frame.height) / 12
+        return (tableView.frame.height) / 13
         
     }
 
