@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class FoodDetailViewController: UITableViewController, UIPopoverPresentationControllerDelegate {
+class FoodDetailViewController: UITableViewController {
     
     let realm = try! Realm()
     
@@ -75,10 +75,10 @@ class FoodDetailViewController: UITableViewController, UIPopoverPresentationCont
         originalCarbs = carbs
         originalFat = fat
         
-//        var originalFood = food?.copy() as? Food
-//        originalFood?.calories = 9999
-//        print(calories)
-//        print(originalFood?.calories)
+        let originalFood = food?.copy() as? Food
+        originalFood?.calories = 9999
+        print(calories)
+        print(originalFood?.calories)
         
         setUpCells()
         
@@ -215,56 +215,55 @@ class FoodDetailViewController: UITableViewController, UIPopoverPresentationCont
 
         let alertController = UIAlertController(title: "Choose Serving Size", message: nil, preferredStyle: .actionSheet)
 
-        if servingSize != "100g" {
-            alertController.addAction(UIAlertAction(title: "1g", style: .default, handler: { (UIAlertAction) in
-                self.servingSizeButton.setTitle("1g", for: .normal)
-                self.caloriesLabel.text = String(self.calories1g)
-                self.proteinLabel.text = String(self.protein1g)
-                self.carbsLabel.text = String(self.carbs1g)
-                self.fatLabel.text = String(self.fat1g)
+        if originalServingSize != "100g" {
+            addAction(for: alertController, title: "1g", calories: String(Int(round(calories1g))),
+                      protein: "\(round(100 * protein1g) / 100) g",
+                      carbs: "\(round(100 * carbs1g) / 100) g",
+                      fat: "\(round(100 * fat1g) / 100) g")
 
-            }))
+            addAction(for: alertController, title: originalServingSize ?? "100g",
+                      calories: String(originalCalories),
+                      protein: "\(self.originalProtein ?? 0) g",
+                      carbs: "\(self.originalCarbs ?? 0) g",
+                      fat: "\(self.originalFat ?? 0) g")
 
-            alertController.addAction(UIAlertAction(title: originalServingSize, style: .default, handler: { (UIAlertAction) in
-                self.servingSizeButton.setTitle(self.originalServingSize, for: .normal)
-                self.caloriesLabel.text = String(self.originalCalories)
-                self.proteinLabel.text = "\(self.originalProtein ?? 0) g"
-                self.carbsLabel.text = "\(self.originalCarbs ?? 0) g"
-                self.fatLabel.text = "\(self.originalFat ?? 0) g"
-            }))
+            addAction(for: alertController, title: "100g", calories: String(calories100g),
+                      protein: "\(protein100g ?? 0) g",
+                      carbs: "\(carbs100g ?? 0) g",
+                      fat: "\(fat100g ?? 0) g")
 
-            alertController.addAction(UIAlertAction(title: "100g", style: .default, handler: { (UIAlertAction) in
-                self.servingSizeButton.setTitle("100g", for: .normal)
-                self.caloriesLabel.text = String(self.calories100g)
-                self.proteinLabel.text = "\(self.protein100g ?? 0) g"
-                self.carbsLabel.text = "\(self.carbs100g ?? 0) g"
-                self.fatLabel.text = "\(self.fat100g ?? 0) g"
-            }))
         } else {
-            alertController.addAction(UIAlertAction(title: "1g", style: .default, handler: { (UIAlertAction) in
-                self.servingSizeButton.setTitle("1g", for: .normal)
-                self.servingSize = "1g"
-                self.servingTextField.text = "1"
-                self.caloriesLabel.text = String(Int(round(self.calories1g)))
-                self.proteinLabel.text = "\(round(100 * self.protein1g) / 100) g"
-                self.carbsLabel.text = "\(round(100 * self.carbs1g) / 100) g"
-                self.fatLabel.text = "\(round(100 * self.fat1g) / 100) g"
-            }))
-            alertController.addAction(UIAlertAction(title: "100g", style: .default, handler: { (UIAlertAction) in
-                self.servingSizeButton.setTitle("100g", for: .normal)
-                self.servingSize = "100g"
-                self.servingTextField.text = "1"
-                self.caloriesLabel.text = String(self.calories100g)
-                self.proteinLabel.text = "\(self.protein100g ?? 0) g"
-                self.carbsLabel.text = "\(self.carbs100g ?? 0) g"
-                self.fatLabel.text = "\(self.fat100g ?? 0) g"
-            }))
+            addAction(for: alertController, title: "1g", calories: String(Int(round(calories1g))),
+                      protein: "\(round(100 * protein1g) / 100) g",
+                      carbs: "\(round(100 * carbs1g) / 100) g",
+                      fat: "\(round(100 * fat1g) / 100) g")
+
+            addAction(for: alertController, title: "100g", calories: String(calories100g),
+                      protein: "\(protein100g ?? 0) g",
+                      carbs: "\(carbs100g ?? 0) g",
+                      fat: "\(fat100g ?? 0) g")
+
         }
 
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
 
         present(alertController, animated: true)
 
+    }
+    
+    
+    func addAction(for alertController: UIAlertController, title: String, calories: String, protein: String, carbs: String, fat: String) {
+        
+        alertController.addAction(UIAlertAction(title: title, style: .default, handler: { (UIAlertAction) in
+            self.servingSizeButton.setTitle(title, for: .normal)
+            self.servingSize = title
+            self.caloriesLabel.text = calories
+            self.proteinLabel.text = protein
+            self.carbsLabel.text = carbs
+            self.fatLabel.text = fat
+            self.servingTextField.text = "1"
+        }))
+        
     }
     
     

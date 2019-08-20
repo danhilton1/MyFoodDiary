@@ -166,7 +166,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Meal:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="098-Df-7ZN">
-                                                    <rect key="frame" x="20" y="13" width="60.5" height="31"/>
+                                                    <rect key="frame" x="20" y="13" width="60.5" height="24"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="60.5" id="uWR-AE-GIg"/>
                                                     </constraints>
@@ -175,7 +175,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="LU1-qH-ZSO">
-                                                    <rect key="frame" x="90.5" y="12" width="308.5" height="33.5"/>
+                                                    <rect key="frame" x="90.5" y="9" width="308.5" height="32.5"/>
                                                     <segments>
                                                         <segment title="Breakfast"/>
                                                         <segment title="Lunch"/>
@@ -186,11 +186,11 @@
                                                 </segmentedControl>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="LU1-qH-ZSO" secondAttribute="bottom" constant="12" id="1UF-7g-j2q"/>
+                                                <constraint firstAttribute="bottom" secondItem="LU1-qH-ZSO" secondAttribute="bottom" constant="9" id="1UF-7g-j2q"/>
                                                 <constraint firstItem="098-Df-7ZN" firstAttribute="top" secondItem="Gxq-5d-mN6" secondAttribute="topMargin" constant="2" id="9xR-U1-jtd"/>
                                                 <constraint firstItem="098-Df-7ZN" firstAttribute="leading" secondItem="Gxq-5d-mN6" secondAttribute="leadingMargin" id="Hdv-Ud-wlP"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="098-Df-7ZN" secondAttribute="bottom" constant="2" id="Oln-I1-RWj"/>
-                                                <constraint firstItem="LU1-qH-ZSO" firstAttribute="top" secondItem="Gxq-5d-mN6" secondAttribute="top" constant="12" id="hXT-J5-ono"/>
+                                                <constraint firstItem="LU1-qH-ZSO" firstAttribute="top" secondItem="Gxq-5d-mN6" secondAttribute="top" constant="9" id="hXT-J5-ono"/>
                                                 <constraint firstAttribute="trailing" secondItem="LU1-qH-ZSO" secondAttribute="trailing" constant="15" id="r0L-5t-KU1"/>
                                                 <constraint firstItem="LU1-qH-ZSO" firstAttribute="leading" secondItem="098-Df-7ZN" secondAttribute="trailing" constant="10" id="yOR-uk-qQ0"/>
                                             </constraints>
@@ -204,22 +204,22 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GZZ-fu-eOn">
-                                                    <rect key="frame" x="20" y="2" width="66" height="52.5"/>
+                                                    <rect key="frame" x="20" y="2" width="66" height="45.5"/>
                                                     <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Required" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="R9T-qm-662">
-                                                    <rect key="frame" x="94" y="12" width="305" height="32.5"/>
+                                                    <rect key="frame" x="94" y="9" width="305" height="31.5"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="next"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="R9T-qm-662" secondAttribute="bottom" constant="12" id="1KU-dm-0dq"/>
+                                                <constraint firstAttribute="bottom" secondItem="R9T-qm-662" secondAttribute="bottom" constant="9" id="1KU-dm-0dq"/>
                                                 <constraint firstAttribute="bottom" secondItem="GZZ-fu-eOn" secondAttribute="bottom" constant="2" id="1Qs-xc-xax"/>
-                                                <constraint firstItem="R9T-qm-662" firstAttribute="top" secondItem="Q38-zA-KM5" secondAttribute="top" constant="12" id="6AU-Rg-Wef"/>
+                                                <constraint firstItem="R9T-qm-662" firstAttribute="top" secondItem="Q38-zA-KM5" secondAttribute="top" constant="9" id="6AU-Rg-Wef"/>
                                                 <constraint firstItem="GZZ-fu-eOn" firstAttribute="top" secondItem="Q38-zA-KM5" secondAttribute="top" constant="2" id="ETX-sq-HWM"/>
                                                 <constraint firstItem="GZZ-fu-eOn" firstAttribute="leading" secondItem="Q38-zA-KM5" secondAttribute="leadingMargin" id="Qz6-Fr-VvB"/>
                                                 <constraint firstItem="R9T-qm-662" firstAttribute="leading" secondItem="GZZ-fu-eOn" secondAttribute="trailing" constant="8" id="cZy-Ev-yln"/>
@@ -235,13 +235,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Serving Size (g):" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="koK-zC-a67">
-                                                    <rect key="frame" x="20" y="13" width="158" height="31"/>
+                                                    <rect key="frame" x="20" y="13" width="158" height="24"/>
                                                     <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Required" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sY1-Fc-VZn">
-                                                    <rect key="frame" x="186" y="12" width="213" height="32.5"/>
+                                                    <rect key="frame" x="186" y="9" width="213" height="31.5"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="next"/>
@@ -251,9 +251,9 @@
                                                 <constraint firstAttribute="trailing" secondItem="sY1-Fc-VZn" secondAttribute="trailing" constant="15" id="0qk-FA-bQ4"/>
                                                 <constraint firstItem="koK-zC-a67" firstAttribute="leading" secondItem="nxz-6E-A0w" secondAttribute="leadingMargin" id="5Ki-IC-U6j"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="koK-zC-a67" secondAttribute="bottom" constant="2" id="K2c-WG-T7d"/>
-                                                <constraint firstItem="sY1-Fc-VZn" firstAttribute="top" secondItem="nxz-6E-A0w" secondAttribute="top" constant="12" id="LQw-gm-mWN"/>
+                                                <constraint firstItem="sY1-Fc-VZn" firstAttribute="top" secondItem="nxz-6E-A0w" secondAttribute="top" constant="9" id="LQw-gm-mWN"/>
                                                 <constraint firstItem="sY1-Fc-VZn" firstAttribute="leading" secondItem="koK-zC-a67" secondAttribute="trailing" constant="8" id="MhW-Se-h9q"/>
-                                                <constraint firstAttribute="bottom" secondItem="sY1-Fc-VZn" secondAttribute="bottom" constant="12" id="PfU-Bc-fU5"/>
+                                                <constraint firstAttribute="bottom" secondItem="sY1-Fc-VZn" secondAttribute="bottom" constant="9" id="PfU-Bc-fU5"/>
                                                 <constraint firstItem="koK-zC-a67" firstAttribute="top" secondItem="nxz-6E-A0w" secondAttribute="topMargin" constant="2" id="t1f-2a-o8g"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -266,13 +266,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Serving:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ay6-wi-Fzd">
-                                                    <rect key="frame" x="20" y="13" width="80.5" height="31"/>
+                                                    <rect key="frame" x="20" y="13" width="80.5" height="24"/>
                                                     <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Required" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fyv-gI-CEj">
-                                                    <rect key="frame" x="108.5" y="12" width="290.5" height="32.5"/>
+                                                    <rect key="frame" x="108.5" y="9" width="290.5" height="31.5"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="next"/>
@@ -280,10 +280,10 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="fyv-gI-CEj" firstAttribute="leading" secondItem="ay6-wi-Fzd" secondAttribute="trailing" constant="8" id="F6j-jD-DkG"/>
-                                                <constraint firstAttribute="bottom" secondItem="fyv-gI-CEj" secondAttribute="bottom" constant="12" id="FTz-r6-cnr"/>
+                                                <constraint firstAttribute="bottom" secondItem="fyv-gI-CEj" secondAttribute="bottom" constant="9" id="FTz-r6-cnr"/>
                                                 <constraint firstItem="ay6-wi-Fzd" firstAttribute="leading" secondItem="i3j-gj-2ur" secondAttribute="leadingMargin" id="MQg-uH-XUh"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="ay6-wi-Fzd" secondAttribute="bottom" constant="2" id="NGK-Hu-ziQ"/>
-                                                <constraint firstItem="fyv-gI-CEj" firstAttribute="top" secondItem="i3j-gj-2ur" secondAttribute="top" constant="12" id="Zsv-bi-fNa"/>
+                                                <constraint firstItem="fyv-gI-CEj" firstAttribute="top" secondItem="i3j-gj-2ur" secondAttribute="top" constant="9" id="Zsv-bi-fNa"/>
                                                 <constraint firstItem="ay6-wi-Fzd" firstAttribute="top" secondItem="i3j-gj-2ur" secondAttribute="topMargin" constant="2" id="w6p-L5-fXw"/>
                                                 <constraint firstAttribute="trailing" secondItem="fyv-gI-CEj" secondAttribute="trailing" constant="15" id="wW3-lP-kC8"/>
                                             </constraints>
@@ -301,24 +301,24 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calories:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="upr-Ko-0Iy">
-                                                    <rect key="frame" x="20" y="13" width="83.5" height="31"/>
+                                                    <rect key="frame" x="20" y="13" width="83.5" height="24"/>
                                                     <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Required" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lZz-hY-6hH">
-                                                    <rect key="frame" x="111.5" y="12" width="287.5" height="32.5"/>
+                                                    <rect key="frame" x="111.5" y="9" width="287.5" height="31.5"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="lZz-hY-6hH" secondAttribute="bottom" constant="12" id="571-Tl-aXv"/>
+                                                <constraint firstAttribute="bottom" secondItem="lZz-hY-6hH" secondAttribute="bottom" constant="9" id="571-Tl-aXv"/>
                                                 <constraint firstItem="upr-Ko-0Iy" firstAttribute="top" secondItem="Bcx-Av-tpR" secondAttribute="topMargin" constant="2" id="6vW-FQ-rSJ"/>
                                                 <constraint firstItem="upr-Ko-0Iy" firstAttribute="leading" secondItem="Bcx-Av-tpR" secondAttribute="leadingMargin" id="ABM-ht-vbr"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="upr-Ko-0Iy" secondAttribute="bottom" constant="2" id="CfI-1z-uNX"/>
-                                                <constraint firstItem="lZz-hY-6hH" firstAttribute="top" secondItem="Bcx-Av-tpR" secondAttribute="top" constant="12" id="Ggu-Vw-j8X"/>
+                                                <constraint firstItem="lZz-hY-6hH" firstAttribute="top" secondItem="Bcx-Av-tpR" secondAttribute="top" constant="9" id="Ggu-Vw-j8X"/>
                                                 <constraint firstItem="lZz-hY-6hH" firstAttribute="leading" secondItem="upr-Ko-0Iy" secondAttribute="trailing" constant="8" id="HhP-7h-Df4"/>
                                                 <constraint firstAttribute="trailing" secondItem="lZz-hY-6hH" secondAttribute="trailing" constant="15" id="NuZ-2m-AI2"/>
                                             </constraints>
@@ -332,13 +332,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Protein (g):" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="znF-fg-iak">
-                                                    <rect key="frame" x="20" y="2" width="109.5" height="52.5"/>
+                                                    <rect key="frame" x="20" y="2" width="109.5" height="45.5"/>
                                                     <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Optional" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1wJ-sP-GaE">
-                                                    <rect key="frame" x="137.5" y="12" width="261.5" height="32.5"/>
+                                                    <rect key="frame" x="137.5" y="9" width="261.5" height="31.5"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardType="decimalPad" returnKeyType="next"/>
@@ -348,8 +348,8 @@
                                                 <constraint firstItem="1wJ-sP-GaE" firstAttribute="leading" secondItem="znF-fg-iak" secondAttribute="trailing" constant="8" id="I6O-bz-xgl"/>
                                                 <constraint firstItem="znF-fg-iak" firstAttribute="top" secondItem="Zsu-KU-QDE" secondAttribute="top" constant="2" id="Lbg-gP-GCL"/>
                                                 <constraint firstAttribute="bottom" secondItem="znF-fg-iak" secondAttribute="bottom" constant="2" id="R2B-NV-uk8"/>
-                                                <constraint firstAttribute="bottom" secondItem="1wJ-sP-GaE" secondAttribute="bottom" constant="12" id="Yhz-SC-eYC"/>
-                                                <constraint firstItem="1wJ-sP-GaE" firstAttribute="top" secondItem="Zsu-KU-QDE" secondAttribute="top" constant="12" id="gcv-g9-HKL"/>
+                                                <constraint firstAttribute="bottom" secondItem="1wJ-sP-GaE" secondAttribute="bottom" constant="9" id="Yhz-SC-eYC"/>
+                                                <constraint firstItem="1wJ-sP-GaE" firstAttribute="top" secondItem="Zsu-KU-QDE" secondAttribute="top" constant="9" id="gcv-g9-HKL"/>
                                                 <constraint firstAttribute="trailing" secondItem="1wJ-sP-GaE" secondAttribute="trailing" constant="15" id="vXk-Ri-qMC"/>
                                                 <constraint firstItem="znF-fg-iak" firstAttribute="leading" secondItem="Zsu-KU-QDE" secondAttribute="leadingMargin" id="x86-sb-X8g"/>
                                             </constraints>
@@ -363,13 +363,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Carbs (g):" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gFQ-70-bNY">
-                                                    <rect key="frame" x="20" y="13" width="94" height="31"/>
+                                                    <rect key="frame" x="20" y="13" width="94" height="24"/>
                                                     <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Optional" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CMS-I8-QgW">
-                                                    <rect key="frame" x="122" y="12" width="277" height="32.5"/>
+                                                    <rect key="frame" x="122" y="9" width="277" height="31.5"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="next"/>
@@ -380,8 +380,8 @@
                                                 <constraint firstItem="CMS-I8-QgW" firstAttribute="leading" secondItem="gFQ-70-bNY" secondAttribute="trailing" constant="8" id="HA5-N5-AeM"/>
                                                 <constraint firstAttribute="trailing" secondItem="CMS-I8-QgW" secondAttribute="trailing" constant="15" id="PXJ-Tb-4bf"/>
                                                 <constraint firstItem="gFQ-70-bNY" firstAttribute="top" secondItem="A5r-DI-OOx" secondAttribute="topMargin" constant="2" id="cSg-Qe-8uc"/>
-                                                <constraint firstAttribute="bottom" secondItem="CMS-I8-QgW" secondAttribute="bottom" constant="12" id="j3t-1b-mdM"/>
-                                                <constraint firstItem="CMS-I8-QgW" firstAttribute="top" secondItem="A5r-DI-OOx" secondAttribute="top" constant="12" id="wkG-ue-VXZ"/>
+                                                <constraint firstAttribute="bottom" secondItem="CMS-I8-QgW" secondAttribute="bottom" constant="9" id="j3t-1b-mdM"/>
+                                                <constraint firstItem="CMS-I8-QgW" firstAttribute="top" secondItem="A5r-DI-OOx" secondAttribute="top" constant="9" id="wkG-ue-VXZ"/>
                                                 <constraint firstItem="gFQ-70-bNY" firstAttribute="leading" secondItem="A5r-DI-OOx" secondAttribute="leadingMargin" id="ynW-1j-Wtk"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -394,13 +394,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fat (g):" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z9x-KW-IdR">
-                                                    <rect key="frame" x="20" y="13" width="69" height="31"/>
+                                                    <rect key="frame" x="20" y="13" width="69" height="24"/>
                                                     <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Optional" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="u1r-w6-J9T">
-                                                    <rect key="frame" x="97" y="12" width="302" height="32.5"/>
+                                                    <rect key="frame" x="97" y="9" width="302" height="31.5"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="next"/>
@@ -410,10 +410,10 @@
                                                 <constraint firstAttribute="bottomMargin" secondItem="z9x-KW-IdR" secondAttribute="bottom" constant="2" id="0zK-F1-9Gl"/>
                                                 <constraint firstItem="z9x-KW-IdR" firstAttribute="leading" secondItem="TKD-MM-bKC" secondAttribute="leadingMargin" id="7J9-P2-arj"/>
                                                 <constraint firstAttribute="trailing" secondItem="u1r-w6-J9T" secondAttribute="trailing" constant="15" id="GAS-UN-mRO"/>
-                                                <constraint firstAttribute="bottom" secondItem="u1r-w6-J9T" secondAttribute="bottom" constant="12" id="Jje-dE-fF1"/>
+                                                <constraint firstAttribute="bottom" secondItem="u1r-w6-J9T" secondAttribute="bottom" constant="9" id="Jje-dE-fF1"/>
                                                 <constraint firstItem="z9x-KW-IdR" firstAttribute="top" secondItem="TKD-MM-bKC" secondAttribute="topMargin" constant="2" id="OZ5-4n-mcQ"/>
                                                 <constraint firstItem="u1r-w6-J9T" firstAttribute="leading" secondItem="z9x-KW-IdR" secondAttribute="trailing" constant="8" id="QYB-ST-D5z"/>
-                                                <constraint firstItem="u1r-w6-J9T" firstAttribute="top" secondItem="TKD-MM-bKC" secondAttribute="top" constant="12" id="vzT-w1-amD"/>
+                                                <constraint firstItem="u1r-w6-J9T" firstAttribute="top" secondItem="TKD-MM-bKC" secondAttribute="top" constant="9" id="vzT-w1-amD"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>

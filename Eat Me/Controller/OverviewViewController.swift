@@ -5,7 +5,7 @@
 //  Created by Daniel Hilton on 19/05/2019.
 //  Copyright © 2019 Daniel Hilton. All rights reserved.
 
-// TODO: - Fix copy() method for Food. Remove '.0' from serving. Change tableview cells to static.
+// TODO: - Fix copy() method for Food. Remove '.0' from serving. Show food history.
 
 
 import UIKit
