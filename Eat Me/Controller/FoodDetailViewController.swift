@@ -104,11 +104,19 @@ class FoodDetailViewController: UITableViewController {
         foodNameLabel.text = foodName
         mealPicker.tintColor = UIColor.flatSkyBlue()
         servingSizeButton.setTitle(servingSize, for: .normal)
-        servingTextField.text = String(serving)
         caloriesLabel.text = String(calories)
         proteinLabel.text = "\(protein ?? 0) g"
         carbsLabel.text = "\(carbs ?? 0) g"
         fatLabel.text = "\(fat ?? 0) g"
+        
+        var servingString = String(serving)
+        if servingString.hasSuffix(".0") {
+            servingString.removeLast()
+            servingString.removeLast()
+            servingTextField.text = servingString
+        } else {
+            servingTextField.text = String(serving)
+        }
         
     }
 
@@ -184,9 +192,9 @@ class FoodDetailViewController: UITableViewController {
 
         if textField.text == "" {
             caloriesLabel.text = "0"
-            proteinLabel.text = "0 g"
-            carbsLabel.text = "0 g"
-            fatLabel.text = "0 g"
+            proteinLabel.text = "0.0 g"
+            carbsLabel.text = "0.0 g"
+            fatLabel.text = "0.0 g"
 
         }
         else if totalServing == 100 {
@@ -266,106 +274,7 @@ class FoodDetailViewController: UITableViewController {
         
     }
     
-    
-    
-    
 
 }
 
-//MARK:- Table view data source and delegate methods
 
-//extension FoodDetailViewController {
-
-    
-//    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//
-//        let header = UITableViewHeaderFooterView()
-//        header.textLabel?.font = UIFont(name: "Montserrat-SemiBold", size: 17)
-//
-//        switch section {
-//        case 0:
-//            return nil
-//        case 1:
-//            header.textLabel?.text = " "
-//            return header
-//        default:
-//            header.textLabel?.text = ""
-//            return header
-//        }
-//
-//    }
-    
-//    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        
-//        let headerHeight: CGFloat
-//        
-//        if section == 0 {
-//            headerHeight = CGFloat.leastNonzeroMagnitude
-//        } else {
-//            headerHeight = 23
-//        }
-//        
-//        return headerHeight
-//    }
-    
-    
-//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//
-//        let mealPickerCell = tableView.dequeueReusableCell(withIdentifier: "MealPickerCell", for: indexPath) as! MealPickerCell
-//        let foodNameCell = tableView.dequeueReusableCell(withIdentifier: "FoodNameCell", for: indexPath) as! FoodNameCell
-//        let servingSizeCell = tableView.dequeueReusableCell(withIdentifier: "ServingSizeCell", for: indexPath) as! ServingSizeCell
-//        let servingCell = tableView.dequeueReusableCell(withIdentifier: "ServingCell", for: indexPath) as! ServingCell
-//        let nutritionCell = tableView.dequeueReusableCell(withIdentifier: "NutritionCell", for: indexPath) as! NutritionCell
-//
-//        mealPickerCell.mealPicker.tintColor = UIColor.flatSkyBlue()
-//        foodNameCell.foodNameLabel.text = foodName
-//        servingSizeCell.servingSizeButton.setTitle(servingSize, for: .normal)
-//        servingCell.servingTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-//        servingSizeCell.servingSizeButton.addTarget(self, action: #selector(servingButtonTapped), for: .touchUpInside)
-//        servingCell.servingTextField.text = String(serving)
-//
-//        switch indexPath.section {
-//        case 0:
-//            switch indexPath.row {
-//            case 0:
-//                return mealPickerCell
-//            case 1:
-//                return foodNameCell
-//            case 2:
-//                return servingSizeCell
-//            case 3:
-//                return servingCell
-//            default:
-//                return UITableViewCell()
-//            }
-//        case 1:
-//            switch indexPath.row {
-//            case 0:
-//                nutritionCell.nutrientLabel.text = "Calories:"
-//                nutritionCell.quantityLabel.text = String(calories)
-//                return nutritionCell
-//            case 1:
-//                nutritionCell.nutrientLabel.text = "Protein:"
-//                nutritionCell.quantityLabel.text = "\(protein ?? 0)"
-//                return nutritionCell
-//            case 2:
-//                nutritionCell.nutrientLabel.text = "Carbs:"
-//                nutritionCell.quantityLabel.text = "\(carbs ?? 0)"
-//                return nutritionCell
-//            case 3:
-//                nutritionCell.nutrientLabel.text = "Fat:"
-//                nutritionCell.quantityLabel.text = "\(fat ?? 0)"
-//                return nutritionCell
-//            default:
-//                return UITableViewCell()
-//            }
-//        default:
-//            return UITableViewCell()
-//        }
-//
-//
-//    }
-    
-    
-    
-//}

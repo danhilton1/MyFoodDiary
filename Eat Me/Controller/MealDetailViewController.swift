@@ -82,7 +82,14 @@ class MealDetailViewController: UITableViewController {
                         label.text = "    \(food.name!)"
                         let result = food.servingSize.filter("01234567890.".contains)
                         if let servingSize = Double(result) {
-                            servingLabel.text = "\(servingSize * food.serving) g"
+                            var totalServingString = String(servingSize * food.serving)
+                            if totalServingString.hasSuffix(".0") {
+                                totalServingString.removeLast()
+                                totalServingString.removeLast()
+                                servingLabel.text = totalServingString + "g"
+                            } else {
+                                servingLabel.text = "\(servingSize * food.serving) g"
+                            }
                         }
                     }
                 }

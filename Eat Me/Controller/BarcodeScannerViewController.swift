@@ -45,8 +45,9 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         setUpCameraDisplay()
         
         activityIndicator.style = .whiteLarge
-        activityIndicator.frame.size = CGSize(width: 80, height: 80)
-        activityIndicator.center = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
+        activityIndicator.frame.size = CGSize(width: 100, height: 100)
+        activityIndicator.center = view.center
+//        activityIndicator.center = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
         view.addSubview(activityIndicator)
         
     }
