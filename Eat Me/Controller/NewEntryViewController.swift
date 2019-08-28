@@ -137,11 +137,11 @@ class NewEntryViewController: UITableViewController, UITextFieldDelegate {
                 meal: meal,
                 name: foodNameTextField.text,
                 servingSize: servingSizeTextField.text ?? "100g",
-                serving: Double(servingTextField.text!) ?? 1,
-                calories: NSNumber(value: Int(caloriesTextField.text!) ?? 0),
-                protein: NSNumber(value: Double(proteinTextField.text!) ?? 0),
-                carbs: NSNumber(value: Double(carbsTextField.text!) ?? 0),
-                fat: NSNumber(value: Double(fatTextField.text!) ?? 0)
+                serving: Double(servingTextField.text ?? "1") ?? 1,
+                calories: Int(caloriesTextField.text ?? "0") ?? 0,
+                protein: Double(proteinTextField.text ?? "0") ?? 0,
+                carbs: Double(carbsTextField.text ?? "0") ?? 0,
+                fat: Double(fatTextField.text ?? "0") ?? 0
                 )
             
             save(food: newFoodEntry)

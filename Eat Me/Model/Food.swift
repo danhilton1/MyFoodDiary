@@ -9,17 +9,8 @@
 import Foundation
 import RealmSwift
 
-protocol Copyable {
-    init(instance: Self)
-}
 
-extension Copyable {
-    func copy() -> Self {
-        return Self.init(instance: self)
-    }
-}
-
-class Food: Object, NSCopying {
+class Food: Object {
     
     
     enum Meal: Int {
@@ -42,19 +33,19 @@ class Food: Object, NSCopying {
             }
         }
     }
-    
+    // 100g values
     @objc dynamic var date: String?
     @objc dynamic var meal: String?
     @objc dynamic var name: String? = ""
-    @objc dynamic var servingSize: String = ""
-    @objc dynamic var serving: Double = 0.0
-    @objc dynamic var calories: NSNumber? = NSNumber(value: 0)
-    @objc dynamic var protein: NSNumber? = NSNumber(value: 0.0)
-    @objc dynamic var carbs: NSNumber? = NSNumber(value: 0.0)
-    @objc dynamic var fat: NSNumber? = NSNumber(value: 0.0)
+    @objc dynamic var servingSize: String = "100g"
+    @objc dynamic var serving: Double = 1
+    @objc dynamic var calories: Int = 0
+    @objc dynamic var protein: Double = 0
+    @objc dynamic var carbs: Double = 0
+    @objc dynamic var fat: Double = 0
     
     
-    func updateProperties(date: String?, meal: Meal, name: String?, servingSize: String, serving: Double, calories: NSNumber?, protein: NSNumber?, carbs: NSNumber?, fat: NSNumber?) {
+    func updateProperties(date: String?, meal: Meal, name: String?, servingSize: String, serving: Double, calories: Int, protein: Double, carbs: Double, fat: Double) {
         
         self.date = date
         self.meal = meal.stringValue
@@ -69,7 +60,7 @@ class Food: Object, NSCopying {
         
     }
     
-    func copy(with zone: NSZone? = nil) -> Any {
+    func copy(with zone: NSZone? = nil) -> Food {
         let copy = Food()
         copy.date = self.date
         copy.meal = self.meal
@@ -83,11 +74,9 @@ class Food: Object, NSCopying {
         return copy
     }
     
-//    required init(instance: Food) {
-//        self.date = instance.date
-//    }
     
 }
+
 
 
 struct DatabaseFood: Codable {
@@ -103,24 +92,24 @@ struct Product: Codable {
     let servingSize: String?
     
     enum CodingKeys: String, CodingKey {
-        
+
         case nutriments = "nutriments"
         case productName = "product_name"
         case servingSize = "serving_size"
-        
+
     }
     
 }
-
+// GET RID OF SERVING. JUST USE COMPUTED TO GET SERVING VALUES. JSON DECODER SNAKE INSTEAD OF CODING KEY ENUM.
 struct Nutriments: Codable {
     
-    let energyServing: Int
-    var calories: Int {
-        return Int(round(Double(energyServing) / 4.184))
-    }
-    let proteinServing: Double
-    let carbServing: Double
-    let fatServing: Double
+//    let energyServing: Int
+//    var calories: Int {
+//        return Int(round(Double(energyServing) / 4.184))
+//    }
+//    let proteinServing: Double
+//    let carbServing: Double
+//    let fatServing: Double
     
     
     let energy100g: Int
@@ -132,17 +121,17 @@ struct Nutriments: Codable {
     let fat100g: Double
     
     enum CodingKeys: String, CodingKey {
-        
-        case energyServing = "energy_serving"
-        case proteinServing = "proteins_serving"
-        case carbServing = "carbohydrates_serving"
-        case fatServing = "fat_serving"
-        
+
+//        case energyServing = "energy_serving"
+//        case proteinServing = "proteins_serving"
+//        case carbServing = "carbohydrates_serving"
+//        case fatServing = "fat_serving"
+
         case energy100g = "energy_100g"
         case protein100g = "proteins_100g"
         case carbs100g = "carbohydrates_100g"
         case fat100g = "fat_100g"
-        
+
     }
     
 }

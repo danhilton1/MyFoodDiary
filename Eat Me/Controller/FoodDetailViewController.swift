@@ -16,37 +16,7 @@ class FoodDetailViewController: UITableViewController {
     //MARK:- Properties
     
     var food: Food?
-    
-    var date: Date?
-    var foodName: String = ""
-    var servingSize: String = ""
-    var serving: Double = 1
-    var calories: Int = 0
-    var protein: Double? = 0
-    var carbs: Double? = 0
-    var fat: Double? = 0
-    var calories100g: Int = 0
-    var protein100g: Double?
-    var carbs100g: Double?
-    var fat100g: Double?
-    var calories1g: Double {
-        return Double(calories100g) / 100
-    }
-    var protein1g: Double {
-        return (protein100g ?? 0) / 100
-    }
-    var carbs1g: Double {
-        return (carbs100g ?? 0) / 100
-    }
-    var fat1g: Double {
-        return (fat100g ?? 0) / 100
-    }
-    
-    var originalServingSize: String?
-    var originalCalories: Int = 0
-    var originalProtein: Double?
-    var originalCarbs: Double?
-    var originalFat: Double?
+    var workingCopy: Food = Food()
     
     @IBOutlet weak var foodNameLabel: UILabel!
     @IBOutlet weak var mealPicker: UISegmentedControl!
@@ -69,17 +39,11 @@ class FoodDetailViewController: UITableViewController {
         tableView.keyboardDismissMode = .interactive
         tableView.allowsSelection = false
         
-        originalServingSize = servingSize
-        originalCalories = calories
-        originalProtein = protein
-        originalCarbs = carbs
-        originalFat = fat
         
-        let originalFood = food?.copy() as? Food
-        originalFood?.calories = 9999
-        print(calories)
-        print(originalFood?.calories)
-        
+        if let food = food {
+            workingCopy = food.copy()
+        }
+
         setUpCells()
         
 
@@ -101,21 +65,21 @@ class FoodDetailViewController: UITableViewController {
         
         servingTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         servingSizeButton.addTarget(self, action: #selector(servingButtonTapped), for: .touchUpInside)
-        foodNameLabel.text = foodName
+        foodNameLabel.text = workingCopy.name
         mealPicker.tintColor = UIColor.flatSkyBlue()
-        servingSizeButton.setTitle(servingSize, for: .normal)
-        caloriesLabel.text = String(calories)
-        proteinLabel.text = "\(protein ?? 0) g"
-        carbsLabel.text = "\(carbs ?? 0) g"
-        fatLabel.text = "\(fat ?? 0) g"
+        servingSizeButton.setTitle(workingCopy.servingSize, for: .normal)
+        caloriesLabel.text = "\(workingCopy.calories)"
+        proteinLabel.text = "\(workingCopy.protein)"
+        carbsLabel.text = "\(workingCopy.carbs)"
+        fatLabel.text = "\(workingCopy.fat)"
         
-        var servingString = String(serving)
+        var servingString = String(workingCopy.serving)
         if servingString.hasSuffix(".0") {
             servingString.removeLast()
             servingString.removeLast()
             servingTextField.text = servingString
         } else {
-            servingTextField.text = String(serving)
+            servingTextField.text = String(workingCopy.serving)
         }
         
     }
@@ -127,17 +91,29 @@ class FoodDetailViewController: UITableViewController {
         
         switch mealPicker.selectedSegmentIndex {  // NEEDS FIXING
         case 0:
-            let newBreakfastEntry = Food()
-            addAndSaveNewEntry(food: newBreakfastEntry, meal: .breakfast)
+            workingCopy.meal = Food.Meal.breakfast.stringValue
+            workingCopy.serving = Double(servingTextField.text ?? "1") ?? 1
+            save(workingCopy)
+//            let newBreakfastEntry = Food()
+//            addAndSaveNewEntry(food: newBreakfastEntry, meal: .breakfast)
         case 1:
-            let newFoodEntry = Food()
-            addAndSaveNewEntry(food: newFoodEntry, meal: .lunch)
+            workingCopy.meal = Food.Meal.lunch.stringValue
+            workingCopy.serving = Double(servingTextField.text ?? "1") ?? 1
+            save(workingCopy)
+//            let newFoodEntry = Food()
+//            addAndSaveNewEntry(food: newFoodEntry, meal: .lunch)
         case 2:
-            let newFoodEntry = Food()
-            addAndSaveNewEntry(food: newFoodEntry, meal: .dinner)
+            workingCopy.meal = Food.Meal.dinner.stringValue
+            workingCopy.serving = Double(servingTextField.text ?? "1") ?? 1
+            save(workingCopy)
+//            let newFoodEntry = Food()
+//            addAndSaveNewEntry(food: newFoodEntry, meal: .dinner)
         case 3:
-            let newOtherFoodEntry = Food()
-            addAndSaveNewEntry(food: newOtherFoodEntry, meal: .other)
+            workingCopy.meal = Food.Meal.other.stringValue
+            workingCopy.serving = Double(servingTextField.text ?? "1") ?? 1
+            save(workingCopy)
+//            let newOtherFoodEntry = Food()
+//            addAndSaveNewEntry(food: newOtherFoodEntry, meal: .other)
         default:
             print("Error determining meal type.")
         }
@@ -147,30 +123,31 @@ class FoodDetailViewController: UITableViewController {
     
     private func addAndSaveNewEntry(food: Food, meal: Food.Meal) {
         
-        let formatter = DateFormatter()
-        formatter.dateFormat = "E, d MMM"
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "E, d MMM"
+        food.meal = meal.stringValue
         
-        food.updateProperties(
-            date: formatter.string(from: date ?? Date()),
-            meal: meal,
-            name: foodName,
-            servingSize: servingSize,
-            serving: Double(servingTextField.text ?? "1")!,
-            calories: calories as NSNumber,
-            protein: protein as NSNumber?,
-            carbs: carbs as NSNumber?,
-            fat: fat as NSNumber?
-        )
+//        food.updateProperties(
+//            date: workingCopy.date,
+//            meal: meal,
+//            name: workingCopy.name,
+//            servingSize: workingCopy.servingSize,
+//            serving: Double(servingTextField.text ?? "1") ?? 1,
+//            calories: workingCopy.calories,
+//            protein: workingCopy.protein,
+//            carbs: workingCopy.carbs,
+//            fat: workingCopy.fat
+//        )
         
-        save(food: food)
-        
-        dismissViewWithAnimation()
-        delegate?.reloadFood()
+//        save(food: food)
+//
+//        dismissViewWithAnimation()
+//        delegate?.reloadFood()
 
     }
     
     
-    private func save(food: Object) {
+    private func save(_ food: Object) {
         
         do {
             try realm.write {
@@ -179,42 +156,56 @@ class FoodDetailViewController: UITableViewController {
         } catch {
             print(error)
         }
-        
+        dismissViewWithAnimation()
+        delegate?.reloadFood()
         
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
         
+        let servingSizeNumber = Double((food?.servingSize ?? "100").filter("01234567890.".contains)) ?? 100
+        let servingSizeButtonNumber = Double((servingSizeButton.title(for: .normal) ?? "100").filter("01234567890.".contains)) ?? 100
         var totalServing: Double {
-            let servingSizeNumber = servingSize.filter("01234567890.".contains)
-            return (Double(textField.text ?? "0") ?? 1) * (Double(servingSizeNumber) ?? 1)
+            return (Double(textField.text ?? "1") ?? 1) * servingSizeButtonNumber
         }
 
         if textField.text == "" {
             caloriesLabel.text = "0"
-            proteinLabel.text = "0.0 g"
-            carbsLabel.text = "0.0 g"
-            fatLabel.text = "0.0 g"
+            proteinLabel.text = "0.0"
+            carbsLabel.text = "0.0"
+            fatLabel.text = "0.0"
 
         }
-        else if totalServing == 100 {
-            caloriesLabel.text = String(calories100g)
-            proteinLabel.text = "\(protein100g ?? 0) g"
-            carbsLabel.text = "\(carbs100g ?? 0) g"
-            fatLabel.text = "\(fat100g ?? 0) g"
+        else if totalServing == 100 && servingSizeNumber == 100 {
+            caloriesLabel.text = "\(food?.calories ?? workingCopy.calories)"
+            proteinLabel.text = "\(food?.protein ?? workingCopy.protein)"
+            carbsLabel.text = "\(food?.carbs ?? workingCopy.carbs)"
+            fatLabel.text = "\(food?.fat ?? workingCopy.fat)"
         }
         else {
-            calories = Int(round(calories1g * totalServing))
-            protein = round(10 * (protein1g * totalServing)) / 10
-            carbs = round(10 * (carbs1g * totalServing)) / 10
-            fat = round(10 * (fat1g * totalServing)) / 10
             
-            caloriesLabel.text = String(calories)
-            proteinLabel.text = "\(protein ?? 0) g"
-            carbsLabel.text = "\(carbs ?? 0) g"
-            fatLabel.text = "\(fat ?? 0) g"
+            workingCopy.calories = Int(round((Double(food?.calories ?? 0) / servingSizeNumber) * totalServing))
+            workingCopy.protein = ((food?.protein ?? 0) / servingSizeNumber) * totalServing
+            workingCopy.carbs = ((food?.carbs ?? 0) / servingSizeNumber) * totalServing
+            workingCopy.fat = ((food?.fat ?? 0) / servingSizeNumber) * totalServing
+            
+            caloriesLabel.text = "\(workingCopy.calories)"
+            proteinLabel.text = "\(workingCopy.protein.roundToXDecimalPoints(decimalPoints: 1))"
+            carbsLabel.text = "\(workingCopy.carbs.roundToXDecimalPoints(decimalPoints: 1))"
+            fatLabel.text = "\(workingCopy.fat.roundToXDecimalPoints(decimalPoints: 1))"
 
         }
+//        else {
+//            workingCopy.calories = Int(round((Double(food?.calories ?? 0) / 100) * totalServing))
+//            workingCopy.protein = ((food?.protein ?? 0) / 100) * totalServing
+//            workingCopy.carbs = ((food?.carbs ?? 0) / 100) * totalServing
+//            workingCopy.fat = ((food?.fat ?? 0) / 100) * totalServing
+//
+//            caloriesLabel.text = "\(workingCopy.calories)"
+//            proteinLabel.text = "\(workingCopy.protein.roundToXDecimalPoints(decimalPoints: 1))"
+//            carbsLabel.text = "\(workingCopy.carbs.roundToXDecimalPoints(decimalPoints: 1))"
+//            fatLabel.text = "\(workingCopy.fat.roundToXDecimalPoints(decimalPoints: 1))"
+//        }
 
     }
     
@@ -222,35 +213,44 @@ class FoodDetailViewController: UITableViewController {
 
 
         let alertController = UIAlertController(title: "Choose Serving Size", message: nil, preferredStyle: .actionSheet)
+        
+        
+        if let food = food {
+            let servingSizeNumber = Double(food.servingSize.filter("01234567890.".contains)) ?? 100
+            if food.servingSize != "100g" {
+                
+                addAction(for: alertController, title: "1g",
+                          calories: "\(round(10 * (Double(food.calories)) / servingSizeNumber) / 10)",
+                          protein: "\(round(100 * (food.protein / servingSizeNumber)) / 100)",
+                          carbs: "\(round(100 * (food.carbs / servingSizeNumber)) / 100)",
+                          fat: "\(round(100 * (food.fat / servingSizeNumber)) / 100)")
+                
+                addAction(for: alertController, title: food.servingSize,
+                          calories: "\(food.calories)",
+                          protein: "\(food.protein)",
+                          carbs: "\(food.carbs)",
+                          fat: "\(food.fat)")
 
-        if originalServingSize != "100g" {
-            addAction(for: alertController, title: "1g", calories: String(Int(round(calories1g))),
-                      protein: "\(round(100 * protein1g) / 100) g",
-                      carbs: "\(round(100 * carbs1g) / 100) g",
-                      fat: "\(round(100 * fat1g) / 100) g")
+                addAction(for: alertController, title: "100g",
+                          calories: "\(Int(round((Double(food.calories) / servingSizeNumber) * 100)))",
+                          protein: "\((food.protein / servingSizeNumber) * 100)",
+                          carbs: "\((food.carbs / servingSizeNumber) * 100)",
+                          fat: "\((food.fat / servingSizeNumber) * 100)")
 
-            addAction(for: alertController, title: originalServingSize ?? "100g",
-                      calories: String(originalCalories),
-                      protein: "\(self.originalProtein ?? 0) g",
-                      carbs: "\(self.originalCarbs ?? 0) g",
-                      fat: "\(self.originalFat ?? 0) g")
+            } else {
+                addAction(for: alertController, title: "1g",
+                          calories: "\(round(10 * (Double(food.calories)) / 100) / 10)",
+                          protein: "\(round(100 * (food.protein / 100)) / 100)",
+                          carbs: "\(round(100 * (food.carbs / 100)) / 100)",
+                          fat: "\(round(100 * (food.fat / 100)) / 100)")
 
-            addAction(for: alertController, title: "100g", calories: String(calories100g),
-                      protein: "\(protein100g ?? 0) g",
-                      carbs: "\(carbs100g ?? 0) g",
-                      fat: "\(fat100g ?? 0) g")
+                addAction(for: alertController, title: "100g",
+                          calories: "\(food.calories)",
+                          protein: "\(food.protein.roundToXDecimalPoints(decimalPoints: 1))",
+                          carbs: "\(food.carbs.roundToXDecimalPoints(decimalPoints: 1))",
+                          fat: "\(food.fat.roundToXDecimalPoints(decimalPoints: 1))")
 
-        } else {
-            addAction(for: alertController, title: "1g", calories: String(Int(round(calories1g))),
-                      protein: "\(round(100 * protein1g) / 100) g",
-                      carbs: "\(round(100 * carbs1g) / 100) g",
-                      fat: "\(round(100 * fat1g) / 100) g")
-
-            addAction(for: alertController, title: "100g", calories: String(calories100g),
-                      protein: "\(protein100g ?? 0) g",
-                      carbs: "\(carbs100g ?? 0) g",
-                      fat: "\(fat100g ?? 0) g")
-
+            }
         }
 
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
@@ -264,12 +264,17 @@ class FoodDetailViewController: UITableViewController {
         
         alertController.addAction(UIAlertAction(title: title, style: .default, handler: { (UIAlertAction) in
             self.servingSizeButton.setTitle(title, for: .normal)
-            self.servingSize = title
             self.caloriesLabel.text = calories
             self.proteinLabel.text = protein
             self.carbsLabel.text = carbs
             self.fatLabel.text = fat
             self.servingTextField.text = "1"
+            
+            self.workingCopy.servingSize = title
+            self.workingCopy.calories = Int(calories) ?? 0
+            self.workingCopy.protein = Double(protein) ?? 0
+            self.workingCopy.carbs = Double(carbs) ?? 0
+            self.workingCopy.fat = Double(fat) ?? 0
         }))
         
     }

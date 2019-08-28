@@ -12,18 +12,20 @@ import AVFoundation
 class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
     //MARK:- Properties and Objects
+    var food: Food?
+    var workingCopy: Food = Food()
     
     var date: Date?
-    var foodName: String = ""
-    var servingSize: String? = ""
-    var calories: Int = 0
-    var calories100g: Int = 0
-    var protein: Double?
-    var protein100g: Double?
-    var carbs: Double?
-    var carbs100g: Double?
-    var fat: Double?
-    var fat100g: Double?
+//    var foodName: String = ""
+//    var servingSize: String? = ""
+//    var calories: Int = 0
+//    var calories100g: Int = 0
+//    var protein: Double?
+//    var protein100g: Double?
+//    var carbs: Double?
+//    var carbs100g: Double?
+//    var fat: Double?
+//    var fat100g: Double?
     
     @IBOutlet weak var cameraView: UIView!
     private let activityIndicator = UIActivityIndicatorView()
@@ -49,6 +51,13 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         activityIndicator.center = view.center
 //        activityIndicator.center = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
         view.addSubview(activityIndicator)
+        
+        if let food = food {
+            workingCopy = food.copy()
+        }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "E, d MMM"
+        workingCopy.date = formatter.string(from: date ?? Date())
         
     }
     
@@ -153,33 +162,43 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                         guard let data = data else { return }
                         
                         do {
-                            let food = try JSONDecoder().decode(DatabaseFood.self, from: data)
-                            
-                            self.foodName = food.product.productName
-                            if food.product.servingSize == nil {
+                            let scannedFood = try JSONDecoder().decode(DatabaseFood.self, from: data)
+                            self.workingCopy.name = scannedFood.product.productName
+//                            self.foodName = scannedFood.product.productName
+                            if scannedFood.product.servingSize == nil {
                                 // If no serving size information is available, use a default value of 100g
-                                self.servingSize = "100g"
-                                self.calories = food.product.nutriments.calories100g
-                                self.protein = food.product.nutriments.protein100g
-                                self.carbs = food.product.nutriments.carbs100g
-                                self.fat = food.product.nutriments.fat100g
+                                self.workingCopy.calories = scannedFood.product.nutriments.calories100g
+                                self.workingCopy.protein = scannedFood.product.nutriments.protein100g
+                                self.workingCopy.carbs = scannedFood.product.nutriments.carbs100g
+                                self.workingCopy.fat = scannedFood.product.nutriments.fat100g
                                 
-                                self.calories100g = food.product.nutriments.calories100g
-                                self.protein100g = food.product.nutriments.protein100g
-                                self.carbs100g = food.product.nutriments.carbs100g
-                                self.fat100g = food.product.nutriments.fat100g
+//                                self.calories = scannedFood.product.nutriments.calories100g
+//                                self.protein = scannedFood.product.nutriments.protein100g
+//                                self.carbs = scannedFood.product.nutriments.carbs100g
+//                                self.fat = scannedFood.product.nutriments.fat100g
+//
+//                                self.calories100g = scannedFood.product.nutriments.calories100g
+//                                self.protein100g = scannedFood.product.nutriments.protein100g
+//                                self.carbs100g = scannedFood.product.nutriments.carbs100g
+//                                self.fat100g = scannedFood.product.nutriments.fat100g
                             } else {
-                            
-                                self.servingSize = food.product.servingSize
-                                self.calories = food.product.nutriments.calories
-                                self.protein = food.product.nutriments.proteinServing
-                                self.carbs = food.product.nutriments.carbServing
-                                self.fat = food.product.nutriments.fatServing
-                                
-                                self.calories100g = food.product.nutriments.calories100g
-                                self.protein100g = food.product.nutriments.protein100g
-                                self.carbs100g = food.product.nutriments.carbs100g
-                                self.fat100g = food.product.nutriments.fat100g
+                                let servingSize = scannedFood.product.servingSize ?? "100"
+                                let servingSizeNumber = Double(servingSize.filter("01234567890.".contains)) ?? 100
+                                self.workingCopy.servingSize = servingSize
+                                self.workingCopy.calories = Int((Double(scannedFood.product.nutriments.calories100g) / 100) * servingSizeNumber)
+                                self.workingCopy.protein = ((scannedFood.product.nutriments.protein100g) / 100) * servingSizeNumber
+                                self.workingCopy.carbs = ((scannedFood.product.nutriments.carbs100g) / 100) * servingSizeNumber
+                                self.workingCopy.fat = ((scannedFood.product.nutriments.fat100g) / 100) * servingSizeNumber
+//                                self.servingSize = scannedFood.product.servingSize
+//                                self.calories = scannedFood.product.nutriments.calories
+//                                self.protein = scannedFood.product.nutriments.proteinServing
+//                                self.carbs = scannedFood.product.nutriments.carbServing
+//                                self.fat = scannedFood.product.nutriments.fatServing
+//
+//                                self.calories100g = scannedFood.product.nutriments.calories100g
+//                                self.protein100g = scannedFood.product.nutriments.protein100g
+//                                self.carbs100g = scannedFood.product.nutriments.carbs100g
+//                                self.fat100g = scannedFood.product.nutriments.fat100g
                             }
                             
                             self.session.stopRunning()
@@ -255,34 +274,26 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                 
                 do {
                     
-                    let food = try JSONDecoder().decode(DatabaseFood.self, from: data)
+                    let scannedFood = try JSONDecoder().decode(DatabaseFood.self, from: data)
                     
-                    self.foodName = food.product.productName
-                    if food.product.servingSize == nil {
+                    self.workingCopy.name = scannedFood.product.productName
+                    if scannedFood.product.servingSize == nil {
                         
-                        self.servingSize = "100g"
-                        self.calories = food.product.nutriments.calories100g
-                        self.protein = food.product.nutriments.protein100g
-                        self.carbs = food.product.nutriments.carbs100g
-                        self.fat = food.product.nutriments.fat100g
+                        self.workingCopy.calories = scannedFood.product.nutriments.calories100g
+                        self.workingCopy.protein = scannedFood.product.nutriments.protein100g
+                        self.workingCopy.carbs = scannedFood.product.nutriments.carbs100g
+                        self.workingCopy.fat = scannedFood.product.nutriments.fat100g
+
+                    }
+                    else {
                         
-                        self.calories100g = food.product.nutriments.calories100g
-                        self.protein100g = food.product.nutriments.protein100g
-                        self.carbs100g = food.product.nutriments.carbs100g
-                        self.fat100g = food.product.nutriments.fat100g
-                        
-                    } else {
-                        
-                        self.servingSize = food.product.servingSize
-                        self.calories = food.product.nutriments.calories
-                        self.protein = food.product.nutriments.proteinServing
-                        self.carbs = food.product.nutriments.carbServing
-                        self.fat = food.product.nutriments.fatServing
-                        
-                        self.calories100g = food.product.nutriments.calories100g
-                        self.protein100g = food.product.nutriments.protein100g
-                        self.carbs100g = food.product.nutriments.carbs100g
-                        self.fat100g = food.product.nutriments.fat100g
+                        let servingSize = scannedFood.product.servingSize ?? "100"
+                        let servingSizeNumber = Double(servingSize.filter("01234567890.".contains)) ?? 100
+                        self.workingCopy.servingSize = servingSize
+                        self.workingCopy.calories = Int((Double(scannedFood.product.nutriments.calories100g) / 100) * servingSizeNumber)
+                        self.workingCopy.protein = ((scannedFood.product.nutriments.protein100g) / 100) * servingSizeNumber
+                        self.workingCopy.carbs = ((scannedFood.product.nutriments.carbs100g) / 100) * servingSizeNumber
+                        self.workingCopy.fat = ((scannedFood.product.nutriments.fat100g) / 100) * servingSizeNumber
                     }
                     self.dispatchGroup.leave()
                     
@@ -340,20 +351,21 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
             
             let vc = segue.destination as! FoodDetailViewController
             
+            vc.food = workingCopy
             vc.delegate = delegate
-            vc.date = date
+//            vc.date = date
             
-            vc.foodName = foodName
-            vc.servingSize = servingSize ?? "100g"
-            vc.calories = calories
-            vc.protein = protein
-            vc.carbs = carbs
-            vc.fat = fat
-            
-            vc.calories100g = calories100g
-            vc.protein100g = protein100g
-            vc.carbs100g = carbs100g
-            vc.fat100g = fat100g
+//            vc.foodName = foodName
+//            vc.servingSize = servingSize ?? "100g"
+//            vc.calories = calories
+//            vc.protein = protein
+//            vc.carbs = carbs
+//            vc.fat = fat
+//
+//            vc.calories100g = calories100g
+//            vc.protein100g = protein100g
+//            vc.carbs100g = carbs100g
+//            vc.fat100g = fat100g
             
         }
         

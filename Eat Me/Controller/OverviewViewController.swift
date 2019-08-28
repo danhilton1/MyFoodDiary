@@ -5,7 +5,7 @@
 //  Created by Daniel Hilton on 19/05/2019.
 //  Copyright © 2019 Daniel Hilton. All rights reserved.
 
-// TODO: - Fix copy() method for Food. Remove '.0' from serving. Show food history.
+// TODO: - Fix copy() method for Food. Show food history. Show macros on graph for the day.
 
 
 import UIKit
@@ -187,10 +187,10 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     private func getTotalValueOfMealData(food: Results<Food>?, meal: Food.Meal, cell: MealOverviewCell) {
         // Updates the total amount of cals and macros for user entries
         
-        var calorieArray = [NSNumber]()
-        var proteinArray = [NSNumber]()
-        var carbsArray = [NSNumber]()
-        var fatArray = [NSNumber]()
+        var calorieArray = [Int]()
+        var proteinArray = [Double]()
+        var carbsArray = [Double]()
+        var fatArray = [Double]()
         
         var calories = 0
         var protein = 0.0
@@ -204,75 +204,75 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             if meal == .breakfast {
                 for food in foodlist {
                     if food.meal == "Breakfast" {
-                        calorieArray.append(food.calories ?? 0)
-                        proteinArray.append(food.protein ?? 0)
-                        carbsArray.append(food.carbs ?? 0)
-                        fatArray.append(food.fat ?? 0)
+                        calorieArray.append(food.calories)
+                        proteinArray.append(food.protein)
+                        carbsArray.append(food.carbs)
+                        fatArray.append(food.fat)
                     }
                 }
                 // Add each value of array to the corresponding property to give total amount
-                for index in 0..<calorieArray.count {
-                    calories += Int(truncating: calorieArray[index])
-                    protein += Double(truncating: proteinArray[index])
-                    carbs += Double(truncating: carbsArray[index])
-                    fat += Double(truncating: fatArray[index])
+                for i in 0..<calorieArray.count {
+                    calories += calorieArray[i]
+                    protein += proteinArray[i]
+                    carbs += carbsArray[i]
+                    fat += fatArray[i]
                 }
             }
             else if meal == .lunch {
                 for food in foodlist {
                     if food.meal == "Lunch" {
-                        calorieArray.append(food.calories ?? 0)
-                        proteinArray.append(food.protein ?? 0)
-                        carbsArray.append(food.carbs ?? 0)
-                        fatArray.append(food.fat ?? 0)
+                        calorieArray.append(food.calories)
+                        proteinArray.append(food.protein)
+                        carbsArray.append(food.carbs)
+                        fatArray.append(food.fat)
                     }
                 }
                 for i in 0..<calorieArray.count {
-                    calories += Int(truncating: calorieArray[i])
-                    protein += Double(truncating: proteinArray[i])
-                    carbs += Double(truncating: carbsArray[i])
-                    fat += Double(truncating: fatArray[i])
+                    calories += calorieArray[i]
+                    protein += proteinArray[i]
+                    carbs += carbsArray[i]
+                    fat += fatArray[i]
                 }
             }
             else if meal == .dinner {
                 for food in foodlist {
                     if food.meal == "Dinner" {
-                        calorieArray.append(food.calories ?? 0)
-                        proteinArray.append(food.protein ?? 0)
-                        carbsArray.append(food.carbs ?? 0)
-                        fatArray.append(food.fat ?? 0)
+                        calorieArray.append(food.calories)
+                        proteinArray.append(food.protein)
+                        carbsArray.append(food.carbs)
+                        fatArray.append(food.fat)
                     }
                 }
                 for i in 0..<calorieArray.count {
-                    calories += Int(truncating: calorieArray[i])
-                    protein += Double(truncating: proteinArray[i])
-                    carbs += Double(truncating: carbsArray[i])
-                    fat += Double(truncating: fatArray[i])
+                    calories += calorieArray[i]
+                    protein += proteinArray[i]
+                    carbs += carbsArray[i]
+                    fat += fatArray[i]
                 }
             }
             else if meal == .other {
                 for food in foodlist {
                     if food.meal == "Other" {
-                        calorieArray.append(food.calories ?? 0)
-                        proteinArray.append(food.protein ?? 0)
-                        carbsArray.append(food.carbs ?? 0)
-                        fatArray.append(food.fat ?? 0)
+                        calorieArray.append(food.calories)
+                        proteinArray.append(food.protein)
+                        carbsArray.append(food.carbs)
+                        fatArray.append(food.fat)
                     }
                 }
                 for i in 0..<calorieArray.count {
-                    calories += Int(truncating: calorieArray[i])
-                    protein += Double(truncating: proteinArray[i])
-                    carbs += Double(truncating: carbsArray[i])
-                    fat += Double(truncating: fatArray[i])
+                    calories += calorieArray[i]
+                    protein += proteinArray[i]
+                    carbs += carbsArray[i]
+                    fat += fatArray[i]
                 }
             }
         }
         
         
         cell.calorieLabel.text = "\(calories) kcal"
-        cell.proteinLabel.text = "\(round(10 * protein) / 10) g"   // Round to 1 d.p.
-        cell.carbsLabel.text = "\(round(10 * carbs) / 10) g"
-        cell.fatLabel.text = "\(round(10 * fat) / 10) g"
+        cell.proteinLabel.text = "\(protein.roundToXDecimalPoints(decimalPoints: 1)) g"   // Round to 1 d.p.
+        cell.carbsLabel.text = "\(carbs.roundToXDecimalPoints(decimalPoints: 1)) g"
+        cell.fatLabel.text = "\(fat.roundToXDecimalPoints(decimalPoints: 1)) g"
         
         setUpPieChart(cell: cell, section1: protein, section2: carbs, section3: fat)
     }
@@ -370,6 +370,69 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
 
 
 }
+
+
+extension Double {
+    
+    mutating func roundToXDecimalPoints(decimalPoints: Int?) -> Double {
+        switch decimalPoints {
+        case 1:
+            return Darwin.round(10 * self) / 10
+        case 2:
+            return Darwin.round(100 * self) / 100
+        case 3:
+            return Darwin.round(1000 * self) / 1000
+        case 4:
+            return Darwin.round(10000 * self) / 10000
+        case 5:
+            return Darwin.round(100000 * self) / 100000
+        case 6:
+            return Darwin.round(1000000 * self) / 1000000
+        case 7:
+            return Darwin.round(10000000 * self) / 10000000
+        case 8:
+            return Darwin.round(100000000 * self) / 100000000
+        case 9:
+            return Darwin.round(1000000000 * self) / 1000000000
+        case 10:
+            return Darwin.round(10000000000 * self) / 10000000000
+        default:
+            return Darwin.round(self)
+            
+        }
+    }
+}
+
+//extension NSNumber {
+//
+//    func roundToXDecimalPoints(decimalPoints: Int?) -> NSNumber {
+//        switch decimalPoints {
+//        case 1:
+//            return (Darwin.round(10 * Double(truncating: self)) / 10) as NSNumber
+//        case 2:
+//            return (Darwin.round(100 * Double(truncating: self)) / 100) as NSNumber
+//        case 3:
+//            return (Darwin.round(1000 * Double(truncating: self)) / 1000) as NSNumber
+//        case 4:
+//            return (Darwin.round(10000 * Double(truncating: self)) / 10000) as NSNumber
+//        case 5:
+//            return (Darwin.round(100000 * Double(truncating: self)) / 100000) as NSNumber
+//        case 6:
+//            return (Darwin.round(1000000 * Double(truncating: self)) / 1000000) as NSNumber
+//        case 7:
+//            return (Darwin.round(10000000 * Double(truncating: self)) / 10000000) as NSNumber
+//        case 8:
+//            return (Darwin.round(100000000 * Double(truncating: self)) / 100000000) as NSNumber
+//        case 9:
+//            return (Darwin.round(1000000000 * Double(truncating: self)) / 1000000000) as NSNumber
+//        case 10:
+//            return (Darwin.round(10000000000 * Double(truncating: self)) / 10000000000) as NSNumber
+//        default:
+//            return Darwin.round(Double(truncating: self)) as NSNumber
+//
+//        }
+//    }
+//}
 
 
 

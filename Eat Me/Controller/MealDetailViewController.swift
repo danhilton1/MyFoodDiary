@@ -18,7 +18,7 @@ class MealDetailViewController: UITableViewController {
         didSet {
             if let foodList = selectedMeal {
                 for food in 0..<foodList.count {
-                    calories += Int(truncating: foodList[food].calories ?? 0)
+                    calories += foodList[food].calories
                 }
             }
         }
@@ -75,11 +75,11 @@ class MealDetailViewController: UITableViewController {
         servingLabel.textAlignment = .right
         header.addSubview(servingLabel)
         
-        if let foodList = selectedMeal {
+        if let foodList = selectedMeal {    // NEEDS LOOKING AT
             for food in foodList {
                 for i in 0..<foodList.count {
                     if section == i {
-                        label.text = "    \(food.name!)"
+                        label.text = "    \(food.name ?? "Unknown Name")"
                         let result = food.servingSize.filter("01234567890.".contains)
                         if let servingSize = Double(result) {
                             var totalServingString = String(servingSize * food.serving)
@@ -123,19 +123,19 @@ class MealDetailViewController: UITableViewController {
                     switch indexPath.row {
                     case 0:
                         cell.typeLabel?.text = "Calories:"
-                        cell.numberLabel.text = "\(food[i].calories ?? 0) kcal"
+                        cell.numberLabel.text = "\(food[i].calories) kcal"
                     case 1:
-                        let roundedNumberOfGrams = round(10 * Double(truncating: food[i].protein ?? 0)) / 10
+//                        let roundedNumberOfGrams = food[i].protein.roundToXDecimalPoints(decimalPoints: 1)
                         cell.typeLabel.text = "Protein:"
-                        cell.numberLabel.text = "\(roundedNumberOfGrams) g"
+                        cell.numberLabel.text = "\(food[i].protein) g"
                     case 2:
-                        let roundedNumberOfGrams = round(10 * Double(truncating: food[i].carbs ?? 0)) / 10
+//                        let roundedNumberOfGrams = food[i].carbs.roundToXDecimalPoints(decimalPoints: 1)
                         cell.typeLabel.text = "Carbs:"
-                        cell.numberLabel.text = "\(roundedNumberOfGrams) g"
+                        cell.numberLabel.text = "\(food[i].carbs) g"
                     case 3:
-                        let roundedNumberOfGrams = round(10 * Double(truncating: food[i].fat ?? 0)) / 10
+//                        let roundedNumberOfGrams = food[i].fat.roundToXDecimalPoints(decimalPoints: 1)
                         cell.typeLabel.text = "Fat:"
-                        cell.numberLabel.text = "\(roundedNumberOfGrams) g"
+                        cell.numberLabel.text = "\(food[i].fat) g"
                     default:
                         cell.typeLabel.text = ""
                         cell.numberLabel.text = ""
