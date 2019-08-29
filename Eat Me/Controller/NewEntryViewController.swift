@@ -19,6 +19,9 @@ class NewEntryViewController: UITableViewController, UITextFieldDelegate {
     
     weak var delegate: NewEntryDelegate?
     var date: Date?
+    
+    var food: Food?
+    var workingCopy: Food = Food()
 
     //MARK: - Properties and Objects
     
@@ -53,6 +56,10 @@ class NewEntryViewController: UITableViewController, UITextFieldDelegate {
         tableView.addGestureRecognizer(tapGesture)
         
         tableView.keyboardDismissMode = .interactive
+        
+        if let food = food {
+            workingCopy = food.copy()
+        }
         
     }
 

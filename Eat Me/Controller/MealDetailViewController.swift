@@ -75,23 +75,22 @@ class MealDetailViewController: UITableViewController {
         servingLabel.textAlignment = .right
         header.addSubview(servingLabel)
         
-        if let foodList = selectedMeal {    // NEEDS LOOKING AT
-            for food in foodList {
-                for i in 0..<foodList.count {
-                    if section == i {
-                        label.text = "    \(food.name ?? "Unknown Name")"
-                        let result = food.servingSize.filter("01234567890.".contains)
-                        if let servingSize = Double(result) {
-                            var totalServingString = String(servingSize * food.serving)
-                            if totalServingString.hasSuffix(".0") {
-                                totalServingString.removeLast()
-                                totalServingString.removeLast()
-                                servingLabel.text = totalServingString + "g"
-                            } else {
-                                servingLabel.text = "\(servingSize * food.serving) g"
-                            }
-                        }
+        // Sets the header for each section to be the name and total serving of that food entry
+        if let foodList = selectedMeal {
+            for i in 0..<foodList.count {
+                if section == i {
+                    label.text = "    \(foodList[i].name ?? "Unknown Name")"
+                    
+                    let servingSize = Double(foodList[i].servingSize.filter("01234567890.".contains)) ?? 100
+                    var totalServingAsString = String(servingSize * foodList[i].serving)
+                    if totalServingAsString.hasSuffix(".0") {
+                        totalServingAsString.removeLast()
+                        totalServingAsString.removeLast()
+                        servingLabel.text = totalServingAsString + "g"
+                    } else {
+                        servingLabel.text = "\(servingSize * foodList[i].serving) g"
                     }
+                    
                 }
             }
         }

@@ -16,16 +16,6 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
     var workingCopy: Food = Food()
     
     var date: Date?
-//    var foodName: String = ""
-//    var servingSize: String? = ""
-//    var calories: Int = 0
-//    var calories100g: Int = 0
-//    var protein: Double?
-//    var protein100g: Double?
-//    var carbs: Double?
-//    var carbs100g: Double?
-//    var fat: Double?
-//    var fat100g: Double?
     
     @IBOutlet weak var cameraView: UIView!
     private let activityIndicator = UIActivityIndicatorView()
@@ -63,7 +53,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
     
     
     override func viewWillAppear(_ animated: Bool) {
-        // Start running the camera session again if user navigates back to this VC again scanning an item
+        // Start running the camera session again if user navigates back to this VC again after scanning an item
         session.startRunning()
     }
     
@@ -162,7 +152,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                         guard let data = data else { return }
                         
                         do {
-                            let scannedFood = try JSONDecoder().decode(DatabaseFood.self, from: data)
+                            let scannedFood = try JSONDecoder().decode(FoodDatabase.self, from: data)
                             self.workingCopy.name = scannedFood.product.productName
 //                            self.foodName = scannedFood.product.productName
                             if scannedFood.product.servingSize == nil {
@@ -172,15 +162,6 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                                 self.workingCopy.carbs = scannedFood.product.nutriments.carbs100g
                                 self.workingCopy.fat = scannedFood.product.nutriments.fat100g
                                 
-//                                self.calories = scannedFood.product.nutriments.calories100g
-//                                self.protein = scannedFood.product.nutriments.protein100g
-//                                self.carbs = scannedFood.product.nutriments.carbs100g
-//                                self.fat = scannedFood.product.nutriments.fat100g
-//
-//                                self.calories100g = scannedFood.product.nutriments.calories100g
-//                                self.protein100g = scannedFood.product.nutriments.protein100g
-//                                self.carbs100g = scannedFood.product.nutriments.carbs100g
-//                                self.fat100g = scannedFood.product.nutriments.fat100g
                             } else {
                                 let servingSize = scannedFood.product.servingSize ?? "100"
                                 let servingSizeNumber = Double(servingSize.filter("01234567890.".contains)) ?? 100
@@ -189,16 +170,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                                 self.workingCopy.protein = ((scannedFood.product.nutriments.protein100g) / 100) * servingSizeNumber
                                 self.workingCopy.carbs = ((scannedFood.product.nutriments.carbs100g) / 100) * servingSizeNumber
                                 self.workingCopy.fat = ((scannedFood.product.nutriments.fat100g) / 100) * servingSizeNumber
-//                                self.servingSize = scannedFood.product.servingSize
-//                                self.calories = scannedFood.product.nutriments.calories
-//                                self.protein = scannedFood.product.nutriments.proteinServing
-//                                self.carbs = scannedFood.product.nutriments.carbServing
-//                                self.fat = scannedFood.product.nutriments.fatServing
-//
-//                                self.calories100g = scannedFood.product.nutriments.calories100g
-//                                self.protein100g = scannedFood.product.nutriments.protein100g
-//                                self.carbs100g = scannedFood.product.nutriments.carbs100g
-//                                self.fat100g = scannedFood.product.nutriments.fat100g
+
                             }
                             
                             self.session.stopRunning()
@@ -274,7 +246,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                 
                 do {
                     
-                    let scannedFood = try JSONDecoder().decode(DatabaseFood.self, from: data)
+                    let scannedFood = try JSONDecoder().decode(FoodDatabase.self, from: data)
                     
                     self.workingCopy.name = scannedFood.product.productName
                     if scannedFood.product.servingSize == nil {
@@ -353,19 +325,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
             
             vc.food = workingCopy
             vc.delegate = delegate
-//            vc.date = date
-            
-//            vc.foodName = foodName
-//            vc.servingSize = servingSize ?? "100g"
-//            vc.calories = calories
-//            vc.protein = protein
-//            vc.carbs = carbs
-//            vc.fat = fat
-//
-//            vc.calories100g = calories100g
-//            vc.protein100g = protein100g
-//            vc.carbs100g = carbs100g
-//            vc.fat100g = fat100g
+
             
         }
         

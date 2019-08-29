@@ -79,7 +79,7 @@ class Food: Object {
 
 
 
-struct DatabaseFood: Codable {
+struct FoodDatabase: Codable {
     
     let product: Product
     
