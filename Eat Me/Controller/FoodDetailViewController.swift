@@ -94,56 +94,23 @@ class FoodDetailViewController: UITableViewController {
             workingCopy.meal = Food.Meal.breakfast.stringValue
             workingCopy.serving = Double(servingTextField.text ?? "1") ?? 1
             save(workingCopy)
-//            let newBreakfastEntry = Food()
-//            addAndSaveNewEntry(food: newBreakfastEntry, meal: .breakfast)
         case 1:
             workingCopy.meal = Food.Meal.lunch.stringValue
             workingCopy.serving = Double(servingTextField.text ?? "1") ?? 1
             save(workingCopy)
-//            let newFoodEntry = Food()
-//            addAndSaveNewEntry(food: newFoodEntry, meal: .lunch)
         case 2:
             workingCopy.meal = Food.Meal.dinner.stringValue
             workingCopy.serving = Double(servingTextField.text ?? "1") ?? 1
             save(workingCopy)
-//            let newFoodEntry = Food()
-//            addAndSaveNewEntry(food: newFoodEntry, meal: .dinner)
         case 3:
             workingCopy.meal = Food.Meal.other.stringValue
             workingCopy.serving = Double(servingTextField.text ?? "1") ?? 1
             save(workingCopy)
-//            let newOtherFoodEntry = Food()
-//            addAndSaveNewEntry(food: newOtherFoodEntry, meal: .other)
         default:
             print("Error determining meal type.")
         }
         
         
-    }
-    
-    private func addAndSaveNewEntry(food: Food, meal: Food.Meal) {
-        
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = "E, d MMM"
-        food.meal = meal.stringValue
-        
-//        food.updateProperties(
-//            date: workingCopy.date,
-//            meal: meal,
-//            name: workingCopy.name,
-//            servingSize: workingCopy.servingSize,
-//            serving: Double(servingTextField.text ?? "1") ?? 1,
-//            calories: workingCopy.calories,
-//            protein: workingCopy.protein,
-//            carbs: workingCopy.carbs,
-//            fat: workingCopy.fat
-//        )
-        
-//        save(food: food)
-//
-//        dismissViewWithAnimation()
-//        delegate?.reloadFood()
-
     }
     
     
@@ -195,17 +162,6 @@ class FoodDetailViewController: UITableViewController {
             fatLabel.text = "\(workingCopy.fat.roundToXDecimalPoints(decimalPoints: 1))"
 
         }
-//        else {
-//            workingCopy.calories = Int(round((Double(food?.calories ?? 0) / 100) * totalServing))
-//            workingCopy.protein = ((food?.protein ?? 0) / 100) * totalServing
-//            workingCopy.carbs = ((food?.carbs ?? 0) / 100) * totalServing
-//            workingCopy.fat = ((food?.fat ?? 0) / 100) * totalServing
-//
-//            caloriesLabel.text = "\(workingCopy.calories)"
-//            proteinLabel.text = "\(workingCopy.protein.roundToXDecimalPoints(decimalPoints: 1))"
-//            carbsLabel.text = "\(workingCopy.carbs.roundToXDecimalPoints(decimalPoints: 1))"
-//            fatLabel.text = "\(workingCopy.fat.roundToXDecimalPoints(decimalPoints: 1))"
-//        }
 
     }
     

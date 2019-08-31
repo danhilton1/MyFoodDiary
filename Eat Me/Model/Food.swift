@@ -39,6 +39,9 @@ class Food: Object {
     @objc dynamic var name: String? = ""
     @objc dynamic var servingSize: String = "100g"
     @objc dynamic var serving: Double = 1
+    @objc dynamic var totalServing: Double {
+        return (Double(servingSize.filter("01234567890.".contains)) ?? 100) * serving
+    }
     @objc dynamic var calories: Int = 0
     @objc dynamic var protein: Double = 0
     @objc dynamic var carbs: Double = 0

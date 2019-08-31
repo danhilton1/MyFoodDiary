@@ -21,6 +21,8 @@
 		377208D22291B002002DDA29 /* MealOverviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377208D02291B002002DDA29 /* MealOverviewCell.swift */; };
 		377208D32291B002002DDA29 /* MealOverviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 377208D12291B002002DDA29 /* MealOverviewCell.xib */; };
 		378917C022C8DC3B00571181 /* BarcodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378917BF22C8DC3B00571181 /* BarcodeScannerViewController.swift */; };
+		378F9199231AC204007142AA /* FoodHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378F9198231AC204007142AA /* FoodHistoryCell.swift */; };
+		378F919B231AC289007142AA /* FoodHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378F919A231AC289007142AA /* FoodHistoryViewController.swift */; };
 		379DB00622B2EBB300F3DC5B /* MealDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379DB00522B2EBB300F3DC5B /* MealDetailViewController.swift */; };
 		37A07E3D22DD029F00E4A351 /* Montserrat-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 37A07E3C22DD029F00E4A351 /* Montserrat-ExtraLight.otf */; };
 		37A07E3F22DD02CA00E4A351 /* Montserrat-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 37A07E3E22DD02CA00E4A351 /* Montserrat-Thin.otf */; };
@@ -51,6 +53,8 @@
 		377208D02291B002002DDA29 /* MealOverviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealOverviewCell.swift; sourceTree = "<group>"; };
 		377208D12291B002002DDA29 /* MealOverviewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MealOverviewCell.xib; sourceTree = "<group>"; };
 		378917BF22C8DC3B00571181 /* BarcodeScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeScannerViewController.swift; sourceTree = "<group>"; };
+		378F9198231AC204007142AA /* FoodHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodHistoryCell.swift; sourceTree = "<group>"; };
+		378F919A231AC289007142AA /* FoodHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodHistoryViewController.swift; sourceTree = "<group>"; };
 		379DB00522B2EBB300F3DC5B /* MealDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDetailViewController.swift; sourceTree = "<group>"; };
 		37A07E3C22DD029F00E4A351 /* Montserrat-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraLight.otf"; sourceTree = "<group>"; };
 		37A07E3E22DD02CA00E4A351 /* Montserrat-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Thin.otf"; sourceTree = "<group>"; };
@@ -139,6 +143,7 @@
 				37563BD722C69E8F0032D94E /* PopUpNewEntryViewController.swift */,
 				378917BF22C8DC3B00571181 /* BarcodeScannerViewController.swift */,
 				372F5A602301C374006A8665 /* FoodDetailViewController.swift */,
+				378F919A231AC289007142AA /* FoodHistoryViewController.swift */,
 				377208B42291A1F8002DDA29 /* AppDelegate.swift */,
 			);
 			path = Controller;
@@ -150,6 +155,7 @@
 				377208D02291B002002DDA29 /* MealOverviewCell.swift */,
 				377208D12291B002002DDA29 /* MealOverviewCell.xib */,
 				37241ABC22CD127800AF85AB /* MealDetailCell.swift */,
+				378F9198231AC204007142AA /* FoodHistoryCell.swift */,
 			);
 			path = "Custom Cell";
 			sourceTree = "<group>";
@@ -298,12 +304,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				378F919B231AC289007142AA /* FoodHistoryViewController.swift in Sources */,
 				37CA772D22A1BB4F00C03A06 /* NewEntryViewController.swift in Sources */,
 				37DE59D722D1055D00079A6A /* OverviewPageViewController.swift in Sources */,
 				37563BD822C69E8F0032D94E /* PopUpNewEntryViewController.swift in Sources */,
 				379DB00622B2EBB300F3DC5B /* MealDetailViewController.swift in Sources */,
 				377208D22291B002002DDA29 /* MealOverviewCell.swift in Sources */,
 				37241ABD22CD127800AF85AB /* MealDetailCell.swift in Sources */,
+				378F9199231AC204007142AA /* FoodHistoryCell.swift in Sources */,
 				377208B72291A1F8002DDA29 /* OverviewViewController.swift in Sources */,
 				374BC02522BABA8800013610 /* Food.swift in Sources */,
 				372F5A612301C375006A8665 /* FoodDetailViewController.swift in Sources */,
