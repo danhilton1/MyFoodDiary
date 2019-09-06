@@ -19,9 +19,8 @@ class NewEntryViewController: UITableViewController, UITextFieldDelegate {
     
     weak var delegate: NewEntryDelegate?
     var date: Date?
-    
-    var food: Food?
-    var workingCopy: Food = Food()
+
+    private var workingCopy: Food = Food()
 
     //MARK: - Properties and Objects
     
@@ -57,27 +56,14 @@ class NewEntryViewController: UITableViewController, UITextFieldDelegate {
         
         tableView.keyboardDismissMode = .interactive
         
-        if let food = food {
-            workingCopy = food.copy()
-        }
         
     }
 
-    // MARK: - Table view data source methods
-
-
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        return (tableView.frame.height) / 13
-        
-    }
 
     //MARK: - Nav Bar Button Methods
     
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
-        
         dismissViewWithAnimation()
-        
     }
     
 
@@ -86,39 +72,25 @@ class NewEntryViewController: UITableViewController, UITextFieldDelegate {
         switch mealPicker.selectedSegmentIndex {
             
         case 0:
-            
-            let newBreakfastFood = Food()
-            addAndSaveNewEntry(newFood: newBreakfastFood, meal: .breakfast)
-            
+            addAndSaveNewEntry(meal: .breakfast)
         case 1:
-            
-            let newLunchFood = Food()
-            addAndSaveNewEntry(newFood: newLunchFood, meal: .lunch)
-            
+            addAndSaveNewEntry(meal: .lunch)
         case 2:
-            
-            let newDinnerFood = Food()
-            addAndSaveNewEntry(newFood: newDinnerFood, meal: .dinner)
-            
+            addAndSaveNewEntry(meal: .dinner)
         case 3:
-            
-            let newOtherFood = Food()
-            addAndSaveNewEntry(newFood: newOtherFood, meal: .other)
-            
+            addAndSaveNewEntry(meal: .other)
         default:
-            
-            self.dismiss(animated: true, completion: nil)
-            
+            dismissViewWithAnimation()
         }
         
         dismissViewWithAnimation()
-
         delegate?.reloadFood()
     }
-        
+    
+    
     //MARK: - New Entry Add and Save methods
     
-    func save(food: Object) {
+    func save(_ food: Object) {
         
         do {
             try realm.write {
@@ -127,32 +99,24 @@ class NewEntryViewController: UITableViewController, UITextFieldDelegate {
         } catch {
             print(error)
         }
-        
-        
     }
     
-    private func addAndSaveNewEntry(newFood: Food?, meal: Food.Meal) {
+    private func addAndSaveNewEntry(meal: Food.Meal) {
         
-        if let newFoodEntry = newFood
-        {
-            
-            let formatter = DateFormatter()
-            formatter.dateFormat = "E, d MMM"
-            
-            newFoodEntry.updateProperties(
-                date: formatter.string(from: date ?? Date()),
-                meal: meal,
-                name: foodNameTextField.text,
-                servingSize: servingSizeTextField.text ?? "100g",
-                serving: Double(servingTextField.text ?? "1") ?? 1,
-                calories: Int(caloriesTextField.text ?? "0") ?? 0,
-                protein: Double(proteinTextField.text ?? "0") ?? 0,
-                carbs: Double(carbsTextField.text ?? "0") ?? 0,
-                fat: Double(fatTextField.text ?? "0") ?? 0
-                )
-            
-            save(food: newFoodEntry)
-        }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "E, d MMM"
+    
+        workingCopy.name = foodNameTextField.text
+        workingCopy.meal = meal.stringValue
+        workingCopy.date = formatter.string(from: date ?? Date())
+        workingCopy.servingSize = servingSizeTextField.text ?? "100g"
+        workingCopy.serving = Double(servingTextField.text ?? "1") ?? 1
+        workingCopy.calories = Int(caloriesTextField.text ?? "0") ?? 0
+        workingCopy.protein = Double(proteinTextField.text ?? "0") ?? 0
+        workingCopy.carbs = Double(carbsTextField.text ?? "0") ?? 0
+        workingCopy.fat = Double(fatTextField.text ?? "0") ?? 0
+        
+        save(workingCopy)
         
         
     }

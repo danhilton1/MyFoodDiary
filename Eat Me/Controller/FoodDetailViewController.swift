@@ -63,15 +63,16 @@ class FoodDetailViewController: UITableViewController {
     
     private func setUpCells() {
         
+        tableView.tableFooterView = UIView()
         servingTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         servingSizeButton.addTarget(self, action: #selector(servingButtonTapped), for: .touchUpInside)
         foodNameLabel.text = workingCopy.name
         mealPicker.tintColor = UIColor.flatSkyBlue()
         servingSizeButton.setTitle(workingCopy.servingSize, for: .normal)
         caloriesLabel.text = "\(workingCopy.calories)"
-        proteinLabel.text = "\(workingCopy.protein)"
-        carbsLabel.text = "\(workingCopy.carbs)"
-        fatLabel.text = "\(workingCopy.fat)"
+        proteinLabel.text = "\(workingCopy.protein.roundToXDecimalPoints(decimalPoints: 1))"
+        carbsLabel.text = "\(workingCopy.carbs.roundToXDecimalPoints(decimalPoints: 1))"
+        fatLabel.text = "\(workingCopy.fat.roundToXDecimalPoints(decimalPoints: 1))"
         
         var servingString = String(workingCopy.serving)
         if servingString.hasSuffix(".0") {
@@ -109,7 +110,8 @@ class FoodDetailViewController: UITableViewController {
         default:
             print("Error determining meal type.")
         }
-        
+        dismissViewWithAnimation()
+        delegate?.reloadFood()
         
     }
     
@@ -123,9 +125,6 @@ class FoodDetailViewController: UITableViewController {
         } catch {
             print(error)
         }
-        dismissViewWithAnimation()
-        delegate?.reloadFood()
-        
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
@@ -150,16 +149,22 @@ class FoodDetailViewController: UITableViewController {
             fatLabel.text = "\(food?.fat ?? workingCopy.fat)"
         }
         else {
-            
+            // NEEDS FIXING WHEN ARRIVING ON THIS VC FROM FOOD HISTORY - NOT ALWAYS 100G VALUES
             workingCopy.calories = Int(round((Double(food?.calories ?? 0) / servingSizeNumber) * totalServing))
+            
             workingCopy.protein = ((food?.protein ?? 0) / servingSizeNumber) * totalServing
+            workingCopy.protein = workingCopy.protein.roundToXDecimalPoints(decimalPoints: 1)
+            
             workingCopy.carbs = ((food?.carbs ?? 0) / servingSizeNumber) * totalServing
+            workingCopy.carbs = workingCopy.carbs.roundToXDecimalPoints(decimalPoints: 1)
+            
             workingCopy.fat = ((food?.fat ?? 0) / servingSizeNumber) * totalServing
+            workingCopy.fat = workingCopy.fat.roundToXDecimalPoints(decimalPoints: 1)
             
             caloriesLabel.text = "\(workingCopy.calories)"
-            proteinLabel.text = "\(workingCopy.protein.roundToXDecimalPoints(decimalPoints: 1))"
-            carbsLabel.text = "\(workingCopy.carbs.roundToXDecimalPoints(decimalPoints: 1))"
-            fatLabel.text = "\(workingCopy.fat.roundToXDecimalPoints(decimalPoints: 1))"
+            proteinLabel.text = "\(workingCopy.protein)"
+            carbsLabel.text = "\(workingCopy.carbs)"
+            fatLabel.text = "\(workingCopy.fat)"
 
         }
 

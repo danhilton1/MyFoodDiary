@@ -22,6 +22,8 @@ class FoodHistoryViewController: UITableViewController {
         navigationController?.navigationBar.barTintColor = UIColor.flatSkyBlue()
 
         foodList = realm.objects(Food.self)
+        
+        tableView.tableFooterView = UIView()
 
     }
 
@@ -50,6 +52,17 @@ class FoodHistoryViewController: UITableViewController {
         performSegue(withIdentifier: "goToFoodDetail", sender: nil)
     }
     
+    @IBAction func cancelButtonTapped(_ sender: Any) {
+        
+        let transition: CATransition = CATransition()
+        transition.duration = 0.4
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        transition.type = CATransitionType.reveal
+        transition.subtype = CATransitionSubtype.fromBottom
+        self.view.window!.layer.add(transition, forKey: nil)
+        self.dismiss(animated: false, completion: nil)
+        
+    }
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

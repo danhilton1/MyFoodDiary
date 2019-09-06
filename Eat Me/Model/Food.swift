@@ -48,20 +48,20 @@ class Food: Object {
     @objc dynamic var fat: Double = 0
     
     
-    func updateProperties(date: String?, meal: Meal, name: String?, servingSize: String, serving: Double, calories: Int, protein: Double, carbs: Double, fat: Double) {
-        
-        self.date = date
-        self.meal = meal.stringValue
-        self.name = name
-        self.servingSize = servingSize
-        self.serving = serving
-        self.calories = calories
-        self.protein = protein
-        self.carbs = carbs
-        self.fat = fat
-
-        
-    }
+//    func updateProperties(date: String?, meal: Meal, name: String?, servingSize: String, serving: Double, calories: Int, protein: Double, carbs: Double, fat: Double) {
+//        
+//        self.date = date
+//        self.meal = meal.stringValue
+//        self.name = name
+//        self.servingSize = servingSize
+//        self.serving = serving
+//        self.calories = calories
+//        self.protein = protein
+//        self.carbs = carbs
+//        self.fat = fat
+//
+//        
+//    }
     
     func copy(with zone: NSZone? = nil) -> Food {
         let copy = Food()

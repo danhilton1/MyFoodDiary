@@ -5,7 +5,8 @@
 //  Created by Daniel Hilton on 19/05/2019.
 //  Copyright © 2019 Daniel Hilton. All rights reserved.
 
-// TODO: - Fix copy() method for Food. Show food history. Show macros on graph for the day.
+// TODO: - Show macros on graph for the day. Fix text/pie chart size on overview cell. Hide tab bar. Fix view size
+//         issue with activity indicator, error lable etc.. Fix food history/detail issue. 
 
 
 import UIKit
@@ -47,6 +48,8 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         
         configureDateView()
         loadAllFood()
+        
+//        tabBarController?.hidesBottomBarWhenPushed = true
         
     }
     
@@ -283,6 +286,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         cell.pieChart.legend.enabled = false
         cell.pieChart.holeRadiusPercent = 0.5
         cell.pieChart.highlightPerTapEnabled = false
+        cell.pieChart.rotationEnabled = false
         
         // If no user entries/data then set default equal values of pie chart to display equal sections
         if protein == 0 && carbs == 0 && fat == 0 {
@@ -290,9 +294,11 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             let chartDataSet = PieChartDataSet(entries: [PieChartDataEntry(value: 1.0),
                                                          PieChartDataEntry(value: 1.0),
                                                          PieChartDataEntry(value: 1.0)], label: nil)
-            let chartData = PieChartData(dataSet: chartDataSet)
             chartDataSet.drawValuesEnabled = false
-            chartDataSet.colors = [UIColor.flatSkyBlue(), UIColor.flatMint(), UIColor.flatWatermelon()]
+            chartDataSet.colors = [UIColor.flatMint(), UIColor.flatSkyBlue(), UIColor.flatWatermelon()]
+            chartDataSet.selectionShift = 0
+            let chartData = PieChartData(dataSet: chartDataSet)
+            
             cell.pieChart.data = chartData
             
         } else {
@@ -301,9 +307,11 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
                                    PieChartDataEntry(value: carbs),
                                    PieChartDataEntry(value: fat)]
             let chartDataSet = PieChartDataSet(entries: pieChartEntries, label: nil)
-            let chartData = PieChartData(dataSet: chartDataSet)
             chartDataSet.drawValuesEnabled = false
             chartDataSet.colors = [UIColor.flatMint(), UIColor.flatSkyBlue(), UIColor.flatWatermelon()]
+            chartDataSet.selectionShift = 0
+            let chartData = PieChartData(dataSet: chartDataSet)
+            
             
             cell.pieChart.data = chartData
         }

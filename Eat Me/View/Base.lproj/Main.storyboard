@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="02g-WF-Vpv">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TrC-wf-omx">
     <device id="retina6_1" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -33,7 +33,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="120" estimatedRowHeight="-1" sectionHeaderHeight="25" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Xbh-gk-J6y">
-                                <rect key="frame" x="0.0" y="112" width="414" height="662"/>
+                                <rect key="frame" x="0.0" y="112" width="414" height="613"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4x8-gE-ihy">
@@ -471,7 +471,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="7XW-E4-b4A"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
+                                        <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="18"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -564,6 +564,7 @@
                         <viewLayoutGuide key="safeArea" id="xE2-JG-pp7"/>
                     </view>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="FNy-RO-PAC"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="enterManuallyButton" destination="0Kh-1r-0Pd" id="4d6-0T-iq6"/>
                         <outlet property="popUpTitleLabel" destination="DNs-fI-mFu" id="JR8-Y9-gPr"/>
@@ -597,6 +598,7 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MRW-B9-yB5">
                                 <rect key="frame" x="0.0" y="734" width="414" height="40"/>
+                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="fBw-AP-cmB"/>
                                 </constraints>
@@ -653,7 +655,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" id="grd-Zv-oXU">
+                        <searchBar key="tableHeaderView" contentMode="redraw" misplaced="YES" id="grd-Zv-oXU">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
@@ -711,6 +713,14 @@
                             <outlet property="delegate" destination="vPG-aI-vMb" id="F0E-eM-TxI"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Food History" id="X49-6x-Tql">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="wHB-UW-m3f">
+                            <color key="tintColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="cancelButtonTapped:" destination="vPG-aI-vMb" id="CQi-Q7-Y8s"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <segue destination="zEh-Ej-CbZ" kind="show" identifier="goToFoodDetail" id="RLa-wP-dh9"/>
                     </connections>
@@ -932,13 +942,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Carbohydrates (g):" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="npE-l1-3r4">
-                                                    <rect key="frame" x="20" y="11" width="187" height="22"/>
+                                                    <rect key="frame" x="20" y="11" width="237" height="22"/>
                                                     <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="500" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fGc-0W-tHD">
-                                                    <rect key="frame" x="207" y="11" width="187" height="22"/>
+                                                    <rect key="frame" x="257" y="11" width="137" height="22"/>
                                                     <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -949,7 +959,7 @@
                                                 <constraint firstAttribute="bottomMargin" secondItem="npE-l1-3r4" secondAttribute="bottom" id="8L0-K6-gjJ"/>
                                                 <constraint firstItem="npE-l1-3r4" firstAttribute="leading" secondItem="lCX-fb-u0e" secondAttribute="leadingMargin" id="96d-Iv-4s8"/>
                                                 <constraint firstItem="fGc-0W-tHD" firstAttribute="trailing" secondItem="lCX-fb-u0e" secondAttribute="trailingMargin" id="B6Q-Sq-F1G"/>
-                                                <constraint firstItem="fGc-0W-tHD" firstAttribute="width" secondItem="npE-l1-3r4" secondAttribute="width" id="QLz-xd-tCU"/>
+                                                <constraint firstItem="fGc-0W-tHD" firstAttribute="width" secondItem="npE-l1-3r4" secondAttribute="width" constant="-100" id="QLz-xd-tCU"/>
                                                 <constraint firstItem="fGc-0W-tHD" firstAttribute="top" secondItem="lCX-fb-u0e" secondAttribute="topMargin" id="VXx-kO-ejO"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="fGc-0W-tHD" secondAttribute="bottom" id="hzt-CO-6vf"/>
                                                 <constraint firstItem="fGc-0W-tHD" firstAttribute="leading" secondItem="npE-l1-3r4" secondAttribute="trailing" id="niL-gw-fC5"/>
@@ -1020,6 +1030,23 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rgA-5u-yeG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3596" y="222"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="GEn-r3-HP7">
+            <objects>
+                <tabBarController hidesBottomBarWhenPushed="YES" id="TrC-wf-omx" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Ljf-c4-gWI">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="02g-WF-Vpv" kind="relationship" relationship="viewControllers" id="jjQ-7p-HIe"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3IT-Pb-fiO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-612" y="115"/>
         </scene>
         <!--Meal Detail View Controller-->
         <scene sceneID="wik-Ry-uNc">
@@ -1099,7 +1126,7 @@
                                 <action selector="clearButtonPressed:" destination="zZb-S5-xpY" id="Zqm-km-Zfn"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="plus-icon" largeContentSizeImage="big-plus" id="UKB-pf-IEb">
+                        <barButtonItem key="rightBarButtonItem" image="plus-icon" id="UKB-pf-IEb">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="addButtonPressed:" destination="zZb-S5-xpY" id="cUF-re-5QG"/>
@@ -1114,10 +1141,11 @@
             </objects>
             <point key="canvasLocation" x="1106" y="-558"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Overview-->
         <scene sceneID="m17-Ya-PX6">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="02g-WF-Vpv" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Overview" id="slk-QR-PS9"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="d8t-pi-Xsh"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" largeTitles="YES" id="yGq-GE-FPE">
@@ -1145,6 +1173,7 @@
             <objects>
                 <navigationController storyboardIdentifier="PopUpVCNav" automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="LTy-J0-xZd" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="UQ0-A9-wPo">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1167,11 +1196,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="big-plus" width="25" height="25"/>
         <image name="plus-icon" width="37.5" height="37.5"/>
         <image name="tick-icon" width="37.5" height="37.5"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="RLa-wP-dh9"/>
+        <segue reference="rhC-XE-e3F"/>
     </inferredMetricsTieBreakers>
 </document>

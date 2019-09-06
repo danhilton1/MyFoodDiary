@@ -37,6 +37,7 @@ class MealDetailViewController: UITableViewController {
         caloriesLabel.text = "   Calories: \(calories)"
         
         tableView.allowsSelection = false
+        tableView.tableFooterView = UIView()
     }
     
     override func viewDidDisappear(_ animated: Bool) {

@@ -26,6 +26,7 @@ class PopUpNewEntryViewController: UIViewController {
         
         navigationController?.setNavigationBarHidden(true, animated: true)
         navigationController?.navigationBar.barTintColor = UIColor.flatSkyBlue()
+//        tabBarController?.tabBar.isHidden = true
         
         popUpTitleLabel.backgroundColor = UIColor.flatSkyBlue()
         

@@ -22,7 +22,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
 
     private let session = AVCaptureSession()
     private let captureDevice = AVCaptureDevice.default(for: AVMediaType.video)
-    private var urlString: String!
+    private var urlString: String = ""
     private let dispatchGroup = DispatchGroup()
     
     weak var delegate: NewEntryDelegate?
@@ -33,6 +33,8 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         super.viewDidLoad()
 
         navigationController?.setNavigationBarHidden(false, animated: true)
+//        tabBarController?.tabBar.isHidden = true
+        
         
         setUpCameraDisplay()
         
@@ -134,60 +136,12 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                     session.stopRunning()
                     // Dim the view while loading
                     let dimmedView = UIView()
-                    dimmedView.backgroundColor = .black
-                    dimmedView.alpha = 0.55
-                    dimmedView.frame = cameraView.frame
-                    view.addSubview(dimmedView)
-                    view.bringSubviewToFront(activityIndicator)
-                    activityIndicator.startAnimating()
+                    dimViewAndShowLoading(dimmedView)
                     
                     dispatchGroup.enter()
                     
-                    guard let barcodeAsString = object.stringValue else { return }
-                    urlString = "https://world.openfoodfacts.org/api/v0/product/\(barcodeAsString).json"
-                    
-                    guard let url = URL(string: urlString) else { return }
-                    URLSession.shared.dataTask(with: url) { (data, response, error) in
-                        
-                        guard let data = data else { return }
-                        
-                        do {
-                            let scannedFood = try JSONDecoder().decode(FoodDatabase.self, from: data)
-                            self.workingCopy.name = scannedFood.product.productName
-//                            self.foodName = scannedFood.product.productName
-                            if scannedFood.product.servingSize == nil {
-                                // If no serving size information is available, use a default value of 100g
-                                self.workingCopy.calories = scannedFood.product.nutriments.calories100g
-                                self.workingCopy.protein = scannedFood.product.nutriments.protein100g
-                                self.workingCopy.carbs = scannedFood.product.nutriments.carbs100g
-                                self.workingCopy.fat = scannedFood.product.nutriments.fat100g
-                                
-                            } else {
-                                let servingSize = scannedFood.product.servingSize ?? "100"
-                                let servingSizeNumber = Double(servingSize.filter("01234567890.".contains)) ?? 100
-                                self.workingCopy.servingSize = servingSize
-                                self.workingCopy.calories = Int((Double(scannedFood.product.nutriments.calories100g) / 100) * servingSizeNumber)
-                                self.workingCopy.protein = ((scannedFood.product.nutriments.protein100g) / 100) * servingSizeNumber
-                                self.workingCopy.carbs = ((scannedFood.product.nutriments.carbs100g) / 100) * servingSizeNumber
-                                self.workingCopy.fat = ((scannedFood.product.nutriments.fat100g) / 100) * servingSizeNumber
-
-                            }
-                            
-                            self.session.stopRunning()
-                            self.dispatchGroup.leave()
-                            
-                        } catch {
-                            DispatchQueue.main.async {  // This needs to be exectued on main thread
-                                print("Error parsing JSON - \(error)")
-                                
-                                self.activityIndicator.stopAnimating()
-                                dimmedView.removeFromSuperview()
-                                self.displayErrorAlert(message: "There was an error retrieving information for this barcode.")
-                            }
-                            
-                        }
-                        
-                        }.resume()
+                    retrieveDataFromBarcodeEntry(object: object, textFieldText: nil)
+                    session.stopRunning()
                     
                     dispatchGroup.notify(queue: .main) {
                         self.session.stopRunning()
@@ -225,64 +179,13 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         
         alertController.addAction(UIAlertAction(title: "Submit", style: .default, handler: { (action) in
             
-            guard let barcodeAsString = alertController.textFields![0].text else { return }
-            self.urlString = "https://world.openfoodfacts.org/api/v0/product/\(barcodeAsString).json"
-            
-            guard let url = URL(string: self.urlString) else { return }
-            
             self.dispatchGroup.enter()
             
             let dimmedView = UIView()
-            dimmedView.backgroundColor = .black
-            dimmedView.alpha = 0.55
-            dimmedView.frame = self.cameraView.frame
-            self.view.addSubview(dimmedView)
-            self.view.bringSubviewToFront(self.activityIndicator)
-            self.activityIndicator.startAnimating()
+            self.dimViewAndShowLoading(dimmedView)
             
-            URLSession.shared.dataTask(with: url) { (data, response, error) in
-                
-                guard let data = data else { return }
-                
-                do {
-                    
-                    let scannedFood = try JSONDecoder().decode(FoodDatabase.self, from: data)
-                    
-                    self.workingCopy.name = scannedFood.product.productName
-                    if scannedFood.product.servingSize == nil {
-                        
-                        self.workingCopy.calories = scannedFood.product.nutriments.calories100g
-                        self.workingCopy.protein = scannedFood.product.nutriments.protein100g
-                        self.workingCopy.carbs = scannedFood.product.nutriments.carbs100g
-                        self.workingCopy.fat = scannedFood.product.nutriments.fat100g
+            self.retrieveDataFromBarcodeEntry(object: nil, textFieldText: alertController.textFields![0].text)
 
-                    }
-                    else {
-                        
-                        let servingSize = scannedFood.product.servingSize ?? "100"
-                        let servingSizeNumber = Double(servingSize.filter("01234567890.".contains)) ?? 100
-                        self.workingCopy.servingSize = servingSize
-                        self.workingCopy.calories = Int((Double(scannedFood.product.nutriments.calories100g) / 100) * servingSizeNumber)
-                        self.workingCopy.protein = ((scannedFood.product.nutriments.protein100g) / 100) * servingSizeNumber
-                        self.workingCopy.carbs = ((scannedFood.product.nutriments.carbs100g) / 100) * servingSizeNumber
-                        self.workingCopy.fat = ((scannedFood.product.nutriments.fat100g) / 100) * servingSizeNumber
-                    }
-                    self.dispatchGroup.leave()
-                    
-                } catch {
-
-                    DispatchQueue.main.async {
-                        print("Error parsing JSON - \(error)")
-                        
-                        self.activityIndicator.stopAnimating()
-                        dimmedView.removeFromSuperview()
-                        self.displayErrorAlert(message: "There was an error retrieving information for this barcode.")
-                    }
-                    
-                }
-                
-                }.resume()
-            
             self.dispatchGroup.notify(queue: .main, execute: {
                 self.activityIndicator.stopAnimating()
                 self.performSegue(withIdentifier: "goToFoodDetail", sender: nil)
@@ -299,20 +202,72 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         
     }
     
+    private func retrieveDataFromBarcodeEntry(object: AVMetadataMachineReadableCodeObject?, textFieldText: String?) {
+        
+        guard let barcodeAsString = object?.stringValue ?? textFieldText else { return }
+
+        urlString = "https://world.openfoodfacts.org/api/v0/product/\(barcodeAsString).json"
+        
+        guard let url = URL(string: urlString) else { return }
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            
+            guard let data = data else { return }
+            
+            do {
+                let scannedFood = try JSONDecoder().decode(FoodDatabase.self, from: data)
+                self.workingCopy.name = scannedFood.product.productName
+                if scannedFood.product.servingSize == nil {
+                    // If no serving size information is available, use a default value of 100g
+                    self.workingCopy.calories = scannedFood.product.nutriments.calories100g
+                    self.workingCopy.protein = scannedFood.product.nutriments.protein100g
+                    self.workingCopy.carbs = scannedFood.product.nutriments.carbs100g
+                    self.workingCopy.fat = scannedFood.product.nutriments.fat100g
+                    
+                } else {
+                    let servingSize = scannedFood.product.servingSize ?? "100"
+                    let servingSizeNumber = Double(servingSize.filter("01234567890.".contains)) ?? 100
+                    self.workingCopy.servingSize = servingSize
+                    self.workingCopy.calories = Int((Double(scannedFood.product.nutriments.calories100g) / 100) * servingSizeNumber)
+                    self.workingCopy.protein = ((scannedFood.product.nutriments.protein100g) / 100) * servingSizeNumber
+                    self.workingCopy.carbs = ((scannedFood.product.nutriments.carbs100g) / 100) * servingSizeNumber
+                    self.workingCopy.fat = ((scannedFood.product.nutriments.fat100g) / 100) * servingSizeNumber
+                    
+                }
+
+                self.dispatchGroup.leave()
+                
+            } catch {
+                DispatchQueue.main.async {  // This needs to be exectued on main thread
+                    print("Error parsing JSON - \(error)")
+                    
+                    self.activityIndicator.stopAnimating()
+                    self.displayErrorAlert(message: "There was an error retrieving information for this barcode.")
+                }
+                
+            }
+            
+            }.resume()
+        
+    }
     
-    func displayErrorAlert(message: String) {
-        
+    private func dimViewAndShowLoading(_ dimmedView: UIView) {
+        dimmedView.backgroundColor = .black
+        dimmedView.alpha = 0.55
+        dimmedView.frame = cameraView.frame
+        view.addSubview(dimmedView)
+        view.bringSubviewToFront(activityIndicator)
+        activityIndicator.startAnimating()
+    }
+    
+    
+    private func displayErrorAlert(message: String) {
         let alertController = UIAlertController(title: "Error!", message: message, preferredStyle: .alert)
-        
         alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
             self.session.startRunning()
         }))
         
         present(alertController, animated: true)
-        
-        
     }
-    
     
     
     //MARK:- Segue Method
@@ -320,16 +275,10 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "goToFoodDetail" {
-            
             let vc = segue.destination as! FoodDetailViewController
-            
             vc.food = workingCopy
             vc.delegate = delegate
-
-            
         }
-        
-        
     }
     
 }
