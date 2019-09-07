@@ -24,6 +24,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
     private let captureDevice = AVCaptureDevice.default(for: AVMediaType.video)
     private var urlString: String = ""
     private let dispatchGroup = DispatchGroup()
+    private let dimmedView = UIView()
     
     weak var delegate: NewEntryDelegate?
     
@@ -35,14 +36,11 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         navigationController?.setNavigationBarHidden(false, animated: true)
 //        tabBarController?.tabBar.isHidden = true
         
-        
         setUpCameraDisplay()
-        
-        activityIndicator.style = .whiteLarge
-        activityIndicator.frame.size = CGSize(width: 100, height: 100)
-        activityIndicator.center = view.center
-//        activityIndicator.center = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
+
         view.addSubview(activityIndicator)
+        setUpActivityIndicator()
+
         
         if let food = food {
             workingCopy = food.copy()
@@ -56,12 +54,12 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
     
     override func viewWillAppear(_ animated: Bool) {
         // Start running the camera session again if user navigates back to this VC again after scanning an item
+        dimmedView.removeFromSuperview()
         session.startRunning()
     }
     
     
     private func dismissViewWithAnimation() {
-        
         // Custom animation to dismiss the VC from top to bottom as anmiation of NavController is fade
         let transition: CATransition = CATransition()
         transition.duration = 0.4
@@ -70,12 +68,19 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         transition.subtype = CATransitionSubtype.fromBottom
         self.view.window!.layer.add(transition, forKey: nil)
         self.dismiss(animated: false, completion: nil)
-        
     }
     
     
     @IBAction func cancelPressed(_ sender: UIBarButtonItem) {
         dismissViewWithAnimation()
+    }
+    
+    private func setUpActivityIndicator() {
+        activityIndicator.style = .whiteLarge
+        activityIndicator.frame.size = CGSize(width: 100, height: 100)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
     
     
@@ -89,13 +94,15 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                 
                 // Display an error label on screen if camera fails to connect
                 let errorLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 60))
-                errorLabel.center = CGPoint(x: cameraView.bounds.midX, y: cameraView.bounds.midY)
+                errorLabel.translatesAutoresizingMaskIntoConstraints = false
                 errorLabel.textAlignment = .center
                 errorLabel.textColor = .red
                 errorLabel.font = UIFont(name: "System", size: 22.0)
                 errorLabel.text = "Error connecting to camera!"
                 
                 cameraView.addSubview(errorLabel)
+                errorLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+                errorLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
                 
                 return
             }
@@ -118,7 +125,6 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         video.videoGravity = AVLayerVideoGravity.resizeAspectFill
         cameraView.frame.size = CGSize(width: self.view.frame.width, height: self.view.frame.height * 0.754)
         video.frame = cameraView.layer.bounds
-//        video.masksToBounds = true
         
         cameraView.layer.addSublayer(video)
 
@@ -136,7 +142,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                     session.stopRunning()
                     // Dim the view while loading
                     let dimmedView = UIView()
-                    dimViewAndShowLoading(dimmedView)
+                    dimViewAndShowLoading()
                     
                     dispatchGroup.enter()
                     
@@ -147,8 +153,9 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                         self.session.stopRunning()
                         
                         self.activityIndicator.stopAnimating()
-                        self.performSegue(withIdentifier: "goToFoodDetail", sender: nil)
                         dimmedView.removeFromSuperview()
+                        self.performSegue(withIdentifier: "goToFoodDetail", sender: nil)
+                        
                     }
                     
                 } else {
@@ -181,15 +188,14 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
             
             self.dispatchGroup.enter()
             
-            let dimmedView = UIView()
-            self.dimViewAndShowLoading(dimmedView)
+            self.dimViewAndShowLoading()
             
             self.retrieveDataFromBarcodeEntry(object: nil, textFieldText: alertController.textFields![0].text)
 
             self.dispatchGroup.notify(queue: .main, execute: {
                 self.activityIndicator.stopAnimating()
                 self.performSegue(withIdentifier: "goToFoodDetail", sender: nil)
-                dimmedView.removeFromSuperview()
+                self.dimmedView.removeFromSuperview()
             })
 
         }))
@@ -202,10 +208,11 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         
     }
     
+    
     private func retrieveDataFromBarcodeEntry(object: AVMetadataMachineReadableCodeObject?, textFieldText: String?) {
         
         guard let barcodeAsString = object?.stringValue ?? textFieldText else { return }
-
+        print(barcodeAsString)
         urlString = "https://world.openfoodfacts.org/api/v0/product/\(barcodeAsString).json"
         
         guard let url = URL(string: urlString) else { return }
@@ -250,9 +257,10 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         
     }
     
-    private func dimViewAndShowLoading(_ dimmedView: UIView) {
+    
+    private func dimViewAndShowLoading() {
         dimmedView.backgroundColor = .black
-        dimmedView.alpha = 0.55
+        dimmedView.alpha = 0.35
         dimmedView.frame = cameraView.frame
         view.addSubview(dimmedView)
         view.bringSubviewToFront(activityIndicator)
@@ -263,6 +271,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
     private func displayErrorAlert(message: String) {
         let alertController = UIAlertController(title: "Error!", message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+            self.dimmedView.removeFromSuperview()
             self.session.startRunning()
         }))
         

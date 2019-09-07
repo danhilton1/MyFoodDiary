@@ -181,35 +181,35 @@ class FoodDetailViewController: UITableViewController {
             if food.servingSize != "100g" {
                 
                 addAction(for: alertController, title: "1g",
-                          calories: "\(round(10 * (Double(food.calories)) / servingSizeNumber) / 10)",
-                          protein: "\(round(100 * (food.protein / servingSizeNumber)) / 100)",
-                          carbs: "\(round(100 * (food.carbs / servingSizeNumber)) / 100)",
-                          fat: "\(round(100 * (food.fat / servingSizeNumber)) / 100)")
+                          calories: round(10 * (Double(food.calories)) / servingSizeNumber) / 10,
+                          protein: round(100 * (food.protein / servingSizeNumber)) / 100,
+                          carbs: round(100 * (food.carbs / servingSizeNumber)) / 100,
+                          fat: round(100 * (food.fat / servingSizeNumber)) / 100)
                 
                 addAction(for: alertController, title: food.servingSize,
-                          calories: "\(food.calories)",
-                          protein: "\(food.protein)",
-                          carbs: "\(food.carbs)",
-                          fat: "\(food.fat)")
+                          calories: Double(food.calories),
+                          protein: food.protein,
+                          carbs: food.carbs,
+                          fat: food.fat)
 
                 addAction(for: alertController, title: "100g",
-                          calories: "\(Int(round((Double(food.calories) / servingSizeNumber) * 100)))",
-                          protein: "\((food.protein / servingSizeNumber) * 100)",
-                          carbs: "\((food.carbs / servingSizeNumber) * 100)",
-                          fat: "\((food.fat / servingSizeNumber) * 100)")
+                          calories: round((Double(food.calories) / servingSizeNumber) * 100),
+                          protein: (food.protein / servingSizeNumber) * 100,
+                          carbs: (food.carbs / servingSizeNumber) * 100,
+                          fat: (food.fat / servingSizeNumber) * 100)
 
             } else {
                 addAction(for: alertController, title: "1g",
-                          calories: "\(round(10 * (Double(food.calories)) / 100) / 10)",
-                          protein: "\(round(100 * (food.protein / 100)) / 100)",
-                          carbs: "\(round(100 * (food.carbs / 100)) / 100)",
-                          fat: "\(round(100 * (food.fat / 100)) / 100)")
+                          calories: round(10 * (Double(food.calories)) / 100) / 10,
+                          protein: round(100 * (food.protein / 100)) / 100,
+                          carbs: round(100 * (food.carbs / 100)) / 100,
+                          fat: round(100 * (food.fat / 100)) / 100)
 
                 addAction(for: alertController, title: "100g",
-                          calories: "\(food.calories)",
-                          protein: "\(food.protein.roundToXDecimalPoints(decimalPoints: 1))",
-                          carbs: "\(food.carbs.roundToXDecimalPoints(decimalPoints: 1))",
-                          fat: "\(food.fat.roundToXDecimalPoints(decimalPoints: 1))")
+                          calories: Double(food.calories),
+                          protein: food.protein.roundToXDecimalPoints(decimalPoints: 1),
+                          carbs: food.carbs.roundToXDecimalPoints(decimalPoints: 1),
+                          fat: food.fat.roundToXDecimalPoints(decimalPoints: 1))
 
             }
         }
@@ -221,21 +221,25 @@ class FoodDetailViewController: UITableViewController {
     }
     
     
-    func addAction(for alertController: UIAlertController, title: String, calories: String, protein: String, carbs: String, fat: String) {
+    func addAction(for alertController: UIAlertController, title: String, calories: Double, protein: Double, carbs: Double, fat: Double) {
+        
+        var protein = protein
+        var carbs = carbs
+        var fat = fat
         
         alertController.addAction(UIAlertAction(title: title, style: .default, handler: { (UIAlertAction) in
             self.servingSizeButton.setTitle(title, for: .normal)
-            self.caloriesLabel.text = calories
-            self.proteinLabel.text = protein
-            self.carbsLabel.text = carbs
-            self.fatLabel.text = fat
+            self.caloriesLabel.text = "\(round(calories))"
+            self.proteinLabel.text = "\(protein.roundToXDecimalPoints(decimalPoints: 1))"
+            self.carbsLabel.text = "\(carbs.roundToXDecimalPoints(decimalPoints: 1))"
+            self.fatLabel.text = "\(fat.roundToXDecimalPoints(decimalPoints: 1))"
             self.servingTextField.text = "1"
             
             self.workingCopy.servingSize = title
-            self.workingCopy.calories = Int(calories) ?? 0
-            self.workingCopy.protein = Double(protein) ?? 0
-            self.workingCopy.carbs = Double(carbs) ?? 0
-            self.workingCopy.fat = Double(fat) ?? 0
+            self.workingCopy.calories = Int(round(calories))
+            self.workingCopy.protein = protein.roundToXDecimalPoints(decimalPoints: 1)
+            self.workingCopy.carbs = carbs.roundToXDecimalPoints(decimalPoints: 1)
+            self.workingCopy.fat = fat.roundToXDecimalPoints(decimalPoints: 1)
         }))
         
     }

@@ -16,9 +16,10 @@ class MealDetailViewController: UITableViewController {
     var calories = 0
     var selectedMeal: Results<Food>? {
         didSet {
+            calories = 0
             if let foodList = selectedMeal {
-                for food in 0..<foodList.count {
-                    calories += foodList[food].calories
+                for food in foodList {
+                    calories += food.calories
                 }
             }
         }
@@ -55,104 +56,103 @@ class MealDetailViewController: UITableViewController {
         return 4
     }
     
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        let header = UITableViewCell()
-        header.frame.size.height = 30
-        header.backgroundColor = UIColor.flatSkyBlue()
-        
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.backgroundColor =  UIColor.flatSkyBlue() // UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
-        label.textColor = UIColor.white
-        label.font = UIFont(name: "Montserrat-SemiBold", size: 18)
-        header.addSubview(label)
-        
-        let servingLabel = UILabel()
-        servingLabel.translatesAutoresizingMaskIntoConstraints = false
-        servingLabel.backgroundColor =  UIColor.flatSkyBlue() // UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
-        servingLabel.textColor = UIColor.white
-        servingLabel.font = UIFont(name: "Montserrat-Regular", size: 18)
-        servingLabel.textAlignment = .right
-        header.addSubview(servingLabel)
-        
-        // Sets the header for each section to be the name and total serving of that food entry
-        if let foodList = selectedMeal {
-            for i in 0..<foodList.count {
-                if section == i {
-                    label.text = "    \(foodList[i].name ?? "Unknown Name")"
-                    
-                    let servingSize = Double(foodList[i].servingSize.filter("01234567890.".contains)) ?? 100
-                    var totalServingAsString = String(servingSize * foodList[i].serving)
-                    if totalServingAsString.hasSuffix(".0") {
-                        totalServingAsString.removeLast()
-                        totalServingAsString.removeLast()
-                        servingLabel.text = totalServingAsString + "g"
-                    } else {
-                        servingLabel.text = "\(servingSize * foodList[i].serving) g"
-                    }
-                    
-                }
-            }
-        }
-        
-        NSLayoutConstraint.activate([
-            label.centerYAnchor.constraint(equalTo: header.centerYAnchor),
-            label.leadingAnchor.constraint(equalTo: header.leadingAnchor),
-            
-            servingLabel.centerYAnchor.constraint(equalTo: header.centerYAnchor),
-            servingLabel.trailingAnchor.constraint(equalTo: header.layoutMarginsGuide.trailingAnchor)
-        
-        ])
-        
-        return header
-        
-    }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30
+        return 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "mealDetailCell", for: indexPath) as! MealDetailCell
         
         if let food = selectedMeal {
             for i in 0..<food.count {
                 if indexPath.section == i {
                     switch indexPath.row {
                     case 0:
-                        cell.typeLabel?.text = "Calories:"
-                        cell.numberLabel.text = "\(food[i].calories) kcal"
+                        return setFoodHistoryCell(indexPath: indexPath, food: food[i])
                     case 1:
-//                        let roundedNumberOfGrams = food[i].protein.roundToXDecimalPoints(decimalPoints: 1)
-                        cell.typeLabel.text = "Protein:"
-                        cell.numberLabel.text = "\(food[i].protein) g"
+                        return setMealDetailCell(indexPath: indexPath, nutrient: food[i].protein, nutrientType: "Protein")
                     case 2:
-//                        let roundedNumberOfGrams = food[i].carbs.roundToXDecimalPoints(decimalPoints: 1)
-                        cell.typeLabel.text = "Carbs:"
-                        cell.numberLabel.text = "\(food[i].carbs) g"
+                        return setMealDetailCell(indexPath: indexPath, nutrient: food[i].carbs, nutrientType: "Carbs")
                     case 3:
-//                        let roundedNumberOfGrams = food[i].fat.roundToXDecimalPoints(decimalPoints: 1)
-                        cell.typeLabel.text = "Fat:"
-                        cell.numberLabel.text = "\(food[i].fat) g"
+                        return setMealDetailCell(indexPath: indexPath, nutrient: food[i].fat, nutrientType: "Fat")
                     default:
-                        cell.typeLabel.text = ""
-                        cell.numberLabel.text = ""
+                        return UITableViewCell()
                     }
                 }
-               
             }
         }
-        
-        return cell
+        let defaultCell = UITableViewCell()
+        return defaultCell
         
     }
+    
+    private func setFoodHistoryCell(indexPath: IndexPath, food: Food) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "foodHistoryCell", for: indexPath) as! FoodHistoryCell
+        
+        cell.backgroundColor = UIColor.flatSkyBlue()
+        //                        cell.accessoryType = .disclosureIndicator
+        cell.foodNameLabel.textColor = .white
+        cell.foodNameLabel.text = food.name
+        cell.foodNameLabel.font = UIFont(name: "Montserrat-SemiBold", size: 18)
+        cell.caloriesLabel.textColor = .white
+        cell.caloriesLabel.font = UIFont(name: "Montserrat-Medium", size: 18)
+        cell.caloriesLabel.text = "\(food.calories) kcal"
+        cell.totalServingLabel.textColor = .white
+        cell.totalServingLabel.font = UIFont(name: "Montserrat-Regular", size: 16)
+        let servingSize = Double(food.servingSize.filter("01234567890.".contains)) ?? 100
+        var totalServingAsString = String(servingSize * food.serving)
+        if totalServingAsString.hasSuffix(".0") {
+            totalServingAsString.removeLast()
+            totalServingAsString.removeLast()
+            cell.totalServingLabel.text = totalServingAsString + "g"
+        } else {
+            cell.totalServingLabel.text = "\(servingSize * food.serving) g"
+        }
+        return cell
+    }
+    
+    
+    private func setMealDetailCell(indexPath: IndexPath, nutrient: Double, nutrientType: String) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "mealDetailCell", for: indexPath) as! MealDetailCell
+        var nutrient = nutrient
+        let roundedNutrientValue = nutrient.roundToXDecimalPoints(decimalPoints: 1)
+        cell.typeLabel.text = nutrientType + ":"
+        cell.numberLabel.text = "\(roundedNutrientValue) g"
+        return cell
+    }
+    
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == 0 {
+            return 52
+        }
         return 35
     }
-
     
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if indexPath.row == 0 {
+            return true
+        }
+        return false
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+
+            let resultPredicate = NSPredicate(format: "NOT (name contains[c] %@)", (selectedMeal?[indexPath.section].name)!)
+            selectedMeal = selectedMeal?.filter(resultPredicate)
+
+            let indexSet = IndexSet(arrayLiteral: indexPath.section)
+            tableView.deleteSections(indexSet, with: .automatic)
+            
+            caloriesLabel.text = "   Calories: \(calories)"
+//            tableView.reloadData()
+            
+        }
+    }
+
 
 }

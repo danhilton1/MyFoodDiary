@@ -411,36 +411,6 @@ extension Double {
     }
 }
 
-//extension NSNumber {
-//
-//    func roundToXDecimalPoints(decimalPoints: Int?) -> NSNumber {
-//        switch decimalPoints {
-//        case 1:
-//            return (Darwin.round(10 * Double(truncating: self)) / 10) as NSNumber
-//        case 2:
-//            return (Darwin.round(100 * Double(truncating: self)) / 100) as NSNumber
-//        case 3:
-//            return (Darwin.round(1000 * Double(truncating: self)) / 1000) as NSNumber
-//        case 4:
-//            return (Darwin.round(10000 * Double(truncating: self)) / 10000) as NSNumber
-//        case 5:
-//            return (Darwin.round(100000 * Double(truncating: self)) / 100000) as NSNumber
-//        case 6:
-//            return (Darwin.round(1000000 * Double(truncating: self)) / 1000000) as NSNumber
-//        case 7:
-//            return (Darwin.round(10000000 * Double(truncating: self)) / 10000000) as NSNumber
-//        case 8:
-//            return (Darwin.round(100000000 * Double(truncating: self)) / 100000000) as NSNumber
-//        case 9:
-//            return (Darwin.round(1000000000 * Double(truncating: self)) / 1000000000) as NSNumber
-//        case 10:
-//            return (Darwin.round(10000000000 * Double(truncating: self)) / 10000000000) as NSNumber
-//        default:
-//            return Darwin.round(Double(truncating: self)) as NSNumber
-//
-//        }
-//    }
-//}
 
 
 

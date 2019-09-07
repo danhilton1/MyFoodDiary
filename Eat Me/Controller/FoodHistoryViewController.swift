@@ -52,6 +52,24 @@ class FoodHistoryViewController: UITableViewController {
         performSegue(withIdentifier: "goToFoodDetail", sender: nil)
     }
     
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+            return true
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            do {
+                try realm.write {
+                    guard let foodToDelete = foodList?[indexPath.row] else { return }
+                    realm.delete(foodToDelete)
+                }
+            }
+            catch {
+                print("Error deleting data - \(error)")
+            }
+        }
+    }
+    
     @IBAction func cancelButtonTapped(_ sender: Any) {
         
         let transition: CATransition = CATransition()
