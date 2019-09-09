@@ -27,6 +27,7 @@ class PopUpNewEntryViewController: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: true)
         navigationController?.navigationBar.barTintColor = UIColor.flatSkyBlue()
 //        tabBarController?.tabBar.isHidden = true
+        presentingViewController?.tabBarController?.tabBar.isHidden = true
         
         popUpTitleLabel.backgroundColor = UIColor.flatSkyBlue()
         
@@ -34,6 +35,10 @@ class PopUpNewEntryViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        presentingViewController?.tabBarController?.tabBar.isHidden = false
     }
     
     

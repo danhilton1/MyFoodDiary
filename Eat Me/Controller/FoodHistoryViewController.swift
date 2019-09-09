@@ -26,6 +26,14 @@ class FoodHistoryViewController: UITableViewController {
         tableView.tableFooterView = UIView()
 
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        presentingViewController?.tabBarController?.tabBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        presentingViewController?.tabBarController?.tabBar.isHidden = false
+    }
 
     // MARK: - Table view data source
     

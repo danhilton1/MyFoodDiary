@@ -141,13 +141,28 @@ class MealDetailViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-
-            let resultPredicate = NSPredicate(format: "NOT (name contains[c] %@)", (selectedMeal?[indexPath.section].name)!)
-            selectedMeal = selectedMeal?.filter(resultPredicate)
+            // WANT TO DELETE BUT NOT DELETE FROM HISTORY
+            do {
+                try realm.write {
+                    realm.delete((selectedMeal?[indexPath.section])!)
+                }
+            }
+            catch {
+                print("error: \(error)")
+            }
+//            print(selectedMeal)
+//            let resultPredicate = NSPredicate(format: "NOT (name contains[c] %@)", (selectedMeal?[indexPath.section].name)!)
+//            selectedMeal = selectedMeal?.filter(resultPredicate)
 
             let indexSet = IndexSet(arrayLiteral: indexPath.section)
             tableView.deleteSections(indexSet, with: .automatic)
             
+            calories = 0
+            if let foodList = selectedMeal {
+                for food in foodList {
+                    calories += food.calories
+                }
+            }
             caloriesLabel.text = "   Calories: \(calories)"
 //            tableView.reloadData()
             

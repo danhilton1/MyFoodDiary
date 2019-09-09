@@ -58,6 +58,15 @@ class NewEntryViewController: UITableViewController, UITextFieldDelegate {
         
         
     }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        presentingViewController?.tabBarController?.tabBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        presentingViewController?.tabBarController?.tabBar.isHidden = false
+    }
 
 
     //MARK: - Nav Bar Button Methods

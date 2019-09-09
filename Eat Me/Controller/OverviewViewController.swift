@@ -39,8 +39,6 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        navigationController?.navigationBar.backgroundColor = UIColor.flatSkyBlue()
-        
         setUpTableView()
         
         refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
@@ -49,6 +47,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         configureDateView()
         loadAllFood()
         
+        
 //        tabBarController?.hidesBottomBarWhenPushed = true
         
     }
@@ -56,7 +55,11 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
 
     override func viewWillAppear(_ animated: Bool) {
         loadAllFood()
+        presentingViewController?.tabBarController?.tabBar.isHidden = false
+        tabBarController?.tabBar.isHidden = false
     }
+    
+
     
     private func setUpTableView() {
         eatMeTableView.delegate = self

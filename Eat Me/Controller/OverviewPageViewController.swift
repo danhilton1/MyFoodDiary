@@ -29,6 +29,10 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        presentingViewController?.tabBarController?.tabBar.isHidden = false
+    }
+    
     
     //MARK:- PageViewController Datasource Methods
     
