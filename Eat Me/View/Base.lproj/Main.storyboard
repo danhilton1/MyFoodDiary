@@ -722,6 +722,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="searchBar" destination="grd-Zv-oXU" id="mFd-Cz-1D4"/>
                         <segue destination="zEh-Ej-CbZ" kind="show" identifier="goToFoodDetail" id="RLa-wP-dh9"/>
                     </connections>
                 </tableViewController>

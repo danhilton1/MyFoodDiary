@@ -12,6 +12,7 @@ import RealmSwift
 class FoodHistoryViewController: UITableViewController {
 
     let realm = try! Realm()
+    @IBOutlet weak var searchBar: UISearchBar!
     
     private var foodList: Results<Food>?
     
@@ -20,11 +21,11 @@ class FoodHistoryViewController: UITableViewController {
         
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.navigationBar.barTintColor = UIColor.flatSkyBlue()
+        searchBar.delegate = self
 
         foodList = realm.objects(Food.self)
         
         tableView.tableFooterView = UIView()
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -103,4 +104,45 @@ class FoodHistoryViewController: UITableViewController {
 
 
 
+}
+
+
+//MARK: - Search Bar Extension
+
+extension FoodHistoryViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        foodList = foodList?.filter("name CONTAINS[cd] %@", searchBar.text!)
+        tableView.reloadData()
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+
+        if searchText != "" {
+            
+            foodList = realm.objects(Food.self).filter("name CONTAINS[cd] %@", searchBar.text!)
+            tableView.reloadData()
+        }
+        else {
+            foodList = realm.objects(Food.self)
+            tableView.reloadData()
+        }
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
+        foodList = realm.objects(Food.self)
+        tableView.reloadData()
+    }
+    
 }

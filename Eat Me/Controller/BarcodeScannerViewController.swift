@@ -34,14 +34,12 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         super.viewDidLoad()
 
         navigationController?.setNavigationBarHidden(false, animated: true)
-//        tabBarController?.tabBar.isHidden = true
         
         setUpCameraDisplay()
 
         view.addSubview(activityIndicator)
         setUpActivityIndicator()
 
-        
         if let food = food {
             workingCopy = food.copy()
         }
@@ -194,9 +192,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         alertController.addAction(UIAlertAction(title: "Submit", style: .default, handler: { (action) in
             
             self.dispatchGroup.enter()
-            
             self.dimViewAndShowLoading()
-            
             self.retrieveDataFromBarcodeEntry(object: nil, textFieldText: alertController.textFields![0].text)
 
             self.dispatchGroup.notify(queue: .main, execute: {
@@ -207,8 +203,9 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
 
         }))
     
-        
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
+            self.session.startRunning()
+        }))
         
         present(alertController, animated: true)
         session.stopRunning()
