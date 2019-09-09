@@ -101,13 +101,13 @@ class MealDetailViewController: UITableViewController {
         cell.totalServingLabel.textColor = .white
         cell.totalServingLabel.font = UIFont(name: "Montserrat-Regular", size: 16)
         let servingSize = Double(food.servingSize.filter("01234567890.".contains)) ?? 100
-        var totalServingAsString = String(servingSize * food.serving)
+        var totalServingAsString = String(round(10 * (servingSize * food.serving)) / 10)
         if totalServingAsString.hasSuffix(".0") {
             totalServingAsString.removeLast()
             totalServingAsString.removeLast()
             cell.totalServingLabel.text = totalServingAsString + "g"
         } else {
-            cell.totalServingLabel.text = "\(servingSize * food.serving) g"
+            cell.totalServingLabel.text = "\(totalServingAsString) g"
         }
         return cell
     }

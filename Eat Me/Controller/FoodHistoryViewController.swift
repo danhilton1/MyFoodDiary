@@ -44,7 +44,7 @@ class FoodHistoryViewController: UITableViewController {
         let reversedIndex = ((foodList?.count ?? 0) - 1) - indexPath.row
         
         cell.foodNameLabel.text = foodList?[reversedIndex].name
-        cell.totalServingLabel.text = "\(foodList?[reversedIndex].totalServing ?? 100) g"
+        cell.totalServingLabel.text = "\(round(10 * (foodList?[reversedIndex].totalServing ?? 100)) / 10) g"
         cell.caloriesLabel.text = "\(foodList?[reversedIndex].calories ?? 0) kcal"
         
         return cell
