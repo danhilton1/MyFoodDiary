@@ -16,6 +16,11 @@ class MealDetailViewController: UITableViewController {
     var calories = 0
     var selectedMeal: Results<Food>? {
         didSet {
+            for food in selectedMeal! {
+                let predicate = NSPredicate(value: !food.isDeleted)
+                selectedMeal = selectedMeal!.filter(predicate)
+            }
+            
             calories = 0
             if let foodList = selectedMeal {
                 for food in foodList {
@@ -141,19 +146,18 @@ class MealDetailViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // WANT TO DELETE BUT NOT DELETE FROM HISTORY
+            print(selectedMeal?[indexPath.section])
             do {
                 try realm.write {
-                    realm.delete((selectedMeal?[indexPath.section])!)
+                    selectedMeal?[indexPath.section].isDeleted = true
                 }
             }
             catch {
-                print("error: \(error)")
+                print(error)
             }
-//            print(selectedMeal)
-//            let resultPredicate = NSPredicate(format: "NOT (name contains[c] %@)", (selectedMeal?[indexPath.section].name)!)
-//            selectedMeal = selectedMeal?.filter(resultPredicate)
-
+            print(selectedMeal)
+            
+            //NEEDS FIXING
             let indexSet = IndexSet(arrayLiteral: indexPath.section)
             tableView.deleteSections(indexSet, with: .automatic)
             

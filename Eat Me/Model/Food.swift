@@ -46,6 +46,7 @@ class Food: Object {
     @objc dynamic var protein: Double = 0
     @objc dynamic var carbs: Double = 0
     @objc dynamic var fat: Double = 0
+    @objc dynamic var isDeleted = false
     
     
 //    func updateProperties(date: String?, meal: Meal, name: String?, servingSize: String, serving: Double, calories: Int, protein: Double, carbs: Double, fat: Double) {
