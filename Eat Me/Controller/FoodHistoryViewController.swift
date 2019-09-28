@@ -20,7 +20,7 @@ class FoodHistoryViewController: UITableViewController {
         super.viewDidLoad()
         
         navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationController?.navigationBar.barTintColor = UIColor.flatSkyBlue()
+        navigationController?.navigationBar.barTintColor = Color.skyBlue
         searchBar.delegate = self
 
         foodList = realm.objects(Food.self)

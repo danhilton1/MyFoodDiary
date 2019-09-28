@@ -95,7 +95,7 @@ class MealDetailViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "foodHistoryCell", for: indexPath) as! FoodHistoryCell
         
-        cell.backgroundColor = UIColor.flatSkyBlue()
+        cell.backgroundColor = Color.skyBlue
         //                        cell.accessoryType = .disclosureIndicator
         cell.foodNameLabel.textColor = .white
         cell.foodNameLabel.text = food.name

@@ -43,7 +43,7 @@ class NewEntryViewController: UITableViewController, UITextFieldDelegate {
         
         navigationController?.setNavigationBarHidden(false, animated: true)
 
-        mealPicker.tintColor = UIColor.flatSkyBlue()
+        mealPicker.tintColor = Color.skyBlue
         
         foodNameTextField.delegate = self
         caloriesTextField.delegate = self

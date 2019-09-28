@@ -25,11 +25,11 @@ class PopUpNewEntryViewController: UIViewController {
         popUpView.layer.cornerRadius = 13
         
         navigationController?.setNavigationBarHidden(true, animated: true)
-        navigationController?.navigationBar.barTintColor = UIColor.flatSkyBlue()
+        navigationController?.navigationBar.barTintColor = Color.skyBlue
 //        tabBarController?.tabBar.isHidden = true
         presentingViewController?.tabBarController?.tabBar.isHidden = true
         
-        popUpTitleLabel.backgroundColor = UIColor.flatSkyBlue()
+        popUpTitleLabel.backgroundColor = Color.skyBlue
         
     }
     

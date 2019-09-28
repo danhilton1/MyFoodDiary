@@ -20,6 +20,7 @@
 		377208C22291A1FA002DDA29 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 377208C02291A1FA002DDA29 /* LaunchScreen.storyboard */; };
 		377208D22291B002002DDA29 /* MealOverviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377208D02291B002002DDA29 /* MealOverviewCell.swift */; };
 		377208D32291B002002DDA29 /* MealOverviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 377208D12291B002002DDA29 /* MealOverviewCell.xib */; };
+		377A57D2233F896100D816DD /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377A57D1233F896100D816DD /* Color.swift */; };
 		378917C022C8DC3B00571181 /* BarcodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378917BF22C8DC3B00571181 /* BarcodeScannerViewController.swift */; };
 		378A01122323FD250035C803 /* Montserrat-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 378A01112323FD250035C803 /* Montserrat-Medium.otf */; };
 		378F9199231AC204007142AA /* FoodHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378F9198231AC204007142AA /* FoodHistoryCell.swift */; };
@@ -53,6 +54,7 @@
 		377208C32291A1FA002DDA29 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		377208D02291B002002DDA29 /* MealOverviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealOverviewCell.swift; sourceTree = "<group>"; };
 		377208D12291B002002DDA29 /* MealOverviewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MealOverviewCell.xib; sourceTree = "<group>"; };
+		377A57D1233F896100D816DD /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		378917BF22C8DC3B00571181 /* BarcodeScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeScannerViewController.swift; sourceTree = "<group>"; };
 		378A01112323FD250035C803 /* Montserrat-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.otf"; sourceTree = "<group>"; };
 		378F9198231AC204007142AA /* FoodHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodHistoryCell.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 			children = (
 				377208B82291A1F8002DDA29 /* Main.storyboard */,
 				377208C02291A1FA002DDA29 /* LaunchScreen.storyboard */,
+				377A57D1233F896100D816DD /* Color.swift */,
 				37A07E3B22DD028300E4A351 /* Custom Fonts */,
 				377208D42291E012002DDA29 /* Custom Cell */,
 			);
@@ -310,6 +313,7 @@
 			files = (
 				378F919B231AC289007142AA /* FoodHistoryViewController.swift in Sources */,
 				37CA772D22A1BB4F00C03A06 /* NewEntryViewController.swift in Sources */,
+				377A57D2233F896100D816DD /* Color.swift in Sources */,
 				37DE59D722D1055D00079A6A /* OverviewPageViewController.swift in Sources */,
 				37563BD822C69E8F0032D94E /* PopUpNewEntryViewController.swift in Sources */,
 				379DB00622B2EBB300F3DC5B /* MealDetailViewController.swift in Sources */,

@@ -110,17 +110,60 @@ public final class Realm {
                                 it will be passed in as an argument.
                                 Otherwise, a `Swift.Error` describing what went wrong will be
                                 passed to the block instead.
+     - returns: A task object which can be used to observe or cancel the async open.
 
      - note: The returned Realm is confined to the thread on which it was created.
              Because GCD does not guarantee that queues will always use the same
              thread, accessing the returned Realm outside the callback block (even if
              accessed from `callbackQueue`) is unsafe.
      */
+    @discardableResult
     public static func asyncOpen(configuration: Realm.Configuration = .defaultConfiguration,
                                  callbackQueue: DispatchQueue = .main,
-                                 callback: @escaping (Realm?, Swift.Error?) -> Void) {
-        RLMRealm.asyncOpen(with: configuration.rlmConfiguration, callbackQueue: callbackQueue) { rlmRealm, error in
+                                 callback: @escaping (Realm?, Swift.Error?) -> Void) -> AsyncOpenTask {
+        return AsyncOpenTask(rlmTask: RLMRealm.asyncOpen(with: configuration.rlmConfiguration, callbackQueue: callbackQueue) { rlmRealm, error in
             callback(rlmRealm.flatMap(Realm.init), error)
+        })
+    }
+
+    /**
+     A task object which can be used to observe or cancel an async open.
+
+     When a synchronized Realm is opened asynchronously, the latest state of the
+     Realm is downloaded from the server before the completion callback is
+     invoked. This task object can be used to observe the state of the download
+     or to cancel it. This should be used instead of trying to observe the
+     download via the sync session as the sync session itself is created
+     asynchronously, and may not exist yet when Realm.asyncOpen() returns.
+     */
+    public struct AsyncOpenTask {
+        fileprivate let rlmTask: RLMAsyncOpenTask
+
+        /**
+         Cancel the asynchronous open.
+
+         Any download in progress will be cancelled, and the completion block for this
+         async open will never be called. If multiple async opens on the same Realm are
+         happening concurrently, all other opens will fail with the error "operation cancelled".
+         */
+        public func cancel() { rlmTask.cancel() }
+
+        /**
+         Register a progress notification block.
+
+         Each registered progress notification block is called whenever the sync
+         subsystem has new progress data to report until the task is either cancelled
+         or the completion callback is called. Progress notifications are delivered on
+         the supplied queue.
+
+         - parameter queue: The queue to deliver progress notifications on.
+         - parameter block: The block to invoke when notifications are available.
+         */
+        public func addProgressNotification(queue: DispatchQueue = .main,
+                                            block: @escaping (SyncSession.Progress) -> Void) {
+            rlmTask.addProgressNotification(on: queue) { transferred, transferrable in
+                block(SyncSession.Progress(transferred: transferred, transferrable: transferrable))
+            }
         }
     }
 
@@ -144,12 +187,27 @@ public final class Realm {
      and generates notifications if applicable. This has no effect if the Realm
      was already up to date.
 
+     You can skip notifiying specific notification blocks about the changes made
+     in this write transaction by passing in their associated notification
+     tokens. This is primarily useful when the write transaction is saving
+     changes already made in the UI and you do not want to have the notification
+     block attempt to re-apply the same changes.
+
+     The tokens passed to this function must be for notifications for this Realm
+     which were added on the same thread as the write transaction is being
+     performed on. Notifications for different threads cannot be skipped using
+     this method.
+
+     - parameter tokens: An array of notification tokens which were returned
+                         from adding callbacks which you do not want to be
+                         notified for the changes made in this write transaction.
+
      - parameter block: The block containing actions to perform.
 
      - throws: An `NSError` if the transaction could not be completed successfully.
                If `block` throws, the function throws the propagated `ErrorType` instead.
      */
-    public func write(_ block: (() throws -> Void)) throws {
+    public func write(withoutNotifying tokens: [NotificationToken] = [], _ block: (() throws -> Void)) throws {
         beginWrite()
         do {
             try block()
@@ -157,7 +215,7 @@ public final class Realm {
             if isInWriteTransaction { cancelWrite() }
             throw error
         }
-        if isInWriteTransaction { try commitWrite() }
+        if isInWriteTransaction { try commitWrite(withoutNotifying: tokens) }
     }
 
     /**
@@ -206,6 +264,10 @@ public final class Realm {
      this method.
 
      - warning: This method may only be called during a write transaction.
+
+     - parameter tokens: An array of notification tokens which were returned
+                         from adding callbacks which you do not want to be
+                         notified for the changes made in this write transaction.
 
      - throws: An `NSError` if the transaction could not be written due to
                running out of disk space or other i/o errors.

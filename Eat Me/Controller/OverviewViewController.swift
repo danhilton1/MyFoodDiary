@@ -12,7 +12,6 @@
 import UIKit
 import RealmSwift
 import Charts
-import ChameleonFramework
 
 
 class OverviewViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NewEntryDelegate {
@@ -298,7 +297,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
                                                          PieChartDataEntry(value: 1.0),
                                                          PieChartDataEntry(value: 1.0)], label: nil)
             chartDataSet.drawValuesEnabled = false
-            chartDataSet.colors = [UIColor.flatMint(), UIColor.flatSkyBlue(), UIColor.flatWatermelon()]
+            chartDataSet.colors = [Color.mint, Color.skyBlue, Color.salmon]
             chartDataSet.selectionShift = 0
             let chartData = PieChartData(dataSet: chartDataSet)
             
@@ -311,7 +310,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
                                    PieChartDataEntry(value: fat)]
             let chartDataSet = PieChartDataSet(entries: pieChartEntries, label: nil)
             chartDataSet.drawValuesEnabled = false
-            chartDataSet.colors = [UIColor.flatMint(), UIColor.flatSkyBlue(), UIColor.flatWatermelon()]
+            chartDataSet.colors = [Color.mint, Color.skyBlue, Color.salmon]
             chartDataSet.selectionShift = 0
             let chartData = PieChartData(dataSet: chartDataSet)
             

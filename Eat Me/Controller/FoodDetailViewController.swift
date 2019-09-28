@@ -67,7 +67,7 @@ class FoodDetailViewController: UITableViewController {
         servingTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         servingSizeButton.addTarget(self, action: #selector(servingButtonTapped), for: .touchUpInside)
         foodNameLabel.text = workingCopy.name
-        mealPicker.tintColor = UIColor.flatSkyBlue()
+        mealPicker.tintColor = Color.skyBlue
         servingSizeButton.setTitle(workingCopy.servingSize, for: .normal)
         caloriesLabel.text = "\(workingCopy.calories)"
         proteinLabel.text = "\(workingCopy.protein.roundToXDecimalPoints(decimalPoints: 1))"

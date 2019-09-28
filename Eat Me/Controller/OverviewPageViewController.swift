@@ -15,7 +15,7 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.navigationBar.barTintColor = UIColor.flatSkyBlue()
+        navigationController?.navigationBar.barTintColor = Color.skyBlue
         
         dataSource = self
         
