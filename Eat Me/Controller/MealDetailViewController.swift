@@ -16,16 +16,13 @@ class MealDetailViewController: UITableViewController {
     var calories = 0
     var selectedMeal: Results<Food>? {
         didSet {
-            for food in selectedMeal! {
-                let predicate = NSPredicate(value: !food.isDeleted)
-                selectedMeal = selectedMeal!.filter(predicate)
-            }
+            let predicate = NSPredicate(format: "isDeleted == FALSE")
+            selectedMeal = selectedMeal?.filter(predicate)
             
+            guard let foodList = selectedMeal else { return }
             calories = 0
-            if let foodList = selectedMeal {
-                for food in foodList {
-                    calories += food.calories
-                }
+            for food in foodList {
+                calories += food.calories
             }
         }
     }
@@ -37,13 +34,17 @@ class MealDetailViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.navigationController?.navigationBar.tintColor = .white
         
         caloriesLabel.text = "   Calories: \(calories)"
         
         tableView.allowsSelection = false
         tableView.tableFooterView = UIView()
+        
+        if selectedMeal?.count == 0 {
+            tableView.separatorStyle = .none
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -54,10 +55,16 @@ class MealDetailViewController: UITableViewController {
     // MARK: - Table view data source and delegate methods
 
     override func numberOfSections(in tableView: UITableView) -> Int {
+        if selectedMeal?.count == 0 {
+            return 1
+        }
         return selectedMeal?.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if selectedMeal?.count == 0 {
+            return 1
+        }
         return 4
     }
     
@@ -87,6 +94,8 @@ class MealDetailViewController: UITableViewController {
             }
         }
         let defaultCell = UITableViewCell()
+        defaultCell.textLabel?.font = UIFont(name: "Montserrat-Regular", size: 16)
+        defaultCell.textLabel?.text = "No food logged for selected meal."
         return defaultCell
         
     }
@@ -145,8 +154,8 @@ class MealDetailViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
         if editingStyle == .delete {
-            print(selectedMeal?[indexPath.section])
             do {
                 try realm.write {
                     selectedMeal?[indexPath.section].isDeleted = true
@@ -155,10 +164,10 @@ class MealDetailViewController: UITableViewController {
             catch {
                 print(error)
             }
-            print(selectedMeal)
             
             //NEEDS FIXING
             let indexSet = IndexSet(arrayLiteral: indexPath.section)
+            print(indexSet)
             tableView.deleteSections(indexSet, with: .automatic)
             
             calories = 0
