@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class MealDetailViewController: UITableViewController {
+class MealDetailViewController: UITableViewController, NewEntryDelegate {
     
     let realm = try! Realm()
     
@@ -26,6 +26,9 @@ class MealDetailViewController: UITableViewController {
             }
         }
     }
+    
+    var date: Date?
+    var meal: Food.Meal = .breakfast
     
     @IBOutlet weak var caloriesLabel: UILabel!
     
@@ -50,7 +53,26 @@ class MealDetailViewController: UITableViewController {
     override func viewDidDisappear(_ animated: Bool) {
         self.navigationController?.navigationBar.tintColor = .blue
     }
-
+    
+    
+    func reloadFood() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5 ) {
+            self.tableView.reloadData()
+        }
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "GoToPopUp" {
+            let popUpNC = segue.destination as! UINavigationController
+            let destVC = popUpNC.viewControllers.first as! PopUpNewEntryViewController
+            destVC.date = date
+            destVC.meal = meal
+            destVC.mealDelegate = self
+        }
+    }
+    
+    
     
     // MARK: - Table view data source and delegate methods
 

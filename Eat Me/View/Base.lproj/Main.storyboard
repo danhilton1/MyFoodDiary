@@ -511,7 +511,6 @@
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="scanButtonPressed:" destination="GsZ-0Q-v0R" eventType="touchUpInside" id="r7t-tY-OIz"/>
                                                     <segue destination="ZBk-MS-8G1" kind="show" identifier="goToBarcodeScanner" id="7F2-nV-Bz8"/>
                                                 </connections>
                                             </button>
@@ -532,7 +531,7 @@
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="vPG-aI-vMb" kind="show" id="q65-F6-TGi"/>
+                                                    <segue destination="vPG-aI-vMb" kind="show" identifier="GoToFoodHistory" id="q65-F6-TGi"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -1154,6 +1153,15 @@
                             <outlet property="delegate" destination="be3-9g-cDs" id="CSs-mb-lgL"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="h4f-Y3-ngd">
+                        <barButtonItem key="rightBarButtonItem" image="plus-icon" id="3rP-Qg-ae7">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="addButtonTapped:" destination="be3-9g-cDs" id="bBY-g2-z0j"/>
+                                <segue destination="LTy-J0-xZd" kind="presentation" identifier="GoToPopUp" id="hIA-Yj-Du4"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="caloriesLabel" destination="8sW-5c-CnZ" id="AN6-7L-Reh"/>
                     </connections>
@@ -1247,6 +1255,7 @@
         <image name="tick-icon" width="37.5" height="37.5"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="hIA-Yj-Du4"/>
         <segue reference="RLa-wP-dh9"/>
     </inferredMetricsTieBreakers>
 </document>

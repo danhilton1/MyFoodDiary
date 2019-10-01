@@ -90,6 +90,8 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         foodList = realm.objects(Food.self)
         let predicate = NSPredicate(format: "date contains[c] %@", formatter.string(from: date ?? Date()))
         foodList = foodList?.filter(predicate)
+        let deletedPredicate = NSPredicate(format: "isDeleted == FALSE")
+        foodList = foodList?.filter(deletedPredicate)
         
         totalCalsArray = (foodList?.value(forKey: "calories")) as! [Int]
         totalCalories = totalCalsArray.reduce(0, +)
@@ -349,30 +351,32 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         if segue.identifier ==  "goToMealDetail" {
             
             let destVC = segue.destination as! MealDetailViewController
+            destVC.date = date
             
             if let indexPath = eatMeTableView.indexPathForSelectedRow {
                 
                 if indexPath.section == 0 {
-                    filterFoodForMealDetail(meal: "Breakfast", destVC: destVC)
+                    filterFoodForMealDetail(meal: Food.Meal.breakfast, destVC: destVC)
                 }
                 else if indexPath.section == 1 {
-                    filterFoodForMealDetail(meal: "Lunch", destVC: destVC)
+                    filterFoodForMealDetail(meal: Food.Meal.lunch, destVC: destVC)
                 }
                 else if indexPath.section == 2 {
-                    filterFoodForMealDetail(meal: "Dinner", destVC: destVC)
+                    filterFoodForMealDetail(meal: Food.Meal.dinner, destVC: destVC)
                 }
                 else if indexPath.section == 3 {
-                    filterFoodForMealDetail(meal: "Other", destVC: destVC)
+                    filterFoodForMealDetail(meal: Food.Meal.other, destVC: destVC)
                 }
             }
         }
     }
     
-    func filterFoodForMealDetail(meal: String, destVC: MealDetailViewController) {
+    func filterFoodForMealDetail(meal: Food.Meal, destVC: MealDetailViewController) {
         
-        let resultPredicate = NSPredicate(format: "meal contains[c] %@", meal)
+        let resultPredicate = NSPredicate(format: "meal contains[c] %@", meal.stringValue)
         destVC.selectedMeal = foodList?.filter(resultPredicate)
-        destVC.navigationItem.title = meal
+        destVC.navigationItem.title = meal.stringValue
+        destVC.meal = meal
         
     }
     

@@ -19,6 +19,7 @@ class NewEntryViewController: UITableViewController, UITextFieldDelegate {
     
     weak var delegate: NewEntryDelegate?
     var date: Date?
+    var selectedSegmentIndex = 0
 
     private var workingCopy: Food = Food()
 
@@ -44,6 +45,7 @@ class NewEntryViewController: UITableViewController, UITextFieldDelegate {
         navigationController?.setNavigationBarHidden(false, animated: true)
 
         mealPicker.tintColor = Color.skyBlue
+        mealPicker.selectedSegmentIndex = selectedSegmentIndex
         
         foodNameTextField.delegate = self
         caloriesTextField.delegate = self

@@ -15,7 +15,9 @@ class PopUpNewEntryViewController: UIViewController {
     @IBOutlet weak var enterManuallyButton: UIButton!
     
     var date: Date?
+    var meal = Food.Meal.breakfast
     weak var delegate: NewEntryDelegate?
+    weak var mealDelegate: NewEntryDelegate?
     
     
     
@@ -64,12 +66,6 @@ class PopUpNewEntryViewController: UIViewController {
     }
     
     
-    @IBAction func scanButtonPressed(_ sender: UIButton) {
-        
-//        performSegue(withIdentifier: "goToBarcodeScanner", sender: self)
-        
-    }
-    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -77,11 +73,18 @@ class PopUpNewEntryViewController: UIViewController {
             let destVC = segue.destination as! NewEntryViewController
             destVC.delegate = delegate
             destVC.date = date
+            destVC.selectedSegmentIndex = meal.intValue
         }
         else if segue.identifier == "goToBarcodeScanner" {
             let destVC = segue.destination as! BarcodeScannerViewController
             destVC.date = date
             destVC.delegate = delegate
+            destVC.selectedSegmentIndex = meal.intValue
+        }
+        else if segue.identifier == "GoToFoodHistory" {
+            let destVC = segue.destination as! FoodHistoryViewController
+            destVC.date = date
+            destVC.selectedSegmentIndex = meal.intValue
         }
     }
 }

@@ -15,6 +15,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
     var food: Food?
     var workingCopy: Food = Food()
     
+    var selectedSegmentIndex = 0
     var date: Date?
     
     @IBOutlet weak var cameraView: UIView!
@@ -27,6 +28,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
     private let dimmedView = UIView()
     
     weak var delegate: NewEntryDelegate?
+    weak var mealDelegate: NewEntryDelegate?
     
     //MARK:- View Methods
     
@@ -291,6 +293,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
             let vc = segue.destination as! FoodDetailViewController
             vc.food = workingCopy
             vc.delegate = delegate
+            vc.selectedSegmentIndex = selectedSegmentIndex
         }
     }
     

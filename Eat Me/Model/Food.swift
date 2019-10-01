@@ -32,6 +32,19 @@ class Food: Object {
                 return "Other"
             }
         }
+        
+        var intValue: Int {
+            switch self {
+            case .breakfast:
+                return 0
+            case .lunch:
+                return 1
+            case .dinner:
+                return 2
+            case .other:
+                return 3
+            }
+        }
     }
     // 100g values
     @objc dynamic var date: String?
@@ -49,20 +62,6 @@ class Food: Object {
     @objc dynamic var isDeleted = false
     
     
-//    func updateProperties(date: String?, meal: Meal, name: String?, servingSize: String, serving: Double, calories: Int, protein: Double, carbs: Double, fat: Double) {
-//        
-//        self.date = date
-//        self.meal = meal.stringValue
-//        self.name = name
-//        self.servingSize = servingSize
-//        self.serving = serving
-//        self.calories = calories
-//        self.protein = protein
-//        self.carbs = carbs
-//        self.fat = fat
-//
-//        
-//    }
     
     func copy(with zone: NSZone? = nil) -> Food {
         let copy = Food()

@@ -16,7 +16,10 @@ class FoodDetailViewController: UITableViewController {
     //MARK:- Properties
     
     var food: Food?
+    var date: Date?
+    var selectedSegmentIndex = 0
     var workingCopy: Food = Food()
+    private let formatter = DateFormatter()
     
     @IBOutlet weak var foodNameLabel: UILabel!
     @IBOutlet weak var mealPicker: UISegmentedControl!
@@ -28,6 +31,7 @@ class FoodDetailViewController: UITableViewController {
     @IBOutlet weak var fatLabel: UILabel!
     
     weak var delegate: NewEntryDelegate?
+    weak var mealDelegate: NewEntryDelegate?
     
     //MARK:- View methods
     
@@ -39,6 +43,7 @@ class FoodDetailViewController: UITableViewController {
         tableView.keyboardDismissMode = .interactive
         tableView.allowsSelection = false
         
+        formatter.dateFormat = "E, d MMM"
         
         if let food = food {
             workingCopy = food.copy()
@@ -68,6 +73,7 @@ class FoodDetailViewController: UITableViewController {
         servingSizeButton.addTarget(self, action: #selector(servingButtonTapped), for: .touchUpInside)
         foodNameLabel.text = workingCopy.name
         mealPicker.tintColor = Color.skyBlue
+        mealPicker.selectedSegmentIndex = selectedSegmentIndex
         servingSizeButton.setTitle(workingCopy.servingSize, for: .normal)
         caloriesLabel.text = "\(workingCopy.calories)"
         proteinLabel.text = "\(workingCopy.protein.roundToXDecimalPoints(decimalPoints: 1))"
@@ -89,6 +95,7 @@ class FoodDetailViewController: UITableViewController {
 
     @IBAction func addButtonTapped(_ sender: UIBarButtonItem) {
         
+        workingCopy.date = formatter.string(from: date ?? Date())
         
         switch mealPicker.selectedSegmentIndex {  // NEEDS FIXING
         case 0:
@@ -112,6 +119,7 @@ class FoodDetailViewController: UITableViewController {
         }
         dismissViewWithAnimation()
         delegate?.reloadFood()
+        mealDelegate?.reloadFood() // NEEDS FIXING
         
     }
     

@@ -14,6 +14,8 @@ class FoodHistoryViewController: UITableViewController {
     let realm = try! Realm()
     @IBOutlet weak var searchBar: UISearchBar!
     
+    var date: Date?
+    var selectedSegmentIndex = 0
     private var foodList: Results<Food>?
     
     override func viewDidLoad() {
@@ -99,6 +101,8 @@ class FoodHistoryViewController: UITableViewController {
             let destVC = segue.destination as! FoodDetailViewController
             if let indexPath = tableView.indexPathForSelectedRow {
                 destVC.food = foodList?[((foodList?.count ?? 0) - 1) - indexPath.row]
+                destVC.date = date
+                destVC.selectedSegmentIndex = selectedSegmentIndex
             }
         }
     }
