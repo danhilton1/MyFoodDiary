@@ -119,13 +119,12 @@ class FoodDetailViewController: UITableViewController {
         }
         dismissViewWithAnimation()
         delegate?.reloadFood()
-        mealDelegate?.reloadFood() // NEEDS FIXING
+        mealDelegate?.reloadFood()
         
     }
     
     
     private func save(_ food: Object) {
-        
         do {
             try realm.write {
                 realm.add(food)

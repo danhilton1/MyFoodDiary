@@ -31,6 +31,8 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
     
     override func viewWillAppear(_ animated: Bool) {
         presentingViewController?.tabBarController?.tabBar.isHidden = false
+        let VC = viewControllers![0] as! OverviewViewController
+        VC.loadAllFood()
     }
     
     

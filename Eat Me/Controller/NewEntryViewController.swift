@@ -18,6 +18,7 @@ class NewEntryViewController: UITableViewController, UITextFieldDelegate {
     let realm = try! Realm()
     
     weak var delegate: NewEntryDelegate?
+    weak var mealDelegate: NewEntryDelegate?
     var date: Date?
     var selectedSegmentIndex = 0
 
@@ -98,6 +99,7 @@ class NewEntryViewController: UITableViewController, UITextFieldDelegate {
         
         dismissViewWithAnimation()
         delegate?.reloadFood()
+        mealDelegate?.reloadFood()
     }
     
     

@@ -23,7 +23,7 @@ class PopUpNewEntryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         popUpView.layer.cornerRadius = 13
         
         navigationController?.setNavigationBarHidden(true, animated: true)
@@ -72,6 +72,7 @@ class PopUpNewEntryViewController: UIViewController {
         if segue.identifier == "goToManualEntry" {
             let destVC = segue.destination as! NewEntryViewController
             destVC.delegate = delegate
+            destVC.mealDelegate = mealDelegate
             destVC.date = date
             destVC.selectedSegmentIndex = meal.intValue
         }
@@ -79,10 +80,12 @@ class PopUpNewEntryViewController: UIViewController {
             let destVC = segue.destination as! BarcodeScannerViewController
             destVC.date = date
             destVC.delegate = delegate
+            destVC.mealDelegate = mealDelegate
             destVC.selectedSegmentIndex = meal.intValue
         }
         else if segue.identifier == "GoToFoodHistory" {
             let destVC = segue.destination as! FoodHistoryViewController
+            destVC.mealDelegate = mealDelegate
             destVC.date = date
             destVC.selectedSegmentIndex = meal.intValue
         }

@@ -34,7 +34,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        print(mealDelegate)
         navigationController?.setNavigationBarHidden(false, animated: true)
         
         setUpCameraDisplay()
@@ -293,6 +293,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
             let vc = segue.destination as! FoodDetailViewController
             vc.food = workingCopy
             vc.delegate = delegate
+            vc.mealDelegate = mealDelegate
             vc.selectedSegmentIndex = selectedSegmentIndex
         }
     }

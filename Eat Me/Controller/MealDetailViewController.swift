@@ -57,7 +57,21 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
     
     func reloadFood() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5 ) {
+            self.reloadSelectedMeal()
             self.tableView.reloadData()
+            self.caloriesLabel.text = "   Calories: \(self.calories)"
+            self.tableView.separatorStyle = .singleLine
+        }
+    }
+    
+    func reloadSelectedMeal() {
+        let predicate = NSPredicate(format: "isDeleted == FALSE")
+        selectedMeal = selectedMeal?.filter(predicate)
+        
+        guard let foodList = selectedMeal else { return }
+        calories = 0
+        for food in foodList {
+            calories += food.calories
         }
     }
     
@@ -199,7 +213,6 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
                 }
             }
             caloriesLabel.text = "   Calories: \(calories)"
-//            tableView.reloadData()
             
         }
     }
