@@ -275,11 +275,10 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             }
         }
         
-        
         cell.calorieLabel.text = "\(calories) kcal"
-        cell.proteinLabel.text = "\(protein.roundToXDecimalPoints(decimalPoints: 1)) g"   // Round to 1 d.p.
-        cell.carbsLabel.text = "\(carbs.roundToXDecimalPoints(decimalPoints: 1)) g"
-        cell.fatLabel.text = "\(fat.roundToXDecimalPoints(decimalPoints: 1)) g"
+        cell.proteinLabel.text = protein.removePointZeroEndingAndConvertToString() + " g"
+        cell.carbsLabel.text = carbs.removePointZeroEndingAndConvertToString() + " g"
+        cell.fatLabel.text = fat.removePointZeroEndingAndConvertToString() + " g"
         
         setUpPieChart(cell: cell, section1: protein, section2: carbs, section3: fat)
     }
@@ -414,6 +413,15 @@ extension Double {
             return Darwin.round(self)
             
         }
+    }
+    
+    mutating func removePointZeroEndingAndConvertToString() -> String {
+        var numberString = String(self.roundToXDecimalPoints(decimalPoints: 1))
+
+        if numberString.hasSuffix(".0") {
+            numberString.removeLast(2)
+        }
+        return numberString
     }
 }
 

@@ -76,18 +76,18 @@ class FoodDetailViewController: UITableViewController {
         mealPicker.selectedSegmentIndex = selectedSegmentIndex
         servingSizeButton.setTitle(workingCopy.servingSize, for: .normal)
         caloriesLabel.text = "\(workingCopy.calories)"
-        proteinLabel.text = "\(workingCopy.protein.roundToXDecimalPoints(decimalPoints: 1))"
-        carbsLabel.text = "\(workingCopy.carbs.roundToXDecimalPoints(decimalPoints: 1))"
-        fatLabel.text = "\(workingCopy.fat.roundToXDecimalPoints(decimalPoints: 1))"
-        
-        var servingString = String(workingCopy.serving)
-        if servingString.hasSuffix(".0") {
-            servingString.removeLast()
-            servingString.removeLast()
-            servingTextField.text = servingString
-        } else {
-            servingTextField.text = String(workingCopy.serving)
-        }
+        proteinLabel.text = workingCopy.protein.removePointZeroEndingAndConvertToString()
+        carbsLabel.text = workingCopy.carbs.removePointZeroEndingAndConvertToString()
+        fatLabel.text = workingCopy.fat.removePointZeroEndingAndConvertToString()
+        servingTextField.text = workingCopy.serving.removePointZeroEndingAndConvertToString()
+//        var servingString = String(workingCopy.serving)
+//        if servingString.hasSuffix(".0") {
+//            servingString.removeLast()
+//            servingString.removeLast()
+//            servingTextField.text = servingString
+//        } else {
+//            servingTextField.text = String(workingCopy.serving)
+//        }
         
     }
 

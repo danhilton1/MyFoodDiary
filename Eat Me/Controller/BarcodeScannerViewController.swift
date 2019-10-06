@@ -12,6 +12,7 @@ import AVFoundation
 class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
     //MARK:- Properties and Objects
+    
     var food: Food?
     var workingCopy: Food = Food()
     
@@ -34,7 +35,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(mealDelegate)
+        
         navigationController?.setNavigationBarHidden(false, animated: true)
         
         setUpCameraDisplay()
@@ -128,8 +129,8 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         
         let video = AVCaptureVideoPreviewLayer(session: session)
         video.videoGravity = AVLayerVideoGravity.resizeAspectFill
-        cameraView.widthAnchor.constraint(equalTo: view.widthAnchor)
-        cameraView.heightAnchor.constraint(equalTo: view.heightAnchor)
+        cameraView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        cameraView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
 //        cameraView.frame.size = CGSize(width: view.widthAnchor., height: self.view.frame.height * 0.754)
         video.frame = cameraView.layer.bounds
         

@@ -59,7 +59,6 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5 ) {
             self.reloadSelectedMeal()
             self.tableView.reloadData()
-            self.caloriesLabel.text = "   Calories: \(self.calories)"
             self.tableView.separatorStyle = .singleLine
         }
     }
@@ -73,6 +72,7 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
         for food in foodList {
             calories += food.calories
         }
+        caloriesLabel.text = "   Calories: \(calories)"
     }
     
     
@@ -151,14 +151,15 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
         cell.totalServingLabel.textColor = .white
         cell.totalServingLabel.font = UIFont(name: "Montserrat-Regular", size: 16)
         let servingSize = Double(food.servingSize.filter("01234567890.".contains)) ?? 100
-        var totalServingAsString = String(round(10 * (servingSize * food.serving)) / 10)
-        if totalServingAsString.hasSuffix(".0") {
-            totalServingAsString.removeLast()
-            totalServingAsString.removeLast()
-            cell.totalServingLabel.text = totalServingAsString + "g"
-        } else {
-            cell.totalServingLabel.text = "\(totalServingAsString) g"
-        }
+        var totalServing = servingSize * food.serving
+        cell.totalServingLabel.text = totalServing.removePointZeroEndingAndConvertToString() + " g"
+//        if totalServingAsString.hasSuffix(".0") {
+//            totalServingAsString.removeLast()
+//            totalServingAsString.removeLast()
+//            cell.totalServingLabel.text = totalServingAsString + "g"
+//        } else {
+//            cell.totalServingLabel.text = "\(totalServingAsString) g"
+//        }
         return cell
     }
     
@@ -201,18 +202,11 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
                 print(error)
             }
             
-            //NEEDS FIXING
             let indexSet = IndexSet(arrayLiteral: indexPath.section)
             print(indexSet)
             tableView.deleteSections(indexSet, with: .automatic)
             
-            calories = 0
-            if let foodList = selectedMeal {
-                for food in foodList {
-                    calories += food.calories
-                }
-            }
-            caloriesLabel.text = "   Calories: \(calories)"
+            reloadSelectedMeal()
             
         }
     }
