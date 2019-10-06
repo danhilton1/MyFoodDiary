@@ -476,7 +476,7 @@
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="IYF-za-1ww" kind="show" identifier="goToManualEntry" id="DcE-gC-QC3"/>
+                                                    <segue destination="IYF-za-1ww" kind="show" identifier="GoToManualEntry" id="DcE-gC-QC3"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="13o-vx-BJb">
@@ -499,7 +499,7 @@
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="ZBk-MS-8G1" kind="show" identifier="goToBarcodeScanner" id="7F2-nV-Bz8"/>
+                                                    <segue destination="ZBk-MS-8G1" kind="show" identifier="GoToBarcodeScanner" id="7F2-nV-Bz8"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xd1-TB-fTA">
@@ -711,7 +711,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="searchBar" destination="grd-Zv-oXU" id="mFd-Cz-1D4"/>
-                        <segue destination="zEh-Ej-CbZ" kind="show" identifier="goToFoodDetail" id="RLa-wP-dh9"/>
+                        <segue destination="zEh-Ej-CbZ" kind="show" identifier="GoToFoodDetail" id="RLa-wP-dh9"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QMH-vO-UnT" userLabel="First Responder" sceneMemberID="firstResponder"/>

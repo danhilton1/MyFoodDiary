@@ -80,14 +80,6 @@ class FoodDetailViewController: UITableViewController {
         carbsLabel.text = workingCopy.carbs.removePointZeroEndingAndConvertToString()
         fatLabel.text = workingCopy.fat.removePointZeroEndingAndConvertToString()
         servingTextField.text = workingCopy.serving.removePointZeroEndingAndConvertToString()
-//        var servingString = String(workingCopy.serving)
-//        if servingString.hasSuffix(".0") {
-//            servingString.removeLast()
-//            servingString.removeLast()
-//            servingTextField.text = servingString
-//        } else {
-//            servingTextField.text = String(workingCopy.serving)
-//        }
         
     }
 
@@ -97,7 +89,7 @@ class FoodDetailViewController: UITableViewController {
         
         workingCopy.date = formatter.string(from: date ?? Date())
         
-        switch mealPicker.selectedSegmentIndex {  // NEEDS FIXING
+        switch mealPicker.selectedSegmentIndex {
         case 0:
             workingCopy.meal = Food.Meal.breakfast.stringValue
             workingCopy.serving = Double(servingTextField.text ?? "1") ?? 1
@@ -117,6 +109,7 @@ class FoodDetailViewController: UITableViewController {
         default:
             print("Error determining meal type.")
         }
+
         dismissViewWithAnimation()
         delegate?.reloadFood()
         mealDelegate?.reloadFood()
@@ -141,40 +134,29 @@ class FoodDetailViewController: UITableViewController {
         var totalServing: Double {
             return (Double(textField.text ?? "1") ?? 1) * servingSizeButtonNumber
         }
+        let calories1g = Double(food?.calories ?? 0) / (servingSizeNumber * (food?.serving ?? 0))
+        let protein1g = (food?.protein ?? 0) / (servingSizeNumber * (food?.serving ?? 0))
+        let carbs1g = (food?.carbs ?? 0) / (servingSizeNumber * (food?.serving ?? 0))
+        let fat1g = (food?.fat ?? 0) / (servingSizeNumber * (food?.serving ?? 0))
 
-        if textField.text == "" {
+        if textField.text == "" || textField.text == "0" || textField.text == "0." {
             caloriesLabel.text = "0"
             proteinLabel.text = "0.0"
             carbsLabel.text = "0.0"
             fatLabel.text = "0.0"
 
         }
-        else if totalServing == 100 && servingSizeNumber == 100 {
-            caloriesLabel.text = "\(food?.calories ?? workingCopy.calories)"
-            proteinLabel.text = "\(food?.protein ?? workingCopy.protein)"
-            carbsLabel.text = "\(food?.carbs ?? workingCopy.carbs)"
-            fatLabel.text = "\(food?.fat ?? workingCopy.fat)"
-        }
         else {
-            // NEEDS FIXING WHEN ARRIVING ON THIS VC FROM FOOD HISTORY - NOT ALWAYS 100G VALUES
-            workingCopy.calories = Int(round((Double(food?.calories ?? 0) / servingSizeNumber) * totalServing))
-            
-            workingCopy.protein = ((food?.protein ?? 0) / servingSizeNumber) * totalServing
-            workingCopy.protein = workingCopy.protein.roundToXDecimalPoints(decimalPoints: 1)
-            
-            workingCopy.carbs = ((food?.carbs ?? 0) / servingSizeNumber) * totalServing
-            workingCopy.carbs = workingCopy.carbs.roundToXDecimalPoints(decimalPoints: 1)
-            
-            workingCopy.fat = ((food?.fat ?? 0) / servingSizeNumber) * totalServing
-            workingCopy.fat = workingCopy.fat.roundToXDecimalPoints(decimalPoints: 1)
+            workingCopy.calories = Int(round(calories1g * totalServing))
+            workingCopy.protein = protein1g * totalServing
+            workingCopy.carbs = carbs1g * totalServing
+            workingCopy.fat = fat1g * totalServing
             
             caloriesLabel.text = "\(workingCopy.calories)"
-            proteinLabel.text = "\(workingCopy.protein)"
-            carbsLabel.text = "\(workingCopy.carbs)"
-            fatLabel.text = "\(workingCopy.fat)"
-
+            proteinLabel.text = workingCopy.protein.removePointZeroEndingAndConvertToString()
+            carbsLabel.text = workingCopy.carbs.removePointZeroEndingAndConvertToString()
+            fatLabel.text = workingCopy.fat.removePointZeroEndingAndConvertToString()
         }
-
     }
     
     @objc func servingButtonTapped(_ sender: UIButton) {   // NEEDS CLEANING UP
@@ -185,13 +167,18 @@ class FoodDetailViewController: UITableViewController {
         
         if let food = food {
             let servingSizeNumber = Double(food.servingSize.filter("01234567890.".contains)) ?? 100
+            let calories1g = (Double(food.calories) / (servingSizeNumber * (food.serving)))
+            let protein1g = (food.protein) / (servingSizeNumber * (food.serving))
+            let carbs1g = (food.carbs) / (servingSizeNumber * (food.serving))
+            let fat1g = (food.fat) / (servingSizeNumber * (food.serving))
+            
             if food.servingSize != "100g" {
                 
                 addAction(for: alertController, title: "1g",
-                          calories: round(10 * (Double(food.calories)) / servingSizeNumber) / 10,
-                          protein: round(100 * (food.protein / servingSizeNumber)) / 100,
-                          carbs: round(100 * (food.carbs / servingSizeNumber)) / 100,
-                          fat: round(100 * (food.fat / servingSizeNumber)) / 100)
+                          calories: round(10 * calories1g) / 10,
+                          protein: round(100 * protein1g) / 100,
+                          carbs: round(100 * carbs1g) / 100,
+                          fat: round(100 * fat1g) / 100)
                 
                 addAction(for: alertController, title: food.servingSize,
                           calories: Double(food.calories),
@@ -207,10 +194,10 @@ class FoodDetailViewController: UITableViewController {
 
             } else {
                 addAction(for: alertController, title: "1g",
-                          calories: round(10 * (Double(food.calories)) / 100) / 10,
-                          protein: round(100 * (food.protein / 100)) / 100,
-                          carbs: round(100 * (food.carbs / 100)) / 100,
-                          fat: round(100 * (food.fat / 100)) / 100)
+                          calories: round(10 * calories1g) / 10,
+                          protein: round(100 * protein1g) / 100,
+                          carbs: round(100 * carbs1g) / 100,
+                          fat: round(100 * fat1g) / 100)
 
                 addAction(for: alertController, title: "100g",
                           calories: Double(food.calories),

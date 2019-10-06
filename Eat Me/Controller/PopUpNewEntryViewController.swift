@@ -20,6 +20,11 @@ class PopUpNewEntryViewController: UIViewController {
     weak var mealDelegate: NewEntryDelegate?
     
     
+    enum Segues {
+        static let goToManualEntry = "GoToManualEntry"
+        static let goToBarcodeScanner = "GoToBarcodeScanner"
+        static let goToFoodHistory = "GoToFoodHistory"
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,22 +74,23 @@ class PopUpNewEntryViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "goToManualEntry" {
+        if segue.identifier == Segues.goToManualEntry {
             let destVC = segue.destination as! NewEntryViewController
             destVC.delegate = delegate
             destVC.mealDelegate = mealDelegate
             destVC.date = date
             destVC.selectedSegmentIndex = meal.intValue
         }
-        else if segue.identifier == "goToBarcodeScanner" {
+        else if segue.identifier == Segues.goToBarcodeScanner {
             let destVC = segue.destination as! BarcodeScannerViewController
             destVC.date = date
             destVC.delegate = delegate
             destVC.mealDelegate = mealDelegate
             destVC.selectedSegmentIndex = meal.intValue
         }
-        else if segue.identifier == "GoToFoodHistory" {
+        else if segue.identifier == Segues.goToFoodHistory {
             let destVC = segue.destination as! FoodHistoryViewController
+            destVC.delegate = delegate
             destVC.mealDelegate = mealDelegate
             destVC.date = date
             destVC.selectedSegmentIndex = meal.intValue

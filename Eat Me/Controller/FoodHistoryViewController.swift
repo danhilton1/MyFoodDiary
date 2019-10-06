@@ -16,9 +16,11 @@ class FoodHistoryViewController: UITableViewController {
     
     var date: Date?
     var selectedSegmentIndex = 0
+    weak var delegate: NewEntryDelegate?
     weak var mealDelegate: NewEntryDelegate?
     private var foodList: Results<Food>?
     private var foodListCopy: Results<Food>?
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,7 +95,7 @@ class FoodHistoryViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "goToFoodDetail", sender: nil)
+        performSegue(withIdentifier: "GoToFoodDetail", sender: nil)
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -130,10 +132,11 @@ class FoodHistoryViewController: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "goToFoodDetail" {
+        if segue.identifier == "GoToFoodDetail" {
             let destVC = segue.destination as! FoodDetailViewController
             if let indexPath = tableView.indexPathForSelectedRow {
-                destVC.food = foodList?[((foodList?.count ?? 0) - 1) - indexPath.row]
+                destVC.food = foodListCopy?[((foodListCopy?.count ?? 0) - 1) - indexPath.row]
+                destVC.delegate = delegate
                 destVC.mealDelegate = mealDelegate
                 destVC.date = date
                 destVC.selectedSegmentIndex = selectedSegmentIndex
