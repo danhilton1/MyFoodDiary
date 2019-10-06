@@ -124,7 +124,7 @@ class NewEntryViewController: UITableViewController, UITextFieldDelegate {
         workingCopy.name = foodNameTextField.text
         workingCopy.meal = meal.stringValue
         workingCopy.date = formatter.string(from: date ?? Date())
-        workingCopy.servingSize = servingSizeTextField.text ?? "100g"
+        workingCopy.servingSize = (servingSizeTextField.text ?? "100g") + "g"
         workingCopy.serving = Double(servingTextField.text ?? "1") ?? 1
         workingCopy.calories = Int(caloriesTextField.text ?? "0") ?? 0
         workingCopy.protein = Double(proteinTextField.text ?? "0") ?? 0

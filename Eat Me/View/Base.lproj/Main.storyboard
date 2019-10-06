@@ -766,7 +766,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="xTj-QC-DIS">
-                                                    <rect key="frame" x="87.5" y="7" width="310.5" height="33"/>
+                                                    <rect key="frame" x="77.5" y="7" width="320.5" height="33"/>
                                                     <segments>
                                                         <segment title="Breakfast"/>
                                                         <segment title="Lunch"/>
@@ -779,7 +779,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="xTj-QC-DIS" secondAttribute="trailing" constant="16" id="4iJ-4K-HTq"/>
                                                 <constraint firstAttribute="bottom" secondItem="xTj-QC-DIS" secondAttribute="bottom" constant="7" id="7N8-n7-6vA"/>
                                                 <constraint firstItem="xTj-QC-DIS" firstAttribute="top" secondItem="Y3K-fJ-DTh" secondAttribute="top" constant="7" id="7iE-SY-cVv"/>
-                                                <constraint firstItem="xTj-QC-DIS" firstAttribute="leading" secondItem="oOm-lM-bOq" secondAttribute="trailing" constant="15" id="8Q9-5A-LAP"/>
+                                                <constraint firstItem="xTj-QC-DIS" firstAttribute="leading" secondItem="oOm-lM-bOq" secondAttribute="trailing" constant="5" id="8Q9-5A-LAP"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="oOm-lM-bOq" secondAttribute="bottom" id="qAR-Cf-ZUQ"/>
                                                 <constraint firstItem="oOm-lM-bOq" firstAttribute="leading" secondItem="Y3K-fJ-DTh" secondAttribute="leadingMargin" id="smA-xT-19H"/>
                                                 <constraint firstItem="oOm-lM-bOq" firstAttribute="top" secondItem="Y3K-fJ-DTh" secondAttribute="topMargin" id="ulV-wg-NCC"/>
