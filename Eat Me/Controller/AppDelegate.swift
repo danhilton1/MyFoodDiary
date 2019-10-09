@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Error initializing new Realm - \(error)")
         }
         
+        
         return true
     }
 

@@ -53,6 +53,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     
 
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         loadAllFood()
         presentingViewController?.tabBarController?.tabBar.isHidden = false
         tabBarController?.tabBar.isHidden = false
@@ -80,6 +81,23 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         }
         
     }
+    
+    
+    @IBAction func datePickerTapped(_ sender: UIButton) {
+//        let picker : UIDatePicker = UIDatePicker()
+//        picker.datePickerMode = UIDatePicker.Mode.date
+//        picker.addTarget(self, action: #selector(dueDateChanged(sender:)), for: UIControl.Event.valueChanged)
+//        let pickerSize : CGSize = picker.sizeThatFits(CGSize.zero)
+//        picker.frame = CGRect(x:0.0, y:250, width:pickerSize.width, height:200)
+//        picker.backgroundColor = UIColor.white
+//        self.view.addSubview(picker)
+        }
+//    @objc func dueDateChanged(sender:UIDatePicker){
+//            let dateFormatter = DateFormatter()
+//            dateFormatter.dateStyle = .short
+//            dateFormatter.timeStyle = .none
+//        dobButton.setTitle(dateFormatter.string(from: sender.date), for: .normal)
+//    }
     
     //MARK:- Data methods
     
@@ -315,7 +333,6 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             chartDataSet.selectionShift = 0
             let chartData = PieChartData(dataSet: chartDataSet)
             
-            
             cell.pieChart.data = chartData
         }
         
@@ -327,12 +344,9 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     
     
     func reloadFood() {
-    
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5 ) {
             self.loadAllFood()
-            
         }
-        
     }
     
     //MARK:- Configure date method

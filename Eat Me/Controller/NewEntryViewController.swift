@@ -21,6 +21,7 @@ class NewEntryViewController: UITableViewController, UITextFieldDelegate {
     weak var mealDelegate: NewEntryDelegate?
     var date: Date?
     var selectedSegmentIndex = 0
+    var activeField: UITextField?
 
     private var workingCopy: Food = Food()
 
@@ -66,6 +67,7 @@ class NewEntryViewController: UITableViewController, UITextFieldDelegate {
     
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         presentingViewController?.tabBarController?.tabBar.isHidden = true
     }
     
@@ -73,6 +75,8 @@ class NewEntryViewController: UITableViewController, UITextFieldDelegate {
         presentingViewController?.tabBarController?.tabBar.isHidden = false
     }
 
+
+    
 
     //MARK: - Nav Bar Button Methods
     
@@ -196,7 +200,7 @@ extension UIViewController {
         for (index, textField) in textFields.enumerated() {
             let toolbar: UIToolbar = UIToolbar()
             toolbar.sizeToFit()
-            
+
             var items = [UIBarButtonItem]()
             if previousNextable {
                 let previousButton = UIBarButtonItem(image: UIImage(named: "UpArrow"), style: .plain, target: nil, action: nil)
@@ -207,7 +211,7 @@ extension UIViewController {
                     previousButton.target = textFields[index - 1]
                     previousButton.action = #selector(UITextField.becomeFirstResponder)
                 }
-                
+
                 let nextButton = UIBarButtonItem(image: UIImage(named: "DownArrow"), style: .plain, target: nil, action: nil)
                 nextButton.width = 20
                 if textField == textFields.last {
@@ -218,12 +222,12 @@ extension UIViewController {
                 }
                 items.append(contentsOf: [previousButton, nextButton])
             }
-            
+
             let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
             let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: view, action: #selector(UIView.endEditing))
             items.append(contentsOf: [spacer, doneButton])
-            
-            
+
+
             toolbar.setItems(items, animated: false)
             textField.inputAccessoryView = toolbar
         }

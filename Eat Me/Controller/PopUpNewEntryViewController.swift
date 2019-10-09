@@ -45,6 +45,7 @@ class PopUpNewEntryViewController: UIViewController {
 //    }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         presentingViewController?.tabBarController?.tabBar.isHidden = true
         navigationController?.setNavigationBarHidden(true, animated: true)
     }

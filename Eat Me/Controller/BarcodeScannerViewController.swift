@@ -55,6 +55,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
     
     override func viewWillAppear(_ animated: Bool) {
         // Start running the camera session again if user navigates back to this VC again after scanning an item
+        super.viewWillAppear(true)
         dimmedView.removeFromSuperview()
         session.startRunning()
         presentingViewController?.tabBarController?.tabBar.isHidden = true
@@ -130,7 +131,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         let video = AVCaptureVideoPreviewLayer(session: session)
         video.videoGravity = AVLayerVideoGravity.resizeAspectFill
         cameraView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        cameraView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+        cameraView.heightAnchor.constraint(equalTo: view.heightAnchor, constant: 40).isActive = true
 //        cameraView.frame.size = CGSize(width: view.widthAnchor., height: self.view.frame.height * 0.754)
         video.frame = cameraView.layer.bounds
         

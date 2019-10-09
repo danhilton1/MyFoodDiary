@@ -46,6 +46,7 @@ class FoodHistoryViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         presentingViewController?.tabBarController?.tabBar.isHidden = true
     }
     

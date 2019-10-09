@@ -153,13 +153,7 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
         let servingSize = Double(food.servingSize.filter("01234567890.".contains)) ?? 100
         var totalServing = servingSize * food.serving
         cell.totalServingLabel.text = totalServing.removePointZeroEndingAndConvertToString() + " g"
-//        if totalServingAsString.hasSuffix(".0") {
-//            totalServingAsString.removeLast()
-//            totalServingAsString.removeLast()
-//            cell.totalServingLabel.text = totalServingAsString + "g"
-//        } else {
-//            cell.totalServingLabel.text = "\(totalServingAsString) g"
-//        }
+
         return cell
     }
     
@@ -167,7 +161,7 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
     private func setMealDetailCell(indexPath: IndexPath, nutrient: Double, nutrientType: String) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "mealDetailCell", for: indexPath) as! MealDetailCell
         var nutrient = nutrient
-        let roundedNutrientValue = nutrient.roundToXDecimalPoints(decimalPoints: 1)
+        let roundedNutrientValue = nutrient.removePointZeroEndingAndConvertToString()
         cell.typeLabel.text = nutrientType + ":"
         cell.numberLabel.text = "\(roundedNutrientValue) g"
         return cell
