@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TrC-wf-omx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TrC-wf-omx">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -50,7 +50,10 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="jHb-h0-MIF"/>
                                 </constraints>
-                                <state key="normal" title="O" image="BarChatIcon"/>
+                                <state key="normal" image="BarChatIcon"/>
+                                <connections>
+                                    <segue destination="PiO-9k-CVk" kind="presentation" id="SBQ-xU-qnI"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e8Z-Lq-VGw">
                                 <rect key="frame" x="0.0" y="0.0" width="50" height="40"/>
@@ -455,7 +458,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cNn-17-kP4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2703" y="-454"/>
+            <point key="canvasLocation" x="3109" y="-463"/>
         </scene>
         <!--Pop Up New Entry View Controller-->
         <scene sceneID="I7F-kQ-nMu">
@@ -647,7 +650,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Lj-77-DVp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2703" y="222"/>
+            <point key="canvasLocation" x="3110" y="222"/>
         </scene>
         <!--Food History-->
         <scene sceneID="vyJ-Ye-BrX">
@@ -731,7 +734,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QMH-vO-UnT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2703" y="905"/>
+            <point key="canvasLocation" x="3109" y="907"/>
         </scene>
         <!--Food Detail View Controller-->
         <scene sceneID="Vtm-sF-Xpt">
@@ -1033,7 +1036,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rgA-5u-yeG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3596" y="222"/>
+            <point key="canvasLocation" x="4033" y="222"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="GEn-r3-HP7">
@@ -1051,6 +1054,26 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3IT-Pb-fiO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-612" y="115"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="iGJ-f1-ybf">
+            <objects>
+                <navigationController modalPresentationStyle="fullScreen" id="PiO-9k-CVk" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="hJW-T3-CEr">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.20392156859999999" green="0.59607843140000005" blue="0.85882352939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="MK6-FC-eag" kind="relationship" relationship="rootViewController" id="3wO-xA-wJ1"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bBP-Ln-laO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1912" y="887"/>
         </scene>
         <!--Meal Detail View Controller-->
         <scene sceneID="wik-Ry-uNc">
@@ -1174,6 +1197,86 @@
             </objects>
             <point key="canvasLocation" x="1105.7971014492755" y="886.60714285714278"/>
         </scene>
+        <!--Nutrition-->
+        <scene sceneID="ZfN-op-Iwg">
+            <objects>
+                <viewController title="Nutrition" modalPresentationStyle="fullScreen" id="MK6-FC-eag" customClass="NutritionViewController" customModule="Eat_Me" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="E4g-Uu-XSN">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Kku-Uf-plc">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="51"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="MI6-LR-rdK"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Day"/>
+                                    <segment title="Week"/>
+                                    <segment title="Month"/>
+                                </segments>
+                                <connections>
+                                    <action selector="segmentChange:" destination="MK6-FC-eag" eventType="valueChanged" id="UOr-7S-TbG"/>
+                                </connections>
+                            </segmentedControl>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LyG-vw-KRC">
+                                <rect key="frame" x="0.0" y="50" width="414" height="758"/>
+                                <connections>
+                                    <segue destination="xWz-2c-1Qo" kind="embed" id="Qbz-bK-uFg"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R7m-0v-iwp">
+                                <rect key="frame" x="0.0" y="50" width="414" height="758"/>
+                                <connections>
+                                    <segue destination="OQF-jP-zej" kind="embed" id="u8V-1W-gnb"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d6g-5E-nF4">
+                                <rect key="frame" x="0.0" y="50" width="414" height="758"/>
+                                <connections>
+                                    <segue destination="bFV-IR-7KA" kind="embed" id="Abf-Hi-nW9"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="LyG-vw-KRC" firstAttribute="top" secondItem="Kku-Uf-plc" secondAttribute="bottom" id="2Nu-TT-J6E"/>
+                            <constraint firstItem="d6g-5E-nF4" firstAttribute="top" secondItem="Kku-Uf-plc" secondAttribute="bottom" id="4O6-ap-khf"/>
+                            <constraint firstItem="d6g-5E-nF4" firstAttribute="leading" secondItem="cMD-RF-Cng" secondAttribute="leading" id="7t7-0e-YGs"/>
+                            <constraint firstItem="R7m-0v-iwp" firstAttribute="leading" secondItem="cMD-RF-Cng" secondAttribute="leading" id="7uT-2r-pE3"/>
+                            <constraint firstItem="LyG-vw-KRC" firstAttribute="trailing" secondItem="cMD-RF-Cng" secondAttribute="trailing" id="8S9-Vj-DIh"/>
+                            <constraint firstAttribute="bottom" secondItem="R7m-0v-iwp" secondAttribute="bottom" id="Nc4-OJ-PnW"/>
+                            <constraint firstItem="Kku-Uf-plc" firstAttribute="leading" secondItem="cMD-RF-Cng" secondAttribute="leading" id="bZO-kW-Ojt"/>
+                            <constraint firstItem="cMD-RF-Cng" firstAttribute="trailing" secondItem="Kku-Uf-plc" secondAttribute="trailing" id="ksH-5R-LrP"/>
+                            <constraint firstItem="R7m-0v-iwp" firstAttribute="top" secondItem="Kku-Uf-plc" secondAttribute="bottom" id="oWR-fx-aZG"/>
+                            <constraint firstAttribute="bottom" secondItem="LyG-vw-KRC" secondAttribute="bottom" id="tzv-RI-p8G"/>
+                            <constraint firstItem="cMD-RF-Cng" firstAttribute="trailing" secondItem="d6g-5E-nF4" secondAttribute="trailing" id="vtU-bb-jNR"/>
+                            <constraint firstItem="LyG-vw-KRC" firstAttribute="leading" secondItem="cMD-RF-Cng" secondAttribute="leading" id="yPm-o6-JcI"/>
+                            <constraint firstAttribute="bottom" secondItem="d6g-5E-nF4" secondAttribute="bottom" id="yZg-Cq-NmJ"/>
+                            <constraint firstItem="Kku-Uf-plc" firstAttribute="top" secondItem="cMD-RF-Cng" secondAttribute="top" id="ysn-Zq-3p8"/>
+                            <constraint firstItem="cMD-RF-Cng" firstAttribute="trailing" secondItem="R7m-0v-iwp" secondAttribute="trailing" id="zBl-6l-OSE"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="cMD-RF-Cng"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Nutrition" id="wA0-a8-AvF">
+                        <barButtonItem key="leftBarButtonItem" image="xmark.circle.fill" catalog="system" id="zan-9g-uK6">
+                            <color key="tintColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <connections>
+                                <action selector="dismissButtonTapped:" destination="MK6-FC-eag" id="0MM-Xj-iCp"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="dayView" destination="LyG-vw-KRC" id="eeO-Al-Miw"/>
+                        <outlet property="monthView" destination="d6g-5E-nF4" id="0lC-PG-tJU"/>
+                        <outlet property="segmentedControl" destination="Kku-Uf-plc" id="Imj-Sw-9Ux"/>
+                        <outlet property="weekView" destination="R7m-0v-iwp" id="bQs-dI-crW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KCu-3m-NNe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1911.594202898551" y="1557.5892857142856"/>
+        </scene>
         <!--Overview-->
         <scene sceneID="tJj-FD-Qcc">
             <objects>
@@ -1207,10 +1310,10 @@
                     <tabBarItem key="tabBarItem" title="Overview" id="slk-QR-PS9"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="d8t-pi-Xsh"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" largeTitles="YES" id="yGq-GE-FPE">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="yGq-GE-FPE">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.4384312356227571" green="0.57220328565350953" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="barTintColor" red="0.20392156862745098" green="0.59607843137254901" blue="0.85882352941176465" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </textAttributes>
@@ -1253,14 +1356,106 @@
             </objects>
             <point key="canvasLocation" x="1913" y="-558"/>
         </scene>
+        <!--Day Nutrition View Controller-->
+        <scene sceneID="h3w-It-tc6">
+            <objects>
+                <viewController id="xWz-2c-1Qo" customClass="DayNutritionViewController" customModule="Eat_Me" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="g8I-FI-U6B">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="758"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8cz-ne-b6V">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="758"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="8cz-ne-b6V" secondAttribute="bottom" id="dtU-3u-H0A"/>
+                            <constraint firstItem="8cz-ne-b6V" firstAttribute="leading" secondItem="g8I-FI-U6B" secondAttribute="leading" id="nxU-OY-2Qg"/>
+                            <constraint firstItem="8cz-ne-b6V" firstAttribute="top" secondItem="g8I-FI-U6B" secondAttribute="top" id="oV2-FF-7TU"/>
+                            <constraint firstAttribute="trailing" secondItem="8cz-ne-b6V" secondAttribute="trailing" id="ypQ-r5-Ifz"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="JHd-Tk-Nli"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="8cz-ne-b6V" id="heg-ce-HBN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PUr-6R-RJi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1199" y="2251"/>
+        </scene>
+        <!--Week Nutrition View Controller-->
+        <scene sceneID="cdc-5I-XOO">
+            <objects>
+                <viewController id="OQF-jP-zej" customClass="WeekNutritionViewController" customModule="Eat_Me" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="CxE-DK-Cbm">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="758"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="400" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SNs-PF-WOe">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="758"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <sections/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="SNs-PF-WOe" firstAttribute="leading" secondItem="CxE-DK-Cbm" secondAttribute="leading" id="4Pa-XN-KVk"/>
+                            <constraint firstAttribute="bottom" secondItem="SNs-PF-WOe" secondAttribute="bottom" id="MPX-Hx-Zf4"/>
+                            <constraint firstItem="SNs-PF-WOe" firstAttribute="top" secondItem="CxE-DK-Cbm" secondAttribute="top" id="VG5-EJ-QgO"/>
+                            <constraint firstAttribute="trailing" secondItem="SNs-PF-WOe" secondAttribute="trailing" id="oGh-oB-wjo"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="fZN-wN-whR"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="SNs-PF-WOe" id="N1a-GB-DZM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2He-mK-P3i" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1913" y="2251"/>
+        </scene>
+        <!--Month Nutrition View Controller-->
+        <scene sceneID="WEF-8L-2Kd">
+            <objects>
+                <viewController id="bFV-IR-7KA" customClass="MonthNutritionViewController" customModule="Eat_Me" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tfP-0K-8b4">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="758"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mYt-gr-qgQ">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="758"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="mYt-gr-qgQ" firstAttribute="leading" secondItem="tfP-0K-8b4" secondAttribute="leading" id="12r-LW-hzM"/>
+                            <constraint firstItem="mYt-gr-qgQ" firstAttribute="top" secondItem="tfP-0K-8b4" secondAttribute="top" id="UWN-Om-ZJ9"/>
+                            <constraint firstAttribute="trailing" secondItem="mYt-gr-qgQ" secondAttribute="trailing" id="YaI-dY-yeu"/>
+                            <constraint firstAttribute="bottom" secondItem="mYt-gr-qgQ" secondAttribute="bottom" id="mNp-Nc-SNP"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Vxg-8c-9sl"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="mYt-gr-qgQ" id="UCZ-Am-kN4"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rWX-Nl-Eu1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2651" y="2251"/>
+        </scene>
     </scenes>
     <resources>
         <image name="BarChatIcon" width="30" height="30"/>
         <image name="plus-icon" width="37.5" height="37.5"/>
         <image name="tick-icon" width="37.5" height="37.5"/>
+        <image name="xmark.circle.fill" catalog="system" width="64" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Vpn-DS-ftJ"/>
-        <segue reference="rhC-XE-e3F"/>
+        <segue reference="RLa-wP-dh9"/>
     </inferredMetricsTieBreakers>
 </document>
