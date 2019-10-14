@@ -15,6 +15,8 @@ class WeekNutritionCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        barChart.highlightPerTapEnabled = false
+        barChart.highlightPerDragEnabled = false
         barChart.leftAxis.drawAxisLineEnabled = true
         barChart.leftAxis.drawGridLinesEnabled = false
         barChart.xAxis.labelPosition = .bottom

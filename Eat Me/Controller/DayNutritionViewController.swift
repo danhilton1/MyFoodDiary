@@ -23,6 +23,7 @@ class DayNutritionViewController: UIViewController, UITableViewDataSource, UITab
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UINib(nibName: "DayNutritionCell", bundle: nil), forCellReuseIdentifier: "DayNutritionCell")
+        tableView.allowsSelection = false
         
     }
     

@@ -21,6 +21,7 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UINib(nibName: "WeekNutritionCell", bundle: nil), forCellReuseIdentifier: "WeekNutritionCell")
+        tableView.allowsSelection = false
         
     }
     

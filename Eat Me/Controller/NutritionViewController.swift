@@ -19,6 +19,7 @@ class NutritionViewController: UIViewController {
     @IBOutlet weak var dayView: UIView!
     @IBOutlet weak var weekView: UIView!
     @IBOutlet weak var monthView: UIView!
+    @IBOutlet weak var dateLabel: UILabel!
     
     var foodList: Results<Food>?
     var date: Date?
@@ -29,9 +30,7 @@ class NutritionViewController: UIViewController {
         super.viewDidLoad()
         
         tabBarController?.tabBar.isHidden = true
-        //tableView.register(UINib(nibName: "DayNutritionCell", bundle: nil), forCellReuseIdentifier: "DayNutritionCell")
-        //tableView.delegate = self
-        //tableView.dataSource = self
+
         dayView.alpha = 1
         weekView.alpha = 0
         monthView.alpha = 0
@@ -56,69 +55,52 @@ class NutritionViewController: UIViewController {
     @IBAction func segmentChange(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
-            UIView.animate(withDuration: 0.2) {
+            UIView.animate(withDuration: 0.25) {
                 self.dayView.alpha = 1
+                self.dateLabel.alpha = 0
+                self.dateLabel.text = "Today"
+                self.dateLabel.alpha = 1
                 self.weekView.alpha = 0
                 self.monthView.alpha = 0
             }
+            // Set views not displayed to 'hidden' to avoid receiving incorrect touch events
+            dayView.isHidden = false
+            weekView.isHidden = true
+            monthView.isHidden = true
         case 1:
-            UIView.animate(withDuration: 0.2) {
+            UIView.animate(withDuration: 0.25) {
                 self.dayView.alpha = 0
+                self.dateLabel.alpha = 0
+                self.dateLabel.text = "This Week"
+                self.dateLabel.alpha = 1
                 self.weekView.alpha = 1
                 self.monthView.alpha = 0
             }
+            dayView.isHidden = true
+            weekView.isHidden = false
+            monthView.isHidden = true
         default:
-            UIView.animate(withDuration: 0.2) {
+            UIView.animate(withDuration: 0.25) {
                 self.dayView.alpha = 0
                 self.weekView.alpha = 0
+                self.dateLabel.alpha = 0
+                self.dateLabel.text = "This Month"
+                self.dateLabel.alpha = 1
                 self.monthView.alpha = 1
             }
+            dayView.isHidden = true
+            weekView.isHidden = true
+            monthView.isHidden = false
         }
+    }
+    
+    @IBAction func leftArrowTapped(_ sender: UIButton) {
+    }
+    
+    @IBAction func rightArrowTapped(_ sender: UIButton) {
     }
     
 }
 
 
-//extension NutritionViewController: UITableViewDataSource, UITableViewDelegate {
-//
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return 1
-//    }
-//
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "DayNutritionCell", for: indexPath) as! DayNutritionCell
-//
-//        let text = """
-//                   \(calories)
-//                   kcal
-//                   """
-//        let font = UIFont(name: "Montserrat-Medium", size: 16)
-//        let paragraphStyle = NSMutableParagraphStyle()
-//        paragraphStyle.alignment = .center
-//
-//        let attributes: [NSAttributedString.Key: Any] = [
-//            .font: font!,
-//            .paragraphStyle: paragraphStyle
-//        ]
-//        let attributedText = NSAttributedString(string: text, attributes: attributes)
-//        cell.pieChart.centerAttributedText = attributedText
-//
-//        let chartDataSet = PieChartDataSet(entries: [PieChartDataEntry(value: 1.0),
-//                                                     PieChartDataEntry(value: 1.0),
-//                                                     PieChartDataEntry(value: 1.0)], label: nil)
-//        chartDataSet.drawValuesEnabled = false
-//        chartDataSet.colors = [Color.mint, Color.skyBlue, Color.salmon]
-//        chartDataSet.selectionShift = 0
-//        let chartData = PieChartData(dataSet: chartDataSet)
-//
-//        cell.pieChart.data = chartData
-//
-//
-//
-//        return cell
-//    }
-//
-//
-//}
 
