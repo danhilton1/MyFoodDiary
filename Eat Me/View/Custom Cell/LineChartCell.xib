@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Montserrat-Bold.otf">
+            <string>Montserrat-Bold</string>
+        </array>
+        <array key="Montserrat-Medium.otf">
+            <string>Montserrat-Medium</string>
+        </array>
+        <array key="Montserrat-Regular.otf">
+            <string>Montserrat-Regular</string>
+        </array>
+        <array key="Montserrat-SemiBold.otf">
+            <string>Montserrat-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LineChartCell" rowHeight="352" id="KGk-i7-Jjw" customClass="LineChartCell" customModule="Eat_Me" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="352"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="352"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Sn-Ht-G21" customClass="LineChartView" customModule="Charts">
+                        <rect key="frame" x="10" y="44.5" width="300" height="241.5"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Average Daily Calories:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="moF-J2-eUM">
+                        <rect key="frame" x="20" y="316" width="148.5" height="21"/>
+                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2500" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QtX-8n-4QP">
+                        <rect key="frame" x="261.5" y="316" width="42.5" height="21"/>
+                        <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2500" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XqS-3C-wol">
+                        <rect key="frame" x="183.5" y="316" width="43" height="21"/>
+                        <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="17"/>
+                        <color key="textColor" red="0.094117647060000004" green="0.73725490199999999" blue="0.60784313729999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Goal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zSa-G8-Og3">
+                        <rect key="frame" x="268" y="299" width="30" height="16"/>
+                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="13"/>
+                        <color key="textColor" red="0.094117647060000004" green="0.73725490199999999" blue="0.60784313729999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="|" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vav-nW-1S6">
+                        <rect key="frame" x="240" y="313" width="8" height="25.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calories" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nRl-d9-ONa">
+                        <rect key="frame" x="16" y="10" width="294" height="24.5"/>
+                        <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="20"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="XqS-3C-wol" firstAttribute="top" secondItem="3Sn-Ht-G21" secondAttribute="bottom" constant="30" id="0Xj-FQ-dxs"/>
+                    <constraint firstItem="QtX-8n-4QP" firstAttribute="centerX" secondItem="zSa-G8-Og3" secondAttribute="centerX" id="2V0-Wn-ZPr"/>
+                    <constraint firstItem="nRl-d9-ONa" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="2nY-6I-X3L"/>
+                    <constraint firstItem="3Sn-Ht-G21" firstAttribute="top" secondItem="nRl-d9-ONa" secondAttribute="bottom" constant="10" id="59n-ba-SPr"/>
+                    <constraint firstAttribute="bottom" secondItem="moF-J2-eUM" secondAttribute="bottom" constant="15" id="Avd-Id-zou"/>
+                    <constraint firstItem="zSa-G8-Og3" firstAttribute="top" secondItem="3Sn-Ht-G21" secondAttribute="bottom" constant="13" id="F1l-y0-J83"/>
+                    <constraint firstItem="vav-nW-1S6" firstAttribute="centerY" secondItem="XqS-3C-wol" secondAttribute="centerY" constant="-1" id="Fnn-Iu-qxc"/>
+                    <constraint firstAttribute="bottom" secondItem="XqS-3C-wol" secondAttribute="bottom" constant="15" id="Jos-ju-nVP"/>
+                    <constraint firstItem="QtX-8n-4QP" firstAttribute="top" secondItem="zSa-G8-Og3" secondAttribute="bottom" constant="1" id="K09-9B-brD"/>
+                    <constraint firstItem="moF-J2-eUM" firstAttribute="top" secondItem="3Sn-Ht-G21" secondAttribute="bottom" constant="30" id="VQ5-WC-oI4"/>
+                    <constraint firstItem="3Sn-Ht-G21" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Vou-Nb-Jud"/>
+                    <constraint firstItem="QtX-8n-4QP" firstAttribute="leading" secondItem="vav-nW-1S6" secondAttribute="trailing" constant="13.5" id="aeV-Vv-pbM"/>
+                    <constraint firstAttribute="bottom" secondItem="QtX-8n-4QP" secondAttribute="bottom" constant="15" id="ekC-Pb-rN7"/>
+                    <constraint firstItem="moF-J2-eUM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="ids-z4-F2J"/>
+                    <constraint firstItem="vav-nW-1S6" firstAttribute="leading" secondItem="XqS-3C-wol" secondAttribute="trailing" constant="13.5" id="iyW-uw-Qhp"/>
+                    <constraint firstAttribute="trailing" secondItem="3Sn-Ht-G21" secondAttribute="trailing" constant="10" id="kO5-F1-NCC"/>
+                    <constraint firstItem="nRl-d9-ONa" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="qBW-IQ-ssP"/>
+                    <constraint firstAttribute="trailing" secondItem="nRl-d9-ONa" secondAttribute="trailing" constant="10" id="qec-No-tgt"/>
+                    <constraint firstItem="XqS-3C-wol" firstAttribute="leading" secondItem="moF-J2-eUM" secondAttribute="trailing" constant="15" id="wFh-3g-WaZ"/>
+                    <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="QtX-8n-4QP" secondAttribute="trailing" constant="40" id="xbo-2A-2wj"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="QtX-8n-4QP" secondAttribute="trailing" constant="16" id="zK3-bb-vm5"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="caloriesLabel" destination="XqS-3C-wol" id="uzX-8s-iUs"/>
+                <outlet property="lineChart" destination="3Sn-Ht-G21" id="83n-p4-iGT"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="82.366071428571431"/>
+        </tableViewCell>
+    </objects>
+</document>

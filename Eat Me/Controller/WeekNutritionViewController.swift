@@ -20,7 +20,8 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
 
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(UINib(nibName: "WeekNutritionCell", bundle: nil), forCellReuseIdentifier: "WeekNutritionCell")
+        tableView.register(UINib(nibName: "BarChartNutritionCell", bundle: nil), forCellReuseIdentifier: "BarNutritionCell")
+        tableView.register(UINib(nibName: "LineChartCell", bundle: nil), forCellReuseIdentifier: "LineChartCell")
         tableView.allowsSelection = false
         
     }
@@ -28,11 +29,12 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "WeekNutritionCell", for: indexPath) as! WeekNutritionCell
+        if indexPath.row == 0 {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "BarNutritionCell", for: indexPath) as! BarChartNutritionCell
         
         let proteinChartDataSet = BarChartDataSet(entries: [BarChartDataEntry(x: 0, y: 120),
                                                             BarChartDataEntry(x: 1, y: 100),
@@ -69,6 +71,47 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
         
         
         return cell
+        }
+        else if indexPath.row == 1 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "LineChartCell", for: indexPath) as! LineChartCell
+            
+            let chartDataSet = LineChartDataSet(entries: [ChartDataEntry(x: 0, y: 2450),
+                                                          ChartDataEntry(x: 1, y: 2582),
+                                                          ChartDataEntry(x: 2, y: 2340),
+                                                          ChartDataEntry(x: 3, y: 2120),
+                                                          ChartDataEntry(x: 4, y: 2460),
+                                                          ChartDataEntry(x: 5, y: 2890),
+                                                          ChartDataEntry(x: 6, y: 3102),], label: "Calories")
+            chartDataSet.colors = [Color.skyBlue]
+            chartDataSet.circleColors = [Color.skyBlue]
+            chartDataSet.valueFont = UIFont(name: "Montserrat-SemiBold", size: 12)!
+            
+//            for value in chartDataSet.entries {
+//                if value.y >= 2400 || value.y <= 2600 {
+//
+////                    chartDataSet.circleColors = [Color.mint]
+//                } else {
+//                    chartDataSet.setCircleColor(Color.salmon)
+//                    //chartDataSet.circleColors = [Color.salmon]
+//                }
+//            }
+            let chartData = LineChartData(dataSet: chartDataSet)
+            cell.lineChart.data = chartData
+            
+            
+            return cell
+        }
+        
+        return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == 0 {
+            return 440
+        }
+        else {
+            return 400
+        }
     }
     
 }

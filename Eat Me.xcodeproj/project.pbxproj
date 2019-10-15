@@ -14,8 +14,8 @@
 		37360AF523520BC000AA02A2 /* DayNutritionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37360AF423520BC000AA02A2 /* DayNutritionViewController.swift */; };
 		37360AF723520BCC00AA02A2 /* WeekNutritionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37360AF623520BCC00AA02A2 /* WeekNutritionViewController.swift */; };
 		37360AF923520BE300AA02A2 /* MonthNutritionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37360AF823520BE300AA02A2 /* MonthNutritionViewController.swift */; };
-		37360AFC2352150700AA02A2 /* WeekNutritionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37360AFA2352150700AA02A2 /* WeekNutritionCell.swift */; };
-		37360AFD2352150700AA02A2 /* WeekNutritionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37360AFB2352150700AA02A2 /* WeekNutritionCell.xib */; };
+		37360AFC2352150700AA02A2 /* BarChartNutritionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37360AFA2352150700AA02A2 /* BarChartNutritionCell.swift */; };
+		37360AFD2352150700AA02A2 /* BarChartNutritionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37360AFB2352150700AA02A2 /* BarChartNutritionCell.xib */; };
 		374BC02522BABA8800013610 /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374BC02422BABA8800013610 /* Food.swift */; };
 		37563BD822C69E8F0032D94E /* PopUpNewEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37563BD722C69E8F0032D94E /* PopUpNewEntryViewController.swift */; };
 		37653D1A22FCB55E00B32E5B /* Montserrat-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 37653D1922FCB55E00B32E5B /* Montserrat-Bold.otf */; };
@@ -37,6 +37,8 @@
 		37A07E3F22DD02CA00E4A351 /* Montserrat-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 37A07E3E22DD02CA00E4A351 /* Montserrat-Thin.otf */; };
 		37A07E4122DD02D700E4A351 /* Montserrat-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 37A07E4022DD02D700E4A351 /* Montserrat-Light.otf */; };
 		37A07E4322DD04C000E4A351 /* Montserrat-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 37A07E4222DD04C000E4A351 /* Montserrat-Regular.otf */; };
+		37BBEBFA235659F600D390E5 /* LineChartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BBEBF8235659F600D390E5 /* LineChartCell.swift */; };
+		37BBEBFB235659F600D390E5 /* LineChartCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37BBEBF9235659F600D390E5 /* LineChartCell.xib */; };
 		37CA772D22A1BB4F00C03A06 /* NewEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CA772C22A1BB4F00C03A06 /* NewEntryViewController.swift */; };
 		37DE59D722D1055D00079A6A /* OverviewPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DE59D622D1055D00079A6A /* OverviewPageViewController.swift */; };
 		37DE71072351097900B1C4AC /* NutritionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DE71062351097900B1C4AC /* NutritionViewController.swift */; };
@@ -54,8 +56,8 @@
 		37360AF423520BC000AA02A2 /* DayNutritionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayNutritionViewController.swift; sourceTree = "<group>"; };
 		37360AF623520BCC00AA02A2 /* WeekNutritionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekNutritionViewController.swift; sourceTree = "<group>"; };
 		37360AF823520BE300AA02A2 /* MonthNutritionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthNutritionViewController.swift; sourceTree = "<group>"; };
-		37360AFA2352150700AA02A2 /* WeekNutritionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekNutritionCell.swift; sourceTree = "<group>"; };
-		37360AFB2352150700AA02A2 /* WeekNutritionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeekNutritionCell.xib; sourceTree = "<group>"; };
+		37360AFA2352150700AA02A2 /* BarChartNutritionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartNutritionCell.swift; sourceTree = "<group>"; };
+		37360AFB2352150700AA02A2 /* BarChartNutritionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BarChartNutritionCell.xib; sourceTree = "<group>"; };
 		374BC02422BABA8800013610 /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
 		37563BD722C69E8F0032D94E /* PopUpNewEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpNewEntryViewController.swift; sourceTree = "<group>"; };
 		37653D1922FCB55E00B32E5B /* Montserrat-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.otf"; sourceTree = "<group>"; };
@@ -79,6 +81,8 @@
 		37A07E3E22DD02CA00E4A351 /* Montserrat-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Thin.otf"; sourceTree = "<group>"; };
 		37A07E4022DD02D700E4A351 /* Montserrat-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.otf"; sourceTree = "<group>"; };
 		37A07E4222DD04C000E4A351 /* Montserrat-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.otf"; sourceTree = "<group>"; };
+		37BBEBF8235659F600D390E5 /* LineChartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChartCell.swift; sourceTree = "<group>"; };
+		37BBEBF9235659F600D390E5 /* LineChartCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LineChartCell.xib; sourceTree = "<group>"; };
 		37CA772C22A1BB4F00C03A06 /* NewEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEntryViewController.swift; sourceTree = "<group>"; };
 		37DE59D622D1055D00079A6A /* OverviewPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewPageViewController.swift; sourceTree = "<group>"; };
 		37DE71062351097900B1C4AC /* NutritionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionViewController.swift; sourceTree = "<group>"; };
@@ -183,8 +187,10 @@
 				378F9198231AC204007142AA /* FoodHistoryCell.swift */,
 				37360AF02351D62E00AA02A2 /* DayNutritionCell.swift */,
 				37360AF12351D62E00AA02A2 /* DayNutritionCell.xib */,
-				37360AFA2352150700AA02A2 /* WeekNutritionCell.swift */,
-				37360AFB2352150700AA02A2 /* WeekNutritionCell.xib */,
+				37360AFA2352150700AA02A2 /* BarChartNutritionCell.swift */,
+				37360AFB2352150700AA02A2 /* BarChartNutritionCell.xib */,
+				37BBEBF8235659F600D390E5 /* LineChartCell.swift */,
+				37BBEBF9235659F600D390E5 /* LineChartCell.xib */,
 			);
 			path = "Custom Cell";
 			sourceTree = "<group>";
@@ -272,7 +278,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				37360AFD2352150700AA02A2 /* WeekNutritionCell.xib in Resources */,
+				37360AFD2352150700AA02A2 /* BarChartNutritionCell.xib in Resources */,
 				378A01122323FD250035C803 /* Montserrat-Medium.otf in Resources */,
 				377208C22291A1FA002DDA29 /* LaunchScreen.storyboard in Resources */,
 				37A07E3F22DD02CA00E4A351 /* Montserrat-Thin.otf in Resources */,
@@ -282,6 +288,7 @@
 				377208BA2291A1F8002DDA29 /* Main.storyboard in Resources */,
 				377208D32291B002002DDA29 /* MealOverviewCell.xib in Resources */,
 				37A07E4122DD02D700E4A351 /* Montserrat-Light.otf in Resources */,
+				37BBEBFB235659F600D390E5 /* LineChartCell.xib in Resources */,
 				37A07E3D22DD029F00E4A351 /* Montserrat-ExtraLight.otf in Resources */,
 				37653D1A22FCB55E00B32E5B /* Montserrat-Bold.otf in Resources */,
 				37653D1C22FCB5C700B32E5B /* Montserrat-SemiBold.otf in Resources */,
@@ -347,10 +354,11 @@
 				379DB00622B2EBB300F3DC5B /* MealDetailViewController.swift in Sources */,
 				37360AF523520BC000AA02A2 /* DayNutritionViewController.swift in Sources */,
 				37DE71072351097900B1C4AC /* NutritionViewController.swift in Sources */,
-				37360AFC2352150700AA02A2 /* WeekNutritionCell.swift in Sources */,
+				37360AFC2352150700AA02A2 /* BarChartNutritionCell.swift in Sources */,
 				377208D22291B002002DDA29 /* MealOverviewCell.swift in Sources */,
 				37241ABD22CD127800AF85AB /* MealDetailCell.swift in Sources */,
 				378F9199231AC204007142AA /* FoodHistoryCell.swift in Sources */,
+				37BBEBFA235659F600D390E5 /* LineChartCell.swift in Sources */,
 				377208B72291A1F8002DDA29 /* OverviewViewController.swift in Sources */,
 				37360AF22351D62E00AA02A2 /* DayNutritionCell.swift in Sources */,
 				374BC02522BABA8800013610 /* Food.swift in Sources */,

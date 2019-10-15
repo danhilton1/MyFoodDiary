@@ -9,7 +9,7 @@
 import UIKit
 import Charts
 
-class WeekNutritionCell: UITableViewCell {
+class BarChartNutritionCell: UITableViewCell {
 
     @IBOutlet weak var barChart: BarChartView!
     
