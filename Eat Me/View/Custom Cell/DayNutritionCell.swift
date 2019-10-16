@@ -15,6 +15,12 @@ class DayNutritionCell: UITableViewCell {
     @IBOutlet weak var proteinKey: UIView!
     @IBOutlet weak var carbsKey: UIView!
     @IBOutlet weak var fatKey: UIView!
+    @IBOutlet weak var proteinValueLabel: UILabel!
+    @IBOutlet weak var carbsValueLabel: UILabel!
+    @IBOutlet weak var fatValueLabel: UILabel!
+    @IBOutlet weak var proteinPercentLabel: UILabel!
+    @IBOutlet weak var carbsPercentLabel: UILabel!
+    @IBOutlet weak var fatPercentLabel: UILabel!
     
     
     @IBOutlet weak var pieChart: PieChartView!

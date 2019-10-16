@@ -160,9 +160,15 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="carbsKey" destination="67a-06-Ozg" id="5pg-N2-mrE"/>
+                <outlet property="carbsPercentLabel" destination="DiE-pF-IPe" id="vcb-5M-3gp"/>
+                <outlet property="carbsValueLabel" destination="tNs-i1-gQT" id="OVv-iG-L8M"/>
                 <outlet property="fatKey" destination="jpG-SX-pd5" id="dZ2-AO-w7B"/>
+                <outlet property="fatPercentLabel" destination="G5Z-8v-4Uv" id="kPx-y6-kFB"/>
+                <outlet property="fatValueLabel" destination="f1C-7g-wUR" id="P3x-Fm-NJn"/>
                 <outlet property="pieChart" destination="LvI-r0-cUN" id="gZc-KZ-XqJ"/>
                 <outlet property="proteinKey" destination="x5L-Vu-7UY" id="Tdz-AX-Ihq"/>
+                <outlet property="proteinPercentLabel" destination="dQS-Gt-t5X" id="qDj-1k-Xw2"/>
+                <outlet property="proteinValueLabel" destination="ndZ-Gj-OVJ" id="Z7E-In-iPe"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="97.767857142857139"/>
         </tableViewCell>

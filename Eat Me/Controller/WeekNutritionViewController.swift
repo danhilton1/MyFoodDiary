@@ -75,6 +75,13 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
         else if indexPath.row == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "LineChartCell", for: indexPath) as! LineChartCell
             
+            let limitLine = ChartLimitLine(limit: 2500, label: "Goal") // Set to actual goal
+            limitLine.lineDashLengths = [8]
+            limitLine.lineWidth = 0.9
+            limitLine.lineColor = Color.mint
+            limitLine.valueFont = UIFont(name: "Montserrat-Regular", size: 12)!
+            cell.lineChart.leftAxis.addLimitLine(limitLine)
+            
             let chartDataSet = LineChartDataSet(entries: [ChartDataEntry(x: 0, y: 2450),
                                                           ChartDataEntry(x: 1, y: 2582),
                                                           ChartDataEntry(x: 2, y: 2340),
@@ -107,7 +114,7 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
-            return 440
+            return 450
         }
         else {
             return 400

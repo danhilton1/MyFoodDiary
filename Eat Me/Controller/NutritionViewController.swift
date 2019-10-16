@@ -30,17 +30,31 @@ class NutritionViewController: UIViewController {
         super.viewDidLoad()
         
         tabBarController?.tabBar.isHidden = true
-
-        dayView.alpha = 1
-        weekView.alpha = 0
-        monthView.alpha = 0
+        formatter.dateFormat = "E, d MMM"
+        setFoodList()
+        setDataForInitialVC()
         
+        
+        //print(foodList)
+    }
+    
+    func setFoodList() {
         foodList = realm.objects(Food.self)
         let predicate = NSPredicate(format: "date contains[c] %@", formatter.string(from: date ?? Date()))
         foodList = foodList?.filter(predicate)
         let deletedPredicate = NSPredicate(format: "isDeleted == FALSE")
         foodList = foodList?.filter(deletedPredicate)
     }
+    
+    func setDataForInitialVC() {
+        dayView.alpha = 1
+        weekView.alpha = 0
+        monthView.alpha = 0
+        let dayVC = children.first as? DayNutritionViewController
+        dayVC?.foodList = foodList
+        dayVC?.calories = calories
+    }
+    
     
     @IBAction func dismissButtonTapped(_ sender: UIBarButtonItem) {
         let transition: CATransition = CATransition()

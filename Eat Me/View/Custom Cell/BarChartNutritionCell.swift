@@ -12,9 +12,19 @@ import Charts
 class BarChartNutritionCell: UITableViewCell {
 
     @IBOutlet weak var barChart: BarChartView!
+    @IBOutlet weak var proteinLabel: UILabel!
+    @IBOutlet weak var carbsLabel: UILabel!
+    @IBOutlet weak var fatLabel: UILabel!
+    @IBOutlet weak var averageValuesLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        proteinLabel.textColor = Color.mint
+        carbsLabel.textColor = Color.skyBlue
+        fatLabel.textColor = Color.salmon
+        averageValuesLabel.font = UIFont(name: "Montserrat-Medium", size: 18)!
+        
         barChart.highlightPerTapEnabled = false
         barChart.highlightPerDragEnabled = false
         barChart.leftAxis.drawAxisLineEnabled = true
@@ -37,7 +47,6 @@ class BarChartNutritionCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         
     }
     

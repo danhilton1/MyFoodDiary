@@ -52,7 +52,7 @@
                                 </constraints>
                                 <state key="normal" image="BarChatIcon"/>
                                 <connections>
-                                    <segue destination="PiO-9k-CVk" kind="presentation" id="SBQ-xU-qnI"/>
+                                    <segue destination="PiO-9k-CVk" kind="presentation" identifier="GoToNutrition" id="SBQ-xU-qnI"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ouM-1t-XKu">
@@ -1390,6 +1390,45 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8cz-ne-b6V">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="699"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="mealDetailCell" rowHeight="35" id="dBC-fz-jAA" customClass="MealDetailCell" customModule="Eat_Me" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="35"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dBC-fz-jAA" id="Ke4-Yr-IgD">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="35"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="fyA-Rw-CRA">
+                                                    <rect key="frame" x="20" y="5" width="374" height="25"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Protein:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cZd-8e-jff" userLabel="typeLabel">
+                                                            <rect key="frame" x="0.0" y="0.0" width="187" height="25"/>
+                                                            <fontDescription key="fontDescription" name="Montserrat-ExtraLight" family="Montserrat" pointSize="18"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="28.4 g" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tzM-x1-AG1" userLabel="numberLabel">
+                                                            <rect key="frame" x="187" y="0.0" width="187" height="25"/>
+                                                            <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="18"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="fyA-Rw-CRA" firstAttribute="leading" secondItem="Ke4-Yr-IgD" secondAttribute="leading" constant="20" id="jhJ-tv-CBR"/>
+                                                <constraint firstAttribute="bottom" secondItem="fyA-Rw-CRA" secondAttribute="bottom" constant="5" id="lDx-vL-vuT"/>
+                                                <constraint firstItem="fyA-Rw-CRA" firstAttribute="top" secondItem="Ke4-Yr-IgD" secondAttribute="top" constant="5" id="uNY-zJ-0Zs"/>
+                                                <constraint firstAttribute="trailing" secondItem="fyA-Rw-CRA" secondAttribute="trailing" constant="20" id="vvV-Jo-l1q"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="numberLabel" destination="tzM-x1-AG1" id="Yp5-F9-KlV"/>
+                                            <outlet property="typeLabel" destination="cZd-8e-jff" id="QkE-Zb-Saa"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
                                 <sections/>
                             </tableView>
                         </subviews>
@@ -1479,7 +1518,7 @@
         <image name="xmark.circle.fill" catalog="system" width="64" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Vpn-DS-ftJ"/>
+        <segue reference="hIA-Yj-Du4"/>
         <segue reference="RLa-wP-dh9"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -16,6 +16,7 @@ class LineChartCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        lineChart.rightAxis.drawLabelsEnabled = false
         lineChart.xAxis.labelPosition = .bottom
         lineChart.highlightPerDragEnabled = false
         lineChart.highlightPerTapEnabled = false

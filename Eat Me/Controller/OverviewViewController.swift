@@ -382,6 +382,12 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
                 }
             }
         }
+        else if segue.identifier == "GoToNutrition" {
+            let navController = segue.destination as! UINavigationController
+            let destVC = navController.viewControllers.first as! NutritionViewController
+            destVC.date = date
+            destVC.calories = totalCalories
+        }
     }
     
     func filterFoodForMealDetail(meal: Food.Meal, destVC: MealDetailViewController) {
