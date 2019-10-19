@@ -17,6 +17,23 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
     var foodList: Results<Food>?
     var date: Date?
     
+    var protein: Double {
+        get { getTotalValueOfNutrient(.protein) }
+        set { }
+    }
+    var carbs: Double {
+        get { getTotalValueOfNutrient(.carbs) }
+        set { }
+    }
+    var fat: Double {
+        get { getTotalValueOfNutrient(.fat) }
+        set { }
+    }
+    
+    var proteinChartDataSet =  BarChartDataSet(entries: [BarChartDataEntry(x: 0, y: 0)], label: "Protein")
+    var carbsChartDataSet = BarChartDataSet(entries: [BarChartDataEntry(x: 0, y: 0)], label: "Carbs")
+    var fatChartDataSet = BarChartDataSet(entries: [BarChartDataEntry(x: 0, y: 0)], label: "Fat")
+    
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -33,11 +50,11 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     
-//    private func setUpFoodList() {
-//        for i in 0...6 {
-//            //date = date?.advanced(by: TimeInterval()
-//        }
-//    }
+    func reloadFood() {
+        tableView.reloadData()
+    }
+    
+
 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -46,43 +63,23 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "BarNutritionCell", for: indexPath) as! BarChartNutritionCell
-        
-        let proteinChartDataSet = BarChartDataSet(entries: [BarChartDataEntry(x: 0, y: 120),
-                                                            BarChartDataEntry(x: 1, y: 100),
-                                                            BarChartDataEntry(x: 2, y: 110),
-                                                            BarChartDataEntry(x: 3, y: 86),
-                                                            BarChartDataEntry(x: 4, y: 98),
-                                                            BarChartDataEntry(x: 5, y: 74),
-                                                            BarChartDataEntry(x: 6, y: 103)],
-                                                            label: "Protein")
-        let carbsChartDataSet = BarChartDataSet(entries: [BarChartDataEntry(x: 0, y: 230),
-                                                          BarChartDataEntry(x: 1, y: 260),
-                                                          BarChartDataEntry(x: 2, y: 195),
-                                                          BarChartDataEntry(x: 3, y: 207),
-                                                          BarChartDataEntry(x: 4, y: 214),
-                                                          BarChartDataEntry(x: 5, y: 257),
-                                                          BarChartDataEntry(x: 6, y: 220)],
-                                                          label: "Carbs")
-        let fatChartDataSet = BarChartDataSet(entries: [BarChartDataEntry(x: 0, y: 80),
-                                                        BarChartDataEntry(x: 1, y: 90),
-                                                        BarChartDataEntry(x: 2, y: 72),
-                                                        BarChartDataEntry(x: 3, y: 79),
-                                                        BarChartDataEntry(x: 4, y: 89),
-                                                        BarChartDataEntry(x: 5, y: 104),
-                                                        BarChartDataEntry(x: 6, y: 77)],
-                                                        label: "Fat")
-        let chartDataSets = [proteinChartDataSet, carbsChartDataSet, fatChartDataSet]
-        proteinChartDataSet.colors = [Color.mint]
-        carbsChartDataSet.colors = [Color.skyBlue]
-        fatChartDataSet.colors = [Color.salmon]
-        let chartData = BarChartData(dataSets: chartDataSets)
-        chartData.barWidth = 0.24
-        chartData.groupBars(fromX: 0, groupSpace: 0.16, barSpace: 0.04)
-        cell.barChart.data = chartData
-        
-        
-        return cell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "BarNutritionCell", for: indexPath) as! BarChartNutritionCell
+            
+            proteinChartDataSet.valueFont = UIFont(name: "Montserrat-Medium", size: 9)!
+            carbsChartDataSet.valueFont = UIFont(name: "Montserrat-Medium", size: 9)!
+            fatChartDataSet.valueFont = UIFont(name: "Montserrat-Medium", size: 9)!
+            
+            let chartDataSets = [proteinChartDataSet, carbsChartDataSet, fatChartDataSet]
+            proteinChartDataSet.colors = [Color.mint]
+            carbsChartDataSet.colors = [Color.skyBlue]
+            fatChartDataSet.colors = [Color.salmon]
+            let chartData = BarChartData(dataSets: chartDataSets)
+            chartData.barWidth = 0.23
+            chartData.groupBars(fromX: 0, groupSpace: 0.16, barSpace: 0.05)
+            cell.barChart.animate(yAxisDuration: 0.5)
+            cell.barChart.data = chartData
+            
+            return cell
         }
         else if indexPath.row == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "LineChartCell", for: indexPath) as! LineChartCell
@@ -133,4 +130,29 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
         }
     }
     
+    
+    
+    
+    func getTotalValueOfNutrient(_ nutrient: macroNutrient) -> Double {
+        let nutrientArray = (foodList?.value(forKey: nutrient.stringValue)) as! [Double]
+        return nutrientArray.reduce(0, +)
+    }
+    
+    
+    enum macroNutrient {
+        case protein
+        case carbs
+        case fat
+        
+        var stringValue: String {
+            switch self {
+            case .protein:
+                return "protein"
+            case .carbs:
+                return "carbs"
+            case .fat:
+                return "fat"
+            }
+        }
+    }
 }

@@ -24,6 +24,7 @@ class NutritionViewController: UIViewController {
     
     private let formatter = DateFormatter()
     var foodList: Results<Food>?
+    var foodListCopy: Results<Food>?
     var dateAsString: String?
     var date: Date? {
         didSet {
@@ -37,6 +38,7 @@ class NutritionViewController: UIViewController {
             }
         }
     }
+    var weekDate: Date?
     var calories = 0
     
     
@@ -47,6 +49,7 @@ class NutritionViewController: UIViewController {
         dateLabel.text = dateAsString
         setFoodList(date: date)
         setDataForChildVC()
+        setUpWeekVC()
         
     }
     
@@ -60,17 +63,56 @@ class NutritionViewController: UIViewController {
         foodList = foodList?.filter(deletedPredicate)
     }
     
+    func setFoodListCopy(date: Date?) {
+        foodListCopy = realm.objects(Food.self)
+        let predicate = NSPredicate(format: "date contains[c] %@", formatter.string(from: date ?? Date()))
+        foodListCopy = foodListCopy?.filter(predicate)
+        let deletedPredicate = NSPredicate(format: "isDeleted == FALSE")
+        foodListCopy = foodListCopy?.filter(deletedPredicate)
+    }
+    
     func setDataForChildVC() {
         dayView.alpha = 1
         weekView.alpha = 0
         monthView.alpha = 0
         let dayVC = children.first as? DayNutritionViewController
-        let weekVC = children[1] as? WeekNutritionViewController
+        //let weekVC = children[1] as? WeekNutritionViewController
         //let monthVC = children.last as? MonthNutritionViewController
         
         dayVC?.foodList = foodList
         dayVC?.calories = calories
-        weekVC?.foodList = foodList
+        
+        
+    }
+    
+    func setUpWeekVC() {
+        let weekVC = children[1] as? WeekNutritionViewController
+        weekDate = date
+        guard let today = weekDate else { return }
+        let lastMonday = today.next(.monday, direction: .backward)
+        weekDate = lastMonday
+        
+        //set chart data set to food list of each day.
+        setFoodListCopy(date: weekDate)
+        weekVC?.foodList = foodListCopy
+        
+        weekVC?.proteinChartDataSet = BarChartDataSet(entries: [BarChartDataEntry(x: 0, y: weekVC?.protein ?? 0)],
+        label: "Protein")
+        weekVC?.carbsChartDataSet = BarChartDataSet(entries: [BarChartDataEntry(x: 0, y: weekVC?.carbs ?? 0)],
+        label: "Carbs")
+        weekVC?.fatChartDataSet = BarChartDataSet(entries: [BarChartDataEntry(x: 0, y: weekVC?.fat ?? 0)],
+        label: "Fat")
+        
+        var dateCopy = weekDate
+        for i in 1...6 {
+            dateCopy = calendar.date(byAdding: .day, value: 1, to: dateCopy ?? Date())
+            setFoodListCopy(date: dateCopy)
+            weekVC?.foodList = foodListCopy
+            
+            weekVC?.proteinChartDataSet.append(BarChartDataEntry(x: Double(i), y: weekVC?.protein ?? 0))
+            weekVC?.carbsChartDataSet.append(BarChartDataEntry(x: Double(i), y: weekVC?.carbs ?? 0))
+            weekVC?.fatChartDataSet.append(BarChartDataEntry(x: Double(i), y: weekVC?.fat ?? 0))
+        }
     }
     
     
@@ -111,6 +153,7 @@ class NutritionViewController: UIViewController {
             dayView.isHidden = true
             weekView.isHidden = false
             monthView.isHidden = true
+            dateLabel.text = "Week Starting: \(formatter.string(from: weekDate ?? Date()))"
         default:
             UIView.animate(withDuration: 0.25) {
                 self.dayView.alpha = 0
@@ -160,12 +203,43 @@ class NutritionViewController: UIViewController {
             dayVC?.reloadFood()
         }
         else if segmentedControl.selectedSegmentIndex == 1 {
-            guard let today = date else { return }
+            guard let today = weekDate else { return }
             let lastMonday = today.next(.monday, direction: .backward)
-            date = lastMonday
-            dateLabel.text = "Week Starting: \(dateAsString ?? "")"
+            weekDate = lastMonday
+            dateLabel.text = "Week Starting: \(formatter.string(from: weekDate ?? Date()))"
             
-            //set chart data set to food list of each day. 
+            //set chart data set to food list of each day.
+            setFoodListCopy(date: weekDate)
+            let weekVC = children[1] as? WeekNutritionViewController
+            weekVC?.foodList = foodListCopy
+            
+            weekVC?.proteinChartDataSet = BarChartDataSet(entries: [BarChartDataEntry(x: 0, y: weekVC?.protein ?? 0)],
+            label: "Protein")
+            weekVC?.carbsChartDataSet = BarChartDataSet(entries: [BarChartDataEntry(x: 0, y: weekVC?.carbs ?? 0)],
+            label: "Carbs")
+            weekVC?.fatChartDataSet = BarChartDataSet(entries: [BarChartDataEntry(x: 0, y: weekVC?.fat ?? 0)],
+            label: "Fat")
+            
+            var dateCopy = weekDate
+            for i in 1...6 {
+                dateCopy = calendar.date(byAdding: .day, value: 1, to: dateCopy ?? Date())
+                setFoodListCopy(date: dateCopy)
+                weekVC?.foodList = foodListCopy
+                
+                weekVC?.proteinChartDataSet.append(BarChartDataEntry(x: Double(i), y: weekVC?.protein ?? 0))
+                weekVC?.carbsChartDataSet.append(BarChartDataEntry(x: Double(i), y: weekVC?.carbs ?? 0))
+                weekVC?.fatChartDataSet.append(BarChartDataEntry(x: Double(i), y: weekVC?.fat ?? 0))
+            }
+
+            UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseInOut, animations: {
+                var viewRightFrame = self.weekView.frame
+                viewRightFrame.origin.x += viewRightFrame.size.width
+                self.weekView.frame = viewRightFrame
+                
+            }, completion: nil)
+            
+            weekVC?.reloadFood()
+            
 
         }
         
@@ -203,6 +277,43 @@ class NutritionViewController: UIViewController {
             }, completion: nil)
             
             dayVC?.reloadFood()
+        }
+        else if segmentedControl.selectedSegmentIndex == 1 {
+            guard let today = weekDate else { return }
+            let nextMonday = today.next(.monday, direction: .forward)
+            weekDate = nextMonday
+            dateLabel.text = "Week Starting: \(formatter.string(from: weekDate ?? Date()))"
+            
+            //set chart data set to food list of each day.
+            setFoodListCopy(date: weekDate)
+            let weekVC = children[1] as? WeekNutritionViewController
+            weekVC?.foodList = foodListCopy
+            
+            weekVC?.proteinChartDataSet = BarChartDataSet(entries: [BarChartDataEntry(x: 0, y: weekVC?.protein ?? 0)],
+            label: "Protein")
+            weekVC?.carbsChartDataSet = BarChartDataSet(entries: [BarChartDataEntry(x: 0, y: weekVC?.carbs ?? 0)],
+            label: "Carbs")
+            weekVC?.fatChartDataSet = BarChartDataSet(entries: [BarChartDataEntry(x: 0, y: weekVC?.fat ?? 0)],
+            label: "Fat")
+            
+            var dateCopy = weekDate
+            for i in 1...6 {
+                dateCopy = calendar.date(byAdding: .day, value: 1, to: dateCopy ?? Date())
+                setFoodListCopy(date: dateCopy)
+                weekVC?.foodList = foodListCopy
+                
+                weekVC?.proteinChartDataSet.append(BarChartDataEntry(x: Double(i), y: weekVC?.protein ?? 0))
+                weekVC?.carbsChartDataSet.append(BarChartDataEntry(x: Double(i), y: weekVC?.carbs ?? 0))
+                weekVC?.fatChartDataSet.append(BarChartDataEntry(x: Double(i), y: weekVC?.fat ?? 0))
+            }
+            
+            UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseInOut, animations: {
+                var viewLeftFrame = self.weekView.frame
+                viewLeftFrame.origin.x -= viewLeftFrame.size.width
+                self.weekView.frame = viewLeftFrame
+            }, completion: nil)
+            
+            weekVC?.reloadFood()
         }
     }
     
