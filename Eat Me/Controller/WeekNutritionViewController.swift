@@ -12,12 +12,18 @@ import RealmSwift
 
 class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    let realm = try! Realm()
+    
+    var foodList: Results<Food>?
+    var date: Date?
     
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        foodList = realm.objects(Food.self)
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UINib(nibName: "BarChartNutritionCell", bundle: nil), forCellReuseIdentifier: "BarNutritionCell")
@@ -26,6 +32,12 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
         
     }
     
+    
+//    private func setUpFoodList() {
+//        for i in 0...6 {
+//            //date = date?.advanced(by: TimeInterval()
+//        }
+//    }
 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

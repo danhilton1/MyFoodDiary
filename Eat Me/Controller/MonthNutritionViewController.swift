@@ -78,7 +78,7 @@ class MonthNutritionViewController: UIViewController, UITableViewDataSource, UIT
             cell.lineChart.xAxis.granularityEnabled = true
             let limitLine = ChartLimitLine(limit: 2500, label: "") // Set to actual goal
             limitLine.lineDashLengths = [8]
-            limitLine.lineWidth = 0.9
+            limitLine.lineWidth = 1.5
             limitLine.lineColor = Color.mint
             limitLine.valueFont = UIFont(name: "Montserrat-Regular", size: 12)!
             
