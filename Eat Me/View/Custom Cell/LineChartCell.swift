@@ -23,6 +23,9 @@ class LineChartCell: UITableViewCell {
         lineChart.legend.enabled = false
         lineChart.xAxis.spaceMin = 0.5
         lineChart.xAxis.spaceMax = 0.5
+        lineChart.leftAxis.axisMinimum = 0
+        lineChart.rightAxis.drawGridLinesEnabled = false
+        
         lineChart.xAxis.valueFormatter = IndexAxisValueFormatter(values: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"])
     }
 

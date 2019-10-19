@@ -29,10 +29,15 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
         get { getTotalValueOfNutrient(.fat) }
         set { }
     }
+    var calories: Double {
+        get { getTotalValueOfNutrient(.calories) }
+        set { }
+    }
     
     var proteinChartDataSet =  BarChartDataSet(entries: [BarChartDataEntry(x: 0, y: 0)], label: "Protein")
     var carbsChartDataSet = BarChartDataSet(entries: [BarChartDataEntry(x: 0, y: 0)], label: "Carbs")
     var fatChartDataSet = BarChartDataSet(entries: [BarChartDataEntry(x: 0, y: 0)], label: "Fat")
+    var lineChartDataSet = LineChartDataSet(entries: [ChartDataEntry(x: 0, y: 0)], label: "Calories")
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -79,6 +84,26 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
             cell.barChart.animate(yAxisDuration: 0.5)
             cell.barChart.data = chartData
             
+            var averageProtein = 0.0
+            var averageCarbs = 0.0
+            var averageFat = 0.0
+            for value in proteinChartDataSet.entries {
+                averageProtein += value.y
+            }
+            averageProtein = averageProtein / 7
+            for value in carbsChartDataSet.entries {
+                averageCarbs += value.y
+            }
+            averageCarbs = averageCarbs / 7
+            for value in fatChartDataSet.entries {
+                averageFat += value.y
+            }
+            averageFat = averageFat / 7
+            
+            cell.proteinLabel.text = averageProtein.removePointZeroEndingAndConvertToString() + " g"
+            cell.carbsLabel.text = averageCarbs.removePointZeroEndingAndConvertToString() + " g"
+            cell.fatLabel.text = averageFat.removePointZeroEndingAndConvertToString() + " g"
+            
             return cell
         }
         else if indexPath.row == 1 {
@@ -91,27 +116,12 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
             limitLine.valueFont = UIFont(name: "Montserrat-Regular", size: 12)!
             cell.lineChart.leftAxis.addLimitLine(limitLine)
             
-            let chartDataSet = LineChartDataSet(entries: [ChartDataEntry(x: 0, y: 2450),
-                                                          ChartDataEntry(x: 1, y: 2582),
-                                                          ChartDataEntry(x: 2, y: 2340),
-                                                          ChartDataEntry(x: 3, y: 2120),
-                                                          ChartDataEntry(x: 4, y: 2460),
-                                                          ChartDataEntry(x: 5, y: 2890),
-                                                          ChartDataEntry(x: 6, y: 3102),], label: "Calories")
-            chartDataSet.colors = [Color.skyBlue]
-            chartDataSet.circleColors = [Color.skyBlue]
-            chartDataSet.valueFont = UIFont(name: "Montserrat-SemiBold", size: 12)!
+            lineChartDataSet.colors = [Color.skyBlue]
+            lineChartDataSet.circleColors = [Color.skyBlue]
+            lineChartDataSet.valueFont = UIFont(name: "Montserrat-SemiBold", size: 12)!
             
-//            for value in chartDataSet.entries {
-//                if value.y >= 2400 || value.y <= 2600 {
-//
-////                    chartDataSet.circleColors = [Color.mint]
-//                } else {
-//                    chartDataSet.setCircleColor(Color.salmon)
-//                    //chartDataSet.circleColors = [Color.salmon]
-//                }
-//            }
-            let chartData = LineChartData(dataSet: chartDataSet)
+            let chartData = LineChartData(dataSet: lineChartDataSet)
+            cell.lineChart.animate(yAxisDuration: 0.5)
             cell.lineChart.data = chartData
             
             
@@ -143,6 +153,7 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
         case protein
         case carbs
         case fat
+        case calories
         
         var stringValue: String {
             switch self {
@@ -152,6 +163,8 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
                 return "carbs"
             case .fat:
                 return "fat"
+            case .calories:
+                return "calories"
             }
         }
     }

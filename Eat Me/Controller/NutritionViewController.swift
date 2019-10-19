@@ -102,16 +102,17 @@ class NutritionViewController: UIViewController {
         label: "Carbs")
         weekVC?.fatChartDataSet = BarChartDataSet(entries: [BarChartDataEntry(x: 0, y: weekVC?.fat ?? 0)],
         label: "Fat")
+        weekVC?.lineChartDataSet = LineChartDataSet(entries: [ChartDataEntry(x: 0, y: weekVC?.calories ?? 0)], label: "Calories")
         
         var dateCopy = weekDate
         for i in 1...6 {
             dateCopy = calendar.date(byAdding: .day, value: 1, to: dateCopy ?? Date())
             setFoodListCopy(date: dateCopy)
             weekVC?.foodList = foodListCopy
-            
             weekVC?.proteinChartDataSet.append(BarChartDataEntry(x: Double(i), y: weekVC?.protein ?? 0))
             weekVC?.carbsChartDataSet.append(BarChartDataEntry(x: Double(i), y: weekVC?.carbs ?? 0))
             weekVC?.fatChartDataSet.append(BarChartDataEntry(x: Double(i), y: weekVC?.fat ?? 0))
+            weekVC?.lineChartDataSet.append(ChartDataEntry(x: Double(i), y: weekVC?.calories ?? 0))
         }
     }
     
@@ -188,12 +189,12 @@ class NutritionViewController: UIViewController {
             dayVC?.foodList = foodList
             dayVC?.calories = calories
             
-            UIView.animate(withDuration: 0.25) {
+            UIView.animate(withDuration: 0.35) {
                 self.dateLabel.alpha = 0
                 self.dateLabel.text = self.dateAsString
                 self.dateLabel.alpha = 1
             }
-            UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseInOut, animations: {
+            UIView.animate(withDuration: 0.35, delay: 0, options: .curveEaseInOut, animations: {
                 var viewRightFrame = self.dayView.frame
                 viewRightFrame.origin.x += viewRightFrame.size.width
                 self.dayView.frame = viewRightFrame
@@ -219,6 +220,7 @@ class NutritionViewController: UIViewController {
             label: "Carbs")
             weekVC?.fatChartDataSet = BarChartDataSet(entries: [BarChartDataEntry(x: 0, y: weekVC?.fat ?? 0)],
             label: "Fat")
+            weekVC?.lineChartDataSet = LineChartDataSet(entries: [ChartDataEntry(x: 0, y: weekVC?.calories ?? 0)], label: "Calories")
             
             var dateCopy = weekDate
             for i in 1...6 {
@@ -229,9 +231,10 @@ class NutritionViewController: UIViewController {
                 weekVC?.proteinChartDataSet.append(BarChartDataEntry(x: Double(i), y: weekVC?.protein ?? 0))
                 weekVC?.carbsChartDataSet.append(BarChartDataEntry(x: Double(i), y: weekVC?.carbs ?? 0))
                 weekVC?.fatChartDataSet.append(BarChartDataEntry(x: Double(i), y: weekVC?.fat ?? 0))
+                weekVC?.lineChartDataSet.append(ChartDataEntry(x: Double(i), y: weekVC?.calories ?? 0))
             }
 
-            UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseInOut, animations: {
+            UIView.animate(withDuration: 0.35, delay: 0, options: .curveEaseInOut, animations: {
                 var viewRightFrame = self.weekView.frame
                 viewRightFrame.origin.x += viewRightFrame.size.width
                 self.weekView.frame = viewRightFrame
@@ -295,6 +298,7 @@ class NutritionViewController: UIViewController {
             label: "Carbs")
             weekVC?.fatChartDataSet = BarChartDataSet(entries: [BarChartDataEntry(x: 0, y: weekVC?.fat ?? 0)],
             label: "Fat")
+            weekVC?.lineChartDataSet = LineChartDataSet(entries: [ChartDataEntry(x: 0, y: weekVC?.calories ?? 0)], label: "Calories")
             
             var dateCopy = weekDate
             for i in 1...6 {
@@ -305,6 +309,7 @@ class NutritionViewController: UIViewController {
                 weekVC?.proteinChartDataSet.append(BarChartDataEntry(x: Double(i), y: weekVC?.protein ?? 0))
                 weekVC?.carbsChartDataSet.append(BarChartDataEntry(x: Double(i), y: weekVC?.carbs ?? 0))
                 weekVC?.fatChartDataSet.append(BarChartDataEntry(x: Double(i), y: weekVC?.fat ?? 0))
+                weekVC?.lineChartDataSet.append(ChartDataEntry(x: Double(i), y: weekVC?.calories ?? 0))
             }
             
             UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseInOut, animations: {
