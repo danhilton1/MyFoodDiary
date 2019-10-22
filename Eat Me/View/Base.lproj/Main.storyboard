@@ -662,19 +662,19 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Food Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="bTv-vG-nt4">
-                                            <rect key="frame" x="20" y="2" width="282" height="22"/>
+                                            <rect key="frame" x="20" y="2" width="262" height="22"/>
                                             <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="18"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Total Serving" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7eW-rv-VXi">
-                                            <rect key="frame" x="20" y="28" width="197.5" height="20"/>
+                                            <rect key="frame" x="20" y="28" width="177.5" height="20"/>
                                             <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="15"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calories" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BaS-fg-tg8">
-                                            <rect key="frame" x="302" y="10" width="92" height="30"/>
+                                            <rect key="frame" x="282" y="10" width="112" height="30"/>
                                             <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -687,7 +687,7 @@
                                         <constraint firstAttribute="bottom" secondItem="7eW-rv-VXi" secondAttribute="bottom" constant="2" id="Hq7-6a-8M0"/>
                                         <constraint firstAttribute="trailing" secondItem="BaS-fg-tg8" secondAttribute="trailing" constant="20" id="ORU-rn-n47"/>
                                         <constraint firstItem="bTv-vG-nt4" firstAttribute="leading" secondItem="xf2-BS-GF3" secondAttribute="leading" constant="20" id="UYD-H0-M3J"/>
-                                        <constraint firstItem="BaS-fg-tg8" firstAttribute="width" secondItem="bTv-vG-nt4" secondAttribute="width" constant="-190" id="Uiw-SG-qUs"/>
+                                        <constraint firstItem="BaS-fg-tg8" firstAttribute="width" secondItem="bTv-vG-nt4" secondAttribute="width" constant="-150" id="Uiw-SG-qUs"/>
                                         <constraint firstItem="bTv-vG-nt4" firstAttribute="top" secondItem="xf2-BS-GF3" secondAttribute="top" constant="2" id="cTz-Ly-7rn"/>
                                         <constraint firstItem="BaS-fg-tg8" firstAttribute="leading" secondItem="bTv-vG-nt4" secondAttribute="trailing" id="oQq-6c-dZx"/>
                                         <constraint firstAttribute="bottom" secondItem="BaS-fg-tg8" secondAttribute="bottom" constant="10" id="uZd-NG-eTD"/>

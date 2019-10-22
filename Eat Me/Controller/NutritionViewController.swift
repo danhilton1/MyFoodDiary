@@ -50,7 +50,8 @@ class NutritionViewController: UIViewController {
         setFoodList(date: date)
         setDataForChildVC()
         setUpWeekVC()
-        
+        setUpMonthVC()
+        setUpWeekVC()
     }
     
 
@@ -89,7 +90,7 @@ class NutritionViewController: UIViewController {
         let weekVC = children[1] as? WeekNutritionViewController
         weekDate = date
         guard let today = weekDate else { return }
-        let lastMonday = today.next(.monday, direction: .backward)
+        let lastMonday = today.next(.monday, direction: .backward, considerToday: true)
         weekDate = lastMonday
         
         //set chart data set to food list of each day.
@@ -114,8 +115,95 @@ class NutritionViewController: UIViewController {
             weekVC?.fatChartDataSet.append(BarChartDataEntry(x: Double(i), y: weekVC?.fat ?? 0))
             weekVC?.lineChartDataSet.append(ChartDataEntry(x: Double(i), y: weekVC?.calories ?? 0))
         }
+        
+        let monthVC = children.last as? MonthNutritionViewController
+        monthVC?.monthAverageProtein = weekVC?.averageProtein ?? 0
+        monthVC?.monthAverageCarbs = weekVC?.averageCarbs ?? 0
+        monthVC?.monthAverageFat = weekVC?.averageFat ?? 0
+        monthVC?.monthAverageCalories = weekVC?.getAverageOfValue(dataSet: weekVC!.lineChartDataSet)
     }
     
+    
+    func setUpMonthVC() {
+        let monthVC = children.last as? MonthNutritionViewController
+        weekDate = date
+        guard let today = weekDate else { return }
+        let lastMonday = today.next(.monday, direction: .backward, considerToday: true)
+        weekDate = lastMonday
+        
+        //set chart data set to food list of each day.
+        setFoodListCopy(date: weekDate)
+        monthVC?.foodList = foodListCopy
+
+        monthVC?.proteinChartDataSet = BarChartDataSet(entries: [BarChartDataEntry(x: 0, y: monthVC?.monthAverageProtein ?? 0)],
+        label: "Average Protein (Day)")
+        monthVC?.carbsChartDataSet = BarChartDataSet(entries: [BarChartDataEntry(x: 0, y: monthVC?.monthAverageCarbs ?? 0)],
+        label: "Average Carbs (Day)")
+        monthVC?.fatChartDataSet = BarChartDataSet(entries: [BarChartDataEntry(x: 0, y: monthVC?.monthAverageFat ?? 0)],
+        label: "Average Fat (Day)")
+        monthVC?.lineChartDataSet = LineChartDataSet(entries: [ChartDataEntry(x: 0, y: monthVC?.monthAverageCalories ?? 0)], label: "Average Calories (Day)")
+        
+        var dateCopy = weekDate
+        let weekVC = children[1] as? WeekNutritionViewController
+        
+        
+        for i in 1...4 {
+            
+            dateCopy = calendar.date(byAdding: .day, value: -7, to: dateCopy ?? Date())
+            
+            getAverageValuesForWeek(date: dateCopy)
+            
+            monthVC?.monthAverageProtein = weekVC?.averageProtein
+            monthVC?.monthAverageCarbs = weekVC?.averageCarbs
+            monthVC?.monthAverageFat = weekVC?.averageFat
+            monthVC?.monthAverageCalories = weekVC?.getAverageOfValue(dataSet: weekVC!.lineChartDataSetCopy)
+            
+            setFoodListCopy(date: dateCopy)
+            monthVC?.foodListCopy = foodListCopy
+            monthVC?.proteinChartDataSet.append(BarChartDataEntry(x: Double(i), y: monthVC?.monthAverageProtein ?? 0))
+            monthVC?.carbsChartDataSet.append(BarChartDataEntry(x: Double(i), y: monthVC?.monthAverageCarbs ?? 0))
+            monthVC?.fatChartDataSet.append(BarChartDataEntry(x: Double(i), y: monthVC?.monthAverageFat ?? 0))
+            monthVC?.lineChartDataSet.append(ChartDataEntry(x: Double(i), y: monthVC?.monthAverageCalories ?? 0))
+        }
+        
+    }
+    
+    func getAverageValuesForWeek(date: Date?) {
+        let weekVC = children[1] as? WeekNutritionViewController
+        
+        weekVC?.proteinChartDataSetCopy.remove(at: 0)
+        weekVC?.carbsChartDataSetCopy.remove(at: 0)
+        weekVC?.fatChartDataSetCopy.remove(at: 0)
+        weekVC?.lineChartDataSetCopy.remove(at: 0)
+        var dateCopy = date
+        setFoodListCopy(date: dateCopy)
+        weekVC?.foodListCopy = foodListCopy
+        weekVC?.proteinChartDataSetCopy.append(BarChartDataEntry(x: 0, y: weekVC?.getTotalValueOfNutrient(.protein, foodList: weekVC?.foodListCopy) ?? 0))
+        weekVC?.carbsChartDataSetCopy.append(BarChartDataEntry(x: 0, y: weekVC?.getTotalValueOfNutrient(.carbs, foodList: weekVC?.foodListCopy) ?? 0))
+        weekVC?.fatChartDataSetCopy.append(BarChartDataEntry(x: 0, y: weekVC?.getTotalValueOfNutrient(.fat, foodList: weekVC?.foodListCopy) ?? 0))
+        weekVC?.lineChartDataSetCopy.append(ChartDataEntry(x: 0, y: weekVC?.getTotalValueOfNutrient(.calories, foodList: weekVC?.foodListCopy) ?? 0))
+        
+        for i in 1...6 {  //NEED THIS TO RUN BEFORE THE NEXT ITERATION OF OUTSIDE LOOP
+            weekVC?.proteinChartDataSetCopy.remove(at: 0)
+            weekVC?.carbsChartDataSetCopy.remove(at: 0)
+            weekVC?.fatChartDataSetCopy.remove(at: 0)
+            weekVC?.lineChartDataSetCopy.remove(at: 0)
+            dateCopy = calendar.date(byAdding: .day, value: 1, to: dateCopy ?? Date())!
+            setFoodListCopy(date: dateCopy)
+            weekVC?.foodListCopy = foodListCopy
+            weekVC?.proteinChartDataSetCopy.append(BarChartDataEntry(x: Double(i), y: weekVC?.getTotalValueOfNutrient(.protein, foodList: weekVC?.foodListCopy) ?? 0))
+            weekVC?.carbsChartDataSetCopy.append(BarChartDataEntry(x: Double(i), y: weekVC?.getTotalValueOfNutrient(.carbs, foodList: weekVC?.foodListCopy) ?? 0))
+            weekVC?.fatChartDataSetCopy.append(BarChartDataEntry(x: Double(i), y: weekVC?.getTotalValueOfNutrient(.fat, foodList: weekVC?.foodListCopy) ?? 0))
+            weekVC?.lineChartDataSetCopy.append(ChartDataEntry(x: Double(i), y: weekVC?.getTotalValueOfNutrient(.calories, foodList: weekVC?.foodListCopy) ?? 0))
+//            VC?.foodList = foodListCopy
+//            VC?.proteinChartDataSetCopy.append(BarChartDataEntry(x: Double(i), y: VC?.protein ?? 0))
+//            VC?.carbsChartDataSetCopy.append(BarChartDataEntry(x: Double(i), y: VC?.carbs ?? 0))
+//            VC?.fatChartDataSetCopy.append(BarChartDataEntry(x: Double(i), y: VC?.fat ?? 0))
+//            VC?.lineChartDataSetCopy.append(ChartDataEntry(x: Double(i), y: VC?.calories ?? 0))
+            
+        }
+        //print(VC?.proteinChartDataSetCopy)
+    }
     
     @IBAction func dismissButtonTapped(_ sender: UIBarButtonItem) {
         let transition: CATransition = CATransition()
@@ -172,6 +260,7 @@ class NutritionViewController: UIViewController {
     
     @IBAction func leftArrowTapped(_ sender: UIButton) {
         if segmentedControl.selectedSegmentIndex == 0 {
+            
             guard let today = date else { return }
             
             // Yesterday's date at time: 00:00
@@ -204,6 +293,7 @@ class NutritionViewController: UIViewController {
             dayVC?.reloadFood()
         }
         else if segmentedControl.selectedSegmentIndex == 1 {
+            
             guard let today = weekDate else { return }
             let lastMonday = today.next(.monday, direction: .backward)
             weekDate = lastMonday
@@ -252,6 +342,7 @@ class NutritionViewController: UIViewController {
     
     @IBAction func rightArrowTapped(_ sender: UIButton) {
         if segmentedControl.selectedSegmentIndex == 0 {
+            
             guard let today = date else { return }
             
             // Yesterday's date at time: 00:00
@@ -282,6 +373,7 @@ class NutritionViewController: UIViewController {
             dayVC?.reloadFood()
         }
         else if segmentedControl.selectedSegmentIndex == 1 {
+            
             guard let today = weekDate else { return }
             let nextMonday = today.next(.monday, direction: .forward)
             weekDate = nextMonday

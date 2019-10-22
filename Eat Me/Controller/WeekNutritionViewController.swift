@@ -15,29 +15,67 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
     let realm = try! Realm()
     
     var foodList: Results<Food>?
+    var foodListCopy: Results<Food>?
+    
     var date: Date?
     
     var protein: Double {
-        get { getTotalValueOfNutrient(.protein) }
+        get { getTotalValueOfNutrient(.protein, foodList: foodList) }
         set { }
     }
     var carbs: Double {
-        get { getTotalValueOfNutrient(.carbs) }
+        get { getTotalValueOfNutrient(.carbs, foodList: foodList) }
         set { }
     }
     var fat: Double {
-        get { getTotalValueOfNutrient(.fat) }
+        get { getTotalValueOfNutrient(.fat, foodList: foodList) }
         set { }
     }
     var calories: Double {
-        get { getTotalValueOfNutrient(.calories) }
+        get { getTotalValueOfNutrient(.calories, foodList: foodList) }
         set { }
     }
     
-    var proteinChartDataSet =  BarChartDataSet(entries: [BarChartDataEntry(x: 0, y: 0)], label: "Protein")
-    var carbsChartDataSet = BarChartDataSet(entries: [BarChartDataEntry(x: 0, y: 0)], label: "Carbs")
-    var fatChartDataSet = BarChartDataSet(entries: [BarChartDataEntry(x: 0, y: 0)], label: "Fat")
-    var lineChartDataSet = LineChartDataSet(entries: [ChartDataEntry(x: 0, y: 0)], label: "Calories")
+    
+    var proteinChartDataSet = BarChartDataSet(entries: [BarChartDataEntry(x: 0, y: 0)], label: "Protein") {
+        didSet {
+            proteinChartDataSetCopy = proteinChartDataSet
+        }
+    }
+    var carbsChartDataSet = BarChartDataSet(entries: [BarChartDataEntry(x: 0, y: 0)], label: "Carbs") {
+        didSet {
+            carbsChartDataSetCopy = carbsChartDataSet
+        }
+    }
+    var fatChartDataSet = BarChartDataSet(entries: [BarChartDataEntry(x: 0, y: 0)], label: "Fat") {
+        didSet {
+            fatChartDataSetCopy = fatChartDataSet
+        }
+    }
+    var lineChartDataSet = LineChartDataSet(entries: [ChartDataEntry(x: 0, y: 0)], label: "Calories") {
+        didSet {
+            lineChartDataSetCopy = lineChartDataSet
+        }
+    }
+    
+    var proteinChartDataSetCopy: BarChartDataSet!
+    var carbsChartDataSetCopy: BarChartDataSet!
+    var fatChartDataSetCopy: BarChartDataSet!
+    var lineChartDataSetCopy: LineChartDataSet!
+    
+    
+    var averageProtein: Double {
+        get { getAverageOfValue(dataSet: proteinChartDataSet) }
+        set { }
+    }
+    var averageCarbs: Double {
+        get { getAverageOfValue(dataSet: carbsChartDataSet) }
+        set { }
+    }
+    var averageFat: Double {
+        get { getAverageOfValue(dataSet: fatChartDataSet) }
+        set { }
+    }
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -60,6 +98,12 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
     }
     
 
+    public class XValueFormatter: NSObject, IValueFormatter {
+
+        public func stringForValue(_ value: Double, entry: ChartDataEntry, dataSetIndex: Int, viewPortHandler: ViewPortHandler?) -> String {
+            return value <= 0.0 ? "" : String(describing: value)
+        }
+    }
 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -79,26 +123,11 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
             carbsChartDataSet.colors = [Color.skyBlue]
             fatChartDataSet.colors = [Color.salmon]
             let chartData = BarChartData(dataSets: chartDataSets)
+            chartData.setValueFormatter(XValueFormatter())
             chartData.barWidth = 0.23
             chartData.groupBars(fromX: 0, groupSpace: 0.16, barSpace: 0.05)
             cell.barChart.animate(yAxisDuration: 0.5)
             cell.barChart.data = chartData
-            
-            var averageProtein = 0.0
-            var averageCarbs = 0.0
-            var averageFat = 0.0
-            for value in proteinChartDataSet.entries {
-                averageProtein += value.y
-            }
-            averageProtein = averageProtein / 7
-            for value in carbsChartDataSet.entries {
-                averageCarbs += value.y
-            }
-            averageCarbs = averageCarbs / 7
-            for value in fatChartDataSet.entries {
-                averageFat += value.y
-            }
-            averageFat = averageFat / 7
             
             cell.proteinLabel.text = averageProtein.removePointZeroEndingAndConvertToString() + " g"
             cell.carbsLabel.text = averageCarbs.removePointZeroEndingAndConvertToString() + " g"
@@ -143,9 +172,18 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
     
     
     
-    func getTotalValueOfNutrient(_ nutrient: macroNutrient) -> Double {
+    func getTotalValueOfNutrient(_ nutrient: macroNutrient, foodList: Results<Food>?) -> Double {
         let nutrientArray = (foodList?.value(forKey: nutrient.stringValue)) as! [Double]
         return nutrientArray.reduce(0, +)
+    }
+    
+    
+    func getAverageOfValue(dataSet: ChartDataSet) -> Double {
+        var average = 0.0
+        for value in dataSet.entries {
+            average += value.y
+        }
+        return average / Double(dataSet.entries.count)
     }
     
     
