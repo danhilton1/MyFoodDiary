@@ -96,14 +96,6 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
     func reloadFood() {
         tableView.reloadData()
     }
-    
-
-    public class XValueFormatter: NSObject, IValueFormatter {
-
-        public func stringForValue(_ value: Double, entry: ChartDataEntry, dataSetIndex: Int, viewPortHandler: ViewPortHandler?) -> String {
-            return value <= 0.0 ? "" : String(describing: value)
-        }
-    }
 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -206,4 +198,13 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
             }
         }
     }
+    
+    
+    public class XValueFormatter: NSObject, IValueFormatter {
+
+        public func stringForValue(_ value: Double, entry: ChartDataEntry, dataSetIndex: Int, viewPortHandler: ViewPortHandler?) -> String {
+            return value <= 0.0 ? "" : String(describing: value)
+        }
+    }
+    
 }

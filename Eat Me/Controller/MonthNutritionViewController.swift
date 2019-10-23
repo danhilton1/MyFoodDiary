@@ -56,10 +56,10 @@ class MonthNutritionViewController: WeekNutritionViewController {
             reversedCarbsDataSet.colors = [Color.skyBlue]
             reversedFatDataSet.colors = [Color.salmon]
             let chartData = BarChartData(dataSets: chartDataSets)
-
+            chartData.setValueFormatter(XValueFormatter())
             chartData.barWidth = 0.23
             chartData.groupBars(fromX: 0, groupSpace: 0.16, barSpace: 0.05)
-            
+            cell.barChart.animate(yAxisDuration: 0.5)
             cell.barChart.data = chartData
             
             var averageProtein = 0.0
