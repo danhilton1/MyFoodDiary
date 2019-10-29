@@ -19,7 +19,8 @@ class FoodHistoryViewController: UITableViewController {
     weak var delegate: NewEntryDelegate?
     weak var mealDelegate: NewEntryDelegate?
     private var foodList: Results<Food>?
-    private var foodListCopy: Results<Food>?
+    private var sortedFood = [Food]()
+    private var sortedFoodCopy = [Food]()
 
     
     override func viewDidLoad() {
@@ -30,20 +31,15 @@ class FoodHistoryViewController: UITableViewController {
         searchBar.delegate = self
 
         foodList = realm.objects(Food.self)
-        foodListCopy = foodList
+        setUpSortedFoodList()
+        sortedFoodCopy = sortedFood
         
         tableView.tableFooterView = UIView()
         
-        var foodNameList = [String]()
-        for food in foodList! {
-            foodNameList.append(food.name!)
-        }
-//        let uniqueFoodList = foodList?.reduce([], {
-//            $0.contains($1.name) ? $0 : $0 + [$1]
-//        })
         
-//        print(uniqueFoodList)
+
     }
+
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -53,6 +49,16 @@ class FoodHistoryViewController: UITableViewController {
     override func viewWillDisappear(_ animated: Bool) {
         presentingViewController?.tabBarController?.tabBar.isHidden = false
     }
+    
+    func setUpSortedFoodList() {
+        var foodDictionary = [String: Food]()
+        for food in foodList! {
+            foodDictionary[food.name!] = food
+        }
+        sortedFood = foodDictionary.values.sorted { (food1, food2) -> Bool in
+            return food1.dateValue > food2.dateValue
+        }
+    }
 
     // MARK: - Table view data source
     
@@ -60,7 +66,7 @@ class FoodHistoryViewController: UITableViewController {
         let defaultCell = UITableViewCell()
         defaultCell.textLabel?.font = UIFont(name: "Montserrat-Regular", size: 16)
         
-        if foodList?.count == 0 {
+        if sortedFoodCopy.count == 0 {
             tableView.separatorStyle = .none
             defaultCell.textLabel?.text = "No food ever logged."
             return defaultCell
@@ -70,29 +76,21 @@ class FoodHistoryViewController: UITableViewController {
         }
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "foodHistoryCell", for: indexPath) as! FoodHistoryCell
-        let reversedIndex = ((foodListCopy?.count ?? 0) - 1) - indexPath.row  // Reverse index to display most recent first
-        if reversedIndex >= 0 {  // Make sure index isn't negative
-            cell.foodNameLabel.text = foodListCopy?[reversedIndex].name
-            cell.caloriesLabel.text = "\(foodListCopy?[reversedIndex].calories ?? 0) kcal"
-            if var totalServing = foodListCopy?[reversedIndex].totalServing {
-                cell.totalServingLabel.text = totalServing.removePointZeroEndingAndConvertToString() + " g"
-            }
-            else {
-                cell.totalServingLabel.text = ""
-            }
-        } else {
-            defaultCell.textLabel?.text = "No matching food."
-            return defaultCell
-        }
+        cell.foodNameLabel.text = sortedFoodCopy[indexPath.row].name
+        cell.caloriesLabel.text = "\(sortedFoodCopy[indexPath.row].calories) kcal"
+ 
+        var totalServing = sortedFoodCopy[indexPath.row].totalServing
+        cell.totalServingLabel.text = totalServing.removePointZeroEndingAndConvertToString() + " g"
+
         return cell
     }
 
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if foodListCopy?.count == 0 {  // If foodList is empty, return 1 cell in order to display message
+        if sortedFoodCopy.count == 0 {  // If foodList is empty, return 1 cell in order to display message
             return 1
         }
-        return foodListCopy?.count ?? 0
+        return sortedFoodCopy.count
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -108,8 +106,8 @@ class FoodHistoryViewController: UITableViewController {
         if editingStyle == .delete {
             do {
                 try realm.write {
-                    guard let foodToDelete = foodListCopy?[indexPath.row] else { return }
-                    realm.delete(foodToDelete)
+                    let foodToDelete = sortedFoodCopy[indexPath.row]
+                    foodToDelete.isDeleted = true
                 }
             }
             catch {
@@ -136,7 +134,7 @@ class FoodHistoryViewController: UITableViewController {
         if segue.identifier == "GoToFoodDetail" {
             let destVC = segue.destination as! FoodDetailViewController
             if let indexPath = tableView.indexPathForSelectedRow {
-                destVC.food = foodListCopy?[((foodListCopy?.count ?? 0) - 1) - indexPath.row]
+                destVC.food = sortedFood[indexPath.row]
                 destVC.delegate = delegate
                 destVC.mealDelegate = mealDelegate
                 destVC.date = date
@@ -155,7 +153,14 @@ class FoodHistoryViewController: UITableViewController {
 extension FoodHistoryViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        foodListCopy = foodListCopy?.filter("name CONTAINS[cd] %@", searchBar.text!)
+        if searchBar.text != "" {
+            sortedFoodCopy = []
+            for food in sortedFood {
+                if (food.name?.contains(searchBar.text!))! {
+                    sortedFoodCopy.append(food)
+                }
+            }
+        }
         tableView.reloadData()
         searchBar.resignFirstResponder()
     }
@@ -171,11 +176,16 @@ extension FoodHistoryViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
 
         if searchText != "" {
-            foodListCopy = realm.objects(Food.self).filter("name CONTAINS[cd] %@", searchBar.text!)
+            sortedFoodCopy = []
+            for food in sortedFood {
+                if (food.name?.contains(searchBar.text!))! {
+                    sortedFoodCopy.append(food)
+                }
+            }
             tableView.reloadData()
         }
         else {
-            foodListCopy = realm.objects(Food.self)
+            sortedFoodCopy = sortedFood
             tableView.reloadData()
         }
     }
@@ -183,7 +193,7 @@ extension FoodHistoryViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = ""
         searchBar.resignFirstResponder()
-        foodListCopy = realm.objects(Food.self)
+        sortedFoodCopy = sortedFood
         tableView.reloadData()
     }
     

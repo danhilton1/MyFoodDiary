@@ -42,9 +42,10 @@ class MonthNutritionViewController: WeekNutritionViewController {
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "BarNutritionCell", for: indexPath) as! BarChartNutritionCell
             
+            let VC = parent as? NutritionViewController
+            
             cell.barChart.xAxis.granularityEnabled = true
-            cell.barChart.xAxis.valueFormatter = IndexAxisValueFormatter(values: ["Week 1", "Week 2", "Week 3",
-                                                                                  "Week 4", "Week 5", "Week 6"])
+            cell.barChart.xAxis.valueFormatter = IndexAxisValueFormatter(values: VC?.monthChartLabels.reversed() ?? ["1", "2", "3", "4", "5"])
 
             cell.barChart.xAxis.axisMaximum = Double(proteinChartDataSet.count)
             let reversedProteinDataSet = BarChartDataSet(entries: proteinChartDataSet.reversed(), label: "Av. Protein / Day")

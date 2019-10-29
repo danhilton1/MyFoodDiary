@@ -60,7 +60,12 @@ class Food: Object {
     @objc dynamic var carbs: Double = 0
     @objc dynamic var fat: Double = 0
     @objc dynamic var isDeleted = false
-    
+    var dateValue: Date {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "E, d MMM"
+        guard let date = date else { return Date() }
+        return formatter.date(from: date)?.addingTimeInterval(3600) ?? Date()
+    }
     
     
     func copy(with zone: NSZone? = nil) -> Food {
@@ -76,6 +81,8 @@ class Food: Object {
         copy.fat = self.fat
         return copy
     }
+    
+    
     
     
 }
