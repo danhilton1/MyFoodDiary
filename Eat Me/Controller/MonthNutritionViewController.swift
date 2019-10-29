@@ -20,6 +20,7 @@ class MonthNutritionViewController: WeekNutritionViewController {
     var monthAverageCarbs: Double?
     var monthAverageFat: Double?
     var monthAverageCalories: Double?
+    var reverse: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,18 +46,32 @@ class MonthNutritionViewController: WeekNutritionViewController {
             let VC = parent as? NutritionViewController
             
             cell.barChart.xAxis.granularityEnabled = true
-            cell.barChart.xAxis.valueFormatter = IndexAxisValueFormatter(values: VC?.monthChartLabels.reversed() ?? ["1", "2", "3", "4", "5"])
+            var chartData: BarChartData
+            
+            if reverse {
+                cell.barChart.xAxis.valueFormatter = IndexAxisValueFormatter(values: VC?.monthChartLabels.reversed() ?? ["1", "2", "3", "4", "5"])
 
-            cell.barChart.xAxis.axisMaximum = Double(proteinChartDataSet.count)
-            let reversedProteinDataSet = BarChartDataSet(entries: proteinChartDataSet.reversed(), label: "Av. Protein / Day")
-            let reversedCarbsDataSet = BarChartDataSet(entries: carbsChartDataSet.reversed(), label: "Av. Carbs / Day")
-            let reversedFatDataSet = BarChartDataSet(entries: fatChartDataSet.reversed(), label: "Av. Fat / Day")
-            let chartDataSets = [reversedProteinDataSet, reversedCarbsDataSet, reversedFatDataSet]
-            //let chartDataSets = [proteinChartDataSet, carbsChartDataSet, fatChartDataSet]//.reversed()
-            reversedProteinDataSet.colors = [Color.mint]
-            reversedCarbsDataSet.colors = [Color.skyBlue]
-            reversedFatDataSet.colors = [Color.salmon]
-            let chartData = BarChartData(dataSets: chartDataSets)
+                cell.barChart.xAxis.axisMaximum = Double(proteinChartDataSet.count)
+                let reversedProteinDataSet = BarChartDataSet(entries: proteinChartDataSet.reversed(), label: "Av. Protein / Day")
+                let reversedCarbsDataSet = BarChartDataSet(entries: carbsChartDataSet.reversed(), label: "Av. Carbs / Day")
+                let reversedFatDataSet = BarChartDataSet(entries: fatChartDataSet.reversed(), label: "Av. Fat / Day")
+                let chartDataSets = [reversedProteinDataSet, reversedCarbsDataSet, reversedFatDataSet]
+                //let chartDataSets = [proteinChartDataSet, carbsChartDataSet, fatChartDataSet]//.reversed()
+                reversedProteinDataSet.colors = [Color.mint]
+                reversedCarbsDataSet.colors = [Color.skyBlue]
+                reversedFatDataSet.colors = [Color.salmon]
+                chartData = BarChartData(dataSets: chartDataSets)
+            }
+            else {
+                cell.barChart.xAxis.valueFormatter = IndexAxisValueFormatter(values: VC?.monthChartLabels ?? ["1", "2", "3", "4", "5"])
+                cell.barChart.xAxis.axisMaximum = Double(proteinChartDataSet.count)
+                let chartDataSets = [proteinChartDataSet, carbsChartDataSet, fatChartDataSet]
+                proteinChartDataSet.colors = [Color.mint]
+                carbsChartDataSet.colors = [Color.skyBlue]
+                fatChartDataSet.colors = [Color.salmon]
+                chartData = BarChartData(dataSets: chartDataSets)
+                
+            }
             chartData.setValueFormatter(XValueFormatter())
             chartData.barWidth = 0.23
             chartData.groupBars(fromX: 0, groupSpace: 0.16, barSpace: 0.05)

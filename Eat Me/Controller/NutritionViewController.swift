@@ -44,7 +44,9 @@ class NutritionViewController: UIViewController {
         }
     }
     var startOfWeekDate: Date?
+    var endOfWeekDate: Date?
     var dateCopy: Date?
+    var dateCopyForEndOfWeek: Date?
     var monthChartLabels = [String]()
     var calories = 0
     
@@ -59,10 +61,11 @@ class NutritionViewController: UIViewController {
         dateLabel.text = dateAsString
         setFoodList(date: date)
         setDataForInitalChildVC()
+        
         setUpWeekView(direction: .backward, date: date, considerToday: true)
         setUpMonthView(direction: .backward, date: date, considerToday: true)
         setUpWeekView(direction: .backward, date: date, considerToday: true)
-        
+        dateCopyForEndOfWeek = dateCopy
     }
     
     //MARK: - Set Data Methods
@@ -129,6 +132,14 @@ class NutritionViewController: UIViewController {
 
         guard let today = date else { return }
         let monday = today.next(.monday, direction: direction, considerToday: considerToday) //Get date of last/next monday
+        var sunday: Date
+        if considerToday == false {
+            sunday = today.next(.sunday, direction: .forward, considerToday: considerToday).addingTimeInterval(-601200)
+        }
+        else {
+            sunday = today.next(.sunday, direction: .forward, considerToday: considerToday)
+        }
+        endOfWeekDate = sunday
         startOfWeekDate = monday
         monthChartLabels = [formatter.string(from: startOfWeekDate ?? Date())]
         //set chart data set to food list of each day.
@@ -162,12 +173,12 @@ class NutritionViewController: UIViewController {
         else {
             value = 7
         }
+        dateCopy = dateCopy?.addingTimeInterval(3600)
         
-        for i in 1...4 {   // Loop through the next weeks of the month and retrive the average values and append to chart data
+        for i in 0...2 {   // Loop through the next weeks of the month and retrive the average values and append to chart data
             
             dateCopy = calendar.date(byAdding: .day, value: value, to: dateCopy ?? Date())
             monthChartLabels.append(formatter.string(from: dateCopy ?? Date()))
-            
             getAverageValuesForWeek(date: dateCopy)
             
             monthVC?.monthAverageProtein = weekVC?.averageProtein.roundToXDecimalPoints(decimalPoints: 1)
@@ -183,7 +194,10 @@ class NutritionViewController: UIViewController {
             monthVC?.lineChartDataSet.append(ChartDataEntry(x: Double(i), y: monthVC?.monthAverageCalories?.roundToXDecimalPoints(decimalPoints: 1) ?? 0))
         }
         
-        //print(dateCopy)
+        if direction == .forward {
+            endOfWeekDate = dateCopy!.next(.sunday, direction: .forward, considerToday: considerToday)
+            dateCopy = calendar.date(byAdding: .day, value: -21, to: dateCopy ?? Date())
+        }
     }
     
     func getAverageValuesForWeek(date: Date?) {
@@ -274,8 +288,8 @@ class NutritionViewController: UIViewController {
             dayView.isHidden = true
             weekView.isHidden = true
             monthView.isHidden = false
-            formatter.dateFormat = "LLLL"
-            dateLabel.text = formatter.string(from: startOfWeekDate ?? Date())
+            formatter.dateFormat = "d MMM"
+            dateLabel.text = formatter.string(from: dateCopy ?? Date()) + " - " + formatter.string(from: endOfWeekDate ?? Date())
             formatter.dateFormat = "E, d MMM"
         }
     }
@@ -303,6 +317,7 @@ class NutritionViewController: UIViewController {
                 self.dateLabel.text = self.dateAsString
                 self.dateLabel.alpha = 1
             }
+            self.dayView.frame = self.dayView.frame.offsetBy(dx: -self.dayView.frame.width, dy: 0)
             UIView.animate(withDuration: 0.35, delay: 0, options: .curveEaseInOut, animations: {
                 var viewRightFrame = self.dayView.frame
                 viewRightFrame.origin.x += viewRightFrame.size.width
@@ -316,6 +331,7 @@ class NutritionViewController: UIViewController {
             setUpWeekView(direction: .backward, date: startOfWeekDate, considerToday: false)
             dateLabel.text = "Week Starting: \(formatter.string(from: startOfWeekDate ?? Date()))"
 
+            self.weekView.frame = self.weekView.frame.offsetBy(dx: -self.weekView.frame.width, dy: 0)
             UIView.animate(withDuration: 0.35, delay: 0, options: .curveEaseInOut, animations: {
                 var viewRightFrame = self.weekView.frame
                 viewRightFrame.origin.x += viewRightFrame.size.width
@@ -326,26 +342,19 @@ class NutritionViewController: UIViewController {
             weekVC?.reloadFood()
         }
         else {
-            print(dateCopy)
-            
-            formatter.dateFormat = "LLLL"
-            dateLabel.text = formatter.string(from: dateCopy ?? Date())
-            formatter.dateFormat = "E, d MMM"
+            monthVC?.reverse = true
             setUpMonthView(direction: .backward, date: dateCopy, considerToday: false)
-            
-            print(dateCopy)
-            //print(startOfWeekDate)
-            print(".")
-            print(monthView.frame)
+            formatter.dateFormat = "d MMM"
+            dateLabel.text = formatter.string(from: dateCopy ?? Date()) + " - " + formatter.string(from: endOfWeekDate ?? Date())
+            formatter.dateFormat = "E, d MMM"
+
             self.monthView.frame = self.monthView.frame.offsetBy(dx: -self.monthView.frame.width, dy: 0)
             UIView.animate(withDuration: 0.35, delay: 0, options: .curveEaseInOut, animations: {
-                print(self.monthView.frame)
                 var viewRightFrame = self.monthView.frame
                 viewRightFrame.origin.x += viewRightFrame.size.width
                 self.monthView.frame = viewRightFrame
                 
             }, completion: { completed in
-                print(self.monthView.frame)
                 self.monthView.superview?.setNeedsLayout()
             })
             
@@ -379,6 +388,7 @@ class NutritionViewController: UIViewController {
                 self.dateLabel.text = self.dateAsString
                 self.dateLabel.alpha = 1
             }
+            self.dayView.frame = self.dayView.frame.offsetBy(dx: self.dayView.frame.width, dy: 0)
             UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseInOut, animations: {
                 var viewLeftFrame = self.dayView.frame
                 viewLeftFrame.origin.x -= viewLeftFrame.size.width
@@ -392,6 +402,7 @@ class NutritionViewController: UIViewController {
             setUpWeekView(direction: .forward, date: startOfWeekDate, considerToday: false)
             dateLabel.text = "Week Starting: \(formatter.string(from: startOfWeekDate ?? Date()))"
             
+            self.weekView.frame = self.weekView.frame.offsetBy(dx: self.weekView.frame.width, dy: 0)
             UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseInOut, animations: {
                 var viewLeftFrame = self.weekView.frame
                 viewLeftFrame.origin.x -= viewLeftFrame.size.width
@@ -400,13 +411,12 @@ class NutritionViewController: UIViewController {
             
             weekVC?.reloadFood()
         }
-        else { // NEEDS FIXING
-            //dateCopy = startOfWeekDate
-            print(dateCopy)
-            setUpMonthView(direction: .forward, date: dateCopy, considerToday: false)
-            print(dateCopy)
-            formatter.dateFormat = "LLLL"
-            dateLabel.text = formatter.string(from: dateCopy ?? Date())
+        else {
+            monthVC?.reverse = false
+            setUpMonthView(direction: .forward, date: endOfWeekDate, considerToday: false)
+            //rint(dateCopy)
+            formatter.dateFormat = "d MMM"
+            dateLabel.text = formatter.string(from: dateCopy ?? Date()) + " - " + formatter.string(from: endOfWeekDate ?? Date())
             formatter.dateFormat = "E, d MMM"
             
             self.monthView.frame = self.monthView.frame.offsetBy(dx: self.monthView.frame.width, dy: 0)
