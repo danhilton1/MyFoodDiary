@@ -1,6 +1,6 @@
 platform :ios, '9.0'
 
-target 'Eat Me' do
+target 'My Food Diary' do
 
   use_frameworks!
 
