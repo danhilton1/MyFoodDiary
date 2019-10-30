@@ -6,3 +6,10 @@ This project is built using Xcode 11 and Swift 5.
 
 * In order to download and see project you must have Xcode 9.3 or later installed on your device.
 
+## Built With
+
+The following third-party frameworks are used in this project:
+
+* [Realm](https://github.com/realm/realm-cocoa)
+* [Charts](https://github.com/danielgindi/Charts)
+
