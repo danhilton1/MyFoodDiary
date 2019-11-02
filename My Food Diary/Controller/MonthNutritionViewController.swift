@@ -105,6 +105,7 @@ class MonthNutritionViewController: WeekNutritionViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "LineChartCell", for: indexPath) as! LineChartCell
             
             cell.lineChart.xAxis.granularityEnabled = true
+            cell.lineChart.xAxis.axisMaximum = 3.5
             let limitLine = ChartLimitLine(limit: 2500, label: "") // Set to actual goal
             limitLine.lineDashLengths = [8]
             limitLine.lineWidth = 1.5
@@ -113,10 +114,10 @@ class MonthNutritionViewController: WeekNutritionViewController {
             
             cell.lineChart.leftAxis.addLimitLine(limitLine)
             cell.lineChart.xAxis.valueFormatter = IndexAxisValueFormatter(values: ["Week 1", "Week 2", "Week 3",
-            "Week 4", "Week 5", "Week 6"])
+            "Week 4"])
 //            print(lineChartDataSet.first)
             //print(lineChartDataSet.reversed())
-            let reversedCalorieDataSet = LineChartDataSet(entries: lineChartDataSet.reversed(), label: "Av. Calories")
+            //let reversedCalorieDataSet = LineChartDataSet(entries: lineChartDataSet.reversed(), label: "Av. Calories")
             lineChartDataSet.colors = [Color.skyBlue]
             lineChartDataSet.circleColors = [Color.skyBlue]
             lineChartDataSet.valueFont = UIFont(name: "Montserrat-SemiBold", size: 12)!

@@ -46,7 +46,6 @@ class NutritionViewController: UIViewController {
     var startOfWeekDate: Date?
     var endOfWeekDate: Date?
     var dateCopy: Date?
-    var dateCopyForEndOfWeek: Date?
     var monthChartLabels = [String]()
     var calories = 0
     
@@ -65,7 +64,6 @@ class NutritionViewController: UIViewController {
         setUpWeekView(direction: .backward, date: date, considerToday: true)
         setUpMonthView(direction: .backward, date: date, considerToday: true)
         setUpWeekView(direction: .backward, date: date, considerToday: true)
-        dateCopyForEndOfWeek = dateCopy
     }
     
     //MARK: - Set Data Methods
@@ -101,7 +99,7 @@ class NutritionViewController: UIViewController {
         
         guard let today = date else { return }
         let monday = today.next(.monday, direction: direction, considerToday: considerToday)
-        startOfWeekDate = monday
+        var startOfWeekDate = monday
         
         setFoodListCopy(date: startOfWeekDate)
         weekVC?.foodList = foodListCopy
@@ -117,7 +115,7 @@ class NutritionViewController: UIViewController {
         var dateCopy = startOfWeekDate
         // Append new entries to data sets from each day of the week
         for i in 1...6 {
-            dateCopy = calendar.date(byAdding: .day, value: 1, to: dateCopy ?? Date())
+            dateCopy = calendar.date(byAdding: .day, value: 1, to: dateCopy ?? Date())!
             setFoodListCopy(date: dateCopy)
             weekVC?.foodList = foodListCopy
             weekVC?.proteinChartDataSet.append(BarChartDataEntry(x: Double(i), y: weekVC?.protein ?? 0))
@@ -146,10 +144,20 @@ class NutritionViewController: UIViewController {
         setFoodListCopy(date: startOfWeekDate)
         monthVC?.foodList = foodListCopy
         
-        monthVC?.monthAverageProtein = weekVC?.averageProtein.roundToXDecimalPoints(decimalPoints: 1) ?? 0
-        monthVC?.monthAverageCarbs = weekVC?.averageCarbs.roundToXDecimalPoints(decimalPoints: 1) ?? 0
-        monthVC?.monthAverageFat = weekVC?.averageFat.roundToXDecimalPoints(decimalPoints: 1) ?? 0
-        monthVC?.monthAverageCalories = weekVC?.getAverageOfValue(dataSet: weekVC!.lineChartDataSet)
+        if considerToday {  // on inital load of VC, use the average values from weekVC otherwise calculate them from method
+            monthVC?.monthAverageProtein = weekVC?.averageProtein.roundToXDecimalPoints(decimalPoints: 1) ?? 0
+            monthVC?.monthAverageCarbs = weekVC?.averageCarbs.roundToXDecimalPoints(decimalPoints: 1) ?? 0
+            monthVC?.monthAverageFat = weekVC?.averageFat.roundToXDecimalPoints(decimalPoints: 1) ?? 0
+            monthVC?.monthAverageCalories = weekVC?.getAverageOfValue(dataSet: weekVC!.lineChartDataSet)
+        }
+        else {
+            getAverageValuesForWeek(date: startOfWeekDate)
+            monthVC?.monthAverageProtein = weekVC?.averageProteinCopy.roundToXDecimalPoints(decimalPoints: 1) ?? 0
+            monthVC?.monthAverageCarbs = weekVC?.averageCarbsCopy.roundToXDecimalPoints(decimalPoints: 1) ?? 0
+            monthVC?.monthAverageFat = weekVC?.averageFatCopy.roundToXDecimalPoints(decimalPoints: 1) ?? 0
+            monthVC?.monthAverageCalories = weekVC?.getAverageOfValue(dataSet: weekVC!.lineChartDataSetCopy)
+        }
+        
         // Set first entry in chart data set to the average values of the week starting from last Monday
         monthVC?.proteinChartDataSet = BarChartDataSet(entries:
             [BarChartDataEntry(x: 0, y: monthVC?.monthAverageProtein?.roundToXDecimalPoints(decimalPoints: 1) ?? 0)],
@@ -173,17 +181,18 @@ class NutritionViewController: UIViewController {
         else {
             value = 7
         }
-        dateCopy = dateCopy?.addingTimeInterval(3600)
+        dateCopy = dateCopy?.addingTimeInterval(3600)  // to accomodate for daylight saving times
         
-        for i in 0...2 {   // Loop through the next weeks of the month and retrive the average values and append to chart data
+        for i in 1...3 {   // Loop through the next weeks of the month and retrive the average values and append to chart data
             
             dateCopy = calendar.date(byAdding: .day, value: value, to: dateCopy ?? Date())
             monthChartLabels.append(formatter.string(from: dateCopy ?? Date()))
+            //print(dateCopy)
             getAverageValuesForWeek(date: dateCopy)
             
-            monthVC?.monthAverageProtein = weekVC?.averageProtein.roundToXDecimalPoints(decimalPoints: 1)
-            monthVC?.monthAverageCarbs = weekVC?.averageCarbs.roundToXDecimalPoints(decimalPoints: 1)
-            monthVC?.monthAverageFat = weekVC?.averageFat.roundToXDecimalPoints(decimalPoints: 1)
+            monthVC?.monthAverageProtein = weekVC?.averageProteinCopy.roundToXDecimalPoints(decimalPoints: 1)
+            monthVC?.monthAverageCarbs = weekVC?.averageCarbsCopy.roundToXDecimalPoints(decimalPoints: 1)
+            monthVC?.monthAverageFat = weekVC?.averageFatCopy.roundToXDecimalPoints(decimalPoints: 1)
             monthVC?.monthAverageCalories = weekVC?.getAverageOfValue(dataSet: weekVC!.lineChartDataSetCopy)
             
             setFoodListCopy(date: dateCopy)
@@ -343,6 +352,7 @@ class NutritionViewController: UIViewController {
         }
         else {
             monthVC?.reverse = true
+            print(dateCopy)
             setUpMonthView(direction: .backward, date: dateCopy, considerToday: false)
             formatter.dateFormat = "d MMM"
             dateLabel.text = formatter.string(from: dateCopy ?? Date()) + " - " + formatter.string(from: endOfWeekDate ?? Date())
@@ -413,6 +423,7 @@ class NutritionViewController: UIViewController {
         }
         else {
             monthVC?.reverse = false
+            print(endOfWeekDate)
             setUpMonthView(direction: .forward, date: endOfWeekDate, considerToday: false)
             //rint(dateCopy)
             formatter.dateFormat = "d MMM"

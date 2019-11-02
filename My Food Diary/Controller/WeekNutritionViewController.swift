@@ -77,6 +77,19 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
         set { }
     }
     
+    var averageProteinCopy: Double {
+        get { getAverageOfValue(dataSet: proteinChartDataSetCopy) }
+        set { }
+    }
+    var averageCarbsCopy: Double {
+        get { getAverageOfValue(dataSet: carbsChartDataSetCopy) }
+        set { }
+    }
+    var averageFatCopy: Double {
+        get { getAverageOfValue(dataSet: fatChartDataSetCopy) }
+        set { }
+    }
+    
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
