@@ -29,6 +29,7 @@
 		377208D22291B002002DDA29 /* MealOverviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377208D02291B002002DDA29 /* MealOverviewCell.swift */; };
 		377208D32291B002002DDA29 /* MealOverviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 377208D12291B002002DDA29 /* MealOverviewCell.xib */; };
 		377A57D2233F896100D816DD /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377A57D1233F896100D816DD /* Color.swift */; };
+		377C9BFA236DBA6A008165DA /* WeightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377C9BF9236DBA6A008165DA /* WeightViewController.swift */; };
 		378917C022C8DC3B00571181 /* BarcodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378917BF22C8DC3B00571181 /* BarcodeScannerViewController.swift */; };
 		378A01122323FD250035C803 /* Montserrat-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 378A01112323FD250035C803 /* Montserrat-Medium.otf */; };
 		378F9199231AC204007142AA /* FoodHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378F9198231AC204007142AA /* FoodHistoryCell.swift */; };
@@ -71,6 +72,7 @@
 		377208D02291B002002DDA29 /* MealOverviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealOverviewCell.swift; sourceTree = "<group>"; };
 		377208D12291B002002DDA29 /* MealOverviewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MealOverviewCell.xib; sourceTree = "<group>"; };
 		377A57D1233F896100D816DD /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		377C9BF9236DBA6A008165DA /* WeightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightViewController.swift; sourceTree = "<group>"; };
 		378917BF22C8DC3B00571181 /* BarcodeScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeScannerViewController.swift; sourceTree = "<group>"; };
 		378A01112323FD250035C803 /* Montserrat-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.otf"; sourceTree = "<group>"; };
 		378F9198231AC204007142AA /* FoodHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodHistoryCell.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 				37360AF423520BC000AA02A2 /* DayNutritionViewController.swift */,
 				37360AF623520BCC00AA02A2 /* WeekNutritionViewController.swift */,
 				37360AF823520BE300AA02A2 /* MonthNutritionViewController.swift */,
+				377C9BF9236DBA6A008165DA /* WeightViewController.swift */,
 				377208B42291A1F8002DDA29 /* AppDelegate.swift */,
 			);
 			path = Controller;
@@ -366,6 +369,7 @@
 				377208B72291A1F8002DDA29 /* OverviewViewController.swift in Sources */,
 				37360AF22351D62E00AA02A2 /* DayNutritionCell.swift in Sources */,
 				374BC02522BABA8800013610 /* Food.swift in Sources */,
+				377C9BFA236DBA6A008165DA /* WeightViewController.swift in Sources */,
 				372F5A612301C375006A8665 /* FoodDetailViewController.swift in Sources */,
 				378917C022C8DC3B00571181 /* BarcodeScannerViewController.swift in Sources */,
 				377208B52291A1F8002DDA29 /* AppDelegate.swift in Sources */,

@@ -8,6 +8,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Montserrat-Bold.otf">
+            <string>Montserrat-Bold</string>
+        </array>
         <array key="Montserrat-ExtraLight.otf">
             <string>Montserrat-ExtraLight</string>
         </array>
@@ -25,7 +28,7 @@
         <!--Overview-->
         <scene sceneID="HzX-gD-JO5">
             <objects>
-                <viewController storyboardIdentifier="OverviewVC" id="5FM-xa-IT0" customClass="OverviewViewController" customModule="Eat_Me" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OverviewVC" id="5FM-xa-IT0" customClass="OverviewViewController" customModule="My_Food_Diary" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LtX-DP-b4r">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -147,7 +150,7 @@
         <!--New Entry-->
         <scene sceneID="p8y-sN-6IJ">
             <objects>
-                <tableViewController title="New Entry" id="IYF-za-1ww" customClass="NewEntryViewController" customModule="Eat_Me" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="New Entry" id="IYF-za-1ww" customClass="NewEntryViewController" customModule="My_Food_Diary" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="50" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Rsl-k0-5J0">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -450,7 +453,7 @@
         <!--Pop Up New Entry View Controller-->
         <scene sceneID="I7F-kQ-nMu">
             <objects>
-                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="GsZ-0Q-v0R" customClass="PopUpNewEntryViewController" customModule="Eat_Me" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="GsZ-0Q-v0R" customClass="PopUpNewEntryViewController" customModule="My_Food_Diary" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EtL-Xu-1AI">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -570,7 +573,7 @@
         <!--Scan Barcode-->
         <scene sceneID="mGu-uo-bcr">
             <objects>
-                <viewController title="Scan Barcode" id="ZBk-MS-8G1" customClass="BarcodeScannerViewController" customModule="Eat_Me" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Scan Barcode" id="ZBk-MS-8G1" customClass="BarcodeScannerViewController" customModule="My_Food_Diary" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZbI-LU-BEw">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -642,7 +645,7 @@
         <!--Food History-->
         <scene sceneID="vyJ-Ye-BrX">
             <objects>
-                <tableViewController title="Food History" id="vPG-aI-vMb" customClass="FoodHistoryViewController" customModule="Eat_Me" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Food History" id="vPG-aI-vMb" customClass="FoodHistoryViewController" customModule="My_Food_Diary" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="2VQ-Je-28e">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -654,7 +657,7 @@
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="foodHistoryCell" rowHeight="50" id="dDh-Nw-rCN" customClass="FoodHistoryCell" customModule="Eat_Me" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="foodHistoryCell" rowHeight="50" id="dDh-Nw-rCN" customClass="FoodHistoryCell" customModule="My_Food_Diary" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="72" width="414" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dDh-Nw-rCN" id="xf2-BS-GF3">
@@ -726,7 +729,7 @@
         <!--Food Detail View Controller-->
         <scene sceneID="Vtm-sF-Xpt">
             <objects>
-                <tableViewController id="zEh-Ej-CbZ" customClass="FoodDetailViewController" customModule="Eat_Me" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="zEh-Ej-CbZ" customClass="FoodDetailViewController" customModule="My_Food_Diary" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="bol-h9-WCS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1033,9 +1036,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
+                                <color key="value" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </tabBar>
                     <connections>
                         <segue destination="02g-WF-Vpv" kind="relationship" relationship="viewControllers" id="jjQ-7p-HIe"/>
+                        <segue destination="H8s-Va-arG" kind="relationship" relationship="viewControllers" id="ehN-uo-uBh"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3IT-Pb-fiO" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1062,10 +1072,165 @@
             </objects>
             <point key="canvasLocation" x="1912" y="887"/>
         </scene>
+        <!--Weight-->
+        <scene sceneID="oHa-Ah-uFu">
+            <objects>
+                <navigationController id="H8s-Va-arG" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Weight" image="LineChartIcon30" selectedImage="LineChartIconSelected" id="yu8-yU-f6z">
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
+                                <color key="value" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </tabBarItem>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="4D8-Qa-Wph">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.21739959716796875" green="0.59010601043701172" blue="0.85885608196258545" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="hf2-6o-sMi" kind="relationship" relationship="rootViewController" id="2QZ-sw-cDk"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zHv-7p-4LU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-613" y="887"/>
+        </scene>
+        <!--Weight-->
+        <scene sceneID="xVQ-1k-yRz">
+            <objects>
+                <viewController id="hf2-6o-sMi" customClass="WeightViewController" customModule="My_Food_Diary" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="VG8-SW-duL">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="3Mw-Wh-760">
+                                <rect key="frame" x="99" y="15" width="216" height="23.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Weight:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bon-xz-8jN">
+                                        <rect key="frame" x="0.0" y="0.0" width="139.5" height="23.5"/>
+                                        <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="72.3 kg" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jmr-BS-N7n">
+                                        <rect key="frame" x="149.5" y="0.0" width="66.5" height="23.5"/>
+                                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="CPG-aK-Ef0">
+                                <rect key="frame" x="120" y="48.5" width="174.5" height="23.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Goal Weight:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D8W-7T-KSb">
+                                        <rect key="frame" x="0.0" y="0.0" width="114.5" height="23.5"/>
+                                        <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="75 kg" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7SL-Kl-8hi">
+                                        <rect key="frame" x="124.5" y="0.0" width="50" height="23.5"/>
+                                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="20"/>
+                                        <color key="textColor" red="0.094117647060000004" green="0.73725490199999999" blue="0.60784313729999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hCz-Za-3Ut">
+                                <rect key="frame" x="0.0" y="87" width="414" height="2"/>
+                                <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="2" id="bSl-0C-O9H"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="idj-0G-V2v">
+                                <rect key="frame" x="0.0" y="130" width="414" height="595"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XJE-es-w2p">
+                                <rect key="frame" x="10" y="90" width="30" height="39"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <state key="normal" title="←"/>
+                                <connections>
+                                    <action selector="leftArrowTapped:" destination="MK6-FC-eag" eventType="touchUpInside" id="Fub-VO-UBV"/>
+                                    <action selector="leftArrowTapped:" destination="hf2-6o-sMi" eventType="touchUpInside" id="u3J-eZ-cwA"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This Week" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="quY-yD-qp0">
+                                <rect key="frame" x="82" y="99" width="250" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="250" id="T21-CL-WS7"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P19-k4-QYI">
+                                <rect key="frame" x="374" y="90" width="30" height="39"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <state key="normal" title="→"/>
+                                <connections>
+                                    <action selector="rightArrowTapped:" destination="MK6-FC-eag" eventType="touchUpInside" id="8YA-GD-Vzt"/>
+                                    <action selector="rightArrowTapped:" destination="hf2-6o-sMi" eventType="touchUpInside" id="vuy-c0-9Sf"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="3Mw-Wh-760" firstAttribute="centerX" secondItem="VG8-SW-duL" secondAttribute="centerX" id="5AY-pz-Pei"/>
+                            <constraint firstItem="P19-k4-QYI" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="quY-yD-qp0" secondAttribute="trailing" constant="10" id="6hK-xi-GOx"/>
+                            <constraint firstItem="UtG-bV-hf1" firstAttribute="trailing" secondItem="hCz-Za-3Ut" secondAttribute="trailing" id="FLN-eb-uON"/>
+                            <constraint firstItem="idj-0G-V2v" firstAttribute="top" secondItem="quY-yD-qp0" secondAttribute="bottom" constant="10" id="KWe-co-OtZ"/>
+                            <constraint firstItem="P19-k4-QYI" firstAttribute="centerY" secondItem="XJE-es-w2p" secondAttribute="centerY" id="Mwb-fG-kkx"/>
+                            <constraint firstItem="XJE-es-w2p" firstAttribute="leading" secondItem="UtG-bV-hf1" secondAttribute="leading" constant="10" id="PeS-5P-tuY"/>
+                            <constraint firstItem="idj-0G-V2v" firstAttribute="leading" secondItem="UtG-bV-hf1" secondAttribute="leading" id="UEs-LZ-PpB"/>
+                            <constraint firstItem="quY-yD-qp0" firstAttribute="centerY" secondItem="XJE-es-w2p" secondAttribute="centerY" id="Vaz-aa-UjK"/>
+                            <constraint firstItem="quY-yD-qp0" firstAttribute="centerY" secondItem="XJE-es-w2p" secondAttribute="centerY" id="YgY-Cj-tM7"/>
+                            <constraint firstItem="CPG-aK-Ef0" firstAttribute="top" secondItem="3Mw-Wh-760" secondAttribute="bottom" constant="10" id="bYy-HE-4qo"/>
+                            <constraint firstItem="quY-yD-qp0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="XJE-es-w2p" secondAttribute="trailing" constant="10" id="d4g-kd-ucF"/>
+                            <constraint firstItem="hCz-Za-3Ut" firstAttribute="leading" secondItem="UtG-bV-hf1" secondAttribute="leading" id="e3N-gs-DmQ"/>
+                            <constraint firstItem="UtG-bV-hf1" firstAttribute="bottom" secondItem="idj-0G-V2v" secondAttribute="bottom" id="fcf-hg-1yn"/>
+                            <constraint firstItem="UtG-bV-hf1" firstAttribute="trailing" secondItem="idj-0G-V2v" secondAttribute="trailing" id="qRY-Sp-eJO"/>
+                            <constraint firstItem="UtG-bV-hf1" firstAttribute="trailing" secondItem="P19-k4-QYI" secondAttribute="trailing" constant="10" id="tH5-pC-PiZ"/>
+                            <constraint firstItem="quY-yD-qp0" firstAttribute="centerX" secondItem="VG8-SW-duL" secondAttribute="centerX" id="udQ-es-D0K"/>
+                            <constraint firstItem="hCz-Za-3Ut" firstAttribute="top" secondItem="CPG-aK-Ef0" secondAttribute="bottom" constant="15" id="v0U-yi-FOs"/>
+                            <constraint firstItem="CPG-aK-Ef0" firstAttribute="centerX" secondItem="VG8-SW-duL" secondAttribute="centerX" id="vKu-HE-zCh"/>
+                            <constraint firstItem="P19-k4-QYI" firstAttribute="centerY" secondItem="quY-yD-qp0" secondAttribute="centerY" id="xtA-dk-uUo"/>
+                            <constraint firstItem="quY-yD-qp0" firstAttribute="top" secondItem="hCz-Za-3Ut" secondAttribute="bottom" constant="10" id="y86-pY-FRb"/>
+                            <constraint firstItem="3Mw-Wh-760" firstAttribute="top" secondItem="UtG-bV-hf1" secondAttribute="top" constant="15" id="yiu-25-ADS"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="UtG-bV-hf1"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Weight" id="rVe-2W-bgI">
+                        <barButtonItem key="rightBarButtonItem" image="plus-icon" id="nAJ-jd-4MY">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="addButtonTapped:" destination="hf2-6o-sMi" id="WGo-UJ-8Iv"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="currentWeightLabel" destination="jmr-BS-N7n" id="zwh-F6-S3Z"/>
+                        <outlet property="goalWeightLabel" destination="7SL-Kl-8hi" id="zM6-Fc-0TS"/>
+                        <outlet property="tableView" destination="idj-0G-V2v" id="0hx-Oh-iEZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="B08-KB-uIm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="196" y="887"/>
+        </scene>
         <!--Meal Detail View Controller-->
         <scene sceneID="wik-Ry-uNc">
             <objects>
-                <tableViewController id="be3-9g-cDs" customClass="MealDetailViewController" customModule="Eat_Me" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="be3-9g-cDs" customClass="MealDetailViewController" customModule="My_Food_Diary" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="DtK-yo-s5S">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1078,7 +1243,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="mealDetailCell" rowHeight="35" id="uIP-t5-eDA" customClass="MealDetailCell" customModule="Eat_Me" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="mealDetailCell" rowHeight="35" id="uIP-t5-eDA" customClass="MealDetailCell" customModule="My_Food_Diary" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="88" width="414" height="35"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uIP-t5-eDA" id="IGh-jF-cex">
@@ -1115,7 +1280,7 @@
                                     <outlet property="typeLabel" destination="oPL-i2-h8v" id="s5P-dm-uS4"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="foodHistoryCell" rowHeight="52" id="JSR-C7-8LG" customClass="FoodHistoryCell" customModule="Eat_Me" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="foodHistoryCell" rowHeight="52" id="JSR-C7-8LG" customClass="FoodHistoryCell" customModule="My_Food_Diary" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="123" width="414" height="52"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JSR-C7-8LG" id="uuG-dS-nS5">
@@ -1187,7 +1352,7 @@
         <!--Nutrition-->
         <scene sceneID="ZfN-op-Iwg">
             <objects>
-                <viewController title="Nutrition" modalPresentationStyle="fullScreen" id="MK6-FC-eag" customClass="NutritionViewController" customModule="Eat_Me" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Nutrition" modalPresentationStyle="fullScreen" id="MK6-FC-eag" customClass="NutritionViewController" customModule="My_Food_Diary" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="E4g-Uu-XSN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1303,7 +1468,7 @@
         <!--Overview-->
         <scene sceneID="tJj-FD-Qcc">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="zZb-S5-xpY" customClass="OverviewPageViewController" customModule="Eat_Me" customModuleProvider="target" sceneMemberID="viewController">
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="zZb-S5-xpY" customClass="OverviewPageViewController" customModule="My_Food_Diary" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" title="Overview" largeTitleDisplayMode="never" id="9Wi-8z-4aN">
                         <barButtonItem key="leftBarButtonItem" title="Clear" id="PTo-Zb-ml5">
                             <color key="tintColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1330,7 +1495,7 @@
         <scene sceneID="m17-Ya-PX6">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="02g-WF-Vpv" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Overview" id="slk-QR-PS9"/>
+                    <tabBarItem key="tabBarItem" title="Overview" image="chart.pie" catalog="system" selectedImage="chart.pie" id="slk-QR-PS9"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="d8t-pi-Xsh"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="yGq-GE-FPE">
@@ -1382,7 +1547,7 @@
         <!--Day Nutrition View Controller-->
         <scene sceneID="h3w-It-tc6">
             <objects>
-                <viewController id="xWz-2c-1Qo" customClass="DayNutritionViewController" customModule="Eat_Me" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="xWz-2c-1Qo" customClass="DayNutritionViewController" customModule="My_Food_Diary" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="g8I-FI-U6B">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="699"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1391,7 +1556,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="699"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="mealDetailCell" rowHeight="35" id="dBC-fz-jAA" customClass="MealDetailCell" customModule="Eat_Me" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="mealDetailCell" rowHeight="35" id="dBC-fz-jAA" customClass="MealDetailCell" customModule="My_Food_Diary" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="35"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dBC-fz-jAA" id="Ke4-Yr-IgD">
@@ -1452,7 +1617,7 @@
         <!--Week Nutrition View Controller-->
         <scene sceneID="cdc-5I-XOO">
             <objects>
-                <viewController id="OQF-jP-zej" customClass="WeekNutritionViewController" customModule="Eat_Me" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="OQF-jP-zej" customClass="WeekNutritionViewController" customModule="My_Food_Diary" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CxE-DK-Cbm">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="699"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1483,7 +1648,7 @@
         <!--Month Nutrition View Controller-->
         <scene sceneID="WEF-8L-2Kd">
             <objects>
-                <viewController id="bFV-IR-7KA" customClass="MonthNutritionViewController" customModule="Eat_Me" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="bFV-IR-7KA" customClass="MonthNutritionViewController" customModule="My_Food_Diary" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tfP-0K-8b4">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="699"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1513,6 +1678,9 @@
     </scenes>
     <resources>
         <image name="BarChatIcon" width="30" height="30"/>
+        <image name="LineChartIcon30" width="30" height="30"/>
+        <image name="LineChartIconSelected" width="30" height="30"/>
+        <image name="chart.pie" catalog="system" width="64" height="60"/>
         <image name="plus-icon" width="37.5" height="37.5"/>
         <image name="tick-icon" width="37.5" height="37.5"/>
         <image name="xmark.circle.fill" catalog="system" width="64" height="60"/>

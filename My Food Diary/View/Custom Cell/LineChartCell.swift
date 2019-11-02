@@ -13,6 +13,9 @@ class LineChartCell: UITableViewCell {
 
     @IBOutlet weak var lineChart: LineChartView!
     @IBOutlet weak var caloriesLabel: UILabel!
+    @IBOutlet weak var caloriesTitleLabel: UILabel!
+    @IBOutlet weak var averageTitleLabel: UILabel!
+    @IBOutlet weak var goalValueLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

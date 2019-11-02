@@ -98,6 +98,53 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
     }
 
     
+    func getTotalValueOfNutrient(_ nutrient: macroNutrient, foodList: Results<Food>?) -> Double {
+        let nutrientArray = (foodList?.value(forKey: nutrient.stringValue)) as! [Double]
+        return nutrientArray.reduce(0, +)
+    }
+    
+    
+    func getAverageOfValue(dataSet: ChartDataSet) -> Double {
+        var average = 0.0
+        for value in dataSet.entries {
+            average += value.y
+        }
+        return average / Double(dataSet.entries.count)
+    }
+    
+    
+    enum macroNutrient {
+        case protein
+        case carbs
+        case fat
+        case calories
+        
+        var stringValue: String {
+            switch self {
+            case .protein:
+                return "protein"
+            case .carbs:
+                return "carbs"
+            case .fat:
+                return "fat"
+            case .calories:
+                return "calories"
+            }
+        }
+    }
+    
+    
+    public class XValueFormatter: NSObject, IValueFormatter {
+
+        public func stringForValue(_ value: Double, entry: ChartDataEntry, dataSetIndex: Int, viewPortHandler: ViewPortHandler?) -> String {
+            return value <= 0.0 ? "" : String(describing: value)
+        }
+    }
+    
+}
+
+
+extension WeekNutritionViewController {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
     }
@@ -160,51 +207,4 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
             return 400
         }
     }
-    
-    
-    
-    
-    func getTotalValueOfNutrient(_ nutrient: macroNutrient, foodList: Results<Food>?) -> Double {
-        let nutrientArray = (foodList?.value(forKey: nutrient.stringValue)) as! [Double]
-        return nutrientArray.reduce(0, +)
-    }
-    
-    
-    func getAverageOfValue(dataSet: ChartDataSet) -> Double {
-        var average = 0.0
-        for value in dataSet.entries {
-            average += value.y
-        }
-        return average / Double(dataSet.entries.count)
-    }
-    
-    
-    enum macroNutrient {
-        case protein
-        case carbs
-        case fat
-        case calories
-        
-        var stringValue: String {
-            switch self {
-            case .protein:
-                return "protein"
-            case .carbs:
-                return "carbs"
-            case .fat:
-                return "fat"
-            case .calories:
-                return "calories"
-            }
-        }
-    }
-    
-    
-    public class XValueFormatter: NSObject, IValueFormatter {
-
-        public func stringForValue(_ value: Double, entry: ChartDataEntry, dataSetIndex: Int, viewPortHandler: ViewPortHandler?) -> String {
-            return value <= 0.0 ? "" : String(describing: value)
-        }
-    }
-    
 }
