@@ -443,6 +443,16 @@ extension Double {
         }
         return numberString
     }
+    
+    mutating func roundWholeAndRemovePointZero() -> String {
+        let value = Darwin.round(self)
+        var valueString = String(value)
+        
+        if valueString.hasSuffix(".0") {
+            valueString.removeLast(2)
+        }
+        return valueString
+    }
 }
 
 
