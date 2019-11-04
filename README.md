@@ -5,6 +5,7 @@ This is the GitHub repository for 'My Food Diary' - an iOS app that lets you tra
 This project is built using Xcode 11 and Swift 5.
 
 * In order to download and see project you must have Xcode 9.3 or later installed on your device.
+* Use the .xcworkspace file for the frameworks to work.
 
 ## Built With
 
