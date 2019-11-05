@@ -20,7 +20,7 @@ class MonthNutritionViewController: WeekNutritionViewController {
     var monthAverageCarbs: Double?
     var monthAverageFat: Double?
     var monthAverageCalories: Double?
-    var reverse: Bool = true
+    var direction: Calendar.SearchDirection = .backward
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,7 +48,7 @@ class MonthNutritionViewController: WeekNutritionViewController {
             cell.barChart.xAxis.granularityEnabled = true
             var chartData: BarChartData
             
-            if reverse {
+            if direction == .backward {
                 cell.barChart.xAxis.valueFormatter = IndexAxisValueFormatter(values: VC?.monthChartLabels.reversed() ?? ["1", "2", "3", "4", "5"])
 
                 cell.barChart.xAxis.axisMaximum = Double(proteinChartDataSet.count)
@@ -104,6 +104,8 @@ class MonthNutritionViewController: WeekNutritionViewController {
         else if indexPath.row == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "LineChartCell", for: indexPath) as! LineChartCell
             
+            let VC = parent as? NutritionViewController
+            
             cell.lineChart.xAxis.granularityEnabled = true
             cell.lineChart.xAxis.axisMaximum = 3.5
             let limitLine = ChartLimitLine(limit: 2500, label: "") // Set to actual goal
@@ -113,19 +115,41 @@ class MonthNutritionViewController: WeekNutritionViewController {
             limitLine.valueFont = UIFont(name: "Montserrat-Regular", size: 12)!
             
             cell.lineChart.leftAxis.addLimitLine(limitLine)
-            cell.lineChart.xAxis.valueFormatter = IndexAxisValueFormatter(values: ["Week 1", "Week 2", "Week 3",
-            "Week 4"])
-//            print(lineChartDataSet.first)
-            //print(lineChartDataSet.reversed())
-            //let reversedCalorieDataSet = LineChartDataSet(entries: lineChartDataSet.reversed(), label: "Av. Calories")
-            lineChartDataSet.colors = [Color.skyBlue]
-            lineChartDataSet.circleColors = [Color.skyBlue]
-            lineChartDataSet.valueFont = UIFont(name: "Montserrat-SemiBold", size: 12)!
-            // NEEDS CHANGING AND FIXING
-            
-            let chartData = LineChartData(dataSet: lineChartDataSet)
-            cell.lineChart.data = chartData
-            
+            cell.lineChart.xAxis.valueFormatter = IndexAxisValueFormatter(values: VC?.monthChartLabels.reversed() ?? ["1", "2", "3", "4", "5"])
+//            cell.lineChart.xAxis.valueFormatter = IndexAxisValueFormatter(values: ["Week 1", "Week 2", "Week 3",
+//            "Week 4"])
+
+            if direction == .backward {
+                let reversedCalorieDataSet = LineChartDataSet(entries: [ChartDataEntry(x: 0, y: 0)], label: "Calories")
+                _=reversedCalorieDataSet.remove(at: 0)
+                for i in stride(from: lineChartDataSet.count - 1, through: 0, by: -1) {
+                    reversedCalorieDataSet.append(lineChartDataSet[i])
+                }
+                var index = 0.0
+                for value in reversedCalorieDataSet.entries {
+                    value.x = index
+                    index += 1
+                }
+
+                reversedCalorieDataSet.colors = [Color.skyBlue]
+                reversedCalorieDataSet.circleColors = [Color.skyBlue]
+                reversedCalorieDataSet.valueFont = UIFont(name: "Montserrat-SemiBold", size: 12)!
+                
+                let chartData = LineChartData(dataSet: reversedCalorieDataSet)
+                cell.lineChart.data = chartData
+            }
+            else {
+                cell.lineChart.xAxis.valueFormatter = IndexAxisValueFormatter(values: VC?.monthChartLabels ?? ["1", "2", "3", "4", "5"])
+                lineChartDataSet.colors = [Color.skyBlue]
+                lineChartDataSet.circleColors = [Color.skyBlue]
+                lineChartDataSet.valueFont = UIFont(name: "Montserrat-SemiBold", size: 12)!
+                
+                let chartData = LineChartData(dataSet: lineChartDataSet)
+                cell.lineChart.data = chartData
+            }
+            cell.lineChart.animate(yAxisDuration: 0.5)
+            var averageCalories = round(getAverageOfValue(dataSet: lineChartDataSet))
+            cell.caloriesLabel.text = averageCalories.removePointZeroEndingAndConvertToString()
             
             return cell
         }
