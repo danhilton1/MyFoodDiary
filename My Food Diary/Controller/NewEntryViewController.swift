@@ -179,6 +179,20 @@ class NewEntryViewController: UITableViewController, UITextFieldDelegate {
         return true
     }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if (textField == foodNameTextField) {
+                let oldString = textField.text!
+                let newStart = oldString.index(oldString.startIndex, offsetBy: range.location)
+                let newEnd = oldString.index(oldString.startIndex, offsetBy: range.location + range.length)
+                let newString = oldString.replacingCharacters(in: newStart..<newEnd, with: string)
+                textField.text = newString.replacingOccurrences(of: " ", with: "\u{00a0}")
+                return false;
+            } else {
+                return true;
+            }
+        }
+        
+    
     @objc func tableViewTapped() {
         
         foodNameTextField.endEditing(true)
