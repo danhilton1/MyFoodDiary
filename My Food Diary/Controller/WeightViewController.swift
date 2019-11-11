@@ -23,7 +23,8 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        navigationController?.navigationBar.barTintColor = Color.skyBlue
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "LineChartCell", bundle: nil), forCellReuseIdentifier: "LineChartCell")

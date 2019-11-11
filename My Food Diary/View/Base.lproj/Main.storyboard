@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TrC-wf-omx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TrC-wf-omx">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -635,6 +635,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="cameraView" destination="9O9-Bl-mQy" id="Non-v6-x0u"/>
+                        <outlet property="enterBarcodeButton" destination="MRW-B9-yB5" id="cre-Pj-9Z5"/>
                         <segue destination="zEh-Ej-CbZ" kind="show" identifier="goToFoodDetail" id="rhC-XE-e3F"/>
                     </connections>
                 </viewController>
@@ -1687,6 +1688,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="hIA-Yj-Du4"/>
-        <segue reference="RLa-wP-dh9"/>
+        <segue reference="rhC-XE-e3F"/>
     </inferredMetricsTieBreakers>
 </document>

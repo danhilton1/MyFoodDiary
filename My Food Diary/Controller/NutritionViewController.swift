@@ -205,7 +205,7 @@ class NutritionViewController: UIViewController {
             monthVC?.monthAverageCarbs = weekVC?.averageCarbsCopy.roundToXDecimalPoints(decimalPoints: 1)
             monthVC?.monthAverageFat = weekVC?.averageFatCopy.roundToXDecimalPoints(decimalPoints: 1)
             monthVC?.monthAverageCalories = weekVC?.getAverageOfValue(dataSet: weekVC!.lineChartDataSetCopy)
-            
+            //print(monthVC?.monthAverageProtein)
             setFoodListCopy(date: dateCopy)
             monthVC?.foodListCopy = foodListCopy
             monthVC?.proteinChartDataSet.append(BarChartDataEntry(x: Double(i), y: monthVC?.monthAverageProtein?.roundToXDecimalPoints(decimalPoints: 1) ?? 0))
@@ -223,7 +223,7 @@ class NutritionViewController: UIViewController {
     
     func getAverageValuesForWeek(date: Date?) {
         // Retrieves the values for the week that is set in the method call and sets the chart data set to averages values for selected week
-        
+        formatter.dateFormat = "E, d MMM"
         _=weekVC?.proteinChartDataSetCopy.remove(at: 0)  // Remove the previous first entry in data set to make way for new values
         _=weekVC?.carbsChartDataSetCopy.remove(at: 0)
         _=weekVC?.fatChartDataSetCopy.remove(at: 0)
@@ -242,7 +242,9 @@ class NutritionViewController: UIViewController {
             _=weekVC?.fatChartDataSetCopy.remove(at: 0)
             _=weekVC?.lineChartDataSetCopy.remove(at: 0)
             dateCopy = calendar.date(byAdding: .day, value: 1, to: dateCopy ?? Date())!
+            
             setFoodListCopy(date: dateCopy)
+            
             weekVC?.foodListCopy = foodListCopy
             weekVC?.proteinChartDataSetCopy.append(BarChartDataEntry(x: Double(i), y: weekVC?.getTotalValueOfNutrient(.protein, foodList: weekVC?.foodListCopy) ?? 0))
             weekVC?.carbsChartDataSetCopy.append(BarChartDataEntry(x: Double(i), y: weekVC?.getTotalValueOfNutrient(.carbs, foodList: weekVC?.foodListCopy) ?? 0))
@@ -253,8 +255,9 @@ class NutritionViewController: UIViewController {
 //            VC?.carbsChartDataSetCopy.append(BarChartDataEntry(x: Double(i), y: VC?.carbs ?? 0))
 //            VC?.fatChartDataSetCopy.append(BarChartDataEntry(x: Double(i), y: VC?.fat ?? 0))
 //            VC?.lineChartDataSetCopy.append(ChartDataEntry(x: Double(i), y: VC?.calories ?? 0))
-            
+           
         }
+        formatter.dateFormat = "d MMM"
     }
     
     //MARK: - Button Methods

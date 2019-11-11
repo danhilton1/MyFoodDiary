@@ -22,6 +22,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
     var date: Date?
     
     @IBOutlet weak var cameraView: UIView!
+    @IBOutlet weak var enterBarcodeButton: UIButton!
     private let activityIndicator = UIActivityIndicatorView()
 
     private let session = AVCaptureSession()
@@ -133,11 +134,21 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         let video = AVCaptureVideoPreviewLayer(session: session)
         video.videoGravity = AVLayerVideoGravity.resizeAspectFill
         cameraView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        cameraView.heightAnchor.constraint(equalTo: view.heightAnchor, constant: 40).isActive = true
-//        cameraView.frame.size = CGSize(width: view.widthAnchor., height: self.view.frame.height * 0.754)
+        cameraView.topAnchor.constraint(equalTo: view.topAnchor, constant: 60).isActive = true
+        cameraView.bottomAnchor.constraint(equalTo: enterBarcodeButton.topAnchor).isActive = true
+        //cameraView.heightAnchor.constraint(equalTo: view.heightAnchor, constant: 60).isActive = true
         video.frame = cameraView.layer.bounds
         
         cameraView.layer.addSublayer(video)
+        let torchIcon = UIImage(named: "TorchIcon")
+        let torchImage = UIImageView(image: torchIcon)
+        torchImage.translatesAutoresizingMaskIntoConstraints = false
+        cameraView.addSubview(torchImage)
+        torchImage.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        torchImage.contentMode = .scaleAspectFill
+        torchImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
+        torchImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30).isActive = true
+        
 
         session.startRunning()
         
