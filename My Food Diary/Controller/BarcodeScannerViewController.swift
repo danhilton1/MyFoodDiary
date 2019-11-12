@@ -136,20 +136,31 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         cameraView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         cameraView.topAnchor.constraint(equalTo: view.topAnchor, constant: 60).isActive = true
         cameraView.bottomAnchor.constraint(equalTo: enterBarcodeButton.topAnchor).isActive = true
-        //cameraView.heightAnchor.constraint(equalTo: view.heightAnchor, constant: 60).isActive = true
         video.frame = cameraView.layer.bounds
         
         cameraView.layer.addSublayer(video)
-        let torchIcon = UIImage(named: "TorchIcon")
-        let torchImage = UIImageView(image: torchIcon)
-        torchImage.translatesAutoresizingMaskIntoConstraints = false
-        cameraView.addSubview(torchImage)
-        torchImage.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
-        torchImage.contentMode = .scaleAspectFill
-        torchImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
-        torchImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30).isActive = true
         
-
+        let torchButton = UIButton(frame: CGRect(x: 0, y: 0, width: 55, height: 55))
+        cameraView.addSubview(torchButton)
+        torchButton.setBackgroundImage(UIImage(named: "TorchIcon"), for: .normal)
+        torchButton.layer.cornerRadius = 0.5
+        torchButton.addTarget(self, action: #selector(torchButtonTapped), for: .touchUpInside)
+        torchButton.translatesAutoresizingMaskIntoConstraints = false
+        torchButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
+        torchButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30).isActive = true
+        torchButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        torchButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        torchButton.alpha = 0.7
+        
+        let viewfinderImage = UIImage(named: "view finder")
+        let viewfinderImageView = UIImageView(image: viewfinderImage)
+        cameraView.addSubview(viewfinderImageView)
+        viewfinderImageView.translatesAutoresizingMaskIntoConstraints = false
+        viewfinderImageView.centerXAnchor.constraint(equalTo: cameraView.centerXAnchor).isActive = true
+        viewfinderImageView.centerYAnchor.constraint(equalTo: cameraView.centerYAnchor).isActive = true
+        viewfinderImageView.heightAnchor.constraint(equalToConstant: 190).isActive = true
+        viewfinderImageView.widthAnchor.constraint(equalToConstant: 320).isActive = true
+        
         session.startRunning()
         
     }
@@ -196,7 +207,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
     }
     
     
-    //MARK:- Manual Barcode Entry Method
+    //MARK:- Barcode Entry Methods
     
     @IBAction func enterManuallyTapped(_ sender: UIButton) {
         
@@ -279,6 +290,8 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
     }
     
     
+    //MARK: - View and UI Methods
+    
     private func dimViewAndShowLoading() {
         dimmedView.backgroundColor = .black
         dimmedView.alpha = 0.35
@@ -297,6 +310,30 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         }))
         
         present(alertController, animated: true)
+    }
+    
+    @objc func torchButtonTapped(sender: UIButton) {
+        guard let device = captureDevice else { return }
+        guard device.hasTorch else { return }
+        
+        do {
+            try device.lockForConfiguration()
+
+            if (device.torchMode == AVCaptureDevice.TorchMode.on) {
+                device.torchMode = AVCaptureDevice.TorchMode.off
+                sender.alpha = 0.7
+            } else {
+                do {
+                    try device.setTorchModeOn(level: 1.0)
+                    sender.alpha = 1
+                } catch {
+                    print(error)
+                }
+            }
+            device.unlockForConfiguration()
+        } catch {
+            print(error)
+        }
     }
     
     

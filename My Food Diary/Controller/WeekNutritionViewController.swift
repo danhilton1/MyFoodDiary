@@ -212,6 +212,8 @@ extension WeekNutritionViewController {
             cell.lineChart.animate(yAxisDuration: 0.5)
             cell.lineChart.data = chartData
             
+            var averageCalories = round(getAverageOfValue(dataSet: lineChartDataSet))
+            cell.caloriesLabel.text = averageCalories.removePointZeroEndingAndConvertToString()
             
             return cell
         }

@@ -39,7 +39,7 @@ class FoodDetailViewController: UITableViewController {
         super.viewDidLoad()
         
         navigationController?.navigationBar.tintColor = .white
-
+        //tabBarController?.tabBar.isHidden = true
         tableView.keyboardDismissMode = .interactive
         tableView.allowsSelection = false
         
@@ -52,6 +52,11 @@ class FoodDetailViewController: UITableViewController {
         setUpCells()
         
 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        presentingViewController?.tabBarController?.tabBar.isHidden = true
     }
     
     private func dismissViewWithAnimation() {

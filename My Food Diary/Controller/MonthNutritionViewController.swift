@@ -116,8 +116,6 @@ class MonthNutritionViewController: WeekNutritionViewController {
             
             cell.lineChart.leftAxis.addLimitLine(limitLine)
             cell.lineChart.xAxis.valueFormatter = IndexAxisValueFormatter(values: VC?.monthChartLabels.reversed() ?? ["1", "2", "3", "4", "5"])
-//            cell.lineChart.xAxis.valueFormatter = IndexAxisValueFormatter(values: ["Week 1", "Week 2", "Week 3",
-//            "Week 4"])
 
             if direction == .backward {
                 let reversedCalorieDataSet = LineChartDataSet(entries: [ChartDataEntry(x: 0, y: 0)], label: "Calories")

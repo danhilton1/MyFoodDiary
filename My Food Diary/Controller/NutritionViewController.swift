@@ -107,7 +107,7 @@ class NutritionViewController: UIViewController {
         // Set chart data set to food list of last monday.
         guard let weekView = weekVC else { return }
         
-        weekVC?.proteinChartDataSet = BarChartDataSet(entries: [BarChartDataEntry(x: 0, y: weekView.protein)],
+        weekVC?.proteinChartDataSet = BarChartDataSet(entries: [BarChartDataEntry(x: 0, y: round(weekView.protein))],
         label: "Protein")
         weekVC?.carbsChartDataSet = BarChartDataSet(entries: [BarChartDataEntry(x: 0, y: round(weekView.carbs) )],
         label: "Carbs")
@@ -178,7 +178,7 @@ class NutritionViewController: UIViewController {
             [BarChartDataEntry(x: 0, y: monthVC?.monthAverageFat?.roundToXDecimalPoints(decimalPoints: 1) ?? 0)],
              label: "Av. Fat (Day)")
         monthVC?.lineChartDataSet = LineChartDataSet(entries:
-            [ChartDataEntry(x: 0, y: monthVC?.monthAverageCalories?.roundToXDecimalPoints(decimalPoints: 1) ?? 0)],
+            [ChartDataEntry(x: 0, y: round(monthVC?.monthAverageCalories ?? 0))],
              label: "Av. Calories (Day)")
         
         dateCopy = startOfWeekDate
@@ -211,7 +211,7 @@ class NutritionViewController: UIViewController {
             monthVC?.proteinChartDataSet.append(BarChartDataEntry(x: Double(i), y: monthVC?.monthAverageProtein?.roundToXDecimalPoints(decimalPoints: 1) ?? 0))
             monthVC?.carbsChartDataSet.append(BarChartDataEntry(x: Double(i), y: monthVC?.monthAverageCarbs?.roundToXDecimalPoints(decimalPoints: 1) ?? 0))
             monthVC?.fatChartDataSet.append(BarChartDataEntry(x: Double(i), y: monthVC?.monthAverageFat?.roundToXDecimalPoints(decimalPoints: 1) ?? 0))
-            monthVC?.lineChartDataSet.append(ChartDataEntry(x: Double(i), y: monthVC?.monthAverageCalories?.roundToXDecimalPoints(decimalPoints: 1) ?? 0))
+            monthVC?.lineChartDataSet.append(ChartDataEntry(x: Double(i), y: round(monthVC?.monthAverageCalories ?? 0)))
         }
         
         if direction == .forward {
