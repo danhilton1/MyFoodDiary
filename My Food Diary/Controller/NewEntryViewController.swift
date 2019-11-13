@@ -63,9 +63,11 @@ class NewEntryViewController: UIViewController, UITableViewDelegate, UITableView
         let dismissButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
         dismissButton.setImage(UIImage(named: "plus-icon"), for: .normal)
         dismissButton.addTarget(self, action: #selector(dismissButtonTapped), for: .touchUpInside)
+        dismissButton.imageView?.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 4))
+        dismissButton.imageView?.clipsToBounds = false
+        dismissButton.imageView?.contentMode = .center
         let barButton = UIBarButtonItem(customView: dismissButton)
         navigationItem.leftBarButtonItem = barButton
-        navigationItem.leftBarButtonItem?.customView!.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 4))
         
         navigationController?.navigationBar.barTintColor = Color.skyBlue
     }

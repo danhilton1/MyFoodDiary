@@ -25,6 +25,19 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     private var totalCalsArray = [Int]()
     private var refreshControl = UIRefreshControl()
     private let formatter = DateFormatter()
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+    private let datePicker = UIDatePicker()
+    override var inputView: UIView? {
+        return self.datePicker
+    }
+    override var inputAccessoryView: UIView? {
+        return self.toolbar
+    }
+    private let toolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
+       
+    let dimView = UIView()
     
     //  Required to be set before VC presented
     var date: Date?
@@ -46,9 +59,12 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         configureDateView()
         loadAllFood()
         
+        self.toolbar.items = [
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dateEntered))
+        ]
         
-//        tabBarController?.hidesBottomBarWhenPushed = true
-        
+        self.toolbar.sizeToFit()
     }
     
 
@@ -84,20 +100,28 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     
     
     @IBAction func datePickerTapped(_ sender: UIButton) {
-//        let picker : UIDatePicker = UIDatePicker()
-//        picker.datePickerMode = UIDatePicker.Mode.date
-//        picker.addTarget(self, action: #selector(dueDateChanged(sender:)), for: UIControl.Event.valueChanged)
-//        let pickerSize : CGSize = picker.sizeThatFits(CGSize.zero)
-//        picker.frame = CGRect(x:0.0, y:250, width:pickerSize.width, height:200)
-//        picker.backgroundColor = UIColor.white
-//        self.view.addSubview(picker)
+        
+        dimView.frame = self.view.frame
+        dimView.backgroundColor = .black
+        dimView.alpha = 0
+        self.view.addSubview(dimView)
+        UIView.animate(withDuration: 0.25) {
+            self.dimView.alpha = 0.35
+            
         }
-//    @objc func dueDateChanged(sender:UIDatePicker){
-//            let dateFormatter = DateFormatter()
-//            dateFormatter.dateStyle = .short
-//            dateFormatter.timeStyle = .none
-//        dobButton.setTitle(dateFormatter.string(from: sender.date), for: .normal)
-//    }
+        self.becomeFirstResponder()
+        
+    }
+    @objc func dateEntered() {
+        self.resignFirstResponder()
+        UIView.animate(withDuration: 0.2) {
+            self.dimView.alpha = 0
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2 ) {
+            self.dimView.removeFromSuperview()
+        }
+        
+    }
     
     //MARK:- Data methods
     
