@@ -83,7 +83,7 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
         
         guard
             let popupNav = storyboard?.instantiateViewController(withIdentifier: "PopUpVCNav") as? UINavigationController,
-            let popupVC = popupNav.viewControllers.first as? PopUpNewEntryViewController,
+            let popupVC = popupNav.viewControllers.first as? NewEntryViewController,
             let vc = viewControllers?[0] as? OverviewViewController
             else {
                 return

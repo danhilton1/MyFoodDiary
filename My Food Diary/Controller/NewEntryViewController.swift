@@ -1,147 +1,76 @@
 //
-//  NewEntryViewController.swift
+//  NewEntryPopUpViewController.swift
 //  Eat Me
 //
-//  Created by Daniel Hilton on 31/05/2019.
+//  Created by Daniel Hilton on 28/06/2019.
 //  Copyright © 2019 Daniel Hilton. All rights reserved.
 //
 
 import UIKit
 import RealmSwift
 
-protocol NewEntryDelegate: class {
-    func reloadFood()
-}
-
-class NewEntryViewController: UITableViewController, UITextFieldDelegate {
+class NewEntryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     let realm = try! Realm()
     
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var enterManuallyButton: UIButton!
+    
+    var date: Date?
+    var meal = Food.Meal.breakfast
     weak var delegate: NewEntryDelegate?
     weak var mealDelegate: NewEntryDelegate?
-    var date: Date?
-    var selectedSegmentIndex = 0
-    var activeField: UITextField?
-
-    private var workingCopy: Food = Food()
-
-    //MARK: - Properties and Objects
+    private var foodList: Results<Food>?
+    private var sortedFood = [Food]()
+    private var sortedFoodCopy = [Food]()
     
-    @IBOutlet weak var mealPicker: UISegmentedControl!
-    @IBOutlet weak var foodNameTextField: UITextField!
-    @IBOutlet weak var servingSizeTextField: UITextField!
-    @IBOutlet weak var servingTextField: UITextField!
-    @IBOutlet weak var caloriesTextField: UITextField!
-    @IBOutlet weak var proteinTextField: UITextField!
-    @IBOutlet weak var carbsTextField: UITextField!
-    @IBOutlet weak var fatTextField: UITextField!
     
-
-
-    
-    //MARK: - viewDidLoad
+    enum Segues {
+        static let goToManualEntry = "GoToManualEntry"
+        static let goToBarcodeScanner = "GoToBarcodeScanner"
+        static let goToFoodHistory = "GoToFoodHistory"
+        static let goToFoodDetail = "GoToFoodDetail"
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.setNavigationBarHidden(false, animated: true)
-
-        mealPicker.tintColor = Color.skyBlue
-        mealPicker.selectedSegmentIndex = selectedSegmentIndex
+        tableView.delegate = self
+        tableView.dataSource = self
         
-        foodNameTextField.delegate = self
-        caloriesTextField.delegate = self
-        proteinTextField.delegate = self
-        carbsTextField.delegate = self
-        fatTextField.delegate = self
+        setUpNavBar()
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tableViewTapped))
-        tableView.addGestureRecognizer(tapGesture)
+        foodList = realm.objects(Food.self)
+        setUpSortedFoodList()
+        sortedFoodCopy = sortedFood
         
-        tableView.keyboardDismissMode = .interactive
-        
-        addInputAccessoryForTextFields(textFields: [foodNameTextField,servingSizeTextField,servingTextField,caloriesTextField,proteinTextField,carbsTextField,fatTextField], dismissable: true, previousNextable: true)
-        
+        tableView.tableFooterView = UIView()
         
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        
         presentingViewController?.tabBarController?.tabBar.isHidden = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         presentingViewController?.tabBarController?.tabBar.isHidden = false
     }
-
-
     
-
-    //MARK: - Nav Bar Button Methods
-    
-    @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
-        dismissViewWithAnimation()
+    func setUpNavBar() {
+        let dismissButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        dismissButton.setImage(UIImage(named: "plus-icon"), for: .normal)
+        dismissButton.addTarget(self, action: #selector(dismissButtonTapped), for: .touchUpInside)
+        let barButton = UIBarButtonItem(customView: dismissButton)
+        navigationItem.leftBarButtonItem = barButton
+        navigationItem.leftBarButtonItem?.customView!.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 4))
+        
+        navigationController?.navigationBar.barTintColor = Color.skyBlue
     }
-    
 
-    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-        
-        switch mealPicker.selectedSegmentIndex {
-            
-        case 0:
-            addAndSaveNewEntry(meal: .breakfast)
-        case 1:
-            addAndSaveNewEntry(meal: .lunch)
-        case 2:
-            addAndSaveNewEntry(meal: .dinner)
-        case 3:
-            addAndSaveNewEntry(meal: .other)
-        default:
-            dismissViewWithAnimation()
-        }
-        
-        dismissViewWithAnimation()
-        delegate?.reloadFood()
-        mealDelegate?.reloadFood()
-    }
-    
-    
-    //MARK: - New Entry Add and Save methods
-    
-    func save(_ food: Object) {
-        
-        do {
-            try realm.write {
-                realm.add(food)
-            }
-        } catch {
-            print(error)
-        }
-    }
-    
-    private func addAndSaveNewEntry(meal: Food.Meal) {
-        
-        let formatter = DateFormatter()
-        formatter.dateFormat = "E, d MMM"
-    
-        workingCopy.name = foodNameTextField.text
-        workingCopy.meal = meal.stringValue
-        workingCopy.date = formatter.string(from: date ?? Date())
-        workingCopy.servingSize = (servingSizeTextField.text ?? "100g") + "g"
-        workingCopy.serving = Double(servingTextField.text ?? "1") ?? 1
-        workingCopy.calories = Int(caloriesTextField.text ?? "0") ?? 0
-        workingCopy.protein = Double(proteinTextField.text ?? "0") ?? 0
-        workingCopy.carbs = Double(carbsTextField.text ?? "0") ?? 0
-        workingCopy.fat = Double(fatTextField.text ?? "0") ?? 0
-        
-        save(workingCopy)
-        
-        
-    }
-    
-    func dismissViewWithAnimation() {
-        
+    @objc func dismissButtonTapped(_ sender: UIBarButtonItem) {
         let transition: CATransition = CATransition()
         transition.duration = 0.4
         transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
@@ -149,101 +78,91 @@ class NewEntryViewController: UITableViewController, UITextFieldDelegate {
         transition.subtype = CATransitionSubtype.fromBottom
         self.view.window!.layer.add(transition, forKey: nil)
         self.dismiss(animated: false, completion: nil)
-        
+    }
+
+
+    func setUpSortedFoodList() {
+        var foodDictionary = [String: Food]()
+        for food in foodList! {
+            foodDictionary[food.name!] = food
+        }
+        sortedFood = foodDictionary.values.sorted { (food1, food2) -> Bool in
+            return food1.dateValue > food2.dateValue
+        }
     }
     
-    
-    //MARK:- TextFieldDelegate methods
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if textField == foodNameTextField { // Switch focus to other text field
-            servingSizeTextField.becomeFirstResponder()
+        if segue.identifier == Segues.goToManualEntry {
+            let destVC = segue.destination as! ManualEntryViewController
+            destVC.delegate = delegate
+            destVC.mealDelegate = mealDelegate
+            destVC.date = date
+            destVC.selectedSegmentIndex = meal.intValue
         }
-        else if textField == servingSizeTextField {
-            servingTextField.becomeFirstResponder()
+        else if segue.identifier == Segues.goToBarcodeScanner {
+            let destVC = segue.destination as! BarcodeScannerViewController
+            destVC.date = date
+            destVC.delegate = delegate
+            destVC.mealDelegate = mealDelegate
+            destVC.selectedSegmentIndex = meal.intValue
         }
-        else if textField == servingTextField {
-            caloriesTextField.becomeFirstResponder()
+        else if segue.identifier == Segues.goToFoodHistory {
+            let destVC = segue.destination as! FoodHistoryViewController
+            destVC.delegate = delegate
+            destVC.mealDelegate = mealDelegate
+            destVC.date = date
+            destVC.selectedSegmentIndex = meal.intValue
         }
-        else if textField == caloriesTextField {
-            proteinTextField.becomeFirstResponder()
+        else if segue.identifier == Segues.goToFoodDetail {
+            let destVC = segue.destination as! FoodDetailViewController
+            guard let indexPath = tableView.indexPathForSelectedRow else { return }
+            destVC.food = sortedFood[indexPath.row]
+            destVC.delegate = delegate
+            destVC.mealDelegate = mealDelegate
+            destVC.date = date
+            destVC.selectedSegmentIndex = meal.intValue
         }
-        else if textField == proteinTextField {
-            carbsTextField.becomeFirstResponder()
-        }
-        else if textField == carbsTextField {
-            fatTextField.becomeFirstResponder()
-        }
-        return true
     }
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if (textField == foodNameTextField) {
-                let oldString = textField.text!
-                let newStart = oldString.index(oldString.startIndex, offsetBy: range.location)
-                let newEnd = oldString.index(oldString.startIndex, offsetBy: range.location + range.length)
-                let newString = oldString.replacingCharacters(in: newStart..<newEnd, with: string)
-                textField.text = newString.replacingOccurrences(of: " ", with: "\u{00a0}")
-                return false;
-            } else {
-                return true;
-            }
-        }
-        
-    
-    @objc func tableViewTapped() {
-        
-        foodNameTextField.endEditing(true)
-        servingSizeTextField.endEditing(true)
-        servingTextField.endEditing(true)
-        caloriesTextField.endEditing(true)
-        proteinTextField.endEditing(true)
-        carbsTextField.endEditing(true)
-        fatTextField.endEditing(true)
-        
-    }
-    
 }
 
+//MARK:- Extension for table view methods
 
-//Extension to add a toolbar to the top of each textfield
-extension UIViewController {
-    func addInputAccessoryForTextFields(textFields: [UITextField], dismissable: Bool = true, previousNextable: Bool = false) {
-        for (index, textField) in textFields.enumerated() {
-            let toolbar: UIToolbar = UIToolbar()
-            toolbar.sizeToFit()
-
-            var items = [UIBarButtonItem]()
-            if previousNextable {
-                let previousButton = UIBarButtonItem(image: UIImage(named: "UpArrow"), style: .plain, target: nil, action: nil)
-                previousButton.width = 20
-                if textField == textFields.first {
-                    previousButton.isEnabled = false
-                } else {
-                    previousButton.target = textFields[index - 1]
-                    previousButton.action = #selector(UITextField.becomeFirstResponder)
-                }
-
-                let nextButton = UIBarButtonItem(image: UIImage(named: "DownArrow"), style: .plain, target: nil, action: nil)
-                nextButton.width = 20
-                if textField == textFields.last {
-                    nextButton.isEnabled = false
-                } else {
-                    nextButton.target = textFields[index + 1]
-                    nextButton.action = #selector(UITextField.becomeFirstResponder)
-                }
-                items.append(contentsOf: [previousButton, nextButton])
-            }
-
-            let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-            let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: view, action: #selector(UIView.endEditing))
-            items.append(contentsOf: [spacer, doneButton])
-
-
-            toolbar.setItems(items, animated: false)
-            textField.inputAccessoryView = toolbar
+extension NewEntryViewController {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if sortedFoodCopy.count == 0 {  // If foodList is empty, return 1 cell in order to display message
+            return 1
         }
+        return sortedFoodCopy.count
     }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let defaultCell = UITableViewCell()
+        defaultCell.textLabel?.font = UIFont(name: "Montserrat-Regular", size: 16)
+       
+        if sortedFoodCopy.count == 0 {
+           tableView.separatorStyle = .none
+           defaultCell.textLabel?.text = "No food logged."
+           return defaultCell
+        }
+        else {
+           tableView.separatorStyle = .singleLine
+        }
+
+        let cell = tableView.dequeueReusableCell(withIdentifier: "foodHistoryCell", for: indexPath) as! FoodHistoryCell
+        cell.foodNameLabel.text = sortedFoodCopy[indexPath.row].name
+        cell.caloriesLabel.text = "\(sortedFoodCopy[indexPath.row].calories) kcal"
+
+        var totalServing = sortedFoodCopy[indexPath.row].totalServing
+        cell.totalServingLabel.text = totalServing.removePointZeroEndingAndConvertToString() + " g"
+
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: Segues.goToFoodDetail, sender: nil)
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
 }

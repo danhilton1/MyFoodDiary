@@ -155,9 +155,14 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         let viewfinderImage = UIImage(named: "view finder")
         let viewfinderImageView = UIImageView(image: viewfinderImage)
         cameraView.addSubview(viewfinderImageView)
+        viewfinderImageView.contentMode = .scaleAspectFit
         viewfinderImageView.translatesAutoresizingMaskIntoConstraints = false
         viewfinderImageView.centerXAnchor.constraint(equalTo: cameraView.centerXAnchor).isActive = true
         viewfinderImageView.centerYAnchor.constraint(equalTo: cameraView.centerYAnchor).isActive = true
+//        viewfinderImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30).isActive = true
+//        viewfinderImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 30).isActive = true
+//        viewfinderImageView.topAnchor.constraint(equalTo: cameraView.topAnchor, constant: 220).isActive = true
+//        viewfinderImageView.bottomAnchor.constraint(equalTo: enterBarcodeButton.topAnchor, constant: 220).isActive = true
         viewfinderImageView.heightAnchor.constraint(equalToConstant: 190).isActive = true
         viewfinderImageView.widthAnchor.constraint(equalToConstant: 320).isActive = true
         

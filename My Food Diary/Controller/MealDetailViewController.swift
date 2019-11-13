@@ -79,7 +79,7 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "GoToPopUp" {
             let popUpNC = segue.destination as! UINavigationController
-            let destVC = popUpNC.viewControllers.first as! PopUpNewEntryViewController
+            let destVC = popUpNC.viewControllers.first as! NewEntryViewController
             destVC.date = date
             destVC.meal = meal
             destVC.mealDelegate = self
