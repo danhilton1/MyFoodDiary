@@ -42,11 +42,11 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         
         guard let today = (viewController as! OverviewViewController).date else { return nil }
-        
+        print(today)
         // Yesterday's date at time: 00:00
         guard var yesterday = calendar.date(byAdding: .day, value: -1, to: today) else { return nil }
         yesterday = calendar.startOfDay(for: yesterday)
-        yesterday = calendar.date(byAdding: .hour, value: 1, to: yesterday) ?? yesterday
+//        yesterday = calendar.date(byAdding: .hour, value: 1, to: yesterday) ?? yesterday
         
         return overviewViewController(for: yesterday)
         
@@ -55,11 +55,11 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         
         guard let today = (viewController as! OverviewViewController).date else { return nil }
-        
+        print(today)
         // Tomorrow's date at time: 00:00
         guard var tomorrow = calendar.date(byAdding: .day, value: 1, to: today) else { return nil }
         tomorrow = calendar.startOfDay(for: tomorrow)
-        tomorrow = calendar.date(byAdding: .hour, value: 1, to: tomorrow) ?? tomorrow
+//        tomorrow = calendar.date(byAdding: .hour, value: 1, to: tomorrow) ?? tomorrow
         
         return overviewViewController(for: tomorrow)
         

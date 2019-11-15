@@ -60,11 +60,15 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         loadAllFood()
         
         self.toolbar.items = [
+            UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: #selector(dismissResponder)),
             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
             UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dateEntered))
         ]
         
         self.toolbar.sizeToFit()
+        datePicker.datePickerMode = .date
+        datePicker.locale = Locale(identifier: "en_GB")
+        
     }
     
 
@@ -99,7 +103,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     
-    @IBAction func datePickerTapped(_ sender: UIButton) {
+    @IBAction func datePickerArrowTapped(_ sender: UIButton) {
         
         dimView.frame = self.view.frame
         dimView.backgroundColor = .black
@@ -117,10 +121,21 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         UIView.animate(withDuration: 0.2) {
             self.dimView.alpha = 0
         }
+        date = datePicker.date
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2 ) {
             self.dimView.removeFromSuperview()
+            self.loadAllFood()
+            self.configureDateView()
         }
         
+        print(date)
+    }
+    
+    @objc func dismissResponder() {
+        self.resignFirstResponder()
+        UIView.animate(withDuration: 0.2) {
+            self.dimView.alpha = 0
+        }
     }
     
     //MARK:- Data methods
