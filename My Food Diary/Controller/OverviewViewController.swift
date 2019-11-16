@@ -67,7 +67,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         
         self.toolbar.sizeToFit()
         datePicker.datePickerMode = .date
-        datePicker.locale = Locale(identifier: "en_GB")
+        datePicker.locale = Locale.current
         
     }
     
@@ -128,7 +128,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             self.configureDateView()
         }
         
-        print(date)
+        
     }
     
     @objc func dismissResponder() {

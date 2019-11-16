@@ -1213,7 +1213,7 @@
         <!--New Weight Entry-->
         <scene sceneID="PAT-8I-Z3O">
             <objects>
-                <tableViewController id="3IQ-Cp-eqe" sceneMemberID="viewController">
+                <tableViewController id="3IQ-Cp-eqe" customClass="NewWeightEntryViewController" customModule="My_Food_Diary" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="55" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="0qh-qH-qlR">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1231,7 +1231,7 @@
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter weight" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tcH-Ga-C2v">
                                                     <rect key="frame" x="285" y="10" width="109" height="35"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                 </textField>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weight:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Jz-Gv-9ow">
                                                     <rect key="frame" x="20" y="15.5" width="81" height="24.5"/>
@@ -1265,13 +1265,27 @@
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ejp-KU-8N4">
                                                     <rect key="frame" x="295" y="12.5" width="99" height="30"/>
                                                     <state key="normal" title="15th Nov 2019"/>
+                                                    <connections>
+                                                        <action selector="dateButtonTapped:" destination="3IQ-Cp-eqe" eventType="touchUpInside" id="ZeW-Td-yx1"/>
+                                                    </connections>
                                                 </button>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cB3-R4-ItK">
+                                                    <rect key="frame" x="295" y="18.5" width="99" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="dateTextFieldStartEditing:" destination="3IQ-Cp-eqe" eventType="editingDidBegin" id="Skz-cN-gSh"/>
+                                                    </connections>
+                                                </textField>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="u05-zm-muM" firstAttribute="leading" secondItem="Bdt-Vu-l3x" secondAttribute="leading" constant="20" id="3Sp-NJ-biE"/>
                                                 <constraint firstItem="u05-zm-muM" firstAttribute="centerY" secondItem="Bdt-Vu-l3x" secondAttribute="centerY" id="Tet-OB-Yyd"/>
+                                                <constraint firstItem="cB3-R4-ItK" firstAttribute="width" secondItem="ejp-KU-8N4" secondAttribute="width" id="YJI-Lf-Df5"/>
                                                 <constraint firstItem="ejp-KU-8N4" firstAttribute="centerY" secondItem="Bdt-Vu-l3x" secondAttribute="centerY" id="aDE-Pd-16w"/>
+                                                <constraint firstAttribute="trailing" secondItem="cB3-R4-ItK" secondAttribute="trailing" constant="20" id="pVo-oU-lWD"/>
                                                 <constraint firstAttribute="trailing" secondItem="ejp-KU-8N4" secondAttribute="trailing" constant="20" id="qvc-p6-sSg"/>
+                                                <constraint firstItem="cB3-R4-ItK" firstAttribute="centerY" secondItem="Bdt-Vu-l3x" secondAttribute="centerY" id="spn-1D-Lfg"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1287,10 +1301,15 @@
                         <barButtonItem key="rightBarButtonItem" image="tick-icon" id="Wo4-jW-ROb">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
-                                <action selector="addButtonTapped:" destination="zEh-Ej-CbZ" id="O3g-ZX-21S"/>
+                                <action selector="addButtonTapped:" destination="3IQ-Cp-eqe" id="Z7l-Zp-NAy"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="dateButton" destination="ejp-KU-8N4" id="jHY-WU-brR"/>
+                        <outlet property="dateTextField" destination="cB3-R4-ItK" id="nmt-oG-Ka8"/>
+                        <outlet property="weightTextField" destination="tcH-Ga-C2v" id="3aG-py-gU6"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZAf-0o-o1S" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

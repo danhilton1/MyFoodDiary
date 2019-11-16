@@ -45,6 +45,7 @@
 		37CA772D22A1BB4F00C03A06 /* ManualEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CA772C22A1BB4F00C03A06 /* ManualEntryViewController.swift */; };
 		37DE59D722D1055D00079A6A /* OverviewPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DE59D622D1055D00079A6A /* OverviewPageViewController.swift */; };
 		37DE71072351097900B1C4AC /* NutritionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DE71062351097900B1C4AC /* NutritionViewController.swift */; };
+		37E0C03323800020005FEB29 /* NewWeightEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E0C03223800020005FEB29 /* NewWeightEntryViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -89,6 +90,7 @@
 		37CA772C22A1BB4F00C03A06 /* ManualEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualEntryViewController.swift; sourceTree = "<group>"; };
 		37DE59D622D1055D00079A6A /* OverviewPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewPageViewController.swift; sourceTree = "<group>"; };
 		37DE71062351097900B1C4AC /* NutritionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionViewController.swift; sourceTree = "<group>"; };
+		37E0C03223800020005FEB29 /* NewWeightEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWeightEntryViewController.swift; sourceTree = "<group>"; };
 		5B434528684980896B0F3161 /* Pods-My Food Diary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-My Food Diary.release.xcconfig"; path = "Target Support Files/Pods-My Food Diary/Pods-My Food Diary.release.xcconfig"; sourceTree = "<group>"; };
 		A7907AE86113D8A09C3BB819 /* Pods-My Food Diary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-My Food Diary.debug.xcconfig"; path = "Target Support Files/Pods-My Food Diary/Pods-My Food Diary.debug.xcconfig"; sourceTree = "<group>"; };
 		C202325955DAB3D0FB7E33AF /* Pods_My_Food_Diary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_My_Food_Diary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -181,6 +183,7 @@
 				37360AF623520BCC00AA02A2 /* WeekNutritionViewController.swift */,
 				37360AF823520BE300AA02A2 /* MonthNutritionViewController.swift */,
 				377C9BF9236DBA6A008165DA /* WeightViewController.swift */,
+				37E0C03223800020005FEB29 /* NewWeightEntryViewController.swift */,
 				377208B42291A1F8002DDA29 /* AppDelegate.swift */,
 			);
 			path = Controller;
@@ -362,6 +365,7 @@
 				37563BD822C69E8F0032D94E /* NewEntryViewController.swift in Sources */,
 				37360AF923520BE300AA02A2 /* MonthNutritionViewController.swift in Sources */,
 				379DB00622B2EBB300F3DC5B /* MealDetailViewController.swift in Sources */,
+				37E0C03323800020005FEB29 /* NewWeightEntryViewController.swift in Sources */,
 				37360AF523520BC000AA02A2 /* DayNutritionViewController.swift in Sources */,
 				37DE71072351097900B1C4AC /* NutritionViewController.swift in Sources */,
 				37360AFC2352150700AA02A2 /* BarChartNutritionCell.swift in Sources */,

@@ -13,6 +13,10 @@ class Weight: Object {
     
     @objc dynamic var weight: Double = 0
     @objc dynamic var date: Date = Date()
-    
+    @objc dynamic var dateString: String? //{
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "dd MMM YYYY"
+//        return formatter.string(from: date)
+//    }
     
 }
