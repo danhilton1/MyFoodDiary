@@ -134,7 +134,8 @@ class NutritionViewController: UIViewController {
         guard let today = date else { return }
         let monday = today.next(.monday, direction: direction, considerToday: considerToday).addingTimeInterval(3600) //Get date of last/next monday
         var sunday: Date
-        
+        // Get sunday/endOfWeekDate to display the date in chart labels and also for when right arrow is tapped
+        // to make sure correct weeks are displayed and none are repeated
         if considerToday == false {
             sunday = today.next(.sunday, direction: .forward, considerToday: considerToday).addingTimeInterval(-601200)
         }
@@ -181,9 +182,9 @@ class NutritionViewController: UIViewController {
             [ChartDataEntry(x: 0, y: round(monthVC?.monthAverageCalories ?? 0))],
              label: "Av. Calories (Day)")
         
-        dateCopy = startOfWeekDate
+        dateCopy = startOfWeekDate // use dateCopy instead of startOfWeekDate to not affect other code using startOfWeekDate
         
-        var value = 0
+        var value = 0  // value of days to add or subtract from the currect day
         if direction == .backward {
             value = -7
         }
@@ -250,12 +251,7 @@ class NutritionViewController: UIViewController {
             weekVC?.carbsChartDataSetCopy.append(BarChartDataEntry(x: Double(i), y: weekVC?.getTotalValueOfNutrient(.carbs, foodList: weekVC?.foodListCopy) ?? 0))
             weekVC?.fatChartDataSetCopy.append(BarChartDataEntry(x: Double(i), y: weekVC?.getTotalValueOfNutrient(.fat, foodList: weekVC?.foodListCopy) ?? 0))
             weekVC?.lineChartDataSetCopy.append(ChartDataEntry(x: Double(i), y: weekVC?.getTotalValueOfNutrient(.calories, foodList: weekVC?.foodListCopy) ?? 0))
-//            VC?.foodList = foodListCopy
-//            VC?.proteinChartDataSetCopy.append(BarChartDataEntry(x: Double(i), y: VC?.protein ?? 0))
-//            VC?.carbsChartDataSetCopy.append(BarChartDataEntry(x: Double(i), y: VC?.carbs ?? 0))
-//            VC?.fatChartDataSetCopy.append(BarChartDataEntry(x: Double(i), y: VC?.fat ?? 0))
-//            VC?.lineChartDataSetCopy.append(ChartDataEntry(x: Double(i), y: VC?.calories ?? 0))
-           
+
         }
         formatter.dateFormat = "d MMM"
     }
@@ -317,6 +313,7 @@ class NutritionViewController: UIViewController {
             formatter.dateFormat = "E, d MMM"
         }
     }
+    
     
     @IBAction func leftArrowTapped(_ sender: UIButton) {
         if segmentedControl.selectedSegmentIndex == 0 {

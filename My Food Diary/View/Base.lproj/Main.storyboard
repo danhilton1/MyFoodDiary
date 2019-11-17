@@ -68,13 +68,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Calories: 2000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sbF-JA-Wwl">
-                                <rect key="frame" x="10" y="42" width="404" height="70"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Calories:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sbF-JA-Wwl">
+                                <rect key="frame" x="10" y="42" width="157" height="70"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="FP1-aV-xeV"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="29"/>
+                                <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -90,24 +90,73 @@
                                     <action selector="datePickerArrowTapped:" destination="5FM-xa-IT0" eventType="touchUpInside" id="sjj-QV-vvV"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Goal:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pBk-gP-hO9">
+                                <rect key="frame" x="282" y="42" width="56.5" height="70"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="5VJ-Wd-Qul"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbC-Xq-o29">
+                                <rect key="frame" x="177" y="42" width="57.5" height="70"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="K3B-0k-Szb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="22"/>
+                                <color key="textColor" red="1" green="0.6199248128287671" blue="0.12649828767123289" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2500" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uav-ya-6Fn">
+                                <rect key="frame" x="348.5" y="42" width="55.5" height="70"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="4RG-mn-DFP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="22"/>
+                                <color key="textColor" red="0.094117647060000004" green="0.73725490199999999" blue="0.60784313729999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XjY-LM-rSs">
+                                <rect key="frame" x="282" y="50" width="122" height="54"/>
+                                <connections>
+                                    <action selector="goalButtonTapped:" destination="5FM-xa-IT0" eventType="touchUpInside" id="bAf-L6-KTj"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="VeI-XT-ytu" firstAttribute="trailing" secondItem="uav-ya-6Fn" secondAttribute="trailing" constant="10" id="54V-wW-WUj"/>
+                            <constraint firstItem="uav-ya-6Fn" firstAttribute="leading" secondItem="pBk-gP-hO9" secondAttribute="trailing" constant="10" id="5qL-eU-9ti"/>
                             <constraint firstItem="aSq-xy-zEF" firstAttribute="top" secondItem="VeI-XT-ytu" secondAttribute="top" id="7ts-4o-mAD"/>
+                            <constraint firstItem="XjY-LM-rSs" firstAttribute="top" secondItem="ouM-1t-XKu" secondAttribute="bottom" constant="8" id="8RF-R1-K3g"/>
                             <constraint firstItem="ouM-1t-XKu" firstAttribute="top" secondItem="4x8-gE-ihy" secondAttribute="bottom" id="AIs-ZZ-EHf"/>
                             <constraint firstItem="Xbh-gk-J6y" firstAttribute="trailing" secondItem="VeI-XT-ytu" secondAttribute="trailing" id="Axg-y9-AgG"/>
                             <constraint firstItem="VeI-XT-ytu" firstAttribute="trailing" secondItem="ouM-1t-XKu" secondAttribute="trailing" id="CM6-IX-oJc"/>
                             <constraint firstItem="ouM-1t-XKu" firstAttribute="top" secondItem="aSq-xy-zEF" secondAttribute="bottom" constant="3" id="CQp-nd-cyS"/>
-                            <constraint firstItem="sbF-JA-Wwl" firstAttribute="trailing" secondItem="VeI-XT-ytu" secondAttribute="trailing" id="FZ4-pc-MKq"/>
                             <constraint firstItem="aSq-xy-zEF" firstAttribute="leading" secondItem="4x8-gE-ihy" secondAttribute="trailing" constant="5" id="IoP-fJ-rWU"/>
                             <constraint firstItem="sbF-JA-Wwl" firstAttribute="leading" secondItem="VeI-XT-ytu" secondAttribute="leading" constant="10" id="J9E-Zg-RNZ"/>
+                            <constraint firstItem="Xbh-gk-J6y" firstAttribute="top" secondItem="fbC-Xq-o29" secondAttribute="bottom" id="Jn8-TJ-mxi"/>
                             <constraint firstItem="ouM-1t-XKu" firstAttribute="leading" secondItem="VeI-XT-ytu" secondAttribute="leading" id="MPo-sV-9vk"/>
+                            <constraint firstItem="XjY-LM-rSs" firstAttribute="leading" secondItem="pBk-gP-hO9" secondAttribute="leading" id="QCX-js-NyL"/>
                             <constraint firstItem="4x8-gE-ihy" firstAttribute="centerX" secondItem="LtX-DP-b4r" secondAttribute="centerX" id="RlP-8Z-VIc"/>
+                            <constraint firstItem="fbC-Xq-o29" firstAttribute="top" secondItem="ouM-1t-XKu" secondAttribute="bottom" id="SNi-Dg-NXB"/>
+                            <constraint firstItem="fbC-Xq-o29" firstAttribute="leading" secondItem="sbF-JA-Wwl" secondAttribute="trailing" constant="10" id="V6w-So-Hvg"/>
                             <constraint firstItem="bqB-KW-UEO" firstAttribute="height" secondItem="4x8-gE-ihy" secondAttribute="height" id="cUn-eL-qdT"/>
                             <constraint firstItem="VeI-XT-ytu" firstAttribute="bottom" secondItem="Xbh-gk-J6y" secondAttribute="bottom" id="clf-Mz-5Oz"/>
+                            <constraint firstItem="Xbh-gk-J6y" firstAttribute="top" secondItem="pBk-gP-hO9" secondAttribute="bottom" id="dBg-ai-IZ0"/>
+                            <constraint firstItem="Xbh-gk-J6y" firstAttribute="top" secondItem="uav-ya-6Fn" secondAttribute="bottom" id="dHS-Zu-f21"/>
+                            <constraint firstItem="Xbh-gk-J6y" firstAttribute="top" secondItem="XjY-LM-rSs" secondAttribute="bottom" constant="8" id="djK-gW-PY7"/>
                             <constraint firstItem="bqB-KW-UEO" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="aSq-xy-zEF" secondAttribute="trailing" constant="50" id="ebb-Iv-eoh"/>
+                            <constraint firstItem="pBk-gP-hO9" firstAttribute="top" secondItem="ouM-1t-XKu" secondAttribute="bottom" id="i1A-s4-3iN"/>
                             <constraint firstItem="sbF-JA-Wwl" firstAttribute="top" secondItem="ouM-1t-XKu" secondAttribute="bottom" id="lYD-6v-2Ej"/>
+                            <constraint firstItem="uav-ya-6Fn" firstAttribute="top" secondItem="ouM-1t-XKu" secondAttribute="bottom" id="mX4-YB-4H8"/>
                             <constraint firstItem="4x8-gE-ihy" firstAttribute="top" secondItem="VeI-XT-ytu" secondAttribute="top" id="mp8-vp-gCj"/>
+                            <constraint firstItem="VeI-XT-ytu" firstAttribute="trailing" secondItem="XjY-LM-rSs" secondAttribute="trailing" constant="10" id="p72-fJ-5fG"/>
+                            <constraint firstItem="pBk-gP-hO9" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fbC-Xq-o29" secondAttribute="trailing" constant="45" id="rYz-1P-n48"/>
                             <constraint firstItem="Xbh-gk-J6y" firstAttribute="top" secondItem="sbF-JA-Wwl" secondAttribute="bottom" id="sQn-kP-IPb"/>
                             <constraint firstItem="VeI-XT-ytu" firstAttribute="trailing" secondItem="bqB-KW-UEO" secondAttribute="trailing" id="uyw-2y-jhw"/>
                             <constraint firstItem="bqB-KW-UEO" firstAttribute="top" secondItem="VeI-XT-ytu" secondAttribute="top" id="w7U-TJ-a1g"/>
@@ -116,19 +165,12 @@
                         <viewLayoutGuide key="safeArea" id="VeI-XT-ytu"/>
                     </view>
                     <navigationItem key="navigationItem" title="Overview" largeTitleDisplayMode="never" id="vx3-hL-em1">
-                        <leftBarButtonItems>
-                            <barButtonItem title="Clear" id="QIp-e4-5V3">
-                                <color key="tintColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <connections>
-                                    <action selector="clearButtonPressed:" destination="5FM-xa-IT0" id="KVX-iq-x4U"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="Date" id="LXm-T2-DQw">
-                                <connections>
-                                    <action selector="datePressed:" destination="5FM-xa-IT0" id="2ed-aH-oxv"/>
-                                </connections>
-                            </barButtonItem>
-                        </leftBarButtonItems>
+                        <barButtonItem key="leftBarButtonItem" title="Clear" id="QIp-e4-5V3">
+                            <color key="tintColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="clearButtonPressed:" destination="5FM-xa-IT0" id="KVX-iq-x4U"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="plus-icon" id="moy-Qk-U32">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
@@ -139,7 +181,8 @@
                     <connections>
                         <outlet property="dayLabel" destination="4x8-gE-ihy" id="kVk-Un-l7W"/>
                         <outlet property="eatMeTableView" destination="Xbh-gk-J6y" id="BzM-YB-GZ5"/>
-                        <outlet property="totalCaloriesLabel" destination="sbF-JA-Wwl" id="SJX-hN-C21"/>
+                        <outlet property="goalCaloriesLabel" destination="uav-ya-6Fn" id="gnx-Zc-gpm"/>
+                        <outlet property="totalCaloriesLabel" destination="fbC-Xq-o29" id="2KW-Iw-sri"/>
                         <segue destination="be3-9g-cDs" kind="show" identifier="goToMealDetail" id="Vk7-Ln-S9g"/>
                     </connections>
                 </viewController>
@@ -1272,7 +1315,7 @@
                                                         <action selector="dateButtonTapped:" destination="3IQ-Cp-eqe" eventType="touchUpInside" id="ZeW-Td-yx1"/>
                                                     </connections>
                                                 </button>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cB3-R4-ItK">
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cB3-R4-ItK">
                                                     <rect key="frame" x="275" y="18.5" width="119" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits"/>

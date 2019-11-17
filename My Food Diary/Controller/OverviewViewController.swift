@@ -25,6 +25,8 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     private var totalCalsArray = [Int]()
     private var refreshControl = UIRefreshControl()
     private let formatter = DateFormatter()
+    private let defaults = UserDefaults()
+    
     override var canBecomeFirstResponder: Bool {
         return true
     }
@@ -45,6 +47,8 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var dayLabel: UILabel!
     @IBOutlet weak var eatMeTableView: UITableView!
     @IBOutlet weak var totalCaloriesLabel: UILabel!
+    @IBOutlet weak var goalCaloriesLabel: UILabel!
+    
     
     //MARK: - view Methods
 
@@ -58,6 +62,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         
         configureDateView()
         loadAllFood()
+        goalCaloriesLabel.text = "\(defaults.value(forKey: "GoalCalories") ?? 0)"
         
         self.toolbar.items = [
             UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: #selector(dismissResponder)),
@@ -102,41 +107,22 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         
     }
     
-    
-    @IBAction func datePickerArrowTapped(_ sender: UIButton) {
-        
-        dimView.frame = self.view.frame
-        dimView.backgroundColor = .black
-        dimView.alpha = 0
-        self.view.addSubview(dimView)
-        UIView.animate(withDuration: 0.25) {
-            self.dimView.alpha = 0.35
-            
+    private func configureTotalCaloriesLabel() {
+        guard let goalCalories = defaults.value(forKey: "GoalCalories") as? Int else { return }
+        if totalCalories < (goalCalories - 500) || totalCalories > (goalCalories + 500) {
+            totalCaloriesLabel.textColor = Color.salmon
         }
-        self.becomeFirstResponder()
-        
-    }
-    @objc func dateEntered() {
-        self.resignFirstResponder()
-        UIView.animate(withDuration: 0.2) {
-            self.dimView.alpha = 0
+        else if totalCalories >= (goalCalories - 500) && totalCalories <= (goalCalories + 500) && totalCalories != goalCalories {
+            totalCaloriesLabel.textColor = .systemOrange
         }
-        date = datePicker.date
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2 ) {
-            self.dimView.removeFromSuperview()
-            self.loadAllFood()
-            self.configureDateView()
+        else {
+            totalCaloriesLabel.textColor = Color.mint
         }
-        
-        
     }
     
-    @objc func dismissResponder() {
-        self.resignFirstResponder()
-        UIView.animate(withDuration: 0.2) {
-            self.dimView.alpha = 0
-        }
-    }
+    
+    
+    
     
     //MARK:- Data methods
     
@@ -153,7 +139,8 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         totalCalsArray = (foodList?.value(forKey: "calories")) as! [Int]
         totalCalories = totalCalsArray.reduce(0, +)
         
-        totalCaloriesLabel.text = "Total Calories: \(totalCalories)"
+        totalCaloriesLabel.text = "\(totalCalories)"
+        configureTotalCaloriesLabel()
         
         eatMeTableView.reloadData()
         
@@ -179,71 +166,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     
-    //MARK: - Tableview Data Source Methods
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        let label = UILabel()
-        label.backgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
-        label.textColor = UIColor.black
-        label.font = UIFont(name: "Montserrat-SemiBold", size: 17)
-        
-        switch section {
-        case 0:
-            label.text = "   Breakfast"
-        case 1:
-            label.text = "   Lunch"
-        case 2:
-            label.text = "   Dinner"
-        case 3:
-            label.text = "   Other"
-        default:
-            label.text = ""
-        }
-        
-        return label
-            
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "mealOverviewCell", for: indexPath) as! MealOverviewCell
-        
-        switch indexPath.section {
-            
-        case 0:
-            getTotalValueOfMealData(food: foodList, meal: .breakfast, cell: cell)
-        case 1:
-            getTotalValueOfMealData(food: foodList, meal: .lunch, cell: cell)
-        case 2:
-            getTotalValueOfMealData(food: foodList, meal: .dinner, cell: cell)
-        case 3:
-            getTotalValueOfMealData(food: foodList, meal: .other, cell: cell)
-        default:
-            cell.calorieLabel.text = "0"
-            cell.proteinLabel.text = "0"
-            cell.carbsLabel.text = "0"
-            cell.fatLabel.text = "0"
-        }
-        
-        return cell
-        
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        performSegue(withIdentifier: "goToMealDetail", sender: nil)
-        tableView.deselectRow(at: indexPath, animated: false)
-        
-    }
     
     //MARK: - Methods to Update UI with user's entry data
     
@@ -379,6 +302,61 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     
+    //MARK:- Button Methods
+    
+    @IBAction func datePickerArrowTapped(_ sender: UIButton) {
+        
+        dimView.frame = self.view.frame
+        dimView.backgroundColor = .black
+        dimView.alpha = 0
+        self.view.addSubview(dimView)
+        UIView.animate(withDuration: 0.25) {
+            self.dimView.alpha = 0.35
+            
+        }
+        self.becomeFirstResponder()
+        
+    }
+    @objc func dateEntered() {
+        self.resignFirstResponder()
+        UIView.animate(withDuration: 0.2) {
+            self.dimView.alpha = 0
+        }
+        date = datePicker.date
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2 ) {
+            self.dimView.removeFromSuperview()
+            self.loadAllFood()
+            self.configureDateView()
+        }
+        
+        
+    }
+    
+    @objc func dismissResponder() {
+        self.resignFirstResponder()
+        UIView.animate(withDuration: 0.2) {
+            self.dimView.alpha = 0
+        }
+    }
+    
+    @IBAction func goalButtonTapped(_ sender: UIButton) {
+        let ac = UIAlertController(title: "Goal Calories", message: "Please set your goal calories", preferredStyle: .alert)
+        
+        ac.addTextField { (textField) in
+            textField.text = "\(self.defaults.value(forKey: "GoalCalories") ?? 0)"
+            textField.placeholder = "Enter value here"
+        }
+        
+        ac.addAction(UIAlertAction(title: "Set", style: .default, handler: { (UIAlertAction) in
+            self.defaults.setValue(Int(ac.textFields![0].text ?? "0"), forKey: "GoalCalories")
+            self.goalCaloriesLabel.text = "\(self.defaults.value(forKey: "GoalCalories") ?? 0)"
+            self.configureTotalCaloriesLabel()
+        }))
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        
+        present(ac, animated: true)
+    }
+    
     //MARK:- NewEntryDelegate protocol method
     
     
@@ -443,6 +421,77 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
 
 }
 
+//MARK: - Tableview Data Source Methods
+
+extension OverviewViewController {
+    
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let label = UILabel()
+        label.backgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
+        label.textColor = UIColor.black
+        label.font = UIFont(name: "Montserrat-SemiBold", size: 17)
+        
+        switch section {
+        case 0:
+            label.text = "   Breakfast"
+        case 1:
+            label.text = "   Lunch"
+        case 2:
+            label.text = "   Dinner"
+        case 3:
+            label.text = "   Other"
+        default:
+            label.text = ""
+        }
+        
+        return label
+            
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 4
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "mealOverviewCell", for: indexPath) as! MealOverviewCell
+        
+        switch indexPath.section {
+            
+        case 0:
+            getTotalValueOfMealData(food: foodList, meal: .breakfast, cell: cell)
+        case 1:
+            getTotalValueOfMealData(food: foodList, meal: .lunch, cell: cell)
+        case 2:
+            getTotalValueOfMealData(food: foodList, meal: .dinner, cell: cell)
+        case 3:
+            getTotalValueOfMealData(food: foodList, meal: .other, cell: cell)
+        default:
+            cell.calorieLabel.text = "0"
+            cell.proteinLabel.text = "0"
+            cell.carbsLabel.text = "0"
+            cell.fatLabel.text = "0"
+        }
+        
+        return cell
+        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        performSegue(withIdentifier: "goToMealDetail", sender: nil)
+        tableView.deselectRow(at: indexPath, animated: false)
+        
+    }
+}
+
+//MARK:- Double Extensions
 
 extension Double {
     

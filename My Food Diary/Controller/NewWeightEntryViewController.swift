@@ -11,6 +11,8 @@ import RealmSwift
 
 class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
     
+    //MARK:- Properties
+    
     @IBOutlet weak var weightTextField: UITextField!
     @IBOutlet weak var dateButton: UIButton!
     @IBOutlet weak var dateTextField: UITextField!
@@ -24,7 +26,8 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
     private let datePicker = UIDatePicker()
     private let toolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
     
-
+    //MARK:- viewDidLoad
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,6 +45,33 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
 
     }
     
+    //MARK:- Set Up Methods
+    
+    func setUpNavBar() {
+         let dismissButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+         dismissButton.setImage(UIImage(named: "plus-icon"), for: .normal)
+         dismissButton.addTarget(self, action: #selector(dismissButtonTapped), for: .touchUpInside)
+         dismissButton.imageView?.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 4))
+         dismissButton.imageView?.clipsToBounds = false
+         dismissButton.imageView?.contentMode = .center
+         let barButton = UIBarButtonItem(customView: dismissButton)
+         navigationItem.leftBarButtonItem = barButton
+         
+         navigationController?.navigationBar.barTintColor = Color.skyBlue
+     }
+     
+     func setUpToolBar() {
+         self.toolbar.items = [
+             UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: #selector(dismissResponder)),
+             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+             UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dateEntered))
+         ]
+         
+         self.toolbar.sizeToFit()
+    
+    }
+    
+    
    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         return false
@@ -54,60 +84,29 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
         sender.inputAccessoryView = toolbar
     }
     
-    func setUpNavBar() {
-        let dismissButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
-        dismissButton.setImage(UIImage(named: "plus-icon"), for: .normal)
-        dismissButton.addTarget(self, action: #selector(dismissButtonTapped), for: .touchUpInside)
-        dismissButton.imageView?.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 4))
-        dismissButton.imageView?.clipsToBounds = false
-        dismissButton.imageView?.contentMode = .center
-        let barButton = UIBarButtonItem(customView: dismissButton)
-        navigationItem.leftBarButtonItem = barButton
-        
-        navigationController?.navigationBar.barTintColor = Color.skyBlue
-    }
     
-    func setUpToolBar() {
-        self.toolbar.items = [
-            UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: #selector(dismissResponder)),
-            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-            UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dateEntered))
-        ]
-        
-        self.toolbar.sizeToFit()
-   
-    }
-    
+    //MARK:- Button Methods
 
+    @IBAction func dateButtonTapped(_ sender: UIButton) {
+        self.becomeFirstResponder()
+
+    }
+    
+    // Nav bar button
     @objc func dismissButtonTapped(_ sender: UIBarButtonItem) {
         dismissViewWithAnimation()
     }
     
+    // Toolbar button
     @objc func dateEntered() {
         self.resignFirstResponder()
 
         dateButton.setTitle(formatter.string(from: datePicker.date), for: .normal)
     }
-    
+    // Toolbar button
     @objc func dismissResponder() {
         self.resignFirstResponder()
     }
-    
-    
-    func save(_ weight: Object) {
-        
-        do {
-            try realm.write {
-                realm.add(weight)
-            }
-        } catch {
-            print(error)
-        }
-    }
-
-    // MARK: - Table view data source
-
-
     
     @IBAction func addButtonTapped(_ sender: UIBarButtonItem) {
         
@@ -132,11 +131,17 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
     }
     
     
-    @IBAction func dateButtonTapped(_ sender: UIButton) {
-        self.becomeFirstResponder()
-
+    func save(_ weight: Object) {
+        
+        do {
+            try realm.write {
+                realm.add(weight)
+            }
+        } catch {
+            print(error)
+        }
     }
-    
+
     
     func dismissViewWithAnimation() {
         let transition: CATransition = CATransition()

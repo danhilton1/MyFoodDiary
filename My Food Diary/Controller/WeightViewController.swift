@@ -12,7 +12,8 @@ import Charts
 
 class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, WeightDelegate {
     
-
+    //MARK:- Properties
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var currentWeightLabel: UILabel!
     @IBOutlet weak var goalWeightLabel: UILabel!
@@ -28,6 +29,8 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     private var averageWeight: Double = 0.0
     
+    //MARK:- viewDidLoad
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,10 +40,10 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.register(UINib(nibName: "LineChartCell", bundle: nil), forCellReuseIdentifier: "LineChartCell")
         
         setUpWeekData(direction: .backward, date: Date(), considerToday: true)
-        dateLabelFormatter.dateFormat = "E, d MMM"
-        dateLabel.text = "Week Starting: \(dateLabelFormatter.string(from: startOfWeekDate ?? Date()))"
+        setUpLabels()
     }
     
+    //MARK:- Data methods
     
     func loadWeightEntries(date: Date?) {
         
@@ -51,6 +54,17 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
         weightEntries = weightEntries?.filter(predicate)
     }
     
+    func setUpLabels() {
+        dateLabelFormatter.dateFormat = "E, d MMM"
+        dateLabel.text = "Week Starting: \(dateLabelFormatter.string(from: startOfWeekDate ?? Date()))"
+        if let currentWeight = weightEntries?.last?.weight {
+            currentWeightLabel.text = "\(currentWeight) kg"
+        }
+        else {
+            currentWeightLabel.text = "0 kg"
+        }
+        
+    }
     
     func setUpWeekData(direction: Calendar.SearchDirection, date: Date?, considerToday: Bool) {
         
@@ -71,8 +85,15 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
+    func reloadData(date: Date?) {
+        let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! LineChartCell
+        setUpWeekData(direction: .backward, date: date, considerToday: true)
+        tableView.reloadData()
+        cell.lineChart.animate(yAxisDuration: 0.5)
+    }
     
     
+    //MARK:- Button Methods
 
     @IBAction func addButtonTapped(_ sender: UIBarButtonItem) {
     }
@@ -107,13 +128,7 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.reloadData()
     }
     
-    func reloadData(date: Date?) {
-        let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! LineChartCell
-        setUpWeekData(direction: .backward, date: date, considerToday: true)
-        tableView.reloadData()
-        cell.lineChart.animate(yAxisDuration: 0.5)
-    }
-    
+    //MARK:- Segue Method
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "GoToNewWeightEntry" {
@@ -218,6 +233,7 @@ extension WeightViewController {
     }
 }
 
+//MARK:- WeightDelegate Protocol
 
 protocol WeightDelegate: class {
     func reloadData(date: Date?)

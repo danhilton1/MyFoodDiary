@@ -197,7 +197,7 @@ extension WeekNutritionViewController {
         else if indexPath.row == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "LineChartCell", for: indexPath) as! LineChartCell
             
-            let limitLine = ChartLimitLine(limit: 2500, label: "Goal") // Set to actual goal
+            let limitLine = ChartLimitLine(limit: 2500, label: "") // Set to actual goal
             limitLine.lineDashLengths = [8]
             limitLine.lineWidth = 0.9
             limitLine.lineColor = Color.mint

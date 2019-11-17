@@ -60,6 +60,9 @@ class MonthNutritionViewController: WeekNutritionViewController {
                 reversedProteinDataSet.colors = [Color.mint]
                 reversedCarbsDataSet.colors = [Color.skyBlue]
                 reversedFatDataSet.colors = [Color.salmon]
+                reversedProteinDataSet.valueFont = UIFont(name: "Montserrat-Medium", size: 9)!
+                reversedCarbsDataSet.valueFont = UIFont(name: "Montserrat-Medium", size: 9)!
+                reversedFatDataSet.valueFont = UIFont(name: "Montserrat-Medium", size: 9)!
                 chartData = BarChartData(dataSets: chartDataSets)
             }
             else {
@@ -69,6 +72,9 @@ class MonthNutritionViewController: WeekNutritionViewController {
                 proteinChartDataSet.colors = [Color.mint]
                 carbsChartDataSet.colors = [Color.skyBlue]
                 fatChartDataSet.colors = [Color.salmon]
+                proteinChartDataSet.valueFont = UIFont(name: "Montserrat-Medium", size: 9)!
+                carbsChartDataSet.valueFont = UIFont(name: "Montserrat-Medium", size: 9)!
+                fatChartDataSet.valueFont = UIFont(name: "Montserrat-Medium", size: 9)!
                 chartData = BarChartData(dataSets: chartDataSets)
                 
             }
@@ -154,15 +160,6 @@ class MonthNutritionViewController: WeekNutritionViewController {
         
         return UITableViewCell()
     }
-    
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        if indexPath.row == 0 {
-//            return 440
-//        }
-//        else {
-//            return 400
-//        }
-//    }
     
 
 }
