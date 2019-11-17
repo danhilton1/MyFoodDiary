@@ -17,6 +17,7 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
     
     let realm = try! Realm()
     
+    weak var delegate: WeightDelegate?
     let formatter = DateFormatter()
     private var weightEntry = Weight()
     
@@ -110,12 +111,23 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
     
     @IBAction func addButtonTapped(_ sender: UIBarButtonItem) {
         
-        weightEntry.weight = Double(weightTextField.text!)!
+        if let weight = weightTextField.text {
+            if !weight.isEmpty {
+                weightEntry.weight = Double(weight)!
+            }
+            else {
+                let AC = UIAlertController(title: "Error", message: "Please enter a weight.", preferredStyle: .alert)
+                AC.addAction(UIAlertAction(title: "OK", style: .cancel))
+                present(AC, animated: false)
+                return
+            }
+        }
         weightEntry.date = datePicker.date
         weightEntry.dateString = formatter.string(from: datePicker.date)
         
         save(weightEntry)
         dismissViewWithAnimation()
+        delegate?.reloadData(date: datePicker.date)
         
     }
     

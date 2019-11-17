@@ -10,19 +10,23 @@ import UIKit
 import RealmSwift
 import Charts
 
-class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, WeightDelegate {
+    
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var currentWeightLabel: UILabel!
     @IBOutlet weak var goalWeightLabel: UILabel!
-    
+    @IBOutlet weak var dateLabel: UILabel!
     let realm = try! Realm()
     var weightEntries: Results<Weight>?
     
-    let calendar = Calendar.current
+    private let calendar = Calendar.current
     private let formatter = DateFormatter()
-    var lineChartDataSet = LineChartDataSet(entries: [ChartDataEntry(x: 0, y: 0 )], label: "Weight")
-    var startOfWeekDate: Date?
+    private let dateLabelFormatter = DateFormatter()
+    private var lineChartDataSet = LineChartDataSet(entries: [ChartDataEntry(x: 0, y: 0 )], label: "Weight")
+    private var startOfWeekDate: Date?
+    
+    private var averageWeight: Double = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +37,8 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.register(UINib(nibName: "LineChartCell", bundle: nil), forCellReuseIdentifier: "LineChartCell")
         
         setUpWeekData(direction: .backward, date: Date(), considerToday: true)
+        dateLabelFormatter.dateFormat = "E, d MMM"
+        dateLabel.text = "Week Starting: \(dateLabelFormatter.string(from: startOfWeekDate ?? Date()))"
     }
     
     
@@ -41,7 +47,6 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
         formatter.dateFormat = "dd MMM YYYY"
         
         weightEntries = realm.objects(Weight.self)
-        
         let predicate = NSPredicate(format: "dateString contains[c] %@", formatter.string(from: date ?? Date()))
         weightEntries = weightEntries?.filter(predicate)
     }
@@ -53,36 +58,123 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let monday = today.next(.monday, direction: direction, considerToday: considerToday)
         startOfWeekDate = monday
         loadWeightEntries(date: startOfWeekDate)
-        lineChartDataSet = LineChartDataSet(entries: [ChartDataEntry(x: 0, y: weightEntries?.last?.weight ?? 0)], label: "Weight")
+        var entry = weightEntries?.last?.weight ?? 0
+        lineChartDataSet = LineChartDataSet(entries: [ChartDataEntry(x: 0, y: entry.roundToXDecimalPoints(decimalPoints: 1))], label: "Weight")
         
         var dateCopy = startOfWeekDate
         // Append new entries to data sets from each day of the week
         for i in 1...6 {
             dateCopy = calendar.date(byAdding: .day, value: 1, to: dateCopy ?? Date())!
             loadWeightEntries(date: dateCopy)
-            lineChartDataSet.append(ChartDataEntry(x: Double(i), y: weightEntries?.last?.weight ?? 0))
+            var entry = weightEntries?.last?.weight ?? 0
+            lineChartDataSet.append(ChartDataEntry(x: Double(i), y: entry.roundToXDecimalPoints(decimalPoints: 1)))
         }
     }
     
     
+    
+
+    @IBAction func addButtonTapped(_ sender: UIBarButtonItem) {
+    }
+    
+    @IBAction func leftArrowTapped(_ sender: UIButton) {
+        setUpWeekData(direction: .backward, date: startOfWeekDate, considerToday: false)
+        dateLabel.text = "Week Starting: \(dateLabelFormatter.string(from: startOfWeekDate ?? Date()))"
+
+        tableView.frame = tableView.frame.offsetBy(dx: -view.frame.width, dy: 0)
+        UIView.animate(withDuration: 0.35, delay: 0, options: .curveEaseInOut, animations: {
+            var viewRightFrame = self.tableView.frame
+            viewRightFrame.origin.x += viewRightFrame.size.width
+            self.tableView.frame = viewRightFrame
+            
+        }, completion: nil)
+        
+        tableView.reloadData()
+    }
+    
+    @IBAction func rightArrowTapped(_ sender: UIButton) {
+        setUpWeekData(direction: .forward, date: startOfWeekDate, considerToday: false)
+        dateLabel.text = "Week Starting: \(dateLabelFormatter.string(from: startOfWeekDate ?? Date()))"
+
+        tableView.frame = tableView.frame.offsetBy(dx: view.frame.width, dy: 0)
+        UIView.animate(withDuration: 0.35, delay: 0, options: .curveEaseInOut, animations: {
+            var viewLeftFrame = self.tableView.frame
+            viewLeftFrame.origin.x -= viewLeftFrame.size.width
+            self.tableView.frame = viewLeftFrame
+            
+        }, completion: nil)
+        
+        tableView.reloadData()
+    }
+    
+    func reloadData(date: Date?) {
+        let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! LineChartCell
+        setUpWeekData(direction: .backward, date: date, considerToday: true)
+        tableView.reloadData()
+        cell.lineChart.animate(yAxisDuration: 0.5)
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "GoToNewWeightEntry" {
+            let NC = segue.destination as! UINavigationController
+            let VC = NC.viewControllers.first as! NewWeightEntryViewController
+            VC.delegate = self
+        }
+    }
+    
+}
+
+
+//MARK:- Extension for Table View methods
+
+extension WeightViewController {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 8
+        if section == 0 {
+            return 1
+        }
+        else {
+            return 7
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.row {
+        switch indexPath.section {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "LineChartCell", for: indexPath) as! LineChartCell
             
-            cell.lineChart.leftAxis.axisMinimum = 60
-            cell.lineChart.leftAxis.axisMaximum = 80
-            cell.lineChart.xAxis.axisMaximum = 6
+            var average = 0.0
+            var numberOfEntries = 0.0
+            for value in lineChartDataSet.entries {
+                if value.y > 0.0 {
+                    average += value.y
+                    numberOfEntries += 1
+                }
+            }
+            averageWeight = average / numberOfEntries
+            
+            if averageWeight.isNaN {
+                cell.lineChart.leftAxis.axisMinimum = 0
+                cell.lineChart.leftAxis.axisMaximum = 20
+                cell.caloriesLabel.text = "0 kg"
+            }
+            else {
+                cell.lineChart.leftAxis.axisMinimum = (averageWeight - 10)
+                cell.lineChart.leftAxis.axisMaximum = (averageWeight + 10)
+                cell.caloriesLabel.text = "\(averageWeight.roundToXDecimalPoints(decimalPoints: 1)) kg"
+            }
+            
+            cell.lineChart.xAxis.axisMaximum = 6.5
             cell.lineChart.xAxis.granularityEnabled = true
             cell.caloriesTitleLabel.text = "Weight"
             cell.caloriesTitleLabel.isHidden = true
             cell.averageTitleLabel.text = "Average Daily Weight:"
-            cell.caloriesLabel.text = "72.3 kg"
             cell.goalValueLabel.text = "75 kg"
+            
             
             lineChartDataSet.colors = [Color.skyBlue]
             lineChartDataSet.circleColors = [Color.skyBlue]
@@ -96,30 +188,37 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let cell = UITableViewCell()
             cell.textLabel?.font = UIFont(name: "Montserrat-Regular", size: 17)!
             let days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-            cell.textLabel?.text = "\(days[indexPath.row - 1]): \(lineChartDataSet.entries[indexPath.row - 1].y) kg"
-            cell.detailTextLabel?.text = "Monday"
+            if lineChartDataSet.entries[indexPath.row].y == 0 {
+                cell.textLabel?.text = "\(days[indexPath.row]): No weight entered"
+            }
+            else {
+                cell.textLabel?.text = "\(days[indexPath.row]): \(lineChartDataSet.entries[indexPath.row].y) kg"
+            }
             return cell
         }
         
     }
     
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            return nil
+        }
+        else {
+            return "Entries"
+        }
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == 0 {
+        if indexPath.section == 0 {
             return 450
         }
         else {
             return 40
         }
     }
-    
+}
 
-    @IBAction func addButtonTapped(_ sender: UIBarButtonItem) {
-    }
-    
-    @IBAction func leftArrowTapped(_ sender: UIButton) {
-    }
-    
-    @IBAction func rightArrowTapped(_ sender: UIButton) {
-    }
-    
+
+protocol WeightDelegate: class {
+    func reloadData(date: Date?)
 }

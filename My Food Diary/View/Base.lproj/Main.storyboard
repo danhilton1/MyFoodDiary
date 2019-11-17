@@ -1175,12 +1175,13 @@
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="addButtonTapped:" destination="hf2-6o-sMi" id="WGo-UJ-8Iv"/>
-                                <segue destination="Zx7-zy-j96" kind="presentation" id="HHm-wa-BcO"/>
+                                <segue destination="Zx7-zy-j96" kind="presentation" identifier="GoToNewWeightEntry" id="HHm-wa-BcO"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="currentWeightLabel" destination="jmr-BS-N7n" id="zwh-F6-S3Z"/>
+                        <outlet property="dateLabel" destination="quY-yD-qp0" id="2dX-om-qYd"/>
                         <outlet property="goalWeightLabel" destination="7SL-Kl-8hi" id="zM6-Fc-0TS"/>
                         <outlet property="tableView" destination="idj-0G-V2v" id="0hx-Oh-iEZ"/>
                     </connections>
@@ -1229,7 +1230,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter weight" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tcH-Ga-C2v">
-                                                    <rect key="frame" x="285" y="10" width="109" height="35"/>
+                                                    <rect key="frame" x="281" y="10" width="113" height="35"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                 </textField>
@@ -1242,6 +1243,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="tcH-Ga-C2v" secondAttribute="trailing" constant="20" id="3YF-vc-zsu"/>
+                                                <constraint firstItem="tcH-Ga-C2v" firstAttribute="leading" relation="lessThanOrEqual" secondItem="8Jz-Gv-9ow" secondAttribute="trailing" constant="180" id="5aM-ZM-9by"/>
                                                 <constraint firstAttribute="bottom" secondItem="tcH-Ga-C2v" secondAttribute="bottom" constant="10" id="7gj-Ip-4pB"/>
                                                 <constraint firstItem="tcH-Ga-C2v" firstAttribute="top" secondItem="Ilr-E3-qTE" secondAttribute="top" constant="10" id="WKa-XH-g3K"/>
                                                 <constraint firstItem="8Jz-Gv-9ow" firstAttribute="leading" secondItem="Ilr-E3-qTE" secondAttribute="leading" constant="20" id="WdM-Ei-ycT"/>
@@ -1263,14 +1265,15 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ejp-KU-8N4">
-                                                    <rect key="frame" x="295" y="12.5" width="99" height="30"/>
-                                                    <state key="normal" title="15th Nov 2019"/>
+                                                    <rect key="frame" x="275" y="11.5" width="119" height="32"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <state key="normal" title="15 Nov 2019"/>
                                                     <connections>
                                                         <action selector="dateButtonTapped:" destination="3IQ-Cp-eqe" eventType="touchUpInside" id="ZeW-Td-yx1"/>
                                                     </connections>
                                                 </button>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cB3-R4-ItK">
-                                                    <rect key="frame" x="295" y="18.5" width="99" height="18"/>
+                                                    <rect key="frame" x="275" y="18.5" width="119" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <connections>
@@ -1283,6 +1286,7 @@
                                                 <constraint firstItem="u05-zm-muM" firstAttribute="centerY" secondItem="Bdt-Vu-l3x" secondAttribute="centerY" id="Tet-OB-Yyd"/>
                                                 <constraint firstItem="cB3-R4-ItK" firstAttribute="width" secondItem="ejp-KU-8N4" secondAttribute="width" id="YJI-Lf-Df5"/>
                                                 <constraint firstItem="ejp-KU-8N4" firstAttribute="centerY" secondItem="Bdt-Vu-l3x" secondAttribute="centerY" id="aDE-Pd-16w"/>
+                                                <constraint firstItem="ejp-KU-8N4" firstAttribute="leading" relation="lessThanOrEqual" secondItem="u05-zm-muM" secondAttribute="trailing" constant="200" id="bEs-qr-C59"/>
                                                 <constraint firstAttribute="trailing" secondItem="cB3-R4-ItK" secondAttribute="trailing" constant="20" id="pVo-oU-lWD"/>
                                                 <constraint firstAttribute="trailing" secondItem="ejp-KU-8N4" secondAttribute="trailing" constant="20" id="qvc-p6-sSg"/>
                                                 <constraint firstItem="cB3-R4-ItK" firstAttribute="centerY" secondItem="Bdt-Vu-l3x" secondAttribute="centerY" id="spn-1D-Lfg"/>
