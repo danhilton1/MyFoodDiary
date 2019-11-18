@@ -345,6 +345,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         ac.addTextField { (textField) in
             textField.text = "\(self.defaults.value(forKey: "GoalCalories") ?? 0)"
             textField.placeholder = "Enter value here"
+            textField.keyboardType = .numberPad
         }
         
         ac.addAction(UIAlertAction(title: "Set", style: .default, handler: { (UIAlertAction) in

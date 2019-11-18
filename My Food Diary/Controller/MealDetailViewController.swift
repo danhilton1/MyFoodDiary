@@ -42,7 +42,7 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
         
         caloriesLabel.text = "   Calories: \(calories)"
         
-        tableView.allowsSelection = false
+        //tableView.allowsSelection = false
         tableView.tableFooterView = UIView()
         
         if selectedMeal?.count == 0 {
@@ -83,6 +83,13 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
             destVC.date = date
             destVC.meal = meal
             destVC.mealDelegate = self
+        }
+        else if segue.identifier == "GoToFoodDetail" {
+            let destVC = segue.destination as! FoodDetailViewController
+            //destVC.delegate = delegate
+            //destVC.mealDelegate = mealDelegate
+            destVC.date = date
+            //destVC.selectedSegmentIndex = selectedSegmentIndex
         }
     }
     
@@ -153,7 +160,7 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
         let servingSize = Double(food.servingSize.filter("01234567890.".contains)) ?? 100
         var totalServing = servingSize * food.serving
         cell.totalServingLabel.text = totalServing.removePointZeroEndingAndConvertToString() + " g"
-
+        
         return cell
     }
     

@@ -13,9 +13,8 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
     
     //MARK:- Properties
     
+    @IBOutlet weak var dateButton: DateButton!
     @IBOutlet weak var weightTextField: UITextField!
-    @IBOutlet weak var dateButton: UIButton!
-    @IBOutlet weak var dateTextField: UITextField!
     
     let realm = try! Realm()
     
@@ -25,6 +24,7 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
     
     private let datePicker = UIDatePicker()
     private let toolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
+    private let textFieldToolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
     
     //MARK:- viewDidLoad
     
@@ -35,9 +35,7 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
         setUpToolBar()
         tableView.tableFooterView = UIView()
         
-        dateTextField.delegate = self
-        
-        formatter.dateFormat = "dd MMM YYYY"
+        formatter.dateFormat = "E, dd MMM YYYY"
         dateButton.setTitle(formatter.string(from: Date()), for: .normal)
         
         datePicker.datePickerMode = .date
@@ -61,35 +59,32 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
      }
      
      func setUpToolBar() {
-         self.toolbar.items = [
-             UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: #selector(dismissResponder)),
-             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-             UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dateEntered))
-         ]
-         
-         self.toolbar.sizeToFit()
-    
+        self.toolbar.items = [
+            UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: #selector(dismissResponder)),
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dateEntered))
+        ]
+        self.toolbar.sizeToFit()
+        self.textFieldToolbar.items = [
+            UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: #selector(dismissResponder)),
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        ]
+        self.textFieldToolbar.sizeToFit()
+        weightTextField.inputAccessoryView = textFieldToolbar
+        
     }
     
     
-   
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        return false
-    }
-    
-    
-    @IBAction func dateTextFieldStartEditing(_ sender: UITextField) {
-        sender.becomeFirstResponder()
-        sender.inputView = datePicker
-        sender.inputAccessoryView = toolbar
-    }
     
     
     //MARK:- Button Methods
 
-    @IBAction func dateButtonTapped(_ sender: UIButton) {
+    @IBAction func dateButtonTapped(_ sender: DateButton) {
         self.becomeFirstResponder()
-
+        sender.dateView = datePicker
+        sender.toolBarView = toolbar
+        sender.inputView = datePicker
+        sender.inputAccessoryView = toolbar
     }
     
     // Nav bar button
@@ -99,13 +94,18 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
     
     // Toolbar button
     @objc func dateEntered() {
-        self.resignFirstResponder()
-
+        dateButton.resignFirstResponder()
         dateButton.setTitle(formatter.string(from: datePicker.date), for: .normal)
     }
+    
     // Toolbar button
     @objc func dismissResponder() {
-        self.resignFirstResponder()
+        if weightTextField.isFirstResponder {
+            weightTextField.resignFirstResponder()
+        }
+        else {
+            dateButton.resignFirstResponder()
+        }
     }
     
     @IBAction func addButtonTapped(_ sender: UIBarButtonItem) {

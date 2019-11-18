@@ -196,8 +196,8 @@ extension WeekNutritionViewController {
         }
         else if indexPath.row == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "LineChartCell", for: indexPath) as! LineChartCell
-            
-            let limitLine = ChartLimitLine(limit: 2500, label: "") // Set to actual goal
+            let defaults = UserDefaults()
+            let limitLine = ChartLimitLine(limit: defaults.value(forKey: "GoalCalories") as! Double, label: "")
             limitLine.lineDashLengths = [8]
             limitLine.lineWidth = 0.9
             limitLine.lineColor = Color.mint
@@ -214,6 +214,7 @@ extension WeekNutritionViewController {
             
             var averageCalories = round(getAverageOfValue(dataSet: lineChartDataSet))
             cell.caloriesLabel.text = averageCalories.removePointZeroEndingAndConvertToString()
+            cell.goalValueLabel.text = "\(defaults.value(forKey: "GoalCalories") ?? 0)"
             
             return cell
         }

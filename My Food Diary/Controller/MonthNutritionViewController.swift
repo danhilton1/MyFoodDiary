@@ -111,10 +111,11 @@ class MonthNutritionViewController: WeekNutritionViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "LineChartCell", for: indexPath) as! LineChartCell
             
             let VC = parent as? NutritionViewController
+            let defaults = UserDefaults()
             
             cell.lineChart.xAxis.granularityEnabled = true
             cell.lineChart.xAxis.axisMaximum = 3.5
-            let limitLine = ChartLimitLine(limit: 2500, label: "") // Set to actual goal
+            let limitLine = ChartLimitLine(limit: defaults.value(forKey: "GoalCalories") as! Double, label: "")
             limitLine.lineDashLengths = [8]
             limitLine.lineWidth = 1.5
             limitLine.lineColor = Color.mint
@@ -154,6 +155,7 @@ class MonthNutritionViewController: WeekNutritionViewController {
             cell.lineChart.animate(yAxisDuration: 0.5)
             var averageCalories = round(getAverageOfValue(dataSet: lineChartDataSet))
             cell.caloriesLabel.text = averageCalories.removePointZeroEndingAndConvertToString()
+            cell.goalValueLabel.text = "\(defaults.value(forKey: "GoalCalories") ?? 0)"
             
             return cell
         }

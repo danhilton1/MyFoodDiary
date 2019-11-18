@@ -22,6 +22,7 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var weightEntries: Results<Weight>?
     
     private let calendar = Calendar.current
+    private let defaults = UserDefaults()
     private let formatter = DateFormatter()
     private let dateLabelFormatter = DateFormatter()
     private var lineChartDataSet = LineChartDataSet(entries: [ChartDataEntry(x: 0, y: 0 )], label: "Weight")
@@ -63,6 +64,7 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
         else {
             currentWeightLabel.text = "0 kg"
         }
+        goalWeightLabel.text = "\(defaults.value(forKey: "GoalWeight") ?? "0 kg") kg"
         
     }
     
@@ -128,6 +130,31 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.reloadData()
     }
     
+    
+    @IBAction func goalButtonTapped(_ sender: UIButton) {
+        
+        let ac = UIAlertController(title: "Goal Weight", message: "Please set your goal weight", preferredStyle: .alert)
+        
+        ac.addTextField { (textField) in
+            textField.text = "\(self.defaults.value(forKey: "GoalWeight") ?? 0)"
+            textField.placeholder = "Enter value here"
+            textField.keyboardType = .decimalPad
+        }
+        
+        ac.addAction(UIAlertAction(title: "Set", style: .default, handler: { (UIAlertAction) in
+            self.defaults.setValue(Double(ac.textFields![0].text ?? "0"), forKey: "GoalWeight")
+            self.goalWeightLabel.text = "\(self.defaults.value(forKey: "GoalWeight") ?? 0) kg"
+            let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! LineChartCell
+            cell.goalValueLabel.text = "\(self.defaults.value(forKey: "GoalWeight") ?? 0) kg"
+            
+        }))
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        
+        present(ac, animated: true)
+        
+    }
+    
+    
     //MARK:- Segue Method
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -188,7 +215,7 @@ extension WeightViewController {
             cell.caloriesTitleLabel.text = "Weight"
             cell.caloriesTitleLabel.isHidden = true
             cell.averageTitleLabel.text = "Average Daily Weight:"
-            cell.goalValueLabel.text = "75 kg"
+            cell.goalValueLabel.text = "\(defaults.value(forKey: "GoalWeight") ?? 0) kg"
             
             
             lineChartDataSet.colors = [Color.skyBlue]
