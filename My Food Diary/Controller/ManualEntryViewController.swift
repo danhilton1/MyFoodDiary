@@ -128,6 +128,7 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
         workingCopy.name = foodNameTextField.text
         workingCopy.meal = meal.stringValue
         workingCopy.date = formatter.string(from: date ?? Date())
+        workingCopy.dateValue = date
         workingCopy.servingSize = (servingSizeTextField.text ?? "100g") + "g"
         workingCopy.serving = Double(servingTextField.text ?? "1") ?? 1
         workingCopy.calories = Int(caloriesTextField.text ?? "0") ?? 0
@@ -148,7 +149,9 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
         transition.type = CATransitionType.reveal
         transition.subtype = CATransitionSubtype.fromBottom
         self.view.window!.layer.add(transition, forKey: nil)
-        self.dismiss(animated: false, completion: nil)
+        self.dismiss(animated: false, completion: {
+            self.delegate?.reloadFood()
+        })
         
     }
     

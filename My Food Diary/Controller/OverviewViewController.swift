@@ -5,8 +5,7 @@
 //  Created by Daniel Hilton on 19/05/2019.
 //  Copyright © 2019 Daniel Hilton. All rights reserved.
 
-// TODO: - Show macros on graph for the day. Fix text/pie chart size on overview cell. Hide tab bar. Fix view size
-//         issue with activity indicator, error lable etc.. Fix food history/detail issue. 
+// TODO: -
 
 
 import UIKit
@@ -15,10 +14,10 @@ import Charts
 
 
 class OverviewViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NewEntryDelegate {
-    
-    let realm = try! Realm()
+
     
     //MARK: - Properties and Objects
+    private let realm = try! Realm()
     private var foodList: Results<Food>?
     private let food = Food()
     private var totalCalories = 0
@@ -32,6 +31,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     }
     private let datePicker = UIDatePicker()
     override var inputView: UIView? {
+        datePicker.date = date ?? Date()
         return self.datePicker
     }
     override var inputAccessoryView: UIView? {
@@ -64,13 +64,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         loadAllFood()
         goalCaloriesLabel.text = "\(defaults.value(forKey: "GoalCalories") ?? 0)"
         
-        self.toolbar.items = [
-            UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: #selector(dismissResponder)),
-            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-            UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dateEntered))
-        ]
-        
-        self.toolbar.sizeToFit()
+        setUpToolBar()
         datePicker.datePickerMode = .date
         datePicker.locale = Locale.current
         
@@ -83,7 +77,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         presentingViewController?.tabBarController?.tabBar.isHidden = false
         tabBarController?.tabBar.isHidden = false
     }
-    
+
 
     
     private func setUpTableView() {
@@ -91,6 +85,16 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         eatMeTableView.dataSource = self
         eatMeTableView.separatorStyle = .none
         eatMeTableView.register(UINib(nibName: "MealOverviewCell", bundle: nil), forCellReuseIdentifier: "mealOverviewCell")
+    }
+    
+    private func setUpToolBar() {
+        self.toolbar.items = [
+            UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: #selector(dismissResponder)),
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dateEntered))
+        ]
+        
+        self.toolbar.sizeToFit()
     }
     
     private func configureDateView() {
@@ -329,7 +333,6 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             self.configureDateView()
         }
         
-        
     }
     
     @objc func dismissResponder() {
@@ -364,6 +367,9 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     func reloadFood() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5 ) {
             self.loadAllFood()
+        }
+        if dayLabel.text == "Today" {  // Keeps the date property up to date when navigating from other VC's
+            date = Date()
         }
     }
     

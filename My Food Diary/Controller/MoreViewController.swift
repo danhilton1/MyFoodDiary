@@ -19,6 +19,10 @@ class MoreViewController: UITableViewController {
         tableView.tableFooterView = UIView()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        tabBarController?.tabBar.isHidden = false
+    }
 
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

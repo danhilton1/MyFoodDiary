@@ -60,17 +60,18 @@ class Food: Object {
     @objc dynamic var carbs: Double = 0
     @objc dynamic var fat: Double = 0
     @objc dynamic var isDeleted = false
-    var dateValue: Date {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "E, d MMM"
-        guard let date = date else { return Date() }
-        return formatter.date(from: date)?.addingTimeInterval(3600) ?? Date()
-    }
+    @objc dynamic var dateValue: Date? //{
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "E, d MMM"
+//        guard let date = date else { return Date() }
+//        return formatter.date(from: date) ?? Date()
+//    }
     
     
     func copy(with zone: NSZone? = nil) -> Food {
         let copy = Food()
         copy.date = self.date
+        copy.dateValue = self.dateValue
         copy.meal = self.meal
         copy.name = self.name
         copy.servingSize = self.servingSize

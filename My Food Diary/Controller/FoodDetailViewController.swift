@@ -38,7 +38,7 @@ class FoodDetailViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.navigationBar.tintColor = .white
+        self.navigationController?.navigationBar.tintColor = .white
         //tabBarController?.tabBar.isHidden = true
         tableView.keyboardDismissMode = .interactive
         tableView.allowsSelection = false
@@ -57,6 +57,7 @@ class FoodDetailViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         presentingViewController?.tabBarController?.tabBar.isHidden = true
+        self.navigationController?.navigationBar.tintColor = .white
     }
     
     private func dismissViewWithAnimation() {
@@ -67,7 +68,9 @@ class FoodDetailViewController: UITableViewController {
         transition.type = CATransitionType.reveal
         transition.subtype = CATransitionSubtype.fromBottom
         self.view.window?.layer.add(transition, forKey: nil)
-        self.dismiss(animated: false, completion: nil)
+        self.dismiss(animated: false, completion: {
+            self.delegate?.reloadFood()
+        })
         
     }
     
@@ -93,6 +96,7 @@ class FoodDetailViewController: UITableViewController {
     @IBAction func addButtonTapped(_ sender: UIBarButtonItem) {
         
         workingCopy.date = formatter.string(from: date ?? Date())
+        workingCopy.dateValue = date
         
         switch mealPicker.selectedSegmentIndex {
         case 0:

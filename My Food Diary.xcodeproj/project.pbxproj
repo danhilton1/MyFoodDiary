@@ -177,9 +177,9 @@
 			children = (
 				37DE59D622D1055D00079A6A /* OverviewPageViewController.swift */,
 				377208B62291A1F8002DDA29 /* OverviewViewController.swift */,
+				37563BD722C69E8F0032D94E /* NewEntryViewController.swift */,
 				37CA772C22A1BB4F00C03A06 /* ManualEntryViewController.swift */,
 				379DB00522B2EBB300F3DC5B /* MealDetailViewController.swift */,
-				37563BD722C69E8F0032D94E /* NewEntryViewController.swift */,
 				378917BF22C8DC3B00571181 /* BarcodeScannerViewController.swift */,
 				372F5A602301C374006A8665 /* FoodDetailViewController.swift */,
 				378F919A231AC289007142AA /* FoodHistoryViewController.swift */,

@@ -14,6 +14,7 @@ class NewEntryViewController: UIViewController, UITableViewDelegate, UITableView
     let realm = try! Realm()
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var enterManuallyButton: UIButton!
     
     var date: Date?
@@ -37,11 +38,13 @@ class NewEntryViewController: UIViewController, UITableViewDelegate, UITableView
         
         tableView.delegate = self
         tableView.dataSource = self
+        searchBar.delegate = self
         
         setUpNavBar()
         
         foodList = realm.objects(Food.self)
         setUpSortedFoodList()
+        //print(sortedFood)
         sortedFoodCopy = sortedFood
         
         tableView.tableFooterView = UIView()
@@ -89,7 +92,13 @@ class NewEntryViewController: UIViewController, UITableViewDelegate, UITableView
             foodDictionary[food.name!] = food
         }
         sortedFood = foodDictionary.values.sorted { (food1, food2) -> Bool in
-            return food1.dateValue > food2.dateValue
+            guard
+                let food1Date = food1.dateValue,
+                let food2Date = food2.dateValue
+            else {
+                return false
+            }
+            return food1Date > food2Date
         }
     }
     
@@ -128,9 +137,9 @@ class NewEntryViewController: UIViewController, UITableViewDelegate, UITableView
     }
 }
 
-//MARK:- Extension for table view methods
+//MARK:- Extension for table view and search bar methods
 
-extension NewEntryViewController {
+extension NewEntryViewController: UISearchBarDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if sortedFoodCopy.count == 0 {  // If foodList is empty, return 1 cell in order to display message
@@ -162,9 +171,44 @@ extension NewEntryViewController {
         return cell
     }
     
+    //MARK:- Search Bar Delegate methods
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: Segues.goToFoodDetail, sender: nil)
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+
+        if searchText != "" {
+            sortedFoodCopy = []
+            for food in sortedFood {
+                if (food.name?.contains(searchBar.text!))! {
+                    sortedFoodCopy.append(food)
+                }
+            }
+            tableView.reloadData()
+        }
+        else {
+            sortedFoodCopy = sortedFood
+            tableView.reloadData()
+        }
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
+        sortedFoodCopy = sortedFood
+        tableView.reloadData()
     }
     
 }

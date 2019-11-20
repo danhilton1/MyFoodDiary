@@ -31,7 +31,7 @@ class FoodHistoryViewController: UITableViewController {
         searchBar.delegate = self
 
         foodList = realm.objects(Food.self)
-        setUpSortedFoodList()
+        //setUpSortedFoodList()
         sortedFoodCopy = sortedFood
         
         tableView.tableFooterView = UIView()
@@ -50,15 +50,15 @@ class FoodHistoryViewController: UITableViewController {
         presentingViewController?.tabBarController?.tabBar.isHidden = false
     }
     
-    func setUpSortedFoodList() {
-        var foodDictionary = [String: Food]()
-        for food in foodList! {
-            foodDictionary[food.name!] = food
-        }
-        sortedFood = foodDictionary.values.sorted { (food1, food2) -> Bool in
-            return food1.dateValue > food2.dateValue
-        }
-    }
+//    func setUpSortedFoodList() {
+//        var foodDictionary = [String: Food]()
+//        for food in foodList! {
+//            foodDictionary[food.name!] = food
+//        }
+//        sortedFood = foodDictionary.values.sorted { (food1, food2) -> Bool in
+//            return food1.dateValue > food2.dateValue
+//        }
+//    }
 
     // MARK: - Table view data source
     

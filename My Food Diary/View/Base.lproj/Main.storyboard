@@ -48,7 +48,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bqB-KW-UEO">
-                                <rect key="frame" x="364" y="0.0" width="50" height="40"/>
+                                <rect key="frame" x="351" y="0.0" width="50" height="40"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="jHb-h0-MIF"/>
@@ -158,7 +158,7 @@
                             <constraint firstItem="VeI-XT-ytu" firstAttribute="trailing" secondItem="XjY-LM-rSs" secondAttribute="trailing" constant="10" id="p72-fJ-5fG"/>
                             <constraint firstItem="pBk-gP-hO9" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fbC-Xq-o29" secondAttribute="trailing" constant="45" id="rYz-1P-n48"/>
                             <constraint firstItem="Xbh-gk-J6y" firstAttribute="top" secondItem="sbF-JA-Wwl" secondAttribute="bottom" id="sQn-kP-IPb"/>
-                            <constraint firstItem="VeI-XT-ytu" firstAttribute="trailing" secondItem="bqB-KW-UEO" secondAttribute="trailing" id="uyw-2y-jhw"/>
+                            <constraint firstItem="VeI-XT-ytu" firstAttribute="trailing" secondItem="bqB-KW-UEO" secondAttribute="trailing" constant="13" id="uyw-2y-jhw"/>
                             <constraint firstItem="bqB-KW-UEO" firstAttribute="top" secondItem="VeI-XT-ytu" secondAttribute="top" id="w7U-TJ-a1g"/>
                             <constraint firstItem="Xbh-gk-J6y" firstAttribute="leading" secondItem="VeI-XT-ytu" secondAttribute="leading" id="yTf-Fq-OO8"/>
                         </constraints>
@@ -502,7 +502,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BarcodeScannerIcon" translatesAutoresizingMaskIntoConstraints="NO" id="emP-Y4-4pZ">
-                                <rect key="frame" x="127" y="21.5" width="66" height="33"/>
+                                <rect key="frame" x="160" y="21.5" width="33" height="33"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3tw-2j-oI4">
                                 <rect key="frame" x="0.0" y="15" width="206" height="46"/>
@@ -649,6 +649,7 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="enterManuallyButton" destination="0Kh-1r-0Pd" id="4d6-0T-iq6"/>
+                        <outlet property="searchBar" destination="xm6-Ah-7ZQ" id="iYg-yj-0nq"/>
                         <outlet property="tableView" destination="aGH-ak-qJd" id="ASN-cD-4QM"/>
                         <segue destination="zEh-Ej-CbZ" kind="show" identifier="GoToFoodDetail" id="nVt-VS-1vu"/>
                     </connections>

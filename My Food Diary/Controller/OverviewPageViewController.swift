@@ -42,7 +42,7 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         
         guard let today = (viewController as! OverviewViewController).date else { return nil }
-        print(today)
+        //print(today)
         // Yesterday's date at time: 00:00
         guard var yesterday = calendar.date(byAdding: .day, value: -1, to: today) else { return nil }
         yesterday = calendar.startOfDay(for: yesterday)
@@ -55,7 +55,7 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         
         guard let today = (viewController as! OverviewViewController).date else { return nil }
-        print(today)
+        //print(today)
         // Tomorrow's date at time: 00:00
         guard var tomorrow = calendar.date(byAdding: .day, value: 1, to: today) else { return nil }
         tomorrow = calendar.startOfDay(for: tomorrow)
@@ -73,7 +73,6 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
         
         overviewPage.configureWith(date: date)
         
-        
         return overviewPage
     }
     
@@ -82,15 +81,15 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         
         guard
-            let popupNav = storyboard?.instantiateViewController(withIdentifier: "PopUpVCNav") as? UINavigationController,
-            let popupVC = popupNav.viewControllers.first as? NewEntryViewController,
+            let navController = storyboard?.instantiateViewController(withIdentifier: "PopUpVCNav") as? UINavigationController,
+            let newEntryVC = navController.viewControllers.first as? NewEntryViewController,
             let vc = viewControllers?[0] as? OverviewViewController
             else {
                 return
         }
-        popupVC.delegate = vc
-        popupVC.date = vc.date
-        present(popupNav, animated: true)
+        newEntryVC.delegate = vc
+        newEntryVC.date = vc.date
+        present(navController, animated: true)
         
     }
     

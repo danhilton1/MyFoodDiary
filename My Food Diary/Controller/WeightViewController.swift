@@ -64,7 +64,7 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
         else {
             currentWeightLabel.text = "0 kg"
         }
-        goalWeightLabel.text = "\(defaults.value(forKey: "GoalWeight") ?? "0 kg") kg"
+        goalWeightLabel.text = "\(defaults.value(forKey: "GoalWeight") ?? "0") kg"
         
     }
     

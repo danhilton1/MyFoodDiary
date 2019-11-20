@@ -50,9 +50,9 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
         }
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        self.navigationController?.navigationBar.tintColor = .blue
-    }
+//    override func viewDidDisappear(_ animated: Bool) {
+//        self.navigationController?.navigationBar.tintColor = .blue
+//    }
     
     
     func reloadFood() {
@@ -86,9 +86,11 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
         }
         else if segue.identifier == "GoToFoodDetail" {
             let destVC = segue.destination as! FoodDetailViewController
+            guard let indexPath = tableView.indexPathForSelectedRow else { return }
             //destVC.delegate = delegate
             //destVC.mealDelegate = mealDelegate
             destVC.date = date
+            destVC.food = selectedMeal![indexPath.row]
             //destVC.selectedSegmentIndex = selectedSegmentIndex
         }
     }
