@@ -88,10 +88,11 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
             let destVC = segue.destination as! FoodDetailViewController
             guard let indexPath = tableView.indexPathForSelectedRow else { return }
             //destVC.delegate = delegate
-            //destVC.mealDelegate = mealDelegate
+            destVC.mealDelegate = self
             destVC.date = date
-            destVC.food = selectedMeal![indexPath.row]
-            //destVC.selectedSegmentIndex = selectedSegmentIndex
+            destVC.food = selectedMeal![indexPath.section]
+            destVC.selectedSegmentIndex = meal.intValue
+            destVC.isEditingExistingEntry = true
         }
     }
     

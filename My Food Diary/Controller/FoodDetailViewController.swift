@@ -18,6 +18,7 @@ class FoodDetailViewController: UITableViewController {
     var food: Food?
     var date: Date?
     var selectedSegmentIndex = 0
+    var isEditingExistingEntry = false
     var workingCopy: Food = Food()
     private let formatter = DateFormatter()
     
@@ -96,7 +97,9 @@ class FoodDetailViewController: UITableViewController {
     @IBAction func addButtonTapped(_ sender: UIBarButtonItem) {
         
         workingCopy.date = formatter.string(from: date ?? Date())
-        workingCopy.dateValue = date
+        if !isEditingExistingEntry {
+            workingCopy.dateValue = date
+        }
         
         switch mealPicker.selectedSegmentIndex {
         case 0:
@@ -118,21 +121,49 @@ class FoodDetailViewController: UITableViewController {
         default:
             print("Error determining meal type.")
         }
-
-        dismissViewWithAnimation()
+        if isEditingExistingEntry {
+            navigationController?.popViewController(animated: true)
+        }
+        else {
+            dismissViewWithAnimation()
+        }
         delegate?.reloadFood()
         mealDelegate?.reloadFood()
         
     }
     
     
-    private func save(_ food: Object) {
-        do {
-            try realm.write {
-                realm.add(food)
+    private func save(_ food: Food) {
+        if !isEditingExistingEntry {
+            do {
+                try realm.write {
+                    realm.add(food)
+                }
+            } catch {
+                print(error)
             }
-        } catch {
-            print(error)
+        }
+        else {
+            do {
+                try realm.write {
+                    let foodList = realm.objects(Food.self)
+                    for entry in foodList {
+                        if entry.dateValue == food.dateValue {
+                            entry.meal = food.meal
+                            entry.name = food.name
+                            entry.servingSize = food.servingSize
+                            entry.serving = food.serving
+                            entry.calories = food.calories
+                            entry.protein = food.protein
+                            entry.carbs = food.carbs
+                            entry.fat = food.fat
+                            entry.isDeleted = food.isDeleted
+                        }
+                    }
+                }
+            } catch {
+                print(error)
+            }
         }
     }
     

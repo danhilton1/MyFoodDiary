@@ -1018,6 +1018,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="caloriesLabel" destination="mhX-l7-sTC" id="5jW-Hw-G6W"/>
                         <outlet property="carbsLabel" destination="fGc-0W-tHD" id="7Bi-tA-VdQ"/>
