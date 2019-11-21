@@ -20,6 +20,7 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var dateLabel: UILabel!
     let realm = try! Realm()
     var weightEntries: Results<Weight>?
+    private var allWeightEntries: Results<Weight>?
     
     private let calendar = Calendar.current
     private let defaults = UserDefaults()
@@ -40,6 +41,7 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.dataSource = self
         tableView.register(UINib(nibName: "LineChartCell", bundle: nil), forCellReuseIdentifier: "LineChartCell")
         
+        allWeightEntries = realm.objects(Weight.self)
         setUpWeekData(direction: .backward, date: Date(), considerToday: true)
         setUpLabels()
     }
@@ -56,9 +58,20 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func setUpLabels() {
+        
         dateLabelFormatter.dateFormat = "E, d MMM"
         dateLabel.text = "Week Starting: \(dateLabelFormatter.string(from: startOfWeekDate ?? Date()))"
-        if let currentWeight = weightEntries?.last?.weight {
+
+        var closestInterval: TimeInterval = .greatestFiniteMagnitude
+        var mostCurrentEntry: Weight?
+        for entry in allWeightEntries! {
+            let interval: TimeInterval = abs(entry.date.timeIntervalSinceNow)
+            if interval < closestInterval {
+                closestInterval = interval
+                mostCurrentEntry = entry
+            }
+        }
+        if let currentWeight = mostCurrentEntry?.weight {
             currentWeightLabel.text = "\(currentWeight) kg"
         }
         else {
@@ -88,6 +101,7 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func reloadData(date: Date?) {
+        setUpLabels()
         let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! LineChartCell
         setUpWeekData(direction: .backward, date: date, considerToday: true)
         tableView.reloadData()

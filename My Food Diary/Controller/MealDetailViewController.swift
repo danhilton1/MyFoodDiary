@@ -50,9 +50,11 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
         }
     }
     
-//    override func viewDidDisappear(_ animated: Bool) {
-//        self.navigationController?.navigationBar.tintColor = .blue
-//    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        tabBarController?.tabBar.isHidden = false
+    }
+    
     
     
     func reloadFood() {

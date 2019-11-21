@@ -57,6 +57,7 @@ class FoodDetailViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        tabBarController?.tabBar.isHidden = true
         presentingViewController?.tabBarController?.tabBar.isHidden = true
         self.navigationController?.navigationBar.tintColor = .white
     }
@@ -71,6 +72,7 @@ class FoodDetailViewController: UITableViewController {
         self.view.window?.layer.add(transition, forKey: nil)
         self.dismiss(animated: false, completion: {
             self.delegate?.reloadFood()
+            self.presentingViewController?.tabBarController?.tabBar.isHidden = false
         })
         
     }
