@@ -39,8 +39,8 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
         navigationController?.navigationBar.barTintColor = Color.skyBlue
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.allowsSelection = false
         tableView.register(UINib(nibName: "LineChartCell", bundle: nil), forCellReuseIdentifier: "LineChartCell")
-        
         allWeightEntries = realm.objects(Weight.self)
         setUpWeekData(direction: .backward, date: Date(), considerToday: true)
         setUpLabels()
@@ -241,14 +241,18 @@ extension WeightViewController {
             
             return cell
         default:
-            let cell = UITableViewCell()
-            cell.textLabel?.font = UIFont(name: "Montserrat-Regular", size: 17)!
+            let cell = tableView.dequeueReusableCell(withIdentifier: "mealDetailCell", for: indexPath) as! MealDetailCell
+            
+            cell.typeLabel.font = UIFont(name: "Montserrat-Regular", size: 17)!
+            cell.numberLabel.font = UIFont(name: "Montserrat-Medium", size: 17)!
             let days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
             if lineChartDataSet.entries[indexPath.row].y == 0 {
-                cell.textLabel?.text = "\(days[indexPath.row]): No weight entered"
+                cell.typeLabel.text = "\(days[indexPath.row]): "
+                cell.numberLabel.text = "-"
             }
             else {
-                cell.textLabel?.text = "\(days[indexPath.row]): \(lineChartDataSet.entries[indexPath.row].y) kg"
+                cell.typeLabel.text = "\(days[indexPath.row]):"
+                cell.numberLabel.text = "\(lineChartDataSet.entries[indexPath.row].y) kg"
             }
             return cell
         }
@@ -270,6 +274,57 @@ extension WeightViewController {
         }
         else {
             return 40
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        let cell = tableView.cellForRow(at: indexPath) as? MealDetailCell
+        
+        if indexPath.section == 1 && cell?.numberLabel.text != "-" {
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            
+            lineChartDataSet.entries[indexPath.row].y = 0
+//            reloadTableView()
+            tableView.reloadData()
+
+//            var entries = [Int]()
+//
+//            for i in 0..<7 {
+//                let cell = tableView.cellForRow(at: IndexPath(row: i, section: 1)) as? MealDetailCell
+//                if cell?.numberLabel.text != "-" {
+//                    entries.append(i)
+//                }
+//            }
+//            for (index, entry) in entries.enumerated() {
+//                if entry == indexPath.row {
+//                    guard let entryToDelete = weightEntries?[index] else { return }
+//                    print(entryToDelete)
+//                }
+//            }
+//            if entries.contains(indexPath.row) {
+//
+//            }
+            //let index = weightEntries!.count - indexPath.row
+//            guard let entryToDelete = weightEntries?[indexPath.row] else { return }
+//            print(entryToDelete)
+//            do {
+//                try realm.write {
+//                    guard let entryToDelete = weightEntries?[indexPath.row] else { return }
+//                    print(entryToDelete)
+//                    realm.delete(entryToDelete)
+//                }
+//            }
+//            catch {
+//                print(error)
+//            }
         }
     }
 }
