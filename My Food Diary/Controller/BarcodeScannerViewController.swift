@@ -351,7 +351,9 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
             vc.food = workingCopy
             vc.delegate = delegate
             vc.mealDelegate = mealDelegate
+            vc.date = date
             vc.selectedSegmentIndex = selectedSegmentIndex
+            vc.isEditingExistingEntry = false
         }
     }
     

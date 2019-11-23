@@ -1636,13 +1636,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u05-zm-muM">
-                                                    <rect key="frame" x="20" y="15" width="55" height="25"/>
+                                                    <rect key="frame" x="20" y="15.5" width="54.5" height="24.5"/>
                                                     <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ejp-KU-8N4" customClass="DateButton" customModule="My_Food_Diary" customModuleProvider="target">
-                                                    <rect key="frame" x="275" y="11.5" width="119" height="32"/>
+                                                    <rect key="frame" x="274.5" y="11.5" width="119.5" height="32"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <state key="normal" title="15 Nov 2019"/>
                                                     <connections>
@@ -1979,7 +1979,7 @@
         <!--Navigation Controller-->
         <scene sceneID="eom-1y-CLj">
             <objects>
-                <navigationController storyboardIdentifier="PopUpVCNav" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overCurrentContext" id="LTy-J0-xZd" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NewEntryVCNav" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overCurrentContext" useStoryboardIdentifierAsRestorationIdentifier="YES" id="LTy-J0-xZd" sceneMemberID="viewController">
                     <toolbarItems/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="UQ0-A9-wPo">

@@ -279,7 +279,7 @@ extension WeightViewController {
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         let cell = tableView.cellForRow(at: indexPath) as? MealDetailCell
-        
+
         if indexPath.section == 1 && cell?.numberLabel.text != "-" {
             return true
         }

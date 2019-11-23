@@ -81,7 +81,7 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         
         guard
-            let navController = storyboard?.instantiateViewController(withIdentifier: "PopUpVCNav") as? UINavigationController,
+            let navController = storyboard?.instantiateViewController(withIdentifier: "NewEntryVCNav") as? UINavigationController,
             let newEntryVC = navController.viewControllers.first as? NewEntryViewController,
             let vc = viewControllers?[0] as? OverviewViewController
             else {

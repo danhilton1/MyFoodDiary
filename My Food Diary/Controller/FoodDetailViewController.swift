@@ -62,6 +62,11 @@ class FoodDetailViewController: UITableViewController {
         self.navigationController?.navigationBar.tintColor = .white
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        presentingViewController?.tabBarController?.tabBar.isHidden = false
+    }
+    
     private func dismissViewWithAnimation() {
         
         let transition: CATransition = CATransition()
@@ -129,6 +134,7 @@ class FoodDetailViewController: UITableViewController {
         else {
             dismissViewWithAnimation()
         }
+        isEditingExistingEntry = false
         delegate?.reloadFood()
         mealDelegate?.reloadFood()
         

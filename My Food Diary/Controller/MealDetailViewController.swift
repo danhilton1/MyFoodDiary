@@ -29,6 +29,7 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
     
     var date: Date?
     var meal: Food.Meal = .breakfast
+    var noEntriesToDisplay = false
     
     @IBOutlet weak var caloriesLabel: UILabel!
     
@@ -55,6 +56,10 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
         tabBarController?.tabBar.isHidden = false
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        noEntriesToDisplay = false
+    }
     
     
     func reloadFood() {
@@ -103,7 +108,7 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
     // MARK: - Table view data source and delegate methods
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        if selectedMeal?.count == 0 {
+        if selectedMeal?.count == 0 && !noEntriesToDisplay {
             return 1
         }
         return selectedMeal?.count ?? 0
@@ -210,7 +215,11 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
             
             let indexSet = IndexSet(arrayLiteral: indexPath.section)
             print(indexSet)
+            if tableView.numberOfSections == 1 {
+                noEntriesToDisplay = true
+            }
             tableView.deleteSections(indexSet, with: .automatic)
+            
             
             reloadSelectedMeal()
             
