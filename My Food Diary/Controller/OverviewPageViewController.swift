@@ -12,20 +12,19 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
     
     let calendar = Calendar.current
     
+    var dateEnteredFromPicker = false
+    var dateFromDatePicker: Date?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationController?.navigationBar.barTintColor = Color.skyBlue
-        
         dataSource = self
         
         if let overviewVC = storyboard?.instantiateViewController(withIdentifier: "OverviewVC") as? OverviewViewController {
-            
             // Set the inital VC date property to current date
             overviewVC.date = Date()
-
             setViewControllers([overviewVC], direction: .forward, animated: true, completion: nil)
-            
         }
     }
     
@@ -41,27 +40,48 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         
-        guard let today = (viewController as! OverviewViewController).date else { return nil }
-        //print(today)
-        // Yesterday's date at time: 00:00
-        guard var yesterday = calendar.date(byAdding: .day, value: -1, to: today) else { return nil }
-        yesterday = calendar.startOfDay(for: yesterday)
-//        yesterday = calendar.date(byAdding: .hour, value: 1, to: yesterday) ?? yesterday
+        if dateEnteredFromPicker {
+            
+            guard let today = dateFromDatePicker else { return nil }
+            guard var yesterday = calendar.date(byAdding: .day, value: -1, to: today) else { return nil }
+            yesterday = calendar.startOfDay(for: yesterday)
+            
+            return overviewViewController(for: yesterday)
+        }
+        else {
         
-        return overviewViewController(for: yesterday)
-        
+            guard let today = (viewController as! OverviewViewController).date else { return nil }
+            
+            // Yesterday's date at time: 00:00
+            guard var yesterday = calendar.date(byAdding: .day, value: -1, to: today) else { return nil }
+            yesterday = calendar.startOfDay(for: yesterday)
+    //        yesterday = calendar.date(byAdding: .hour, value: 1, to: yesterday) ?? yesterday
+            
+            return overviewViewController(for: yesterday)
+        }
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         
-        guard let today = (viewController as! OverviewViewController).date else { return nil }
-        //print(today)
-        // Tomorrow's date at time: 00:00
-        guard var tomorrow = calendar.date(byAdding: .day, value: 1, to: today) else { return nil }
-        tomorrow = calendar.startOfDay(for: tomorrow)
-//        tomorrow = calendar.date(byAdding: .hour, value: 1, to: tomorrow) ?? tomorrow
-        
-        return overviewViewController(for: tomorrow)
+        if dateEnteredFromPicker {
+            
+            guard let today = dateFromDatePicker else { return nil }
+            guard var tomorrow = calendar.date(byAdding: .day, value: 1, to: today) else { return nil }
+            tomorrow = calendar.startOfDay(for: tomorrow)
+            
+            return overviewViewController(for: tomorrow)
+            
+        }
+        else {
+            guard let today = (viewController as! OverviewViewController).date else { return nil }
+            
+            // Tomorrow's date at time: 00:00
+            guard var tomorrow = calendar.date(byAdding: .day, value: 1, to: today) else { return nil }
+            tomorrow = calendar.startOfDay(for: tomorrow)
+    //        tomorrow = calendar.date(byAdding: .hour, value: 1, to: tomorrow) ?? tomorrow
+            
+            return overviewViewController(for: tomorrow)
+        }
         
     }
     
@@ -72,6 +92,8 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
         guard let overviewPage = storyboard?.instantiateViewController(withIdentifier: "OverviewVC") as? OverviewViewController else { return nil }
         
         overviewPage.configureWith(date: date)
+        //print(overviewPage.date)
+        dateEnteredFromPicker = false
         
         return overviewPage
     }

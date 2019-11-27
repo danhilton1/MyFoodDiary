@@ -44,7 +44,6 @@ class NewEntryViewController: UIViewController, UITableViewDelegate, UITableView
         
         foodList = realm.objects(Food.self)
         setUpSortedFoodList()
-        //print(sortedFood)
         sortedFoodCopy = sortedFood
         
         tableView.tableFooterView = UIView()

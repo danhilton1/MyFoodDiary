@@ -16,15 +16,25 @@ import Charts
 class OverviewViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NewEntryDelegate {
 
     
-    //MARK: - Properties and Objects
+    //MARK: - Properties
     private let realm = try! Realm()
+    var date: Date?   //  Required to be set before VC presented
     private var foodList: Results<Food>?
-    private let food = Food()
-    private var totalCalories = 0
     private var totalCalsArray = [Int]()
     private var refreshControl = UIRefreshControl()
     private let formatter = DateFormatter()
     private let defaults = UserDefaults()
+    private let food = Food()
+    private var totalCalories = 0
+    private var calorieArray = [Int]()
+    private var proteinArray = [Double]()
+    private var carbsArray = [Double]()
+    private var fatArray = [Double]()
+    private var calories = 0
+    private var protein = 0.0
+    private var carbs = 0.0
+    private var fat = 0.0
+    
     
     override var canBecomeFirstResponder: Bool {
         return true
@@ -39,10 +49,8 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     }
     private let toolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
        
-    let dimView = UIView()
+    private let dimView = UIView()
     
-    //  Required to be set before VC presented
-    var date: Date?
     
     @IBOutlet weak var dayLabel: UILabel!
     @IBOutlet weak var eatMeTableView: UITableView!
@@ -78,7 +86,6 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         tabBarController?.tabBar.isHidden = false
     }
 
-
     
     private func setUpTableView() {
         eatMeTableView.delegate = self
@@ -93,7 +100,6 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
             UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dateEntered))
         ]
-        
         self.toolbar.sizeToFit()
     }
     
@@ -108,7 +114,6 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         } else {
             dayLabel.text = dateAsString
         }
-        
     }
     
     private func configureTotalCaloriesLabel() {
@@ -142,7 +147,6 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         
         totalCalsArray = (foodList?.value(forKey: "calories")) as! [Int]
         totalCalories = totalCalsArray.reduce(0, +)
-        
         totalCaloriesLabel.text = "\(totalCalories)"
         configureTotalCaloriesLabel()
         
@@ -166,7 +170,6 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         }
         
         loadAllFood()
-        
     }
     
     
@@ -178,84 +181,17 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     private func getTotalValueOfMealData(food: Results<Food>?, meal: Food.Meal, cell: MealOverviewCell) {
         // Updates the total amount of cals and macros for user entries
         
-        var calorieArray = [Int]()
-        var proteinArray = [Double]()
-        var carbsArray = [Double]()
-        var fatArray = [Double]()
-        
-        var calories = 0
-        var protein = 0.0
-        var carbs = 0.0
-        var fat = 0.0
-        
-        
         // Checks the meal type and then appends each food property (cals, carbs, ..) to corresponding array
-        if let foodlist = food {
-            
-            if meal == .breakfast {
-                for food in foodlist {
-                    if food.meal == "Breakfast" {
-                        calorieArray.append(food.calories)
-                        proteinArray.append(food.protein)
-                        carbsArray.append(food.carbs)
-                        fatArray.append(food.fat)
-                    }
-                }
-                // Add each value of array to the corresponding property to give total amount
-                for i in 0..<calorieArray.count {
-                    calories += calorieArray[i]
-                    protein += proteinArray[i]
-                    carbs += carbsArray[i]
-                    fat += fatArray[i]
-                }
-            }
-            else if meal == .lunch {
-                for food in foodlist {
-                    if food.meal == "Lunch" {
-                        calorieArray.append(food.calories)
-                        proteinArray.append(food.protein)
-                        carbsArray.append(food.carbs)
-                        fatArray.append(food.fat)
-                    }
-                }
-                for i in 0..<calorieArray.count {
-                    calories += calorieArray[i]
-                    protein += proteinArray[i]
-                    carbs += carbsArray[i]
-                    fat += fatArray[i]
-                }
-            }
-            else if meal == .dinner {
-                for food in foodlist {
-                    if food.meal == "Dinner" {
-                        calorieArray.append(food.calories)
-                        proteinArray.append(food.protein)
-                        carbsArray.append(food.carbs)
-                        fatArray.append(food.fat)
-                    }
-                }
-                for i in 0..<calorieArray.count {
-                    calories += calorieArray[i]
-                    protein += proteinArray[i]
-                    carbs += carbsArray[i]
-                    fat += fatArray[i]
-                }
-            }
-            else if meal == .other {
-                for food in foodlist {
-                    if food.meal == "Other" {
-                        calorieArray.append(food.calories)
-                        proteinArray.append(food.protein)
-                        carbsArray.append(food.carbs)
-                        fatArray.append(food.fat)
-                    }
-                }
-                for i in 0..<calorieArray.count {
-                    calories += calorieArray[i]
-                    protein += proteinArray[i]
-                    carbs += carbsArray[i]
-                    fat += fatArray[i]
-                }
+        if let foodList = food {
+            switch meal {
+            case .breakfast:
+                retrieveNutritionData(meal: Food.Meal.breakfast.stringValue, foodList: foodList)
+            case .lunch:
+                retrieveNutritionData(meal: Food.Meal.lunch.stringValue, foodList: foodList)
+            case .dinner:
+                retrieveNutritionData(meal: Food.Meal.dinner.stringValue, foodList: foodList)
+            default:
+                retrieveNutritionData(meal: Food.Meal.other.stringValue, foodList: foodList)
             }
         }
         
@@ -265,6 +201,33 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         cell.fatLabel.text = fat.removePointZeroEndingAndConvertToString() + " g"
         
         setUpPieChart(cell: cell, section1: protein, section2: carbs, section3: fat)
+        
+        calorieArray = []
+        proteinArray = []
+        carbsArray = []
+        fatArray = []
+        calories = 0
+        protein = 0
+        carbs = 0
+        fat = 0
+    }
+    
+    private func retrieveNutritionData(meal: String, foodList: Results<Food>) {
+        for food in foodList {
+            if food.meal == meal {
+                calorieArray.append(food.calories)
+                proteinArray.append(food.protein)
+                carbsArray.append(food.carbs)
+                fatArray.append(food.fat)
+            }
+        }
+        // Add each value of array to the corresponding property to give total amount
+        for i in 0..<calorieArray.count {
+            calories += calorieArray[i]
+            protein += proteinArray[i]
+            carbs += carbsArray[i]
+            fat += fatArray[i]
+        }
     }
     
     
@@ -321,18 +284,23 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         self.becomeFirstResponder()
         
     }
+    
     @objc func dateEntered() {
         self.resignFirstResponder()
         UIView.animate(withDuration: 0.2) {
             self.dimView.alpha = 0
         }
         date = datePicker.date
+        let parentVC = parent as? OverviewPageViewController
+        parentVC?.dateEnteredFromPicker = true
+        parentVC?.dateFromDatePicker = datePicker.date
+        parentVC?.setViewControllers([self], direction: .forward, animated: false, completion: nil)
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2 ) {
             self.dimView.removeFromSuperview()
             self.loadAllFood()
             self.configureDateView()
         }
-        
     }
     
     @objc func dismissResponder() {

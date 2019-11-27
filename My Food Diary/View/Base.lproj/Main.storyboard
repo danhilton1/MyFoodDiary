@@ -1057,6 +1057,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="20"/>
                                 <state key="normal" title="Register"/>
+                                <connections>
+                                    <segue destination="I4G-MR-uy6" kind="show" id="WfE-Fu-LR0"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WUd-Aq-FMP">
                                 <rect key="frame" x="80" y="580.5" width="254" height="50"/>
@@ -1066,6 +1069,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="20"/>
                                 <state key="normal" title="Log In"/>
+                                <connections>
+                                    <segue destination="Ftc-4j-rM8" kind="show" id="UH6-e5-hXi"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Emn-MJ-l0U">
                                 <rect key="frame" x="79" y="675.5" width="256" height="34"/>
@@ -1107,6 +1113,7 @@
                         <viewLayoutGuide key="safeArea" id="6Ao-WQ-Tcb"/>
                     </view>
                     <navigationItem key="navigationItem" id="rwx-qw-IdI"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="logInButton" destination="WUd-Aq-FMP" id="fww-YA-4Mj"/>
                         <outlet property="registerButton" destination="Y1Y-3l-roi" id="Z2O-pg-2aE"/>
@@ -1114,16 +1121,171 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KCJ-bk-F89" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1662" y="115"/>
+            <point key="canvasLocation" x="-2591" y="115"/>
+        </scene>
+        <!--Log In-->
+        <scene sceneID="Jyc-UI-QsV">
+            <objects>
+                <viewController id="Ftc-4j-rM8" customClass="LogInViewController" customModule="My_Food_Diary" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SKv-h3-xOy">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppLogoNoBackground" translatesAutoresizingMaskIntoConstraints="NO" id="EC8-XN-3qt">
+                                <rect key="frame" x="107" y="129" width="200" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="0g7-0Z-Bo2"/>
+                                    <constraint firstAttribute="height" constant="200" id="QhC-nx-JCi"/>
+                                </constraints>
+                            </imageView>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="a0a-V1-0Ow" customClass="LogInTextField" customModule="My_Food_Diary" customModuleProvider="target">
+                                <rect key="frame" x="80" y="414" width="254" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="cgs-xC-ugo"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="raU-uz-fBh" customClass="LogInTextField" customModule="My_Food_Diary" customModuleProvider="target">
+                                <rect key="frame" x="80" y="499" width="254" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="24f-fI-Ixw"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fSj-0N-DfD">
+                                <rect key="frame" x="80" y="639" width="254" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="7GH-Mk-c5q"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="20"/>
+                                <state key="normal" title="Log In"/>
+                                <connections>
+                                    <segue destination="TrC-wf-omx" kind="show" id="Ppd-RY-0pj"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.20392156859999999" green="0.59607843140000005" blue="0.85882352939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="a0a-V1-0Ow" firstAttribute="leading" secondItem="vZQ-xy-Vu5" secondAttribute="leading" constant="80" id="4Z9-50-V5C"/>
+                            <constraint firstItem="vZQ-xy-Vu5" firstAttribute="trailing" secondItem="a0a-V1-0Ow" secondAttribute="trailing" constant="80" id="6FH-Ve-xXI"/>
+                            <constraint firstItem="EC8-XN-3qt" firstAttribute="centerX" secondItem="SKv-h3-xOy" secondAttribute="centerX" id="An8-8O-5kh"/>
+                            <constraint firstItem="a0a-V1-0Ow" firstAttribute="top" secondItem="EC8-XN-3qt" secondAttribute="bottom" constant="85" id="B5e-La-RKj"/>
+                            <constraint firstItem="raU-uz-fBh" firstAttribute="leading" secondItem="vZQ-xy-Vu5" secondAttribute="leading" constant="80" id="RUc-xy-6qW"/>
+                            <constraint firstItem="fSj-0N-DfD" firstAttribute="leading" secondItem="vZQ-xy-Vu5" secondAttribute="leading" constant="80" id="TwI-5a-HW9"/>
+                            <constraint firstItem="raU-uz-fBh" firstAttribute="top" secondItem="a0a-V1-0Ow" secondAttribute="bottom" constant="40" id="aOc-al-qaB"/>
+                            <constraint firstItem="fSj-0N-DfD" firstAttribute="top" secondItem="raU-uz-fBh" secondAttribute="bottom" constant="95" id="ixl-RI-t20"/>
+                            <constraint firstItem="vZQ-xy-Vu5" firstAttribute="trailing" secondItem="raU-uz-fBh" secondAttribute="trailing" constant="80" id="jdW-TX-jR9"/>
+                            <constraint firstItem="EC8-XN-3qt" firstAttribute="top" secondItem="vZQ-xy-Vu5" secondAttribute="top" constant="85" id="oTp-YC-xq9"/>
+                            <constraint firstItem="vZQ-xy-Vu5" firstAttribute="trailing" secondItem="fSj-0N-DfD" secondAttribute="trailing" constant="80" id="uwq-Ti-onD"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="vZQ-xy-Vu5"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Log In" id="04Q-QZ-5Xz"/>
+                    <connections>
+                        <outlet property="emailTextField" destination="a0a-V1-0Ow" id="ibu-iG-v5g"/>
+                        <outlet property="logInButton" destination="fSj-0N-DfD" id="8Rl-Q9-3Lv"/>
+                        <outlet property="passwordTextField" destination="raU-uz-fBh" id="2Ax-QU-j0x"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Op-aD-0cE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1633" y="289"/>
+        </scene>
+        <!--Register-->
+        <scene sceneID="gti-hV-Ulu">
+            <objects>
+                <viewController title="Register" id="I4G-MR-uy6" customClass="RegisterViewController" customModule="My_Food_Diary" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1Ca-If-32L">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rwg-6J-ZOJ">
+                                <rect key="frame" x="20" y="144" width="194" height="32"/>
+                                <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="26"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iqe-Aa-cNn">
+                                <rect key="frame" x="20" y="286" width="194" height="32"/>
+                                <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="26"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter your email address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KiP-My-j7D">
+                                <rect key="frame" x="20" y="211" width="297" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="hyA-bo-ss3"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter your password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3iL-Ir-f7m">
+                                <rect key="frame" x="20" y="353" width="297" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="wej-pG-VDu"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JG4-Xx-9kv">
+                                <rect key="frame" x="80" y="553" width="254" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="3gU-Kg-0Ma"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="20"/>
+                                <state key="normal" title="Register"/>
+                                <connections>
+                                    <segue destination="TrC-wf-omx" kind="show" id="OSe-Ul-eCh"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.20392156859999999" green="0.59607843140000005" blue="0.85882352939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Rwg-6J-ZOJ" firstAttribute="leading" secondItem="qUz-zr-dyE" secondAttribute="leading" constant="20" id="2Ef-LA-cQK"/>
+                            <constraint firstItem="iqe-Aa-cNn" firstAttribute="top" secondItem="KiP-My-j7D" secondAttribute="bottom" constant="35" id="Aze-wQ-fU1"/>
+                            <constraint firstItem="qUz-zr-dyE" firstAttribute="trailing" secondItem="KiP-My-j7D" secondAttribute="trailing" constant="97" id="CYt-Nu-3Xq"/>
+                            <constraint firstItem="3iL-Ir-f7m" firstAttribute="top" secondItem="iqe-Aa-cNn" secondAttribute="bottom" constant="35" id="LXx-s4-rsO"/>
+                            <constraint firstItem="qUz-zr-dyE" firstAttribute="trailing" secondItem="iqe-Aa-cNn" secondAttribute="trailing" constant="200" id="PdJ-Ft-xZ1"/>
+                            <constraint firstItem="qUz-zr-dyE" firstAttribute="trailing" secondItem="3iL-Ir-f7m" secondAttribute="trailing" constant="97" id="YT1-eJ-ML8"/>
+                            <constraint firstItem="KiP-My-j7D" firstAttribute="top" secondItem="Rwg-6J-ZOJ" secondAttribute="bottom" constant="35" id="ZQZ-Cj-pAk"/>
+                            <constraint firstItem="qUz-zr-dyE" firstAttribute="trailing" secondItem="Rwg-6J-ZOJ" secondAttribute="trailing" constant="200" id="Zq3-WT-S9w"/>
+                            <constraint firstItem="qUz-zr-dyE" firstAttribute="trailing" secondItem="JG4-Xx-9kv" secondAttribute="trailing" constant="80" id="jXb-UI-Tef"/>
+                            <constraint firstItem="KiP-My-j7D" firstAttribute="leading" secondItem="qUz-zr-dyE" secondAttribute="leading" constant="20" id="ohc-L4-4nu"/>
+                            <constraint firstItem="JG4-Xx-9kv" firstAttribute="top" secondItem="3iL-Ir-f7m" secondAttribute="bottom" constant="160" id="rYf-Uu-2mh"/>
+                            <constraint firstItem="3iL-Ir-f7m" firstAttribute="leading" secondItem="qUz-zr-dyE" secondAttribute="leading" constant="20" id="rr2-E3-dLK"/>
+                            <constraint firstItem="iqe-Aa-cNn" firstAttribute="leading" secondItem="qUz-zr-dyE" secondAttribute="leading" constant="20" id="w22-8d-68Z"/>
+                            <constraint firstItem="JG4-Xx-9kv" firstAttribute="leading" secondItem="qUz-zr-dyE" secondAttribute="leading" constant="80" id="wOP-gQ-oyU"/>
+                            <constraint firstItem="Rwg-6J-ZOJ" firstAttribute="top" secondItem="qUz-zr-dyE" secondAttribute="top" constant="100" id="wmL-P6-5r3"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="qUz-zr-dyE"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Register" id="Fdm-DX-nyz"/>
+                    <connections>
+                        <outlet property="emailTextField" destination="KiP-My-j7D" id="9gx-FQ-0pa"/>
+                        <outlet property="passwordTextField" destination="3iL-Ir-f7m" id="oKi-5D-Ohp"/>
+                        <outlet property="registerButton" destination="JG4-Xx-9kv" id="5d7-gf-bqT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="p0z-gY-yuz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1633.3333333333335" y="-412.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="duX-zy-Dnw">
             <objects>
-                <navigationController modalPresentationStyle="fullScreen" navigationBarHidden="YES" id="jBM-Ax-d9a" sceneMemberID="viewController">
+                <navigationController modalPresentationStyle="fullScreen" id="jBM-Ax-d9a" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="KVh-cA-YZx"/>
-                    <nil key="simulatedTopBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="1zp-bd-HlC">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.21739959719999999" green="0.59010601039999999" blue="0.85885608199999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="1wD-RQ-Wg8" kind="relationship" relationship="rootViewController" id="Zdv-6d-2ci"/>
@@ -1131,7 +1293,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ix6-cz-d1L" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2574" y="115"/>
+            <point key="canvasLocation" x="-3332" y="115"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="GEn-r3-HP7">
@@ -1199,7 +1361,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lHz-ci-dXs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2030" y="887"/>
+            <point key="canvasLocation" x="-2030" y="994"/>
         </scene>
         <!--More-->
         <scene sceneID="BOu-St-fIm">
@@ -1359,7 +1521,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e7N-4L-2re" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2030" y="1596"/>
+            <point key="canvasLocation" x="-2030" y="1691"/>
         </scene>
         <!--Weight-->
         <scene sceneID="oHa-Ah-uFu">
@@ -2148,6 +2310,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="hIA-Yj-Du4"/>
         <segue reference="czJ-8k-2CO"/>
+        <segue reference="Ppd-RY-0pj"/>
         <segue reference="AX7-nl-74f"/>
     </inferredMetricsTieBreakers>
 </document>

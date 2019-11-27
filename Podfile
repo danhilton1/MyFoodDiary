@@ -8,5 +8,8 @@ target 'My Food Diary' do
 
 pod 'RealmSwift'
 pod 'Charts'
+pod 'Firebase/Analytics'
+pod 'Firebase/Auth'
+pod 'Firebase/Firestore'
 
 end

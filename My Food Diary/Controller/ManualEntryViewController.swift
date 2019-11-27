@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import Firebase
 
 protocol NewEntryDelegate: class {
     func reloadFood()
@@ -16,6 +17,7 @@ protocol NewEntryDelegate: class {
 class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
     
     let realm = try! Realm()
+    let db = Firestore.firestore()
     
     weak var delegate: NewEntryDelegate?
     weak var mealDelegate: NewEntryDelegate?
@@ -109,15 +111,29 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
     
     //MARK: - New Entry Add and Save methods
     
-    func save(_ food: Object) {
+    func save(_ food: Food) {
         
-        do {
-            try realm.write {
-                realm.add(food)
+        var ref: DocumentReference? = nil
+        ref = db.collection("foods").addDocument(data: [
+            "name": food.name,
+            "meal": food.meal,
+            "born": 1815
+        ]) { err in
+            if let err = err {
+                print("Error adding document: \(err)")
+            } else {
+                print("Document added with ID: \(ref!.documentID)")
             }
-        } catch {
-            print(error)
         }
+        
+        
+//        do {
+//            try realm.write {
+//                realm.add(food)
+//            }
+//        } catch {
+//            print(error)
+//        }
     }
     
     private func addAndSaveNewEntry(meal: Food.Meal) {

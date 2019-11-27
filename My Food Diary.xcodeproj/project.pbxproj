@@ -24,6 +24,9 @@
 		37563BD822C69E8F0032D94E /* NewEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37563BD722C69E8F0032D94E /* NewEntryViewController.swift */; };
 		37653D1A22FCB55E00B32E5B /* Montserrat-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 37653D1922FCB55E00B32E5B /* Montserrat-Bold.otf */; };
 		37653D1C22FCB5C700B32E5B /* Montserrat-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 37653D1B22FCB5C700B32E5B /* Montserrat-SemiBold.otf */; };
+		376CD1D4238F045F00257076 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376CD1D3238F045F00257076 /* RegisterViewController.swift */; };
+		376CD1D6238F046900257076 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376CD1D5238F046900257076 /* LogInViewController.swift */; };
+		376CD1D8238F095000257076 /* LogInTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376CD1D7238F095000257076 /* LogInTextField.swift */; };
 		377208B52291A1F8002DDA29 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377208B42291A1F8002DDA29 /* AppDelegate.swift */; };
 		377208B72291A1F8002DDA29 /* OverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377208B62291A1F8002DDA29 /* OverviewViewController.swift */; };
 		377208BA2291A1F8002DDA29 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 377208B82291A1F8002DDA29 /* Main.storyboard */; };
@@ -31,6 +34,7 @@
 		377208C22291A1FA002DDA29 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 377208C02291A1FA002DDA29 /* LaunchScreen.storyboard */; };
 		377208D22291B002002DDA29 /* MealOverviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377208D02291B002002DDA29 /* MealOverviewCell.swift */; };
 		377208D32291B002002DDA29 /* MealOverviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 377208D12291B002002DDA29 /* MealOverviewCell.xib */; };
+		3779E8AD238C7222004EC080 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3779E8AC238C7222004EC080 /* GoogleService-Info.plist */; };
 		377A57D2233F896100D816DD /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377A57D1233F896100D816DD /* Color.swift */; };
 		377C9BFA236DBA6A008165DA /* WeightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377C9BF9236DBA6A008165DA /* WeightViewController.swift */; };
 		378917C022C8DC3B00571181 /* BarcodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378917BF22C8DC3B00571181 /* BarcodeScannerViewController.swift */; };
@@ -70,6 +74,9 @@
 		37563BD722C69E8F0032D94E /* NewEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEntryViewController.swift; sourceTree = "<group>"; };
 		37653D1922FCB55E00B32E5B /* Montserrat-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.otf"; sourceTree = "<group>"; };
 		37653D1B22FCB5C700B32E5B /* Montserrat-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.otf"; sourceTree = "<group>"; };
+		376CD1D3238F045F00257076 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		376CD1D5238F046900257076 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
+		376CD1D7238F095000257076 /* LogInTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInTextField.swift; sourceTree = "<group>"; };
 		377208B12291A1F8002DDA29 /* My Food Diary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "My Food Diary.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		377208B42291A1F8002DDA29 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		377208B62291A1F8002DDA29 /* OverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewViewController.swift; sourceTree = "<group>"; };
@@ -79,6 +86,7 @@
 		377208C32291A1FA002DDA29 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		377208D02291B002002DDA29 /* MealOverviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealOverviewCell.swift; sourceTree = "<group>"; };
 		377208D12291B002002DDA29 /* MealOverviewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MealOverviewCell.xib; sourceTree = "<group>"; };
+		3779E8AC238C7222004EC080 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		377A57D1233F896100D816DD /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		377C9BF9236DBA6A008165DA /* WeightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightViewController.swift; sourceTree = "<group>"; };
 		378917BF22C8DC3B00571181 /* BarcodeScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeScannerViewController.swift; sourceTree = "<group>"; };
@@ -148,6 +156,7 @@
 				377208CB2291A223002DDA29 /* Controller */,
 				377208BE2291A1FA002DDA29 /* Assets.xcassets */,
 				377208C32291A1FA002DDA29 /* Info.plist */,
+				3779E8AC238C7222004EC080 /* GoogleService-Info.plist */,
 			);
 			path = "My Food Diary";
 			sourceTree = "<group>";
@@ -170,6 +179,7 @@
 				37A07E3B22DD028300E4A351 /* Custom Fonts */,
 				377208D42291E012002DDA29 /* Custom Cell */,
 				3704184223832D7100F3B296 /* DateButton.swift */,
+				376CD1D7238F095000257076 /* LogInTextField.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -178,6 +188,8 @@
 			isa = PBXGroup;
 			children = (
 				37C2E37B2387365B006A4C51 /* WelcomeViewController.swift */,
+				376CD1D3238F045F00257076 /* RegisterViewController.swift */,
+				376CD1D5238F046900257076 /* LogInViewController.swift */,
 				37DE59D622D1055D00079A6A /* OverviewPageViewController.swift */,
 				377208B62291A1F8002DDA29 /* OverviewViewController.swift */,
 				37563BD722C69E8F0032D94E /* NewEntryViewController.swift */,
@@ -305,6 +317,7 @@
 				377208C22291A1FA002DDA29 /* LaunchScreen.storyboard in Resources */,
 				37A07E3F22DD02CA00E4A351 /* Montserrat-Thin.otf in Resources */,
 				37360AF32351D62E00AA02A2 /* DayNutritionCell.xib in Resources */,
+				3779E8AD238C7222004EC080 /* GoogleService-Info.plist in Resources */,
 				377208BF2291A1FA002DDA29 /* Assets.xcassets in Resources */,
 				37A07E4322DD04C000E4A351 /* Montserrat-Regular.otf in Resources */,
 				377208BA2291A1F8002DDA29 /* Main.storyboard in Resources */,
@@ -383,12 +396,15 @@
 				37360AFC2352150700AA02A2 /* BarChartNutritionCell.swift in Sources */,
 				377208D22291B002002DDA29 /* MealOverviewCell.swift in Sources */,
 				37241ABD22CD127800AF85AB /* MealDetailCell.swift in Sources */,
+				376CD1D8238F095000257076 /* LogInTextField.swift in Sources */,
 				3713FFE5237F433C000D1E50 /* Weight.swift in Sources */,
 				378F9199231AC204007142AA /* FoodHistoryCell.swift in Sources */,
 				37BBEBFA235659F600D390E5 /* LineChartCell.swift in Sources */,
+				376CD1D6238F046900257076 /* LogInViewController.swift in Sources */,
 				377208B72291A1F8002DDA29 /* OverviewViewController.swift in Sources */,
 				37360AF22351D62E00AA02A2 /* DayNutritionCell.swift in Sources */,
 				374BC02522BABA8800013610 /* Food.swift in Sources */,
+				376CD1D4238F045F00257076 /* RegisterViewController.swift in Sources */,
 				377C9BFA236DBA6A008165DA /* WeightViewController.swift in Sources */,
 				372F5A612301C375006A8665 /* FoodDetailViewController.swift in Sources */,
 				378917C022C8DC3B00571181 /* BarcodeScannerViewController.swift in Sources */,

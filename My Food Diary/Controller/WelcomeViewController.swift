@@ -22,6 +22,16 @@ class WelcomeViewController: UIViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        navigationController?.navigationBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewDidDisappear(true)
+        //navigationController?.navigationBar.isHidden = false
+    }
+    
     func setUpViews() {
         view.backgroundColor = Color.skyBlue
         registerButton.layer.cornerRadius = registerButton.frame.size.height / 2
