@@ -23,7 +23,8 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
     weak var mealDelegate: NewEntryDelegate?
     var date: Date?
     var selectedSegmentIndex = 0
-    var activeField: UITextField?
+    private var activeField: UITextField?
+    private let formatter = DateFormatter()
 
     private var workingCopy: Food = Food()
 
@@ -115,9 +116,17 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
         
         var ref: DocumentReference? = nil
         ref = db.collection("foods").addDocument(data: [
-            "name": food.name,
-            "meal": food.meal,
-            "born": 1815
+            "name": food.name ?? "N/A",
+            "meal": food.meal ?? Food.Meal.other,
+            "date": food.date!,
+            "dateValue": food.dateValue ?? Date(),
+            "servingSize": food.servingSize,
+            "serving": food.serving,
+            "calories": food.calories,
+            "protein": food.protein,
+            "carbs": food.carbs,
+            "fat": food.fat,
+            "isDeleted": false
         ]) { err in
             if let err = err {
                 print("Error adding document: \(err)")
@@ -127,18 +136,17 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
         }
         
         
-//        do {
-//            try realm.write {
-//                realm.add(food)
-//            }
-//        } catch {
-//            print(error)
-//        }
+        do {
+            try realm.write {
+                realm.add(food)
+            }
+        } catch {
+            print(error)
+        }
     }
     
     private func addAndSaveNewEntry(meal: Food.Meal) {
         
-        let formatter = DateFormatter()
         formatter.dateFormat = "E, d MMM"
     
         workingCopy.name = foodNameTextField.text
