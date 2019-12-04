@@ -502,7 +502,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BarcodeScannerIcon" translatesAutoresizingMaskIntoConstraints="NO" id="emP-Y4-4pZ">
-                                <rect key="frame" x="160" y="21.5" width="33" height="33"/>
+                                <rect key="frame" x="127" y="21.5" width="66" height="33"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3tw-2j-oI4">
                                 <rect key="frame" x="0.0" y="15" width="206" height="46"/>
@@ -1163,7 +1163,7 @@
                                 <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="20"/>
                                 <state key="normal" title="Log In"/>
                                 <connections>
-                                    <segue destination="TrC-wf-omx" kind="show" id="Ppd-RY-0pj"/>
+                                    <action selector="logInButtonTapped:" destination="Ftc-4j-rM8" eventType="touchUpInside" id="CDI-kp-eVO"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1188,6 +1188,7 @@
                         <outlet property="emailTextField" destination="a0a-V1-0Ow" id="ibu-iG-v5g"/>
                         <outlet property="logInButton" destination="fSj-0N-DfD" id="8Rl-Q9-3Lv"/>
                         <outlet property="passwordTextField" destination="raU-uz-fBh" id="2Ax-QU-j0x"/>
+                        <segue destination="TrC-wf-omx" kind="show" identifier="GoToOverview" id="NOO-Zw-O1E"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Op-aD-0cE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1239,7 +1240,7 @@
                                 <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="20"/>
                                 <state key="normal" title="Register"/>
                                 <connections>
-                                    <segue destination="TrC-wf-omx" kind="show" id="OSe-Ul-eCh"/>
+                                    <action selector="registerButtonTapped:" destination="I4G-MR-uy6" eventType="touchUpInside" id="1cc-bw-lgB"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1268,6 +1269,7 @@
                         <outlet property="emailTextField" destination="KiP-My-j7D" id="9gx-FQ-0pa"/>
                         <outlet property="passwordTextField" destination="3iL-Ir-f7m" id="oKi-5D-Ohp"/>
                         <outlet property="registerButton" destination="JG4-Xx-9kv" id="5d7-gf-bqT"/>
+                        <segue destination="TrC-wf-omx" kind="show" identifier="GoToOverview" id="gK3-K4-laE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p0z-gY-yuz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2310,7 +2312,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="hIA-Yj-Du4"/>
         <segue reference="czJ-8k-2CO"/>
-        <segue reference="Ppd-RY-0pj"/>
+        <segue reference="NOO-Zw-O1E"/>
         <segue reference="AX7-nl-74f"/>
     </inferredMetricsTieBreakers>
 </document>

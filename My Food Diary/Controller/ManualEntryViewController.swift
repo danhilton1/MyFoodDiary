@@ -14,6 +14,22 @@ protocol NewEntryDelegate: class {
     func reloadFood()
 }
 
+enum FoodsCollection {
+    static let collection = "foods"
+    static let name = "name"
+    static let meal = "meal"
+    static let date = "date"
+    static let dateValue = "dateValue"
+    static let servingSize = "servingSize"
+    static let serving = "serving"
+    static let calories = "calories"
+    static let protein = "protein"
+    static let carbs = "carbs"
+    static let fat = "fat"
+    static let isDeleted = "isDeleted"
+}
+
+
 class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
     
     let realm = try! Realm()
@@ -114,24 +130,25 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
     
     func save(_ food: Food) {
         
-        var ref: DocumentReference? = nil
-        ref = db.collection("foods").addDocument(data: [
-            "name": food.name ?? "N/A",
-            "meal": food.meal ?? Food.Meal.other,
-            "date": food.date!,
-            "dateValue": food.dateValue ?? Date(),
-            "servingSize": food.servingSize,
-            "serving": food.serving,
-            "calories": food.calories,
-            "protein": food.protein,
-            "carbs": food.carbs,
-            "fat": food.fat,
-            "isDeleted": false
-        ]) { err in
-            if let err = err {
-                print("Error adding document: \(err)")
+        let fc = FoodsCollection.self
+        
+        db.collection(fc.collection).document(food.name!).setData([
+            fc.name: food.name ?? "N/A",
+            fc.meal: food.meal ?? Food.Meal.other,
+            fc.date: food.date!,
+            fc.dateValue: food.dateValue ?? Date(),
+            fc.servingSize: food.servingSize,
+            fc.serving: food.serving,
+            fc.calories: food.calories,
+            fc.protein: food.protein,
+            fc.carbs: food.carbs,
+            fc.fat: food.fat,
+            fc.isDeleted: false
+        ]) { error in
+            if let error = error {
+                print("Error adding document: \(error)")
             } else {
-                print("Document added with ID: \(ref!.documentID)")
+                print("Document added with ID: \(food.name!)")
             }
         }
         

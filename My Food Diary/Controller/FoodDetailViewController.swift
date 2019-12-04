@@ -8,10 +8,12 @@
 
 import UIKit
 import RealmSwift
+import Firebase
 
 class FoodDetailViewController: UITableViewController {
     
     let realm = try! Realm()
+    let db = Firestore.firestore()
     
     //MARK:- Properties
     
@@ -143,6 +145,29 @@ class FoodDetailViewController: UITableViewController {
     
     private func save(_ food: Food) {
         if !isEditingExistingEntry {
+            
+            let fc = FoodsCollection.self
+            
+            db.collection(fc.collection).document(food.name!).setData([
+                fc.name: food.name ?? "N/A",
+                fc.meal: food.meal ?? Food.Meal.other,
+                fc.date: food.date!,
+                fc.dateValue: food.dateValue ?? Date(),
+                fc.servingSize: food.servingSize,
+                fc.serving: food.serving,
+                fc.calories: food.calories,
+                fc.protein: food.protein,
+                fc.carbs: food.carbs,
+                fc.fat: food.fat,
+                fc.isDeleted: false
+            ]) { error in
+                if let error = error {
+                    print("Error adding document: \(error)")
+                } else {
+                    print("Document added with ID: \(food.name!)")
+                }
+            }
+            
             do {
                 try realm.write {
                     realm.add(food)
@@ -152,6 +177,29 @@ class FoodDetailViewController: UITableViewController {
             }
         }
         else {
+            let fc = FoodsCollection.self
+            let foodRef = db.collection(FoodsCollection.collection).document(food.name!)
+            
+            foodRef.updateData([
+                fc.name: food.name!,
+                fc.meal: food.meal ?? Food.Meal.other,
+                fc.date: food.date!,
+                fc.dateValue: food.dateValue,
+                fc.servingSize: food.servingSize,
+                fc.serving: food.serving,
+                fc.calories: food.calories,
+                fc.protein: food.protein,
+                fc.carbs: food.carbs,
+                fc.fat: food.fat,
+                fc.isDeleted: false
+            ]) { error in
+                if let error = error {
+                    print("Error updating document: \(error)")
+                } else {
+                    print("Document successfully updated")
+                }
+            }
+            
             do {
                 try realm.write {
                     let foodList = realm.objects(Food.self)

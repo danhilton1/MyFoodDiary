@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import SVProgressHUD
 
 class LogInViewController: UIViewController {
 
@@ -23,10 +25,30 @@ class LogInViewController: UIViewController {
         logInButton.setTitleColor(Color.skyBlue, for: .normal)
         logInButton.layer.cornerRadius = logInButton.frame.size.height / 2
         passwordTextField.placeholder = "Password"
-//        emailTextField.layer.cornerRadius = 25
-//        passwordTextField.layer.cornerRadius = 25
+        
     }
     
-
+    @IBAction func logInButtonTapped(_ sender: UIButton) {
+        
+        SVProgressHUD.show()
+        
+        Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) { [weak self] authResult, error in
+            guard let strongSelf = self else { return }
+            
+            if error != nil {
+                print(error!)
+                SVProgressHUD.showError(withStatus: error?.localizedDescription)
+            }
+            else {
+                print("Log In Successful")
+                SVProgressHUD.dismiss()
+                strongSelf.performSegue(withIdentifier: "GoToOverview", sender: self)
+            }
+          
+        }
+        
+        
+    }
+    
 
 }

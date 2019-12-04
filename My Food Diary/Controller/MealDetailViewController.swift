@@ -8,10 +8,12 @@
 
 import UIKit
 import RealmSwift
+import Firebase
 
 class MealDetailViewController: UITableViewController, NewEntryDelegate {
     
     let realm = try! Realm()
+    let db = Firestore.firestore()
     
     var calories = 0
     var selectedMeal: Results<Food>? {
@@ -204,6 +206,20 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete {
+            let fc = FoodsCollection.self
+            let foodRef = db.collection(FoodsCollection.collection).document((selectedMeal?[indexPath.section].name!)!)
+            
+            foodRef.updateData([
+                fc.isDeleted: true
+            ]) { error in
+                if let error = error {
+                    print("Error updating document: \(error)")
+                } else {
+                    print("Document successfully updated")
+                }
+            }
+            
+            
             do {
                 try realm.write {
                     selectedMeal?[indexPath.section].isDeleted = true
