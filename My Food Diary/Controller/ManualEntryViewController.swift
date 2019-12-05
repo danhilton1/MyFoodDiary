@@ -130,9 +130,11 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
     
     func save(_ food: Food) {
         
+        let user = Auth.auth().currentUser
+        
         let fc = FoodsCollection.self
         
-        db.collection(fc.collection).document(food.name!).setData([
+        db.collection("users").document((user?.email)!).collection(fc.collection).document(food.name!).setData([
             fc.name: food.name ?? "N/A",
             fc.meal: food.meal ?? Food.Meal.other,
             fc.date: food.date!,
@@ -151,6 +153,26 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
                 print("Document added with ID: \(food.name!)")
             }
         }
+        
+//        db.collection(fc.collection).document(food.name!).setData([
+//            fc.name: food.name ?? "N/A",
+//            fc.meal: food.meal ?? Food.Meal.other,
+//            fc.date: food.date!,
+//            fc.dateValue: food.dateValue ?? Date(),
+//            fc.servingSize: food.servingSize,
+//            fc.serving: food.serving,
+//            fc.calories: food.calories,
+//            fc.protein: food.protein,
+//            fc.carbs: food.carbs,
+//            fc.fat: food.fat,
+//            fc.isDeleted: false
+//        ]) { error in
+//            if let error = error {
+//                print("Error adding document: \(error)")
+//            } else {
+//                print("Document added with ID: \(food.name!)")
+//            }
+//        }
         
         
         do {

@@ -11,13 +11,14 @@
 import UIKit
 import RealmSwift
 import Charts
-
+import Firebase
 
 class OverviewViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NewEntryDelegate {
 
     
     //MARK: - Properties
     private let realm = try! Realm()
+    private let db = Firestore.firestore()
     var date: Date?   //  Required to be set before VC presented
     private var foodList: Results<Food>?
     private var totalCalsArray = [Int]()
@@ -151,6 +152,20 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         configureTotalCaloriesLabel()
         
         eatMeTableView.reloadData()
+        
+        let userEmail = Auth.auth().currentUser?.email
+        
+        db.collection("users").document(userEmail!).collection("foods").whereField("isDeleted", isEqualTo: false).getDocuments() { (foods, error) in
+            if let error = error {
+                print("Error getting documents: \(error)")
+            }
+            else {
+                print(foods?.documents)
+                for food in foods!.documents {
+                    print("\(food.data())")
+                }
+            }
+        }
         
     }
     
