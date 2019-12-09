@@ -197,12 +197,15 @@ extension WeekNutritionViewController {
         else if indexPath.row == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "LineChartCell", for: indexPath) as! LineChartCell
             let defaults = UserDefaults()
-            let limitLine = ChartLimitLine(limit: defaults.value(forKey: "GoalCalories") as! Double, label: "")
-            limitLine.lineDashLengths = [8]
-            limitLine.lineWidth = 0.9
-            limitLine.lineColor = Color.mint
-            limitLine.valueFont = UIFont(name: "Montserrat-Regular", size: 12)!
-            cell.lineChart.leftAxis.addLimitLine(limitLine)
+            if let goalCalories = (defaults.value(forKey: "GoalCalories") as? Double) {
+                let limitLine = ChartLimitLine(limit: goalCalories, label: "")
+                limitLine.lineDashLengths = [8]
+                limitLine.lineWidth = 1.5
+                limitLine.lineColor = Color.mint
+                limitLine.valueFont = UIFont(name: "Montserrat-Regular", size: 12)!
+                
+                cell.lineChart.leftAxis.addLimitLine(limitLine)
+            }
             
             lineChartDataSet.colors = [Color.skyBlue]
             lineChartDataSet.circleColors = [Color.skyBlue]

@@ -7,23 +7,34 @@
 //
 import Foundation
 import UIKit
+import Firebase
 
 class OverviewPageViewController: UIPageViewController, UIPageViewControllerDataSource {
+    
+    private let db = Firestore.firestore()
+    let userEmail = Auth.auth().currentUser?.email
     
     let calendar = Calendar.current
     
     var dateEnteredFromPicker = false
     var dateFromDatePicker: Date?
+    let formatter = DateFormatter()
+    
+    var allFood = [Food]()
+    var testFoodArray = [Food]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationController?.navigationBar.barTintColor = Color.skyBlue
         dataSource = self
+        formatter.dateFormat = "E, d MMM"
+        
         
         if let overviewVC = storyboard?.instantiateViewController(withIdentifier: "OverviewVC") as? OverviewViewController {
             // Set the inital VC date property to current date
             overviewVC.date = Date()
+            overviewVC.allFood = allFood
             setViewControllers([overviewVC], direction: .forward, animated: true, completion: nil)
         }
     }
@@ -34,6 +45,8 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
         let VC = viewControllers![0] as! OverviewViewController
         VC.loadAllFood()
     }
+    
+    
     
     
     //MARK:- PageViewController Datasource Methods
@@ -92,11 +105,12 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
         guard let overviewPage = storyboard?.instantiateViewController(withIdentifier: "OverviewVC") as? OverviewViewController else { return nil }
         
         overviewPage.configureWith(date: date)
-        //print(overviewPage.date)
+        overviewPage.allFood = allFood
         dateEnteredFromPicker = false
         
         return overviewPage
     }
+    
     
     //MARK:- Button Methods
     

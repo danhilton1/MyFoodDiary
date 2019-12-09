@@ -19,8 +19,12 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     //MARK: - Properties
     private let realm = try! Realm()
     private let db = Firestore.firestore()
+    let userEmail = Auth.auth().currentUser?.email
     var date: Date?   //  Required to be set before VC presented
     private var foodList: Results<Food>?
+    var foodArray = [Food]()
+    var testFoodArray = [Food]()
+    var allFood: [Food]?
     private var totalCalsArray = [Int]()
     private var refreshControl = UIRefreshControl()
     private let formatter = DateFormatter()
@@ -35,6 +39,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     private var protein = 0.0
     private var carbs = 0.0
     private var fat = 0.0
+    
     
     
     override var canBecomeFirstResponder: Bool {
@@ -64,6 +69,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         setUpTableView()
         
         refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
@@ -77,12 +83,14 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         datePicker.datePickerMode = .date
         datePicker.locale = Locale.current
         
+        //print(allFood)
     }
     
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         loadAllFood()
+        loadFirebaseData()
         presentingViewController?.tabBarController?.tabBar.isHidden = false
         tabBarController?.tabBar.isHidden = false
     }
@@ -153,20 +161,48 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         
         eatMeTableView.reloadData()
         
-        let userEmail = Auth.auth().currentUser?.email
+    }
+    
+    
+    func loadFirebaseData() {
         
-        db.collection("users").document(userEmail!).collection("foods").whereField("isDeleted", isEqualTo: false).getDocuments() { (foods, error) in
-            if let error = error {
-                print("Error getting documents: \(error)")
-            }
-            else {
-                print(foods?.documents)
-                for food in foods!.documents {
-                    print("\(food.data())")
-                }
+        for food in allFood! {
+            if food.date == formatter.string(from: date ?? Date()) && !food.isDeleted {
+                testFoodArray.append(food)
             }
         }
-        
+        //print(testFoodArray)
+//        db.collection("users").document(userEmail!).collection("foods")
+//            .whereField("isDeleted", isEqualTo: false)
+//            .whereField("date", isEqualTo: formatter.string(from: date ?? Date()))
+//            .order(by: "dateValue")
+//            .getDocuments()
+//            { (foods, error) in
+//            if let error = error {
+//                print("Error getting documents: \(error)")
+//            }
+//            else {
+//                for foodDocument in foods!.documents {
+//                    let foodDictionary = foodDocument.data()
+//                    let food = Food()
+//                    food.name = "\(foodDictionary["name"] ?? "Food")"
+//                    food.meal = "\(foodDictionary["meal"] ?? Food.Meal.breakfast.stringValue)"
+//                    food.date = "\(foodDictionary["date"] ?? self.formatter.string(from: Date()))"
+//                    let dateValue = foodDictionary["dateValue"] as? Timestamp
+//                    food.dateValue = dateValue?.dateValue()
+//                    food.servingSize = "\(foodDictionary["servingSize"] ?? "100 g")"
+//                    food.serving = (foodDictionary["serving"] as? Double) ?? 1
+//                    food.calories = foodDictionary["calories"] as! Int
+//                    food.protein = foodDictionary["protein"] as! Double
+//                    food.carbs = foodDictionary["carbs"] as! Double
+//                    food.fat = foodDictionary["fat"] as! Double
+//                    food.isDeleted = foodDictionary["isDeleted"] as! Bool
+//
+//                    self.foodArray.append(food)
+//                }
+//                print(self.foodArray)
+//            }
+//        }
     }
     
     @objc func refresh() {

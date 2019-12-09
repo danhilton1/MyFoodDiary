@@ -115,13 +115,16 @@ class MonthNutritionViewController: WeekNutritionViewController {
             
             cell.lineChart.xAxis.granularityEnabled = true
             cell.lineChart.xAxis.axisMaximum = 3.5
-            let limitLine = ChartLimitLine(limit: defaults.value(forKey: "GoalCalories") as! Double, label: "")
-            limitLine.lineDashLengths = [8]
-            limitLine.lineWidth = 1.5
-            limitLine.lineColor = Color.mint
-            limitLine.valueFont = UIFont(name: "Montserrat-Regular", size: 12)!
+            if let goalCalories = (defaults.value(forKey: "GoalCalories") as? Double) {
+                let limitLine = ChartLimitLine(limit: goalCalories, label: "")
+                limitLine.lineDashLengths = [8]
+                limitLine.lineWidth = 1.5
+                limitLine.lineColor = Color.mint
+                limitLine.valueFont = UIFont(name: "Montserrat-Regular", size: 12)!
+                
+                cell.lineChart.leftAxis.addLimitLine(limitLine)
+            }
             
-            cell.lineChart.leftAxis.addLimitLine(limitLine)
             cell.lineChart.xAxis.valueFormatter = IndexAxisValueFormatter(values: VC?.monthChartLabels.reversed() ?? ["1", "2", "3", "4", "5"])
 
             if direction == .backward {

@@ -10,8 +10,16 @@ import UIKit
 import Firebase
 import SVProgressHUD
 
+
 class LogInViewController: UIViewController {
 
+    typealias FinishedDownload = () -> ()
+    
+    private let db = Firestore.firestore()
+    
+    let formatter = DateFormatter()
+    var allFood = [Food]()
+    var testFoodArray = [Food]()
     
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -25,6 +33,8 @@ class LogInViewController: UIViewController {
         logInButton.setTitleColor(Color.skyBlue, for: .normal)
         logInButton.layer.cornerRadius = logInButton.frame.size.height / 2
         passwordTextField.placeholder = "Password"
+        
+        formatter.dateFormat = "E, d MMM"
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
         view.addGestureRecognizer(tapGesture)
@@ -45,11 +55,44 @@ class LogInViewController: UIViewController {
     }
     
     
+    func loadAllFoodData(user: String?, completed: @escaping FinishedDownload) {
+        
+        db.collection("users").document(user!).collection("foods").order(by: "dateValue").getDocuments() { [weak self] (foods, error) in
+            guard let strongSelf = self else { return }
+            if let error = error {
+                print("Error getting documents: \(error)")
+            }
+            else {
+                for foodDocument in foods!.documents {
+                    let foodDictionary = foodDocument.data()
+                    let food = Food()
+                    food.name = "\(foodDictionary["name"] ?? "Food")"
+                    food.meal = "\(foodDictionary["meal"] ?? Food.Meal.breakfast.stringValue)"
+                    food.date = "\(foodDictionary["date"] ?? strongSelf.formatter.string(from: Date()))"
+                    let dateValue = foodDictionary["dateValue"] as? Timestamp
+                    food.dateValue = dateValue?.dateValue()
+                    food.servingSize = "\(foodDictionary["servingSize"] ?? "100 g")"
+                    food.serving = (foodDictionary["serving"] as? Double) ?? 1
+                    food.calories = foodDictionary["calories"] as! Int
+                    food.protein = foodDictionary["protein"] as! Double
+                    food.carbs = foodDictionary["carbs"] as! Double
+                    food.fat = foodDictionary["fat"] as! Double
+                    food.isDeleted = foodDictionary["isDeleted"] as! Bool
+                    
+                    strongSelf.allFood.append(food)
+                }
+                
+                completed()
+            }
+        }
+    }
+    
+    
     
     @IBAction func logInButtonTapped(_ sender: UIButton) {
         
         SVProgressHUD.show()
-        
+        passwordTextField.resignFirstResponder()
         Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) { [weak self] authResult, error in
             guard let strongSelf = self else { return }
             
@@ -59,8 +102,10 @@ class LogInViewController: UIViewController {
             }
             else {
                 print("Log In Successful")
-                SVProgressHUD.dismiss()
-                strongSelf.performSegue(withIdentifier: "GoToOverview", sender: self)
+                strongSelf.loadAllFoodData(user: authResult?.user.email, completed: { () in
+                    strongSelf.performSegue(withIdentifier: "GoToOverview", sender: self)
+                    SVProgressHUD.dismiss()
+                })
             }
         }
     }
@@ -70,10 +115,13 @@ class LogInViewController: UIViewController {
     }
     
     
+    
     @objc func viewTapped() {
         emailTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()
     }
+    
+    
     
     
     // Methods to move up/down the messageTableView with the keyboard
@@ -84,7 +132,6 @@ class LogInViewController: UIViewController {
                 UIView.animate(withDuration: 0.5) {
                     self.view.frame.origin.y -= keyboardSize.height
                 }
-                
             }
         }
     }
@@ -94,7 +141,15 @@ class LogInViewController: UIViewController {
             UIView.animate(withDuration: 0.5) {
                 self.view.frame.origin.y = 0
             }
-            
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "GoToOverview" {
+            let tabController = segue.destination as! UITabBarController
+            let navController = tabController.viewControllers?.first as! UINavigationController
+            let pageController = navController.viewControllers.first as! OverviewPageViewController
+            pageController.allFood = allFood
         }
     }
     
