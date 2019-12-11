@@ -21,7 +21,8 @@ class NewEntryViewController: UIViewController, UITableViewDelegate, UITableView
     var meal = Food.Meal.breakfast
     weak var delegate: NewEntryDelegate?
     weak var mealDelegate: NewEntryDelegate?
-    private var foodList: Results<Food>?
+    var allFood: [Food]?
+    //private var foodList: Results<Food>?
     private var sortedFood = [Food]()
     private var sortedFoodCopy = [Food]()
     
@@ -42,7 +43,7 @@ class NewEntryViewController: UIViewController, UITableViewDelegate, UITableView
         
         setUpNavBar()
         
-        foodList = realm.objects(Food.self)
+        //foodList = realm.objects(Food.self)
         setUpSortedFoodList()
         sortedFoodCopy = sortedFood
         
@@ -87,7 +88,7 @@ class NewEntryViewController: UIViewController, UITableViewDelegate, UITableView
 
     func setUpSortedFoodList() {
         var foodDictionary = [String: Food]()
-        for food in foodList! {
+        for food in allFood! {
             foodDictionary[food.name!] = food
         }
         sortedFood = foodDictionary.values.sorted { (food1, food2) -> Bool in

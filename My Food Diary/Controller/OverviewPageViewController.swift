@@ -42,8 +42,8 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         presentingViewController?.tabBarController?.tabBar.isHidden = false
-        let VC = viewControllers![0] as! OverviewViewController
-        VC.loadAllFood()
+//        let VC = viewControllers![0] as! OverviewViewController
+//        VC.loadAllFood()
     }
     
     
@@ -125,6 +125,7 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
         }
         newEntryVC.delegate = vc
         newEntryVC.date = vc.date
+        newEntryVC.allFood = allFood
         present(navController, animated: true)
         
     }

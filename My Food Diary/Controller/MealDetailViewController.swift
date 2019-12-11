@@ -16,18 +16,27 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
     let db = Firestore.firestore()
     
     var calories = 0
-    var selectedMeal: Results<Food>? {
+    var selectedFoodList: [Food]? {
         didSet {
-            let predicate = NSPredicate(format: "isDeleted == FALSE")
-            selectedMeal = selectedMeal?.filter(predicate)
-            
-            guard let foodList = selectedMeal else { return }
+            guard let foodList = selectedFoodList else { return }
             calories = 0
             for food in foodList {
                 calories += food.calories
             }
         }
     }
+//    var selectedMeal: Results<Food>? {
+//        didSet {
+//            let predicate = NSPredicate(format: "isDeleted == FALSE")
+//            selectedMeal = selectedMeal?.filter(predicate)
+//
+//            guard let foodList = selectedMeal else { return }
+//            calories = 0
+//            for food in foodList {
+//                calories += food.calories
+//            }
+//        }
+//    }
     
     var date: Date?
     var meal: Food.Meal = .breakfast
@@ -48,9 +57,10 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
         //tableView.allowsSelection = false
         tableView.tableFooterView = UIView()
         
-        if selectedMeal?.count == 0 {
+        if selectedFoodList?.count == 0 {
             tableView.separatorStyle = .none
         }
+        print(selectedFoodList)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,7 +74,7 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
     }
     
     
-    func reloadFood() {
+    func reloadFood(newEntry: Food?) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5 ) {
             self.reloadSelectedMeal()
             self.tableView.reloadData()
@@ -73,10 +83,8 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
     }
     
     func reloadSelectedMeal() {
-        let predicate = NSPredicate(format: "isDeleted == FALSE")
-        selectedMeal = selectedMeal?.filter(predicate)
         
-        guard let foodList = selectedMeal else { return }
+        guard let foodList = selectedFoodList else { return }
         calories = 0
         for food in foodList {
             calories += food.calories
@@ -99,7 +107,7 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
             //destVC.delegate = delegate
             destVC.mealDelegate = self
             destVC.date = date
-            destVC.food = selectedMeal![indexPath.section]
+            destVC.food = selectedFoodList![indexPath.section]
             destVC.selectedSegmentIndex = meal.intValue
             destVC.isEditingExistingEntry = true
         }
@@ -110,14 +118,14 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
     // MARK: - Table view data source and delegate methods
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        if selectedMeal?.count == 0 && !noEntriesToDisplay {
+        if selectedFoodList?.count == 0 && !noEntriesToDisplay {
             return 1
         }
-        return selectedMeal?.count ?? 0
+        return selectedFoodList?.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if selectedMeal?.count == 0 {
+        if selectedFoodList?.count == 0 {
             return 1
         }
         return 4
@@ -130,7 +138,7 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if let food = selectedMeal {
+        if let food = selectedFoodList {
             for i in 0..<food.count {
                 if indexPath.section == i {
                     switch indexPath.row {
@@ -207,7 +215,7 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
         
         if editingStyle == .delete {
             let fc = FoodsCollection.self
-            let foodRef = db.collection(FoodsCollection.collection).document((selectedMeal?[indexPath.section].name!)!)
+            let foodRef = db.collection(FoodsCollection.collection).document((selectedFoodList?[indexPath.section].name!)!)
             
             foodRef.updateData([
                 fc.isDeleted: true
@@ -220,14 +228,14 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
             }
             
             
-            do {
-                try realm.write {
-                    selectedMeal?[indexPath.section].isDeleted = true
-                }
-            }
-            catch {
-                print(error)
-            }
+//            do {
+//                try realm.write {
+//                    selectedMeal?[indexPath.section].isDeleted = true
+//                }
+//            }
+//            catch {
+//                print(error)
+//            }
             
             let indexSet = IndexSet(arrayLiteral: indexPath.section)
             print(indexSet)

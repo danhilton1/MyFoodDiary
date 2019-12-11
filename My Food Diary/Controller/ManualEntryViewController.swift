@@ -11,7 +11,7 @@ import RealmSwift
 import Firebase
 
 protocol NewEntryDelegate: class {
-    func reloadFood()
+    func reloadFood(newEntry: Food?)
 }
 
 enum FoodsCollection {
@@ -121,8 +121,8 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
         }
         
         dismissViewWithAnimation()
-        delegate?.reloadFood()
-        mealDelegate?.reloadFood()
+        delegate?.reloadFood(newEntry: workingCopy)
+        mealDelegate?.reloadFood(newEntry: workingCopy)
     }
     
     
@@ -213,7 +213,7 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
         transition.subtype = CATransitionSubtype.fromBottom
         self.view.window!.layer.add(transition, forKey: nil)
         self.dismiss(animated: false, completion: {
-            self.delegate?.reloadFood()
+            self.delegate?.reloadFood(newEntry: nil)
         })
         
     }

@@ -20,10 +20,11 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     private let realm = try! Realm()
     private let db = Firestore.firestore()
     let userEmail = Auth.auth().currentUser?.email
+    
     var date: Date?   //  Required to be set before VC presented
-    private var foodList: Results<Food>?
+    //private var foodList: Results<Food>?
     var foodArray = [Food]()
-    var testFoodArray = [Food]()
+    var testFoodArray: [Food]?
     var allFood: [Food]?
     private var totalCalsArray = [Int]()
     private var refreshControl = UIRefreshControl()
@@ -76,20 +77,20 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         eatMeTableView.addSubview(refreshControl)
         
         configureDateView()
-        loadAllFood()
+        //loadAllFood()
+        loadFirebaseData()
         goalCaloriesLabel.text = "\(defaults.value(forKey: "GoalCalories") ?? 0)"
         
         setUpToolBar()
         datePicker.datePickerMode = .date
         datePicker.locale = Locale.current
         
-        //print(allFood)
     }
     
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        loadAllFood()
+        //loadAllFood()
         loadFirebaseData()
         presentingViewController?.tabBarController?.tabBar.isHidden = false
         tabBarController?.tabBar.isHidden = false
@@ -144,69 +145,53 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     
     //MARK:- Data methods
     
-    func loadAllFood() {
+//    func loadAllFood() {
+//
+//        formatter.dateFormat = "E, d MMM"
+//
+//        foodList = realm.objects(Food.self)
+//        let predicate = NSPredicate(format: "date contains[c] %@", formatter.string(from: date ?? Date()))
+//        foodList = foodList?.filter(predicate)
+//        let deletedPredicate = NSPredicate(format: "isDeleted == FALSE")
+//        foodList = foodList?.filter(deletedPredicate)
         
-        formatter.dateFormat = "E, d MMM"
+//        totalCalsArray = (foodList?.value(forKey: "calories")) as! [Int]
+//        totalCalories = totalCalsArray.reduce(0, +)
+//        totalCaloriesLabel.text = "\(totalCalories)"
+//        configureTotalCaloriesLabel()
         
-        foodList = realm.objects(Food.self)
-        let predicate = NSPredicate(format: "date contains[c] %@", formatter.string(from: date ?? Date()))
-        foodList = foodList?.filter(predicate)
-        let deletedPredicate = NSPredicate(format: "isDeleted == FALSE")
-        foodList = foodList?.filter(deletedPredicate)
-        
-        totalCalsArray = (foodList?.value(forKey: "calories")) as! [Int]
-        totalCalories = totalCalsArray.reduce(0, +)
-        totalCaloriesLabel.text = "\(totalCalories)"
-        configureTotalCaloriesLabel()
-        
-        eatMeTableView.reloadData()
-        
-    }
+//        eatMeTableView.reloadData()
+//
+//    }
     
     
     func loadFirebaseData() {
         
+        formatter.dateFormat = "E, d MMM"
+        
+        testFoodArray = [Food]()
         for food in allFood! {
             if food.date == formatter.string(from: date ?? Date()) && !food.isDeleted {
-                testFoodArray.append(food)
+                testFoodArray!.append(food)
             }
         }
-        //print(testFoodArray)
-//        db.collection("users").document(userEmail!).collection("foods")
-//            .whereField("isDeleted", isEqualTo: false)
-//            .whereField("date", isEqualTo: formatter.string(from: date ?? Date()))
-//            .order(by: "dateValue")
-//            .getDocuments()
-//            { (foods, error) in
-//            if let error = error {
-//                print("Error getting documents: \(error)")
-//            }
-//            else {
-//                for foodDocument in foods!.documents {
-//                    let foodDictionary = foodDocument.data()
-//                    let food = Food()
-//                    food.name = "\(foodDictionary["name"] ?? "Food")"
-//                    food.meal = "\(foodDictionary["meal"] ?? Food.Meal.breakfast.stringValue)"
-//                    food.date = "\(foodDictionary["date"] ?? self.formatter.string(from: Date()))"
-//                    let dateValue = foodDictionary["dateValue"] as? Timestamp
-//                    food.dateValue = dateValue?.dateValue()
-//                    food.servingSize = "\(foodDictionary["servingSize"] ?? "100 g")"
-//                    food.serving = (foodDictionary["serving"] as? Double) ?? 1
-//                    food.calories = foodDictionary["calories"] as! Int
-//                    food.protein = foodDictionary["protein"] as! Double
-//                    food.carbs = foodDictionary["carbs"] as! Double
-//                    food.fat = foodDictionary["fat"] as! Double
-//                    food.isDeleted = foodDictionary["isDeleted"] as! Bool
-//
-//                    self.foodArray.append(food)
-//                }
-//                print(self.foodArray)
-//            }
-//        }
+        
+        for food in testFoodArray! {
+            totalCalsArray.append(food.calories)
+        }
+        totalCalories = totalCalsArray.reduce(0, +)
+        totalCaloriesLabel.text = "\(totalCalories)"
+        configureTotalCaloriesLabel()
+        totalCalsArray = []
+        totalCalories = 0
+        
+        eatMeTableView.reloadData()
+
     }
     
     @objc func refresh() {
-        loadAllFood()
+        //loadAllFood()
+        loadFirebaseData()
         refreshControl.endRefreshing()
     }
     
@@ -220,7 +205,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             print("Error deleting data - \(error)")
         }
         
-        loadAllFood()
+        //loadAllFood()
     }
     
     
@@ -229,10 +214,22 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     //MARK: - Methods to Update UI with user's entry data
     
     
-    private func getTotalValueOfMealData(food: Results<Food>?, meal: Food.Meal, cell: MealOverviewCell) {
+    private func getTotalValueOfMealData(food: [Food]?, meal: Food.Meal, cell: MealOverviewCell) {
         // Updates the total amount of cals and macros for user entries
         
         // Checks the meal type and then appends each food property (cals, carbs, ..) to corresponding array
+//        if let foodList = food {
+//            switch meal {
+//            case .breakfast:
+//                retrieveNutritionData(meal: Food.Meal.breakfast.stringValue, foodList: foodList)
+//            case .lunch:
+//                retrieveNutritionData(meal: Food.Meal.lunch.stringValue, foodList: foodList)
+//            case .dinner:
+//                retrieveNutritionData(meal: Food.Meal.dinner.stringValue, foodList: foodList)
+//            default:
+//                retrieveNutritionData(meal: Food.Meal.other.stringValue, foodList: foodList)
+//            }
+//        }
         if let foodList = food {
             switch meal {
             case .breakfast:
@@ -263,23 +260,44 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         fat = 0
     }
     
-    private func retrieveNutritionData(meal: String, foodList: Results<Food>) {
+    private func retrieveNutritionData(meal: String, foodList: [Food]) {
+//        for food in foodList {
+//            if food.meal == meal {
+//                calorieArray.append(food.calories)
+//                proteinArray.append(food.protein)
+//                carbsArray.append(food.carbs)
+//                fatArray.append(food.fat)
+//            }
+//        }
+//        // Add each value of array to the corresponding property to give total amount
+//        for i in 0..<calorieArray.count {
+//            calories += calorieArray[i]
+//            protein += proteinArray[i]
+//            carbs += carbsArray[i]
+//            fat += fatArray[i]
+//        }
+        
+        //Firebase
+        
         for food in foodList {
             if food.meal == meal {
                 calorieArray.append(food.calories)
                 proteinArray.append(food.protein)
                 carbsArray.append(food.carbs)
                 fatArray.append(food.fat)
-            }
+                }
         }
-        // Add each value of array to the corresponding property to give total amount
         for i in 0..<calorieArray.count {
             calories += calorieArray[i]
             protein += proteinArray[i]
             carbs += carbsArray[i]
             fat += fatArray[i]
         }
+        
     }
+    
+    
+    
     
     
     func setUpPieChart(cell: MealOverviewCell, section1 protein: Double, section2 carbs: Double, section3 fat: Double) {
@@ -349,7 +367,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2 ) {
             self.dimView.removeFromSuperview()
-            self.loadAllFood()
+            self.loadFirebaseData()
             self.configureDateView()
         }
     }
@@ -383,9 +401,16 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     //MARK:- NewEntryDelegate protocol method
     
     
-    func reloadFood() {
+    func reloadFood(newEntry: Food?) {
+        if let food = newEntry {
+            allFood?.append(food)
+            let pageVC = parent as? OverviewPageViewController
+            pageVC?.allFood.append(food)
+        }
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5 ) {
-            self.loadAllFood()
+            //self.loadAllFood()
+            self.loadFirebaseData()
         }
         if dayLabel.text == "Today" {  // Keeps the date property up to date when navigating from other VC's
             date = Date()
@@ -435,10 +460,18 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     
     func filterFoodForMealDetail(meal: Food.Meal, destVC: MealDetailViewController) {
         
-        let resultPredicate = NSPredicate(format: "meal contains[c] %@", meal.stringValue)
-        destVC.selectedMeal = foodList?.filter(resultPredicate)
+        //let resultPredicate = NSPredicate(format: "meal contains[c] %@", meal.stringValue)
+        //destVC.selectedMeal = foodList?.filter(resultPredicate)
         destVC.navigationItem.title = meal.stringValue
         destVC.meal = meal
+        
+        var selectedFoodList = [Food]()
+        for food in testFoodArray! {
+            if food.meal == meal.stringValue && !food.isDeleted {
+                selectedFoodList.append(food)
+            }
+        }
+        destVC.selectedFoodList = selectedFoodList
         
     }
     
@@ -491,13 +524,13 @@ extension OverviewViewController {
         switch indexPath.section {
             
         case 0:
-            getTotalValueOfMealData(food: foodList, meal: .breakfast, cell: cell)
+            getTotalValueOfMealData(food: testFoodArray, meal: .breakfast, cell: cell)
         case 1:
-            getTotalValueOfMealData(food: foodList, meal: .lunch, cell: cell)
+            getTotalValueOfMealData(food: testFoodArray, meal: .lunch, cell: cell)
         case 2:
-            getTotalValueOfMealData(food: foodList, meal: .dinner, cell: cell)
+            getTotalValueOfMealData(food: testFoodArray, meal: .dinner, cell: cell)
         case 3:
-            getTotalValueOfMealData(food: foodList, meal: .other, cell: cell)
+            getTotalValueOfMealData(food: testFoodArray, meal: .other, cell: cell)
         default:
             cell.calorieLabel.text = "0"
             cell.proteinLabel.text = "0"

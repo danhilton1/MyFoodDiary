@@ -78,7 +78,7 @@ class FoodDetailViewController: UITableViewController {
         transition.subtype = CATransitionSubtype.fromBottom
         self.view.window?.layer.add(transition, forKey: nil)
         self.dismiss(animated: false, completion: {
-            self.delegate?.reloadFood()
+            self.delegate?.reloadFood(newEntry: nil)
             self.presentingViewController?.tabBarController?.tabBar.isHidden = false
         })
         
@@ -137,8 +137,8 @@ class FoodDetailViewController: UITableViewController {
             dismissViewWithAnimation()
         }
         isEditingExistingEntry = false
-        delegate?.reloadFood()
-        mealDelegate?.reloadFood()
+        delegate?.reloadFood(newEntry: workingCopy)
+        mealDelegate?.reloadFood(newEntry: workingCopy)
         
     }
     
@@ -168,13 +168,13 @@ class FoodDetailViewController: UITableViewController {
                 }
             }
             
-            do {
-                try realm.write {
-                    realm.add(food)
-                }
-            } catch {
-                print(error)
-            }
+//            do {
+//                try realm.write {
+//                    realm.add(food)
+//                }
+//            } catch {
+//                print(error)
+//            }
         }
         else {
             let fc = FoodsCollection.self
@@ -200,26 +200,26 @@ class FoodDetailViewController: UITableViewController {
                 }
             }
             
-            do {
-                try realm.write {
-                    let foodList = realm.objects(Food.self)
-                    for entry in foodList {
-                        if entry.dateValue == food.dateValue {
-                            entry.meal = food.meal
-                            entry.name = food.name
-                            entry.servingSize = food.servingSize
-                            entry.serving = food.serving
-                            entry.calories = food.calories
-                            entry.protein = food.protein
-                            entry.carbs = food.carbs
-                            entry.fat = food.fat
-                            entry.isDeleted = food.isDeleted
-                        }
-                    }
-                }
-            } catch {
-                print(error)
-            }
+//            do {
+//                try realm.write {
+//                    let foodList = realm.objects(Food.self)
+//                    for entry in foodList {
+//                        if entry.dateValue == food.dateValue {
+//                            entry.meal = food.meal
+//                            entry.name = food.name
+//                            entry.servingSize = food.servingSize
+//                            entry.serving = food.serving
+//                            entry.calories = food.calories
+//                            entry.protein = food.protein
+//                            entry.carbs = food.carbs
+//                            entry.fat = food.fat
+//                            entry.isDeleted = food.isDeleted
+//                        }
+//                    }
+//                }
+//            } catch {
+//                print(error)
+//            }
         }
     }
     
