@@ -46,6 +46,7 @@
 		37A07E3F22DD02CA00E4A351 /* Montserrat-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 37A07E3E22DD02CA00E4A351 /* Montserrat-Thin.otf */; };
 		37A07E4122DD02D700E4A351 /* Montserrat-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 37A07E4022DD02D700E4A351 /* Montserrat-Light.otf */; };
 		37A07E4322DD04C000E4A351 /* Montserrat-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 37A07E4222DD04C000E4A351 /* Montserrat-Regular.otf */; };
+		37A8AEB523A2DDFE002DCA43 /* Food+Firestore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A8AEB423A2DDFE002DCA43 /* Food+Firestore.swift */; };
 		37BBEBFA235659F600D390E5 /* LineChartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BBEBF8235659F600D390E5 /* LineChartCell.swift */; };
 		37BBEBFB235659F600D390E5 /* LineChartCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37BBEBF9235659F600D390E5 /* LineChartCell.xib */; };
 		37C2E37C2387365B006A4C51 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C2E37B2387365B006A4C51 /* WelcomeViewController.swift */; };
@@ -98,6 +99,7 @@
 		37A07E3E22DD02CA00E4A351 /* Montserrat-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Thin.otf"; sourceTree = "<group>"; };
 		37A07E4022DD02D700E4A351 /* Montserrat-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.otf"; sourceTree = "<group>"; };
 		37A07E4222DD04C000E4A351 /* Montserrat-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.otf"; sourceTree = "<group>"; };
+		37A8AEB423A2DDFE002DCA43 /* Food+Firestore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Food+Firestore.swift"; sourceTree = "<group>"; };
 		37BBEBF8235659F600D390E5 /* LineChartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChartCell.swift; sourceTree = "<group>"; };
 		37BBEBF9235659F600D390E5 /* LineChartCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LineChartCell.xib; sourceTree = "<group>"; };
 		37C2E37B2387365B006A4C51 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 			children = (
 				374BC02422BABA8800013610 /* Food.swift */,
 				3713FFE4237F433C000D1E50 /* Weight.swift */,
+				37A8AEB423A2DDFE002DCA43 /* Food+Firestore.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -409,6 +412,7 @@
 				372F5A612301C375006A8665 /* FoodDetailViewController.swift in Sources */,
 				378917C022C8DC3B00571181 /* BarcodeScannerViewController.swift in Sources */,
 				377208B52291A1F8002DDA29 /* AppDelegate.swift in Sources */,
+				37A8AEB523A2DDFE002DCA43 /* Food+Firestore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

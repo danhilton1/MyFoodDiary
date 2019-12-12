@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } catch {
             print("Error initializing new Realm - \(error)")
         }
+        
         FirebaseApp.configure()
         
         return true
