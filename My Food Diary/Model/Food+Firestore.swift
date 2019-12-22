@@ -57,9 +57,12 @@ extension Food {
     
     static func downloadAllFood(user: String, completion: @escaping ([Food]) -> ()) {
         
+        let calendar = Calendar.current
+        let defaultDateComponents = DateComponents(calendar: calendar, timeZone: .current, year: 2019, month: 1, day: 1)
         var allFood = [Food]()
+        var dateOfMostRecentEntry: Date?
         
-        db.collection("users").document(user).collection("foods").order(by: "dateValue").getDocuments() { (foods, error) in
+        db.collection("users").document(user).collection("foods").order(by: "dateValue").getDocuments(source: .cache) { (foods, error) in
             if let error = error {
                 print("Error getting documents: \(error)")
             }
@@ -67,9 +70,29 @@ extension Food {
                 for foodDocument in foods!.documents {
                     allFood.append(Food(snapshot: foodDocument))
                 }
+                dateOfMostRecentEntry = allFood.last?.dateValue
+                
+                db.collection("users").document(user).collection("foods")
+                    .whereField("dateValue", isGreaterThan: dateOfMostRecentEntry?.addingTimeInterval(1) ?? calendar.date(from: defaultDateComponents)!)
+                    .order(by: "dateValue")
+                    .getDocuments() { (foods, error) in
+                    if let error = error {
+                        print("Error getting documents: \(error)")
+                    }
+                    else {
+                        for foodDocument in foods!.documents {
+                            allFood.append(Food(snapshot: foodDocument))
+                            print(Food(snapshot: foodDocument).name!)
+                        }
+                    }
+                    completion(allFood)
+                }
+                
             }
-            completion(allFood)
         }
+        
+        
+        
     }
     
     //                    let foodDictionary = foodDocument.data()

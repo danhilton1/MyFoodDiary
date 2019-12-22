@@ -128,7 +128,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     
     private func configureTotalCaloriesLabel() {
         guard let goalCalories = defaults.value(forKey: "GoalCalories") as? Int else { return }
-        if totalCalories < (goalCalories - 500) || totalCalories > (goalCalories + 500) {
+        if totalCalories < (goalCalories - 500) || totalCalories > (goalCalories + 500) || goalCalories == 0 {
             totalCaloriesLabel.textColor = Color.salmon
         }
         else if totalCalories >= (goalCalories - 500) && totalCalories <= (goalCalories + 500) && totalCalories != goalCalories {
@@ -179,11 +179,13 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         for food in testFoodArray! {
             totalCalsArray.append(food.calories)
         }
-        totalCalories = totalCalsArray.reduce(0, +)
-        totalCaloriesLabel.text = "\(totalCalories)"
+        var tempTotalCalories = 0
+        tempTotalCalories = totalCalsArray.reduce(0, +)
+        totalCalories = tempTotalCalories
+        totalCaloriesLabel.text = "\(tempTotalCalories)"
         configureTotalCaloriesLabel()
         totalCalsArray = []
-        totalCalories = 0
+        tempTotalCalories = 0
         
         eatMeTableView.reloadData()
 
@@ -392,6 +394,8 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             self.defaults.setValue(Int(ac.textFields![0].text ?? "0"), forKey: "GoalCalories")
             self.goalCaloriesLabel.text = "\(self.defaults.value(forKey: "GoalCalories") ?? 0)"
             self.configureTotalCaloriesLabel()
+            let parentVC = self.parent as? OverviewPageViewController
+            parentVC?.setViewControllers([self], direction: .forward, animated: false, completion: nil)
         }))
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         
@@ -491,7 +495,6 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         var foodDictionary = [String: Food]()
         for food in testFoodArray! {
             if food.meal == meal.stringValue && !food.isDeleted {
-                print(food.dateValue)
                 foodDictionary[food.name!] = food
             }
         }

@@ -97,7 +97,11 @@ class FoodDetailViewController: UITableViewController {
         proteinLabel.text = workingCopy.protein.removePointZeroEndingAndConvertToString()
         carbsLabel.text = workingCopy.carbs.removePointZeroEndingAndConvertToString()
         fatLabel.text = workingCopy.fat.removePointZeroEndingAndConvertToString()
-        servingTextField.text = workingCopy.serving.removePointZeroEndingAndConvertToString()
+        var roundedServingString = "\(workingCopy.serving.roundToXDecimalPoints(decimalPoints: 2))"
+        if roundedServingString.hasSuffix(".0") {
+            roundedServingString.removeLast(2)
+        }
+        servingTextField.text = roundedServingString
         
     }
 
