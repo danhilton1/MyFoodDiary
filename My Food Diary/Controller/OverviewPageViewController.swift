@@ -43,7 +43,7 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
         super.viewWillAppear(true)
         presentingViewController?.tabBarController?.tabBar.isHidden = false
 //        let VC = viewControllers![0] as! OverviewViewController
-//        VC.loadAllFood()
+//        VC.allFood = allFood
     }
     
     
@@ -57,7 +57,7 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
             
             guard let today = dateFromDatePicker else { return nil }
             guard var yesterday = calendar.date(byAdding: .day, value: -1, to: today) else { return nil }
-            yesterday = calendar.startOfDay(for: yesterday)
+            //yesterday = calendar.startOfDay(for: yesterday)
             
             return overviewViewController(for: yesterday)
         }
@@ -67,7 +67,7 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
             
             // Yesterday's date at time: 00:00
             guard var yesterday = calendar.date(byAdding: .day, value: -1, to: today) else { return nil }
-            yesterday = calendar.startOfDay(for: yesterday)
+            //yesterday = calendar.startOfDay(for: yesterday)
     //        yesterday = calendar.date(byAdding: .hour, value: 1, to: yesterday) ?? yesterday
             
             return overviewViewController(for: yesterday)
@@ -80,7 +80,7 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
             
             guard let today = dateFromDatePicker else { return nil }
             guard var tomorrow = calendar.date(byAdding: .day, value: 1, to: today) else { return nil }
-            tomorrow = calendar.startOfDay(for: tomorrow)
+            //tomorrow = calendar.startOfDay(for: tomorrow)
             
             return overviewViewController(for: tomorrow)
             
@@ -90,7 +90,7 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
             
             // Tomorrow's date at time: 00:00
             guard var tomorrow = calendar.date(byAdding: .day, value: 1, to: today) else { return nil }
-            tomorrow = calendar.startOfDay(for: tomorrow)
+            //tomorrow = calendar.startOfDay(for: tomorrow)
     //        tomorrow = calendar.date(byAdding: .hour, value: 1, to: tomorrow) ?? tomorrow
             
             return overviewViewController(for: tomorrow)
@@ -104,7 +104,14 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
         
         guard let overviewPage = storyboard?.instantiateViewController(withIdentifier: "OverviewVC") as? OverviewViewController else { return nil }
         
-        overviewPage.configureWith(date: date)
+        if date == calendar.startOfDay(for: Date()) {
+            overviewPage.configureWith(date: Date())
+        }
+        else {
+            overviewPage.configureWith(date: date)
+        }
+        
+        
         overviewPage.allFood = allFood
         dateEnteredFromPicker = false
         

@@ -25,6 +25,7 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
             }
         }
     }
+    var allFood: [Food]?
 //    var selectedMeal: Results<Food>? {
 //        didSet {
 //            let predicate = NSPredicate(format: "isDeleted == FALSE")
@@ -37,7 +38,7 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
 //            }
 //        }
 //    }
-    
+    var delegate: NewEntryDelegate?
     var date: Date?
     var meal: Food.Meal = .breakfast
     var noEntriesToDisplay = false
@@ -60,7 +61,7 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
         if selectedFoodList?.count == 0 {
             tableView.separatorStyle = .none
         }
-        print(selectedFoodList)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -73,9 +74,26 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
         noEntriesToDisplay = false
     }
     
+    //MARK:- Delegate Methods
     
-    func reloadFood(newEntry: Food?) {
+    func reloadFood(entry: Food?, new: Bool) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5 ) {
+            
+            if new {
+                self.selectedFoodList?.append(entry!)
+            }
+            else {
+                var index = 0
+                for food in self.selectedFoodList! {
+                    if food.name == entry?.name {
+                        self.selectedFoodList?.remove(at: index)
+                        self.selectedFoodList?.insert(entry!, at: index)
+                        break
+                    }
+                    index += 1
+                }
+            }
+
             self.reloadSelectedMeal()
             self.tableView.reloadData()
             self.tableView.separatorStyle = .singleLine
@@ -92,19 +110,22 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
         caloriesLabel.text = "   Calories: \(calories)"
     }
     
+    //MARK:- Segue Methods
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "GoToPopUp" {
             let popUpNC = segue.destination as! UINavigationController
             let destVC = popUpNC.viewControllers.first as! NewEntryViewController
+            destVC.allFood = allFood
             destVC.date = date
             destVC.meal = meal
             destVC.mealDelegate = self
+            destVC.delegate = delegate
         }
         else if segue.identifier == "GoToFoodDetail" {
             let destVC = segue.destination as! FoodDetailViewController
             guard let indexPath = tableView.indexPathForSelectedRow else { return }
-            //destVC.delegate = delegate
+            destVC.delegate = delegate
             destVC.mealDelegate = self
             destVC.date = date
             destVC.food = selectedFoodList![indexPath.section]
@@ -113,9 +134,13 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
         }
     }
     
+}
+    
     
     
     // MARK: - Table view data source and delegate methods
+
+extension MealDetailViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         if selectedFoodList?.count == 0 && !noEntriesToDisplay {

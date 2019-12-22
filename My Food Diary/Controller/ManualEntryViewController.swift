@@ -11,7 +11,7 @@ import RealmSwift
 import Firebase
 
 protocol NewEntryDelegate: class {
-    func reloadFood(newEntry: Food?)
+    func reloadFood(entry: Food?, new: Bool)
 }
 
 enum FoodsCollection {
@@ -121,8 +121,8 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
         }
         
         dismissViewWithAnimation()
-        delegate?.reloadFood(newEntry: workingCopy)
-        mealDelegate?.reloadFood(newEntry: workingCopy)
+        delegate?.reloadFood(entry: workingCopy, new: true)
+        mealDelegate?.reloadFood(entry: workingCopy, new: true)
     }
     
     
@@ -130,11 +130,13 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
     
     func save(_ food: Food) {
         
-        let user = Auth.auth().currentUser
+        let user = Auth.auth().currentUser?.email
+        
+        
         
         let fc = FoodsCollection.self
         
-        db.collection("users").document((user?.email)!).collection(fc.collection).document(food.name!).setData([
+        db.collection("users").document(user!).collection(fc.collection).document(food.name!).setData([
             fc.name: food.name ?? "N/A",
             fc.meal: food.meal ?? Food.Meal.other,
             fc.date: food.date!,
@@ -199,7 +201,9 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
         workingCopy.carbs = Double(carbsTextField.text ?? "0") ?? 0
         workingCopy.fat = Double(fatTextField.text ?? "0") ?? 0
         
-        save(workingCopy)
+        guard let user = Auth.auth().currentUser?.email else { return }
+        workingCopy.saveFood(user: user)
+        //save(workingCopy)
         
         
     }
@@ -213,7 +217,7 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
         transition.subtype = CATransitionSubtype.fromBottom
         self.view.window!.layer.add(transition, forKey: nil)
         self.dismiss(animated: false, completion: {
-            self.delegate?.reloadFood(newEntry: nil)
+            self.delegate?.reloadFood(entry: nil, new: true)
         })
         
     }

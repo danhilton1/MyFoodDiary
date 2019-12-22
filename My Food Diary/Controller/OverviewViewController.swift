@@ -175,7 +175,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
                 testFoodArray!.append(food)
             }
         }
-        
+
         for food in testFoodArray! {
             totalCalsArray.append(food.calories)
         }
@@ -401,11 +401,27 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     //MARK:- NewEntryDelegate protocol method
     
     
-    func reloadFood(newEntry: Food?) {
-        if let food = newEntry {
-            allFood?.append(food)
-            let pageVC = parent as? OverviewPageViewController
-            pageVC?.allFood.append(food)
+    func reloadFood(entry: Food?, new: Bool) {
+        if let food = entry {
+            if new {
+                allFood?.append(food)
+                let pageVC = parent as? OverviewPageViewController
+                pageVC?.allFood.append(food)
+            }
+            else {
+                for foodEntry in allFood! {
+                    if foodEntry.name == entry?.name {
+                        foodEntry.date = entry?.date
+                        foodEntry.dateValue = entry?.dateValue
+                        foodEntry.meal = entry?.meal
+                        foodEntry.serving = entry?.serving ?? 1
+                        foodEntry.calories = entry?.calories ?? 0
+                        foodEntry.protein = entry?.protein ?? 0
+                        foodEntry.carbs = entry?.carbs ?? 0
+                        foodEntry.fat = entry?.fat ?? 0
+                    }
+                }
+            }
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5 ) {
@@ -432,7 +448,9 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         if segue.identifier ==  "goToMealDetail" {
             
             let destVC = segue.destination as! MealDetailViewController
+            destVC.delegate = self
             destVC.date = date
+            destVC.allFood = allFood
             
             if let indexPath = eatMeTableView.indexPathForSelectedRow {
                 
@@ -465,13 +483,29 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         destVC.navigationItem.title = meal.stringValue
         destVC.meal = meal
         
-        var selectedFoodList = [Food]()
+        var sortedFood = [Food]()
+        //for food in testFoodArray! {
+            //sortedFood.append(food)
+                
+        //}
+        var foodDictionary = [String: Food]()
         for food in testFoodArray! {
             if food.meal == meal.stringValue && !food.isDeleted {
-                selectedFoodList.append(food)
+                print(food.dateValue)
+                foodDictionary[food.name!] = food
             }
         }
-        destVC.selectedFoodList = selectedFoodList
+        sortedFood = foodDictionary.values.sorted { (food1, food2) -> Bool in
+            guard
+                let food1Date = food1.dateValue,
+                let food2Date = food2.dateValue
+            else {
+                return false
+            }
+            return food1Date < food2Date
+        }
+        
+        destVC.selectedFoodList = sortedFood
         
     }
     

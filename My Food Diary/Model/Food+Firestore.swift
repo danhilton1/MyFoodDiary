@@ -30,6 +30,31 @@ extension Food {
         self.isDeleted = foodDictionary["isDeleted"] as! Bool
     }
     
+    func saveFood(user: String) {
+        let fc = FoodsCollection.self
+        
+        db.collection("users").document(user).collection(fc.collection).document(self.name!).setData([
+            fc.name: self.name!,
+            fc.meal: self.meal ?? Food.Meal.other,
+            fc.date: self.date!,
+            fc.dateValue: self.dateValue ?? Date(),
+            fc.servingSize: self.servingSize,
+            fc.serving: self.serving,
+            fc.calories: self.calories,
+            fc.protein: self.protein,
+            fc.carbs: self.carbs,
+            fc.fat: self.fat,
+            fc.isDeleted: false
+        ]) { error in
+            if let error = error {
+                print("Error adding document: \(error)")
+            } else {
+                print("Document added with ID: \(self.name!)")
+            }
+        }
+    }
+    
+    
     static func downloadAllFood(user: String, completion: @escaping ([Food]) -> ()) {
         
         var allFood = [Food]()
@@ -41,28 +66,28 @@ extension Food {
             else {
                 for foodDocument in foods!.documents {
                     allFood.append(Food(snapshot: foodDocument))
-                    
-//                    let foodDictionary = foodDocument.data()
-//                    let food = Food()
-//                    food.name = "\(foodDictionary["name"] ?? "Food")"
-//                    food.meal = "\(foodDictionary["meal"] ?? Food.Meal.breakfast.stringValue)"
-//                    food.date = "\(foodDictionary["date"] ?? formatter.string(from: Date()))"
-//                    let dateValue = foodDictionary["dateValue"] as? Timestamp
-//                    food.dateValue = dateValue?.dateValue()
-//                    food.servingSize = "\(foodDictionary["servingSize"] ?? "100 g")"
-//                    food.serving = (foodDictionary["serving"] as? Double) ?? 1
-//                    food.calories = foodDictionary["calories"] as! Int
-//                    food.protein = foodDictionary["protein"] as! Double
-//                    food.carbs = foodDictionary["carbs"] as! Double
-//                    food.fat = foodDictionary["fat"] as! Double
-//                    food.isDeleted = foodDictionary["isDeleted"] as! Bool
-                    
-//                    allFood.append(food)
                 }
             }
             completion(allFood)
         }
     }
+    
+    //                    let foodDictionary = foodDocument.data()
+    //                    let food = Food()
+    //                    food.name = "\(foodDictionary["name"] ?? "Food")"
+    //                    food.meal = "\(foodDictionary["meal"] ?? Food.Meal.breakfast.stringValue)"
+    //                    food.date = "\(foodDictionary["date"] ?? formatter.string(from: Date()))"
+    //                    let dateValue = foodDictionary["dateValue"] as? Timestamp
+    //                    food.dateValue = dateValue?.dateValue()
+    //                    food.servingSize = "\(foodDictionary["servingSize"] ?? "100 g")"
+    //                    food.serving = (foodDictionary["serving"] as? Double) ?? 1
+    //                    food.calories = foodDictionary["calories"] as! Int
+    //                    food.protein = foodDictionary["protein"] as! Double
+    //                    food.carbs = foodDictionary["carbs"] as! Double
+    //                    food.fat = foodDictionary["fat"] as! Double
+    //                    food.isDeleted = foodDictionary["isDeleted"] as! Bool
+                        
+    //                    allFood.append(food)
     
     
 }

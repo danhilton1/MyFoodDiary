@@ -78,7 +78,7 @@ class FoodDetailViewController: UITableViewController {
         transition.subtype = CATransitionSubtype.fromBottom
         self.view.window?.layer.add(transition, forKey: nil)
         self.dismiss(animated: false, completion: {
-            self.delegate?.reloadFood(newEntry: nil)
+            self.delegate?.reloadFood(entry: nil, new: true)
             self.presentingViewController?.tabBarController?.tabBar.isHidden = false
         })
         
@@ -131,42 +131,27 @@ class FoodDetailViewController: UITableViewController {
             print("Error determining meal type.")
         }
         if isEditingExistingEntry {
+            delegate?.reloadFood(entry: workingCopy, new: false)
+            mealDelegate?.reloadFood(entry: workingCopy, new: false)
             navigationController?.popViewController(animated: true)
         }
         else {
+            delegate?.reloadFood(entry: workingCopy, new: true)
+            mealDelegate?.reloadFood(entry: workingCopy, new: true)
             dismissViewWithAnimation()
         }
         isEditingExistingEntry = false
-        delegate?.reloadFood(newEntry: workingCopy)
-        mealDelegate?.reloadFood(newEntry: workingCopy)
         
     }
     
     
     private func save(_ food: Food) {
+        
+        guard let user = Auth.auth().currentUser?.email else { return }
+        
         if !isEditingExistingEntry {
             
-            let fc = FoodsCollection.self
-            
-            db.collection(fc.collection).document(food.name!).setData([
-                fc.name: food.name ?? "N/A",
-                fc.meal: food.meal ?? Food.Meal.other,
-                fc.date: food.date!,
-                fc.dateValue: food.dateValue ?? Date(),
-                fc.servingSize: food.servingSize,
-                fc.serving: food.serving,
-                fc.calories: food.calories,
-                fc.protein: food.protein,
-                fc.carbs: food.carbs,
-                fc.fat: food.fat,
-                fc.isDeleted: false
-            ]) { error in
-                if let error = error {
-                    print("Error adding document: \(error)")
-                } else {
-                    print("Document added with ID: \(food.name!)")
-                }
-            }
+            food.saveFood(user: user)
             
 //            do {
 //                try realm.write {
@@ -178,9 +163,9 @@ class FoodDetailViewController: UITableViewController {
         }
         else {
             let fc = FoodsCollection.self
-            let foodRef = db.collection(FoodsCollection.collection).document(food.name!)
+            let foodEntry = db.collection("users").document(user).collection(fc.collection).document(food.name!)
             
-            foodRef.updateData([
+            foodEntry.updateData([
                 fc.name: food.name!,
                 fc.meal: food.meal ?? Food.Meal.other,
                 fc.date: food.date!,
