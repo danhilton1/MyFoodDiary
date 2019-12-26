@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 import Charts
+import Firebase
 
 class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, WeightDelegate {
     
@@ -18,9 +19,13 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var currentWeightLabel: UILabel!
     @IBOutlet weak var goalWeightLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
+    
+    let db = Firestore.firestore()
     let realm = try! Realm()
-    var weightEntries: Results<Weight>?
-    private var allWeightEntries: Results<Weight>?
+//    var weightEntries: Results<Weight>?
+//    private var allWeightEntries: Results<Weight>?
+    var weightEntries: [Weight]?
+    var allWeightEntries: [Weight]?
     
     private let calendar = Calendar.current
     private let defaults = UserDefaults()
@@ -41,7 +46,7 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.dataSource = self
         tableView.allowsSelection = false
         tableView.register(UINib(nibName: "LineChartCell", bundle: nil), forCellReuseIdentifier: "LineChartCell")
-        allWeightEntries = realm.objects(Weight.self)
+//        allWeightEntries = realm.objects(Weight.self)
         setUpWeekData(direction: .backward, date: Date(), considerToday: true)
         setUpLabels()
     }
@@ -50,11 +55,19 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func loadWeightEntries(date: Date?) {
         
-        formatter.dateFormat = "dd MMM YYYY"
+        formatter.dateFormat = "E, dd MMM YYYY"
         
-        weightEntries = realm.objects(Weight.self)
-        let predicate = NSPredicate(format: "dateString contains[c] %@", formatter.string(from: date ?? Date()))
-        weightEntries = weightEntries?.filter(predicate)
+//        weightEntries = realm.objects(Weight.self)
+//        let predicate = NSPredicate(format: "dateString contains[c] %@", formatter.string(from: date ?? Date()))
+//        weightEntries = weightEntries?.filter(predicate)
+        
+        weightEntries = [Weight]()
+        for weightEntry in allWeightEntries! {
+            if weightEntry.dateString == formatter.string(from: date ?? Date()) {
+                weightEntries!.append(weightEntry)
+            }
+        }
+        //print(weightEntries)
     }
     
     func setUpLabels() {
@@ -72,7 +85,7 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         }
         if let currentWeight = mostCurrentEntry?.weight {
-            currentWeightLabel.text = "\(currentWeight) kg"
+            currentWeightLabel.text = "\(currentWeight) \(mostCurrentEntry?.unit ?? "kg")"
         }
         else {
             currentWeightLabel.text = "0 kg"
@@ -100,7 +113,8 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
-    func reloadData(date: Date?) {
+    func reloadData(weightEntry: Weight, date: Date?) {
+        allWeightEntries?.append(weightEntry)
         setUpLabels()
         let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! LineChartCell
         setUpWeekData(direction: .backward, date: date, considerToday: true)
@@ -155,11 +169,12 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
             textField.keyboardType = .decimalPad
         }
         
+        
         ac.addAction(UIAlertAction(title: "Set", style: .default, handler: { (UIAlertAction) in
             self.defaults.setValue(Double(ac.textFields![0].text ?? "0"), forKey: "GoalWeight")
-            self.goalWeightLabel.text = "\(self.defaults.value(forKey: "GoalWeight") ?? 0) kg"
+            self.goalWeightLabel.text = "\(self.defaults.value(forKey: "GoalWeight") ?? 0) \(self.allWeightEntries?.last?.unit ?? "kg")"
             let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! LineChartCell
-            cell.goalValueLabel.text = "\(self.defaults.value(forKey: "GoalWeight") ?? 0) kg"
+            cell.goalValueLabel.text = "\(self.defaults.value(forKey: "GoalWeight") ?? 0) \(self.allWeightEntries?.last?.unit ?? "kg")"
             
         }))
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
@@ -199,6 +214,9 @@ extension WeightViewController {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let lastEntryUnit = allWeightEntries?.last?.unit ?? "kg"
+        
         switch indexPath.section {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "LineChartCell", for: indexPath) as! LineChartCell
@@ -216,12 +234,12 @@ extension WeightViewController {
             if averageWeight.isNaN {
                 cell.lineChart.leftAxis.axisMinimum = 0
                 cell.lineChart.leftAxis.axisMaximum = 20
-                cell.caloriesLabel.text = "0 kg"
+                cell.caloriesLabel.text = "0 \(lastEntryUnit)"
             }
             else {
                 cell.lineChart.leftAxis.axisMinimum = (averageWeight - 10)
                 cell.lineChart.leftAxis.axisMaximum = (averageWeight + 10)
-                cell.caloriesLabel.text = "\(averageWeight.roundToXDecimalPoints(decimalPoints: 1)) kg"
+                cell.caloriesLabel.text = "\(averageWeight.roundToXDecimalPoints(decimalPoints: 1)) \(lastEntryUnit)"
             }
             
             cell.lineChart.xAxis.axisMaximum = 6.5
@@ -229,7 +247,7 @@ extension WeightViewController {
             cell.caloriesTitleLabel.text = "Weight"
             cell.caloriesTitleLabel.isHidden = true
             cell.averageTitleLabel.text = "Average Daily Weight:"
-            cell.goalValueLabel.text = "\(defaults.value(forKey: "GoalWeight") ?? 0) kg"
+            cell.goalValueLabel.text = "\(defaults.value(forKey: "GoalWeight") ?? 0) \(lastEntryUnit)"
             
             
             lineChartDataSet.colors = [Color.skyBlue]
@@ -252,7 +270,7 @@ extension WeightViewController {
             }
             else {
                 cell.typeLabel.text = "\(days[indexPath.row]):"
-                cell.numberLabel.text = "\(lineChartDataSet.entries[indexPath.row].y) kg"
+                cell.numberLabel.text = "\(lineChartDataSet.entries[indexPath.row].y) \(lastEntryUnit)"
             }
             return cell
         }
@@ -332,5 +350,5 @@ extension WeightViewController {
 //MARK:- WeightDelegate Protocol
 
 protocol WeightDelegate: class {
-    func reloadData(date: Date?)
+    func reloadData(weightEntry: Weight, date: Date?)
 }

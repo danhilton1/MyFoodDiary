@@ -20,6 +20,7 @@ class LogInViewController: UIViewController {
     let formatter = DateFormatter()
     var allFood = [Food]()
     var testFoodArray = [Food]()
+    var allWeight = [Weight]()
     
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -55,11 +56,10 @@ class LogInViewController: UIViewController {
     }
     
     
-    func loadAllFoodData(user: String?, completed: @escaping FinishedDownload) {
+    func loadAllFoodData(user: String?) {
         
         Food.downloadAllFood(user: user!) { (allFood) in
             self.allFood = allFood
-            completed()
         }
         
         
@@ -93,6 +93,13 @@ class LogInViewController: UIViewController {
 //        }
     }
     
+    func loadAllWeightData(user: String?, completed: @escaping FinishedDownload) {
+        Weight.downloadAllWeight(user: user!) { (allWeight) in
+            self.allWeight = allWeight
+            completed()
+        }
+    }
+    
     
     
     @IBAction func logInButtonTapped(_ sender: UIButton) {
@@ -108,8 +115,9 @@ class LogInViewController: UIViewController {
             }
             else {
                 print("Log In Successful")
-                strongSelf.loadAllFoodData(user: authResult?.user.email, completed: { () in
-                    strongSelf.performSegue(withIdentifier: "GoToOverview", sender: self)
+                strongSelf.loadAllFoodData(user: authResult?.user.email)
+                strongSelf.loadAllWeightData(user: authResult?.user.email, completed: { () in
+                    strongSelf.performSegue(withIdentifier: "GoToTabBar", sender: self)
                     SVProgressHUD.dismiss()
                 })
             }
@@ -151,11 +159,16 @@ class LogInViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "GoToOverview" {
+        if segue.identifier == "GoToTabBar" {
             let tabController = segue.destination as! UITabBarController
             let navController = tabController.viewControllers?.first as! UINavigationController
             let pageController = navController.viewControllers.first as! OverviewPageViewController
             pageController.allFood = allFood
+            
+            let weightNavController = tabController.viewControllers?[1] as! UINavigationController
+            let weightVC = weightNavController.viewControllers.first as! WeightViewController
+            weightVC.allWeightEntries = allWeight
+            
         }
     }
     

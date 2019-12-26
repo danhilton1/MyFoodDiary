@@ -197,19 +197,6 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         refreshControl.endRefreshing()
     }
     
-    func deleteData() {
-        do {
-            try realm.write {
-                realm.deleteAll()
-            }
-        }
-        catch {
-            print("Error deleting data - \(error)")
-        }
-        
-        //loadAllFood()
-    }
-    
     
     
     
@@ -475,6 +462,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         else if segue.identifier == "GoToNutrition" {
             let navController = segue.destination as! UINavigationController
             let destVC = navController.viewControllers.first as! NutritionViewController
+            destVC.allFood = allFood
             destVC.date = date
             destVC.calories = totalCalories
         }

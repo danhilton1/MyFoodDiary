@@ -14,8 +14,11 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
     
     let realm = try! Realm()
     
-    var foodList: Results<Food>?
-    var foodListCopy: Results<Food>?
+//    var foodList: Results<Food>?
+//    var foodListCopy: Results<Food>?
+    
+    var foodList: [Food]?
+    var foodListCopy: [Food]?
     
     var date: Date?
     
@@ -95,7 +98,7 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        foodList = realm.objects(Food.self)
+        //foodList = realm.objects(Food.self)
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -111,8 +114,13 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
     }
 
     
-    func getTotalValueOfNutrient(_ nutrient: macroNutrient, foodList: Results<Food>?) -> Double {
-        let nutrientArray = (foodList?.value(forKey: nutrient.stringValue)) as! [Double]
+    func getTotalValueOfNutrient(_ nutrient: macroNutrient, foodList: [Food]?) -> Double {
+        var nutrientArray = [Double]()
+        
+        for food in foodList! {
+            nutrientArray.append(food.value(forKey: nutrient.stringValue) as! Double)
+        }
+        
         return nutrientArray.reduce(0, +)
     }
     
@@ -155,7 +163,6 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
                 numberString.removeLast(2)
                 return numberString
             }
-            
             
             return value <= 0.0 ? "" : String(describing: value)
         }

@@ -17,7 +17,8 @@ class DayNutritionViewController: UIViewController, UITableViewDataSource, UITab
     
     @IBOutlet weak var tableView: UITableView!
     
-    var foodList: Results<Food>?
+//    var foodList: Results<Food>?
+    var foodList: [Food]?
     var calories = 0
     
     var protein: Double {
@@ -49,7 +50,7 @@ class DayNutritionViewController: UIViewController, UITableViewDataSource, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        foodList = realm.objects(Food.self)
+//        foodList = realm.objects(Food.self)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UINib(nibName: "DayNutritionCell", bundle: nil), forCellReuseIdentifier: "DayNutritionCell")
@@ -186,7 +187,12 @@ class DayNutritionViewController: UIViewController, UITableViewDataSource, UITab
     
     
     func getTotalValueOfNutrient(_ nutrient: macroNutrient) -> Double {
-        let nutrientArray = (foodList?.value(forKey: nutrient.stringValue)) as! [Double]
+        var nutrientArray = [Double]()
+        for food in foodList! {
+            nutrientArray.append(food.value(forKey: nutrient.stringValue) as! Double)
+        }
+        
+        //let nutrientArray = (foodList?.value(forKey: nutrient.stringValue)) as! [Double]
         return nutrientArray.reduce(0, +)
     }
     

@@ -28,8 +28,12 @@ class NutritionViewController: UIViewController {
     var monthVC: MonthNutritionViewController?
     
     private let formatter = DateFormatter()
-    var foodList: Results<Food>?
-    var foodListCopy: Results<Food>?
+//    var foodList: Results<Food>?
+//    var foodListCopy: Results<Food>?
+    var allFood: [Food]?
+    var foodList: [Food]?
+    var foodListCopy: [Food]?
+    
     var dateAsString: String?
     var date: Date? {
         didSet {
@@ -70,19 +74,31 @@ class NutritionViewController: UIViewController {
     //MARK: - Set Data Methods
     
     func setFoodList(date: Date?) {
-        foodList = realm.objects(Food.self)
-        let predicate = NSPredicate(format: "date contains[c] %@", formatter.string(from: date ?? Date()))
-        foodList = foodList?.filter(predicate)
-        let deletedPredicate = NSPredicate(format: "isDeleted == FALSE")
-        foodList = foodList?.filter(deletedPredicate)
+//        foodList = realm.objects(Food.self)
+//        let predicate = NSPredicate(format: "date contains[c] %@", formatter.string(from: date ?? Date()))
+//        foodList = foodList?.filter(predicate)
+//        let deletedPredicate = NSPredicate(format: "isDeleted == FALSE")
+//        foodList = foodList?.filter(deletedPredicate)
+        foodList = [Food]()
+        for food in allFood! {
+            if food.date == formatter.string(from: date ?? Date()) && !food.isDeleted {
+                foodList!.append(food)
+            }
+        }
     }
     
     func setFoodListCopy(date: Date?) {
-        foodListCopy = realm.objects(Food.self)
-        let predicate = NSPredicate(format: "date contains[c] %@", formatter.string(from: date ?? Date()))
-        foodListCopy = foodListCopy?.filter(predicate)
-        let deletedPredicate = NSPredicate(format: "isDeleted == FALSE")
-        foodListCopy = foodListCopy?.filter(deletedPredicate)
+//        foodListCopy = realm.objects(Food.self)
+//        let predicate = NSPredicate(format: "date contains[c] %@", formatter.string(from: date ?? Date()))
+//        foodListCopy = foodListCopy?.filter(predicate)
+//        let deletedPredicate = NSPredicate(format: "isDeleted == FALSE")
+//        foodListCopy = foodListCopy?.filter(deletedPredicate)
+        foodListCopy = [Food]()
+        for food in allFood! {
+            if food.date == formatter.string(from: date ?? Date()) && !food.isDeleted {
+                foodListCopy!.append(food)
+            }
+        }
     }
     
     func setDataForInitalChildVC() {
@@ -326,7 +342,10 @@ class NutritionViewController: UIViewController {
             setFoodList(date: yesterday)
             date = yesterday
             
-            let totalCalsArray = (foodList?.value(forKey: "calories")) as! [Int]
+            var totalCalsArray = [Int]()
+            for food in foodList! {
+                totalCalsArray.append(food.calories)
+            }
             calories = totalCalsArray.reduce(0, +)
             
             let dayVC = children.first as? DayNutritionViewController
@@ -397,7 +416,11 @@ class NutritionViewController: UIViewController {
             setFoodList(date: tomorrow)
             date = tomorrow
             
-            let totalCalsArray = (foodList?.value(forKey: "calories")) as! [Int]
+            var totalCalsArray = [Int]()
+            for food in foodList! {
+                totalCalsArray.append(food.calories)
+            }
+            
             calories = totalCalsArray.reduce(0, +)
             
             let dayVC = children.first as? DayNutritionViewController

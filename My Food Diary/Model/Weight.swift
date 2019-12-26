@@ -12,6 +12,7 @@ import RealmSwift
 class Weight: Object {
     
     @objc dynamic var weight: Double = 0
+    var unit: String = "kg"
     @objc dynamic var date: Date = Date()
     @objc dynamic var dateString: String? //{
 //        let formatter = DateFormatter()

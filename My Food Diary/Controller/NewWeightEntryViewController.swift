@@ -8,14 +8,17 @@
 
 import UIKit
 import RealmSwift
+import Firebase
 
 class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
     
     //MARK:- Properties
     
+    @IBOutlet weak var unitSegmentedControl: UISegmentedControl!
     @IBOutlet weak var dateButton: DateButton!
     @IBOutlet weak var weightTextField: UITextField!
     
+    let db = Firestore.firestore()
     let realm = try! Realm()
     
     weak var delegate: WeightDelegate?
@@ -121,12 +124,15 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
                 return
             }
         }
+        weightEntry.unit = unitSegmentedControl.titleForSegment(at: unitSegmentedControl.selectedSegmentIndex)!
         weightEntry.date = datePicker.date
         weightEntry.dateString = formatter.string(from: datePicker.date)
         
-        save(weightEntry)
+        guard let user = Auth.auth().currentUser?.email else { return }
+        weightEntry.saveFood(user: user)
+        //save(weightEntry)
         dismissViewWithAnimation()
-        delegate?.reloadData(date: datePicker.date)
+        delegate?.reloadData(weightEntry: weightEntry, date: datePicker.date)
         
     }
     

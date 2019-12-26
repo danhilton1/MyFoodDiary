@@ -27,6 +27,7 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
         super.viewDidLoad()
         
         navigationController?.navigationBar.barTintColor = Color.skyBlue
+        navigationItem.leftBarButtonItems = nil
         dataSource = self
         formatter.dateFormat = "E, d MMM"
         
@@ -56,7 +57,7 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
         if dateEnteredFromPicker {
             
             guard let today = dateFromDatePicker else { return nil }
-            guard var yesterday = calendar.date(byAdding: .day, value: -1, to: today) else { return nil }
+            guard let yesterday = calendar.date(byAdding: .day, value: -1, to: today) else { return nil }
             //yesterday = calendar.startOfDay(for: yesterday)
             
             return overviewViewController(for: yesterday)
@@ -66,7 +67,7 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
             guard let today = (viewController as! OverviewViewController).date else { return nil }
             
             // Yesterday's date at time: 00:00
-            guard var yesterday = calendar.date(byAdding: .day, value: -1, to: today) else { return nil }
+            guard let yesterday = calendar.date(byAdding: .day, value: -1, to: today) else { return nil }
             //yesterday = calendar.startOfDay(for: yesterday)
     //        yesterday = calendar.date(byAdding: .hour, value: 1, to: yesterday) ?? yesterday
             
@@ -79,7 +80,7 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
         if dateEnteredFromPicker {
             
             guard let today = dateFromDatePicker else { return nil }
-            guard var tomorrow = calendar.date(byAdding: .day, value: 1, to: today) else { return nil }
+            guard let tomorrow = calendar.date(byAdding: .day, value: 1, to: today) else { return nil }
             //tomorrow = calendar.startOfDay(for: tomorrow)
             
             return overviewViewController(for: tomorrow)
@@ -89,7 +90,7 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
             guard let today = (viewController as! OverviewViewController).date else { return nil }
             
             // Tomorrow's date at time: 00:00
-            guard var tomorrow = calendar.date(byAdding: .day, value: 1, to: today) else { return nil }
+            guard let tomorrow = calendar.date(byAdding: .day, value: 1, to: today) else { return nil }
             //tomorrow = calendar.startOfDay(for: tomorrow)
     //        tomorrow = calendar.date(byAdding: .hour, value: 1, to: tomorrow) ?? tomorrow
             
@@ -135,11 +136,6 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
         newEntryVC.allFood = allFood
         present(navController, animated: true)
         
-    }
-    
-    @IBAction func clearButtonPressed(_ sender: UIBarButtonItem) {
-        let vc = viewControllers?[0] as? OverviewViewController
-        vc?.deleteData()
     }
     
 
