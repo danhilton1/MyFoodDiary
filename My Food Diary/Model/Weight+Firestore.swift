@@ -15,14 +15,15 @@ extension Weight {
     
     convenience init(snapshot: QueryDocumentSnapshot) {
         self.init()
-        let foodDictionary = snapshot.data()
-        self.weight = foodDictionary["weight"] as? Double ?? 0
-        self.unit = foodDictionary["unit"] as? String ?? "kg"
-        self.date = foodDictionary["date"] as? Date ?? Date()
-        self.dateString = foodDictionary["dateString"] as? String
+        let weightDictionary = snapshot.data()
+        self.weight = weightDictionary["weight"] as? Double ?? 0
+        self.unit = weightDictionary["unit"] as? String ?? "kg"
+        guard let date = weightDictionary["date"] as? Timestamp else { return }
+        self.date = date.dateValue()
+        self.dateString = weightDictionary["dateString"] as? String
     }
     
-    func saveFood(user: String) {
+    func saveWeight(user: String) {
         
         db.collection("users").document(user).collection("weight").document("\(self.weight)").setData([
             "weight": self.weight,
@@ -44,6 +45,7 @@ extension Weight {
         let defaultDateComponents = DateComponents(calendar: calendar, timeZone: .current, year: 2019, month: 1, day: 1)
         var allWeight = [Weight]()
         var dateOfMostRecentEntry: Date?
+        let dispatchGroup = DispatchGroup()
         
         db.collection("users").document(user).collection("weight").order(by: "date").getDocuments(source: .cache) {
             (weight, error) in
@@ -56,23 +58,27 @@ extension Weight {
                     allWeight.append(Weight(snapshot: weightDocument))
                 }
                 dateOfMostRecentEntry = allWeight.last?.date
+                //print(dateOfMostRecentEntry)
                 
+                dispatchGroup.enter()
                 db.collection("users").document(user).collection("weight")
                     .whereField("date", isGreaterThan: dateOfMostRecentEntry?.addingTimeInterval(1) ?? calendar.date(from: defaultDateComponents)!)
                     .order(by: "date")
                     .getDocuments() { (weight, error) in
-                    if let error = error {
-                        print("Error getting documents: \(error)")
-                    }
-                    else {
-                        for weightDocument in weight!.documents {
-                            allWeight.append(Weight(snapshot: weightDocument))
-                            print(Weight(snapshot: weightDocument).weight)
+                        if let error = error {
+                            print("Error getting documents: \(error)")
                         }
-                    }
+                        else {
+                            for weightDocument in weight!.documents {
+                                allWeight.append(Weight(snapshot: weightDocument))
+                                print(Weight(snapshot: weightDocument).weight)
+                            }
+                            dispatchGroup.leave()
+                        }
+                }
+                dispatchGroup.notify(queue: .main) {
                     completion(allWeight)
                 }
-                
             }
         }
         

@@ -11,6 +11,7 @@ import Firebase
 
 private let db = Firestore.firestore()
 
+
 extension Food {
 
     convenience init(snapshot: QueryDocumentSnapshot) {
@@ -61,6 +62,8 @@ extension Food {
         let defaultDateComponents = DateComponents(calendar: calendar, timeZone: .current, year: 2019, month: 1, day: 1)
         var allFood = [Food]()
         var dateOfMostRecentEntry: Date?
+        let dispatchGroup = DispatchGroup()
+        
         
         db.collection("users").document(user).collection("foods").order(by: "dateValue").getDocuments(source: .cache) { (foods, error) in
             if let error = error {
@@ -70,28 +73,31 @@ extension Food {
                 for foodDocument in foods!.documents {
                     allFood.append(Food(snapshot: foodDocument))
                 }
+                //print(allFood.count)
                 dateOfMostRecentEntry = allFood.last?.dateValue
-                
+                    //print(dateOfMostRecentEntry)
+                dispatchGroup.enter()
                 db.collection("users").document(user).collection("foods")
                     .whereField("dateValue", isGreaterThan: dateOfMostRecentEntry?.addingTimeInterval(1) ?? calendar.date(from: defaultDateComponents)!)
                     .order(by: "dateValue")
                     .getDocuments() { (foods, error) in
-                    if let error = error {
-                        print("Error getting documents: \(error)")
-                    }
-                    else {
-                        for foodDocument in foods!.documents {
-                            allFood.append(Food(snapshot: foodDocument))
-                            print(Food(snapshot: foodDocument).name!)
+                        if let error = error {
+                            print("Error getting documents: \(error)")
                         }
-                    }
+                        else {
+                            for foodDocument in foods!.documents {
+                                allFood.append(Food(snapshot: foodDocument))
+                                print(Food(snapshot: foodDocument).name!)
+                            }
+                            dispatchGroup.leave()
+                        }
+                }
+                dispatchGroup.notify(queue: .main) {
                     completion(allFood)
                 }
-                
             }
+            
         }
-        
-        
         
     }
     

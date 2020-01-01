@@ -17,6 +17,8 @@ class LogInViewController: UIViewController {
     
     private let db = Firestore.firestore()
     
+    let foodDispatchGroup = DispatchGroup()
+    let weightDispatchGroup = DispatchGroup()
     let formatter = DateFormatter()
     var allFood = [Food]()
     var testFoodArray = [Food]()
@@ -59,7 +61,9 @@ class LogInViewController: UIViewController {
     func loadAllFoodData(user: String?) {
         
         Food.downloadAllFood(user: user!) { (allFood) in
+            //print(allFood.count)
             self.allFood = allFood
+            self.foodDispatchGroup.leave()
         }
         
         
@@ -96,6 +100,7 @@ class LogInViewController: UIViewController {
     func loadAllWeightData(user: String?, completed: @escaping FinishedDownload) {
         Weight.downloadAllWeight(user: user!) { (allWeight) in
             self.allWeight = allWeight
+            self.weightDispatchGroup.leave()
             completed()
         }
     }
@@ -115,11 +120,19 @@ class LogInViewController: UIViewController {
             }
             else {
                 print("Log In Successful")
+                strongSelf.foodDispatchGroup.enter()
                 strongSelf.loadAllFoodData(user: authResult?.user.email)
-                strongSelf.loadAllWeightData(user: authResult?.user.email, completed: { () in
-                    strongSelf.performSegue(withIdentifier: "GoToTabBar", sender: self)
-                    SVProgressHUD.dismiss()
-                })
+                
+                strongSelf.foodDispatchGroup.notify(queue: .main) {
+                    strongSelf.weightDispatchGroup.enter()
+                    strongSelf.loadAllWeightData(user: authResult?.user.email, completed: { () in
+                
+                        strongSelf.weightDispatchGroup.notify(queue: .main) {
+                            strongSelf.performSegue(withIdentifier: "GoToTabBar", sender: self)
+                            SVProgressHUD.dismiss()
+                        }
+                    })
+                }
             }
         }
     }

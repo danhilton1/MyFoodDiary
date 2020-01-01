@@ -23,6 +23,7 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
     
     weak var delegate: WeightDelegate?
     let formatter = DateFormatter()
+    let buttonFormatter = DateFormatter()
     private var weightEntry = Weight()
     
     private let datePicker = UIDatePicker()
@@ -39,7 +40,8 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
         tableView.tableFooterView = UIView()
         
         formatter.dateFormat = "E, dd MMM YYYY"
-        dateButton.setTitle(formatter.string(from: Date()), for: .normal)
+        buttonFormatter.dateFormat = "E, dd MMM"
+        dateButton.setTitle(buttonFormatter.string(from: Date()), for: .normal)
         
         datePicker.datePickerMode = .date
         datePicker.locale = Locale.current
@@ -98,7 +100,7 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
     // Toolbar button
     @objc func dateEntered() {
         dateButton.resignFirstResponder()
-        dateButton.setTitle(formatter.string(from: datePicker.date), for: .normal)
+        dateButton.setTitle(buttonFormatter.string(from: datePicker.date), for: .normal)
     }
     
     // Toolbar button
@@ -129,7 +131,7 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
         weightEntry.dateString = formatter.string(from: datePicker.date)
         
         guard let user = Auth.auth().currentUser?.email else { return }
-        weightEntry.saveFood(user: user)
+        weightEntry.saveWeight(user: user)
         //save(weightEntry)
         dismissViewWithAnimation()
         delegate?.reloadData(weightEntry: weightEntry, date: datePicker.date)
