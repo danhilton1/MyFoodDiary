@@ -26,6 +26,7 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
 //    private var allWeightEntries: Results<Weight>?
     var weightEntries: [Weight]?
     var allWeightEntries: [Weight]?
+    var weightEntriesDates: [Date]?
     
     private let calendar = Calendar.current
     private let defaults = UserDefaults()
@@ -96,11 +97,19 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func setUpWeekData(direction: Calendar.SearchDirection, date: Date?, considerToday: Bool) {
         
+        weightEntriesDates = [Date]()
+        
         guard let today = date else { return }
         let monday = today.next(.monday, direction: direction, considerToday: considerToday)
         startOfWeekDate = monday
         loadWeightEntries(date: startOfWeekDate)
+        
+        let calendar = Calendar.current
+        let defaultDateComponents = DateComponents(calendar: calendar, timeZone: .current, year: 2019, month: 1, day: 1)
+        weightEntriesDates?.append(weightEntries?.last?.date ?? calendar.date(from: defaultDateComponents)!)
+        
         var entry = weightEntries?.last?.weight ?? 0
+        
         lineChartDataSet = LineChartDataSet(entries: [ChartDataEntry(x: 0, y: entry.roundToXDecimalPoints(decimalPoints: 1))], label: "Weight")
         
         var dateCopy = startOfWeekDate
@@ -108,6 +117,7 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
         for i in 1...6 {
             dateCopy = calendar.date(byAdding: .day, value: 1, to: dateCopy ?? Date())!
             loadWeightEntries(date: dateCopy)
+            weightEntriesDates?.append(weightEntries?.last?.date ?? calendar.date(from: defaultDateComponents)!)
             var entry = weightEntries?.last?.weight ?? 0
             lineChartDataSet.append(ChartDataEntry(x: Double(i), y: entry.roundToXDecimalPoints(decimalPoints: 1)))
         }
@@ -129,6 +139,7 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     @IBAction func leftArrowTapped(_ sender: UIButton) {
+        weightEntriesDates = [Date]()
         setUpWeekData(direction: .backward, date: startOfWeekDate, considerToday: false)
         dateLabel.text = "Week Starting: \(dateLabelFormatter.string(from: startOfWeekDate ?? Date()))"
 
@@ -144,6 +155,7 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     @IBAction func rightArrowTapped(_ sender: UIButton) {
+        weightEntriesDates = [Date]()
         setUpWeekData(direction: .forward, date: startOfWeekDate, considerToday: false)
         dateLabel.text = "Week Starting: \(dateLabelFormatter.string(from: startOfWeekDate ?? Date()))"
 
@@ -309,40 +321,32 @@ extension WeightViewController {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
+            guard let user = Auth.auth().currentUser?.email else { return }
+            let weight = lineChartDataSet.entries[indexPath.row].y
+            let date = weightEntriesDates![indexPath.row]
+            
+            db.collection("users").document(user).collection("weight").document("\(weight) \(date)").delete() { err in
+                if let err = err {
+                    print("Error removing document: \(err)")
+                } else {
+                    print("Document successfully removed!")
+                }
+            }
+            
+            var index = 0
+            for entry in allWeightEntries! {
+                if entry.weight == lineChartDataSet.entries[indexPath.row].y && entry.date == weightEntriesDates![indexPath.row] {
+                    allWeightEntries?.remove(at: index)
+                    break
+                }
+                index += 1
+            }
+            let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! LineChartCell
             lineChartDataSet.entries[indexPath.row].y = 0
-//            reloadTableView()
+            cell.lineChart.animate(yAxisDuration: 0.5)
+
             tableView.reloadData()
 
-//            var entries = [Int]()
-//
-//            for i in 0..<7 {
-//                let cell = tableView.cellForRow(at: IndexPath(row: i, section: 1)) as? MealDetailCell
-//                if cell?.numberLabel.text != "-" {
-//                    entries.append(i)
-//                }
-//            }
-//            for (index, entry) in entries.enumerated() {
-//                if entry == indexPath.row {
-//                    guard let entryToDelete = weightEntries?[index] else { return }
-//                    print(entryToDelete)
-//                }
-//            }
-//            if entries.contains(indexPath.row) {
-//
-//            }
-            //let index = weightEntries!.count - indexPath.row
-//            guard let entryToDelete = weightEntries?[indexPath.row] else { return }
-//            print(entryToDelete)
-//            do {
-//                try realm.write {
-//                    guard let entryToDelete = weightEntries?[indexPath.row] else { return }
-//                    print(entryToDelete)
-//                    realm.delete(entryToDelete)
-//                }
-//            }
-//            catch {
-//                print(error)
-//            }
         }
     }
 }
