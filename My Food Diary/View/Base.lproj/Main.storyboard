@@ -1140,7 +1140,7 @@
                                     <constraint firstAttribute="height" constant="45" id="cgs-xC-ugo"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
-                                <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="raU-uz-fBh" customClass="LogInTextField" customModule="My_Food_Diary" customModuleProvider="target">
                                 <rect key="frame" x="40" y="499" width="334" height="45"/>
@@ -1172,17 +1172,25 @@
                                     <action selector="backButtonTapped:" destination="Ftc-4j-rM8" eventType="touchUpInside" id="tVN-r5-4FZ"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User Log In" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EVD-UY-vzI">
+                                <rect key="frame" x="118" y="52" width="178" height="37"/>
+                                <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="30"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.20392156859999999" green="0.59607843140000005" blue="0.85882352939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.32702541349999997" green="0.56057441230000005" blue="0.75688779350000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="a0a-V1-0Ow" firstAttribute="leading" secondItem="vZQ-xy-Vu5" secondAttribute="leading" constant="40" id="4Z9-50-V5C"/>
                             <constraint firstItem="vZQ-xy-Vu5" firstAttribute="trailing" secondItem="a0a-V1-0Ow" secondAttribute="trailing" constant="40" id="6FH-Ve-xXI"/>
                             <constraint firstItem="EC8-XN-3qt" firstAttribute="centerX" secondItem="SKv-h3-xOy" secondAttribute="centerX" id="An8-8O-5kh"/>
                             <constraint firstItem="a0a-V1-0Ow" firstAttribute="top" secondItem="EC8-XN-3qt" secondAttribute="bottom" constant="85" id="B5e-La-RKj"/>
+                            <constraint firstItem="EVD-UY-vzI" firstAttribute="centerY" secondItem="dlv-9x-VDd" secondAttribute="centerY" id="R4H-zk-nPT"/>
                             <constraint firstItem="raU-uz-fBh" firstAttribute="leading" secondItem="vZQ-xy-Vu5" secondAttribute="leading" constant="40" id="RUc-xy-6qW"/>
                             <constraint firstItem="fSj-0N-DfD" firstAttribute="leading" secondItem="vZQ-xy-Vu5" secondAttribute="leading" constant="100" id="TwI-5a-HW9"/>
                             <constraint firstItem="raU-uz-fBh" firstAttribute="top" secondItem="a0a-V1-0Ow" secondAttribute="bottom" constant="40" id="aOc-al-qaB"/>
                             <constraint firstItem="vZQ-xy-Vu5" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="fSj-0N-DfD" secondAttribute="bottom" constant="40" id="dEo-86-ILT"/>
+                            <constraint firstItem="EVD-UY-vzI" firstAttribute="centerX" secondItem="SKv-h3-xOy" secondAttribute="centerX" id="fKo-p5-kS1"/>
                             <constraint firstItem="fSj-0N-DfD" firstAttribute="top" secondItem="raU-uz-fBh" secondAttribute="bottom" constant="95" id="ixl-RI-t20"/>
                             <constraint firstItem="vZQ-xy-Vu5" firstAttribute="trailing" secondItem="raU-uz-fBh" secondAttribute="trailing" constant="40" id="jdW-TX-jR9"/>
                             <constraint firstItem="EC8-XN-3qt" firstAttribute="top" secondItem="vZQ-xy-Vu5" secondAttribute="top" constant="85" id="oTp-YC-xq9"/>
@@ -1213,27 +1221,27 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rwg-6J-ZOJ">
-                                <rect key="frame" x="20" y="144" width="194" height="32"/>
+                                <rect key="frame" x="20" y="174" width="194" height="32"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="26"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iqe-Aa-cNn">
-                                <rect key="frame" x="20" y="291" width="194" height="32"/>
+                                <rect key="frame" x="20" y="321" width="194" height="32"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="26"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter your email address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KiP-My-j7D" customClass="LogInTextField" customModule="My_Food_Diary" customModuleProvider="target">
-                                <rect key="frame" x="20" y="211" width="297" height="45"/>
+                                <rect key="frame" x="20" y="241" width="297" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="hyA-bo-ss3"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
-                                <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter your password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3iL-Ir-f7m" customClass="LogInTextField" customModule="My_Food_Diary" customModuleProvider="target">
-                                <rect key="frame" x="20" y="358" width="297" height="45"/>
+                                <rect key="frame" x="20" y="388" width="297" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="wej-pG-VDu"/>
                                 </constraints>
@@ -1241,7 +1249,7 @@
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JG4-Xx-9kv">
-                                <rect key="frame" x="80" y="483" width="254" height="50"/>
+                                <rect key="frame" x="80" y="513" width="254" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="3gU-Kg-0Ma"/>
@@ -1261,6 +1269,12 @@
                                     <action selector="backButtonTapped:" destination="I4G-MR-uy6" eventType="touchUpInside" id="Edr-o6-5OB"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Register Account" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ohg-MU-5ai">
+                                <rect key="frame" x="80" y="53" width="254" height="35"/>
+                                <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="28"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.20392156859999999" green="0.59607843140000005" blue="0.85882352939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -1268,12 +1282,14 @@
                             <constraint firstItem="Rwg-6J-ZOJ" firstAttribute="leading" secondItem="qUz-zr-dyE" secondAttribute="leading" constant="20" id="2Ef-LA-cQK"/>
                             <constraint firstItem="iqe-Aa-cNn" firstAttribute="top" secondItem="KiP-My-j7D" secondAttribute="bottom" constant="35" id="Aze-wQ-fU1"/>
                             <constraint firstItem="qUz-zr-dyE" firstAttribute="trailing" secondItem="KiP-My-j7D" secondAttribute="trailing" constant="97" id="CYt-Nu-3Xq"/>
+                            <constraint firstItem="Ohg-MU-5ai" firstAttribute="centerX" secondItem="1Ca-If-32L" secondAttribute="centerX" id="FlO-vP-OgL"/>
                             <constraint firstItem="3iL-Ir-f7m" firstAttribute="top" secondItem="iqe-Aa-cNn" secondAttribute="bottom" constant="35" id="LXx-s4-rsO"/>
                             <constraint firstItem="qUz-zr-dyE" firstAttribute="trailing" secondItem="iqe-Aa-cNn" secondAttribute="trailing" constant="200" id="PdJ-Ft-xZ1"/>
                             <constraint firstItem="qUz-zr-dyE" firstAttribute="trailing" secondItem="3iL-Ir-f7m" secondAttribute="trailing" constant="97" id="YT1-eJ-ML8"/>
                             <constraint firstItem="KiP-My-j7D" firstAttribute="top" secondItem="Rwg-6J-ZOJ" secondAttribute="bottom" constant="35" id="ZQZ-Cj-pAk"/>
                             <constraint firstItem="qUz-zr-dyE" firstAttribute="trailing" secondItem="Rwg-6J-ZOJ" secondAttribute="trailing" constant="200" id="Zq3-WT-S9w"/>
                             <constraint firstItem="qUz-zr-dyE" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="JG4-Xx-9kv" secondAttribute="bottom" constant="150" id="aqF-3b-3sk"/>
+                            <constraint firstItem="Ohg-MU-5ai" firstAttribute="centerY" secondItem="hb4-Ba-1Rs" secondAttribute="centerY" id="c52-ni-KNl"/>
                             <constraint firstItem="hb4-Ba-1Rs" firstAttribute="top" secondItem="qUz-zr-dyE" secondAttribute="top" constant="10" id="cDi-qd-q94"/>
                             <constraint firstItem="qUz-zr-dyE" firstAttribute="trailing" secondItem="JG4-Xx-9kv" secondAttribute="trailing" constant="80" id="jXb-UI-Tef"/>
                             <constraint firstItem="KiP-My-j7D" firstAttribute="leading" secondItem="qUz-zr-dyE" secondAttribute="leading" constant="20" id="ohc-L4-4nu"/>
@@ -1281,7 +1297,7 @@
                             <constraint firstItem="3iL-Ir-f7m" firstAttribute="leading" secondItem="qUz-zr-dyE" secondAttribute="leading" constant="20" id="rr2-E3-dLK"/>
                             <constraint firstItem="iqe-Aa-cNn" firstAttribute="leading" secondItem="qUz-zr-dyE" secondAttribute="leading" constant="20" id="w22-8d-68Z"/>
                             <constraint firstItem="JG4-Xx-9kv" firstAttribute="leading" secondItem="qUz-zr-dyE" secondAttribute="leading" constant="80" id="wOP-gQ-oyU"/>
-                            <constraint firstItem="Rwg-6J-ZOJ" firstAttribute="top" secondItem="qUz-zr-dyE" secondAttribute="top" constant="100" id="wmL-P6-5r3"/>
+                            <constraint firstItem="Rwg-6J-ZOJ" firstAttribute="top" secondItem="qUz-zr-dyE" secondAttribute="top" constant="130" id="wmL-P6-5r3"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="qUz-zr-dyE"/>
                     </view>
@@ -2369,7 +2385,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="Vpn-DS-ftJ"/>
         <segue reference="czJ-8k-2CO"/>
-        <segue reference="NOO-Zw-O1E"/>
+        <segue reference="gK3-K4-laE"/>
         <segue reference="AX7-nl-74f"/>
     </inferredMetricsTieBreakers>
 </document>

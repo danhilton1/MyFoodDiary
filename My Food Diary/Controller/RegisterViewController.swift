@@ -25,7 +25,13 @@ class RegisterViewController: UIViewController {
         view.backgroundColor = Color.skyBlue
         registerButton.setTitleColor(Color.skyBlue, for: .normal)
         registerButton.layer.cornerRadius = registerButton.frame.size.height / 2
-//        passwordTextField.layer.cornerRadius = 20
+        
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+        addInputAccessoriesForTextFields(textFields: [emailTextField, passwordTextField], dismissable: true, previousNextable: true)
+        
+        emailTextField.setLeftPaddingPoints(6)
+        passwordTextField.setLeftPaddingPoints(6)
         emailTextField.placeholder = "Enter your email address"
         passwordTextField.placeholder = "Enter a password"
         
@@ -107,4 +113,55 @@ class RegisterViewController: UIViewController {
         }
     }
     
+}
+
+extension RegisterViewController: UITextFieldDelegate {
+    
+    func addInputAccessoriesForTextFields(textFields: [UITextField], dismissable: Bool = true, previousNextable: Bool = false) {
+        for (index, textField) in textFields.enumerated() {
+            let toolbar: UIToolbar = UIToolbar()
+            toolbar.sizeToFit()
+
+            var items = [UIBarButtonItem]()
+            if previousNextable {
+                let previousButton = UIBarButtonItem(image: UIImage(named: "UpArrow"), style: .plain, target: nil, action: nil)
+                previousButton.width = 20
+                if textField == textFields.first {
+                    previousButton.isEnabled = false
+                } else {
+                    previousButton.target = textFields[index - 1]
+                    previousButton.action = #selector(UITextField.becomeFirstResponder)
+                }
+
+                let nextButton = UIBarButtonItem(image: UIImage(named: "DownArrow"), style: .plain, target: nil, action: nil)
+                nextButton.width = 20
+                if textField == textFields.last {
+                    nextButton.isEnabled = false
+                } else {
+                    nextButton.target = textFields[index + 1]
+                    nextButton.action = #selector(UITextField.becomeFirstResponder)
+                }
+                items.append(contentsOf: [previousButton, nextButton])
+            }
+
+            let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+            let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: view, action: #selector(UIView.endEditing))
+            items.append(contentsOf: [spacer, doneButton])
+
+
+            toolbar.setItems(items, animated: false)
+            textField.inputAccessoryView = toolbar
+        }
+    }
+    
+
+}
+
+
+extension UITextField {
+    func setLeftPaddingPoints(_ amount: CGFloat){
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: amount, height: self.frame.size.height))
+        self.leftView = paddingView
+        self.leftViewMode = .always
+    }
 }

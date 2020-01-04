@@ -24,6 +24,7 @@ class LogInViewController: UIViewController {
     var testFoodArray = [Food]()
     var allWeight = [Weight]()
     
+    
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var logInButton: UIButton!
@@ -35,7 +36,11 @@ class LogInViewController: UIViewController {
         view.backgroundColor = Color.skyBlue
         logInButton.setTitleColor(Color.skyBlue, for: .normal)
         logInButton.layer.cornerRadius = logInButton.frame.size.height / 2
+        
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
         passwordTextField.placeholder = "Password"
+        addInputAccessoriesForTextFields(textFields: [emailTextField, passwordTextField], dismissable: true, previousNextable: true)
         
         formatter.dateFormat = "E, d MMM"
         
@@ -61,40 +66,9 @@ class LogInViewController: UIViewController {
     func loadAllFoodData(user: String?) {
         
         Food.downloadAllFood(user: user!) { (allFood) in
-            //print(allFood.count)
             self.allFood = allFood
             self.foodDispatchGroup.leave()
         }
-        
-        
-//        db.collection("users").document(user!).collection("foods").order(by: "dateValue").getDocuments() { [weak self] (foods, error) in
-//            guard let strongSelf = self else { return }
-//            if let error = error {
-//                print("Error getting documents: \(error)")
-//            }
-//            else {
-//                for foodDocument in foods!.documents {
-//                    let foodDictionary = foodDocument.data()
-//                    let food = Food()
-//                    food.name = "\(foodDictionary["name"] ?? "Food")"
-//                    food.meal = "\(foodDictionary["meal"] ?? Food.Meal.breakfast.stringValue)"
-//                    food.date = "\(foodDictionary["date"] ?? strongSelf.formatter.string(from: Date()))"
-//                    let dateValue = foodDictionary["dateValue"] as? Timestamp
-//                    food.dateValue = dateValue?.dateValue()
-//                    food.servingSize = "\(foodDictionary["servingSize"] ?? "100 g")"
-//                    food.serving = (foodDictionary["serving"] as? Double) ?? 1
-//                    food.calories = foodDictionary["calories"] as! Int
-//                    food.protein = foodDictionary["protein"] as! Double
-//                    food.carbs = foodDictionary["carbs"] as! Double
-//                    food.fat = foodDictionary["fat"] as! Double
-//                    food.isDeleted = foodDictionary["isDeleted"] as! Bool
-//
-//                    strongSelf.allFood.append(food)
-//                }
-//
-//                completed()
-//            }
-//        }
     }
     
     func loadAllWeightData(user: String?, completed: @escaping FinishedDownload) {
@@ -157,7 +131,7 @@ class LogInViewController: UIViewController {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y == 0 {
                 UIView.animate(withDuration: 0.5) {
-                    self.view.frame.origin.y -= keyboardSize.height
+                    self.view.frame.origin.y -= (keyboardSize.height - 100)
                 }
             }
         }
@@ -182,6 +156,47 @@ class LogInViewController: UIViewController {
             let weightVC = weightNavController.viewControllers.first as! WeightViewController
             weightVC.allWeightEntries = allWeight
             
+        }
+    }
+    
+}
+
+extension LogInViewController: UITextFieldDelegate {
+    
+    func addInputAccessoriesForTextFields(textFields: [UITextField], dismissable: Bool = true, previousNextable: Bool = false) {
+        for (index, textField) in textFields.enumerated() {
+            let toolbar: UIToolbar = UIToolbar()
+            toolbar.sizeToFit()
+
+            var items = [UIBarButtonItem]()
+            if previousNextable {
+                let previousButton = UIBarButtonItem(image: UIImage(named: "UpArrow"), style: .plain, target: nil, action: nil)
+                previousButton.width = 20
+                if textField == textFields.first {
+                    previousButton.isEnabled = false
+                } else {
+                    previousButton.target = textFields[index - 1]
+                    previousButton.action = #selector(UITextField.becomeFirstResponder)
+                }
+
+                let nextButton = UIBarButtonItem(image: UIImage(named: "DownArrow"), style: .plain, target: nil, action: nil)
+                nextButton.width = 20
+                if textField == textFields.last {
+                    nextButton.isEnabled = false
+                } else {
+                    nextButton.target = textFields[index + 1]
+                    nextButton.action = #selector(UITextField.becomeFirstResponder)
+                }
+                items.append(contentsOf: [previousButton, nextButton])
+            }
+
+            let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+            let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: view, action: #selector(UIView.endEditing))
+            items.append(contentsOf: [spacer, doneButton])
+
+
+            toolbar.setItems(items, animated: false)
+            textField.inputAccessoryView = toolbar
         }
     }
     
