@@ -122,8 +122,7 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
     
     //MARK:- Button Methods
     
-    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-        
+    @IBAction func addButtonTapped(_ sender: UIBarButtonItem) {
         guard
             let navController = storyboard?.instantiateViewController(withIdentifier: "NewEntryVCNav") as? UINavigationController,
             let newEntryVC = navController.viewControllers.first as? NewEntryViewController,
@@ -133,13 +132,9 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
         }
         newEntryVC.delegate = vc
         newEntryVC.date = vc.date
-        newEntryVC.allFood = allFood
+        newEntryVC.allFood = vc.allFood
         present(navController, animated: true)
-        
     }
-    
-
-
 }
 
 

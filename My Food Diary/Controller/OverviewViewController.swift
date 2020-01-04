@@ -434,7 +434,6 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     //MARK:- Segue Methods
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
 
         if segue.identifier ==  "goToMealDetail" {
             

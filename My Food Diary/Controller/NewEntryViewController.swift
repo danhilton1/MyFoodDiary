@@ -8,10 +8,12 @@
 
 import UIKit
 import RealmSwift
+import Firebase
 
 class NewEntryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     let realm = try! Realm()
+    let db = Firestore.firestore()
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -54,7 +56,6 @@ class NewEntryViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
         presentingViewController?.tabBarController?.tabBar.isHidden = true
     }
     
@@ -129,6 +130,7 @@ class NewEntryViewController: UIViewController, UITableViewDelegate, UITableView
             let destVC = segue.destination as! FoodDetailViewController
             guard let indexPath = tableView.indexPathForSelectedRow else { return }
             destVC.food = sortedFood[indexPath.row]
+            destVC.isAddingFromExistingEntry = true
             destVC.delegate = delegate
             destVC.mealDelegate = mealDelegate
             destVC.date = date
@@ -171,13 +173,59 @@ extension NewEntryViewController: UISearchBarDelegate {
         return cell
     }
     
-    //MARK:- Search Bar Delegate methods
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: Segues.goToFoodDetail, sender: nil)
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            
+            let ac = UIAlertController(title: "Confirm", message: "Are you sure you want to delete this item from your database?", preferredStyle: .alert)
+            
+            ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            ac.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { [weak self] (action) in
+                guard let strongSelf = self else { return }
+                
+                guard let user = Auth.auth().currentUser?.email else { return }
+                let food = strongSelf.sortedFoodCopy[indexPath.row].name!
+                
+                strongSelf.db.collection("users").document(user).collection("foods").document(food).delete() { err in
+                    if let err = err {
+                        print("Error removing document: \(err)")
+                    } else {
+                        print("Document: \(food) successfully removed!")
+                    }
+                }
+                
+                let currentNav = strongSelf.parent as! UINavigationController
+                let overviewNav = currentNav.presentingViewController as! UINavigationController
+                let overviewPVC = overviewNav.viewControllers[0] as! OverviewPageViewController
+                let overviewVC = overviewPVC.viewControllers?.first as! OverviewViewController
+                
+                var index = 0
+                for entry in strongSelf.allFood! {
+                    if entry.name == strongSelf.sortedFoodCopy[indexPath.row].name {
+                        strongSelf.allFood?.remove(at: index)
+                        overviewVC.allFood?.remove(at: index)
+                        overviewVC.loadFirebaseData()
+                        break
+                    }
+                    index += 1
+                }
+                strongSelf.sortedFoodCopy.remove(at: indexPath.row)
+                strongSelf.tableView.deleteRows(at: [indexPath], with: .automatic)
+                
+            }))
+            present(ac, animated: true)
+        }
+    }
+    
+    //MARK:- Search Bar Delegate methods
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = true

@@ -324,12 +324,13 @@ extension WeightViewController {
             guard let user = Auth.auth().currentUser?.email else { return }
             let weight = lineChartDataSet.entries[indexPath.row].y
             let date = weightEntriesDates![indexPath.row]
+            let weightDocument = "\(weight) \(date)"
             
-            db.collection("users").document(user).collection("weight").document("\(weight) \(date)").delete() { err in
+            db.collection("users").document(user).collection("weight").document(weightDocument).delete() { err in
                 if let err = err {
                     print("Error removing document: \(err)")
                 } else {
-                    print("Document successfully removed!")
+                    print("Document: \(weightDocument) successfully removed!")
                 }
             }
             

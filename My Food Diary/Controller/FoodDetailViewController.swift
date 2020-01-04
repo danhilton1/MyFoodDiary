@@ -21,6 +21,7 @@ class FoodDetailViewController: UITableViewController {
     var date: Date?
     var selectedSegmentIndex = 0
     var isEditingExistingEntry = false
+    var isAddingFromExistingEntry = false
     var workingCopy: Food = Food()
     private let formatter = DateFormatter()
     
@@ -139,12 +140,18 @@ class FoodDetailViewController: UITableViewController {
             mealDelegate?.reloadFood(entry: workingCopy, new: false)
             navigationController?.popViewController(animated: true)
         }
+        else if isAddingFromExistingEntry {
+            delegate?.reloadFood(entry: workingCopy, new: false)
+            mealDelegate?.reloadFood(entry: workingCopy, new: false)
+            dismissViewWithAnimation()
+        }
         else {
             delegate?.reloadFood(entry: workingCopy, new: true)
             mealDelegate?.reloadFood(entry: workingCopy, new: true)
             dismissViewWithAnimation()
         }
         isEditingExistingEntry = false
+        isAddingFromExistingEntry = false
         
     }
     
