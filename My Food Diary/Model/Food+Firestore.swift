@@ -9,6 +9,22 @@
 import Foundation
 import Firebase
 
+enum FoodsCollection {
+    static let collection = "foods"
+    static let name = "name"
+    static let meal = "meal"
+    static let date = "date"
+    static let dateValue = "dateValue"
+    static let servingSize = "servingSize"
+    static let servingSizeUnit = "servingSizeUnit"
+    static let serving = "serving"
+    static let calories = "calories"
+    static let protein = "protein"
+    static let carbs = "carbs"
+    static let fat = "fat"
+    static let isDeleted = "isDeleted"
+}
+
 private let db = Firestore.firestore()
 
 
@@ -22,7 +38,8 @@ extension Food {
         self.date = foodDictionary["date"] as? String
         let dateValue = foodDictionary["dateValue"] as? Timestamp
         self.dateValue = dateValue?.dateValue()
-        self.servingSize = "\(foodDictionary["servingSize"] ?? "100 g")"
+        self.servingSize = "\(foodDictionary["servingSize"] ?? "100")"
+        self.servingSizeUnit = foodDictionary["servingSizeUnit"] as? String ?? "g"
         self.serving = (foodDictionary["serving"] as? Double) ?? 1
         self.calories = foodDictionary["calories"] as! Int
         self.protein = foodDictionary["protein"] as! Double
@@ -40,6 +57,7 @@ extension Food {
             fc.date: self.date!,
             fc.dateValue: self.dateValue ?? Date(),
             fc.servingSize: self.servingSize,
+            fc.servingSizeUnit: self.servingSizeUnit,
             fc.serving: self.serving,
             fc.calories: self.calories,
             fc.protein: self.protein,

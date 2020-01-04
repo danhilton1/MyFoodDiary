@@ -13,6 +13,8 @@ import SVProgressHUD
 
 class LogInViewController: UIViewController {
 
+    //MARK:- Properties
+    
     typealias FinishedDownload = () -> ()
     
     private let db = Firestore.firestore()
@@ -29,6 +31,7 @@ class LogInViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var logInButton: UIButton!
     
+    //MARK:- View Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +52,6 @@ class LogInViewController: UIViewController {
         
     }
     
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -62,9 +64,9 @@ class LogInViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: self.view.window)
     }
     
+    //MARK:- Data Methods
     
     func loadAllFoodData(user: String?) {
-        
         Food.downloadAllFood(user: user!) { (allFood) in
             self.allFood = allFood
             self.foodDispatchGroup.leave()
@@ -79,7 +81,7 @@ class LogInViewController: UIViewController {
         }
     }
     
-    
+    //MARK:- Button Methods
     
     @IBAction func logInButtonTapped(_ sender: UIButton) {
         
@@ -94,11 +96,11 @@ class LogInViewController: UIViewController {
             }
             else {
                 print("Log In Successful")
-                strongSelf.foodDispatchGroup.enter()
+                strongSelf.foodDispatchGroup.enter()  // enter dispatchGroup to allow data to finish downloading before segue
                 strongSelf.loadAllFoodData(user: authResult?.user.email)
                 
                 strongSelf.foodDispatchGroup.notify(queue: .main) {
-                    strongSelf.weightDispatchGroup.enter()
+                    strongSelf.weightDispatchGroup.enter()  // using two dispatch groups as Food and Weight data size will differ
                     strongSelf.loadAllWeightData(user: authResult?.user.email, completed: { () in
                 
                         strongSelf.weightDispatchGroup.notify(queue: .main) {
@@ -116,6 +118,7 @@ class LogInViewController: UIViewController {
     }
     
     
+    //MARK:- Keyboard View Methods
     
     @objc func viewTapped() {
         emailTextField.resignFirstResponder()
@@ -123,15 +126,11 @@ class LogInViewController: UIViewController {
     }
     
     
-    
-    
-    // Methods to move up/down the messageTableView with the keyboard
-    
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y == 0 {
                 UIView.animate(withDuration: 0.5) {
-                    self.view.frame.origin.y -= (keyboardSize.height - 100)
+                    self.view.frame.origin.y -= (keyboardSize.height - 150)
                 }
             }
         }
@@ -145,8 +144,11 @@ class LogInViewController: UIViewController {
         }
     }
     
+    //MARK:- Segue Methods
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "GoToTabBar" {
+            navigationController?.interactivePopGestureRecognizer?.isEnabled = false
             let tabController = segue.destination as! UITabBarController
             let navController = tabController.viewControllers?.first as! UINavigationController
             let pageController = navController.viewControllers.first as! OverviewPageViewController
@@ -160,6 +162,9 @@ class LogInViewController: UIViewController {
     }
     
 }
+
+
+//MARK:- UITextFieldDelegate Extension
 
 extension LogInViewController: UITextFieldDelegate {
     

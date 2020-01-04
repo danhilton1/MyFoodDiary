@@ -14,20 +14,6 @@ protocol NewEntryDelegate: class {
     func reloadFood(entry: Food?, new: Bool)
 }
 
-enum FoodsCollection {
-    static let collection = "foods"
-    static let name = "name"
-    static let meal = "meal"
-    static let date = "date"
-    static let dateValue = "dateValue"
-    static let servingSize = "servingSize"
-    static let serving = "serving"
-    static let calories = "calories"
-    static let protein = "protein"
-    static let carbs = "carbs"
-    static let fat = "fat"
-    static let isDeleted = "isDeleted"
-}
 
 
 class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
@@ -49,6 +35,8 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var mealPicker: UISegmentedControl!
     @IBOutlet weak var foodNameTextField: UITextField!
     @IBOutlet weak var servingSizeTextField: UITextField!
+    
+    @IBOutlet weak var servingSizeUnitButton: UIButton!
     @IBOutlet weak var servingTextField: UITextField!
     @IBOutlet weak var caloriesTextField: UITextField!
     @IBOutlet weak var proteinTextField: UITextField!
@@ -125,38 +113,51 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
         mealDelegate?.reloadFood(entry: workingCopy, new: true)
     }
     
+    @IBAction func unitButtonTapped(_ sender: UIButton) {
+        
+        let ac = UIAlertController(title: "Serving Size Unit", message: nil, preferredStyle: .actionSheet)
+        
+        ac.addAction(UIAlertAction(title: "g", style: .default, handler: { [weak self] (action) in
+            guard let strongSelf = self else { return }
+            strongSelf.servingSizeUnitButton.setTitle("g", for: .normal)
+            strongSelf.workingCopy.servingSizeUnit = "g"
+        }))
+        ac.addAction(UIAlertAction(title: "ml", style: .default, handler: { [weak self] (action) in
+            guard let strongSelf = self else { return }
+            strongSelf.servingSizeUnitButton.setTitle("ml", for: .normal)
+            strongSelf.workingCopy.servingSizeUnit = "ml"
+        }))
+        ac.addAction(UIAlertAction(title: "Custom", style: .default, handler: { [weak self] (action) in
+            guard let strongSelf = self else { return }
+            
+            let customAC = UIAlertController(title: "Serving Size Unit", message: "Please enter a serving unit", preferredStyle: .alert)
+            customAC.addTextField { (textField) in
+                textField.placeholder = "Enter Unit"
+            }
+            customAC.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            customAC.addAction(UIAlertAction(title: "Enter", style: .default) { (action) in
+                strongSelf.servingSizeUnitButton.setTitle(customAC.textFields?.first?.text, for: .normal)
+                strongSelf.workingCopy.servingSizeUnit = customAC.textFields?.first?.text ?? "g"
+                })
+            strongSelf.present(customAC, animated: true)
+        }))
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        
+        present(ac, animated: true)
+        
+    }
+    
+    
     
     //MARK: - New Entry Add and Save methods
     
     func save(_ food: Food) {
         
-        let user = Auth.auth().currentUser?.email
-        
-        
-        
-        let fc = FoodsCollection.self
-        
-        db.collection("users").document(user!).collection(fc.collection).document(food.name!).setData([
-            fc.name: food.name ?? "N/A",
-            fc.meal: food.meal ?? Food.Meal.other,
-            fc.date: food.date!,
-            fc.dateValue: food.dateValue ?? Date(),
-            fc.servingSize: food.servingSize,
-            fc.serving: food.serving,
-            fc.calories: food.calories,
-            fc.protein: food.protein,
-            fc.carbs: food.carbs,
-            fc.fat: food.fat,
-            fc.isDeleted: false
-        ]) { error in
-            if let error = error {
-                print("Error adding document: \(error)")
-            } else {
-                print("Document added with ID: \(food.name!)")
-            }
-        }
-        
-//        db.collection(fc.collection).document(food.name!).setData([
+//        let user = Auth.auth().currentUser?.email
+//
+//        let fc = FoodsCollection.self
+//
+//        db.collection("users").document(user!).collection(fc.collection).document(food.name!).setData([
 //            fc.name: food.name ?? "N/A",
 //            fc.meal: food.meal ?? Food.Meal.other,
 //            fc.date: food.date!,
@@ -176,14 +177,13 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
 //            }
 //        }
         
-        
-        do {
-            try realm.write {
-                realm.add(food)
-            }
-        } catch {
-            print(error)
-        }
+//        do {
+//            try realm.write {
+//                realm.add(food)
+//            }
+//        } catch {
+//            print(error)
+//        }
     }
     
     private func addAndSaveNewEntry(meal: Food.Meal) {
@@ -194,7 +194,7 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
         workingCopy.meal = meal.stringValue
         workingCopy.date = formatter.string(from: date ?? Date())
         workingCopy.dateValue = date
-        workingCopy.servingSize = (servingSizeTextField.text ?? "100g") + "g"
+        workingCopy.servingSize = (servingSizeTextField.text ?? "100")
         workingCopy.serving = Double(servingTextField.text ?? "1") ?? 1
         workingCopy.calories = Int(caloriesTextField.text ?? "0") ?? 0
         workingCopy.protein = Double(proteinTextField.text ?? "0") ?? 0

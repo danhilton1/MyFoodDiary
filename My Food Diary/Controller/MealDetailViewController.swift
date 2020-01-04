@@ -204,7 +204,7 @@ extension MealDetailViewController {
         cell.totalServingLabel.font = UIFont(name: "Montserrat-Regular", size: 16)
         let servingSize = Double(food.servingSize.filter("01234567890.".contains)) ?? 100
         var totalServing = servingSize * food.serving
-        cell.totalServingLabel.text = totalServing.removePointZeroEndingAndConvertToString() + " g"
+        cell.totalServingLabel.text = totalServing.removePointZeroEndingAndConvertToString() + " \(food.servingSizeUnit)"
         
         return cell
     }

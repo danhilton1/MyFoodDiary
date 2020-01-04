@@ -28,6 +28,8 @@ class FoodDetailViewController: UITableViewController {
     @IBOutlet weak var foodNameLabel: UILabel!
     @IBOutlet weak var mealPicker: UISegmentedControl!
     @IBOutlet weak var servingSizeButton: UIButton!
+    
+    @IBOutlet weak var servingSizeUnitButton: UIButton!
     @IBOutlet weak var servingTextField: UITextField!
     @IBOutlet weak var caloriesLabel: UILabel!
     @IBOutlet weak var proteinLabel: UILabel!
@@ -94,6 +96,7 @@ class FoodDetailViewController: UITableViewController {
         mealPicker.tintColor = Color.skyBlue
         mealPicker.selectedSegmentIndex = selectedSegmentIndex
         servingSizeButton.setTitle(workingCopy.servingSize, for: .normal)
+        servingSizeUnitButton.setTitle(workingCopy.servingSizeUnit, for: .normal)
         caloriesLabel.text = "\(workingCopy.calories)"
         proteinLabel.text = workingCopy.protein.removePointZeroEndingAndConvertToString()
         carbsLabel.text = workingCopy.carbs.removePointZeroEndingAndConvertToString()
@@ -180,8 +183,9 @@ class FoodDetailViewController: UITableViewController {
                 fc.name: food.name!,
                 fc.meal: food.meal ?? Food.Meal.other,
                 fc.date: food.date!,
-                fc.dateValue: food.dateValue,
+                fc.dateValue: food.dateValue!,
                 fc.servingSize: food.servingSize,
+                fc.servingSizeUnit: food.servingSizeUnit,
                 fc.serving: food.serving,
                 fc.calories: food.calories,
                 fc.protein: food.protein,
@@ -259,6 +263,44 @@ class FoodDetailViewController: UITableViewController {
         }
     }
     
+    @IBAction func unitButtonTapped(_ sender: UIButton) {
+        
+        let ac = UIAlertController(title: "Select Serving Size Unit", message: nil, preferredStyle: .actionSheet)
+        
+        ac.addAction(UIAlertAction(title: "g", style: .default, handler: { [weak self] (action) in
+            guard let strongSelf = self else { return }
+            strongSelf.servingSizeUnitButton.setTitle("g", for: .normal)
+            strongSelf.workingCopy.servingSizeUnit = "g"
+        }))
+        ac.addAction(UIAlertAction(title: "ml", style: .default, handler: { [weak self] (action) in
+            guard let strongSelf = self else { return }
+            strongSelf.servingSizeUnitButton.setTitle("ml", for: .normal)
+            strongSelf.workingCopy.servingSizeUnit = "ml"
+        }))
+        ac.addAction(UIAlertAction(title: "Custom", style: .default, handler: { [weak self] (action) in
+            guard let strongSelf = self else { return }
+            
+            let customAC = UIAlertController(title: "Serving Size Unit", message: "Please enter a serving unit", preferredStyle: .alert)
+            customAC.addTextField { (textField) in
+                textField.placeholder = "Enter Unit"
+            }
+            customAC.addAction(UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+                strongSelf.servingSizeUnitButton.setTitle(strongSelf.workingCopy.servingSizeUnit, for: .normal)
+            })
+            customAC.addAction(UIAlertAction(title: "Enter", style: .default) { (action) in
+                strongSelf.servingSizeUnitButton.setTitle(customAC.textFields?.first?.text, for: .normal)
+                strongSelf.workingCopy.servingSizeUnit = customAC.textFields?.first?.text ?? "g"
+                })
+            strongSelf.present(customAC, animated: true)
+            strongSelf.servingSizeUnitButton.setTitle("", for: .normal)
+        }))
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        
+        present(ac, animated: true)
+        
+    }
+    
+    
     @objc func servingButtonTapped(_ sender: UIButton) {   // NEEDS CLEANING UP
 
         let alertController = UIAlertController(title: "Choose Serving Size", message: nil, preferredStyle: .actionSheet)
@@ -272,7 +314,7 @@ class FoodDetailViewController: UITableViewController {
             
             if servingSizeNumber != 100 {
                 
-                addAction(for: alertController, title: "1g",
+                addAction(for: alertController, title: "1",
                           calories: calories1g,
                           protein: protein1g,
                           carbs: carbs1g,
@@ -284,20 +326,20 @@ class FoodDetailViewController: UITableViewController {
                           carbs: carbs1g * servingSizeNumber,
                           fat: fat1g * servingSizeNumber)
 
-                addAction(for: alertController, title: "100g",
+                addAction(for: alertController, title: "100",
                           calories: calories1g * 100,
                           protein: protein1g * 100,
                           carbs: carbs1g * 100,
                           fat: fat1g * 100)
 
             } else {
-                addAction(for: alertController, title: "1g",
+                addAction(for: alertController, title: "1",
                           calories: calories1g,
                           protein: protein1g,
                           carbs: carbs1g,
                           fat: fat1g)
 
-                addAction(for: alertController, title: "100g",
+                addAction(for: alertController, title: "100",
                           calories: calories1g * 100,
                           protein: protein1g * 100,
                           carbs: carbs1g * 100,

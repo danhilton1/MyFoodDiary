@@ -18,6 +18,7 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var registerButton: UIButton!
     
+    //MARK:- View methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +52,8 @@ class RegisterViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: self.view.window)
     }
     
-
+    //MARK:- Button Methods
+    
     @IBAction func registerButtonTapped(_ sender: UIButton) {
         
         SVProgressHUD.show()
@@ -85,13 +87,13 @@ class RegisterViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
+    //MARK:- Keyboard View Methods
     
     @objc func viewTapped() {
         emailTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()
     }
     
-    // Methods to move up/down the messageTableView with the keyboard
     
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
@@ -99,7 +101,6 @@ class RegisterViewController: UIViewController {
                 UIView.animate(withDuration: 0.5) {
                     self.view.frame.origin.y -= (keyboardSize.height / 3)
                 }
-                
             }
         }
     }
@@ -109,11 +110,22 @@ class RegisterViewController: UIViewController {
             UIView.animate(withDuration: 0.5) {
                 self.view.frame.origin.y = 0
             }
-            
+        }
+    }
+    
+    //MARK:- Segue Methods
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "GoToTabBar" {
+            navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         }
     }
     
 }
+
+
+
+//MARK:- UITextFieldDelegate Method
 
 extension RegisterViewController: UITextFieldDelegate {
     
@@ -157,6 +169,7 @@ extension RegisterViewController: UITextFieldDelegate {
 
 }
 
+//MARK:- UITextField Extension for padding
 
 extension UITextField {
     func setLeftPaddingPoints(_ amount: CGFloat){

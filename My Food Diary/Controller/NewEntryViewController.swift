@@ -168,7 +168,8 @@ extension NewEntryViewController: UISearchBarDelegate {
         cell.caloriesLabel.text = "\(sortedFoodCopy[indexPath.row].calories) kcal"
 
         var totalServing = sortedFoodCopy[indexPath.row].totalServing
-        cell.totalServingLabel.text = totalServing.removePointZeroEndingAndConvertToString() + " g"
+        let unit = sortedFoodCopy[indexPath.row].servingSizeUnit
+        cell.totalServingLabel.text = totalServing.removePointZeroEndingAndConvertToString() + " \(unit)"
 
         return cell
     }

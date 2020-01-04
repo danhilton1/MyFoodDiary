@@ -50,7 +50,8 @@ class Food: Object {
     @objc dynamic var date: String?
     @objc dynamic var meal: String?
     @objc dynamic var name: String? = ""
-    @objc dynamic var servingSize: String = "100g"
+    @objc dynamic var servingSize: String = "100"
+    var servingSizeUnit: String = "g"
     @objc dynamic var serving: Double = 1
     @objc dynamic var totalServing: Double {
         return (Double(servingSize.filter("01234567890.".contains)) ?? 100) * serving
@@ -75,6 +76,7 @@ class Food: Object {
         copy.meal = self.meal
         copy.name = self.name
         copy.servingSize = self.servingSize
+        copy.servingSizeUnit = self.servingSizeUnit
         copy.serving = self.serving
         copy.calories = self.calories
         copy.protein = self.protein
