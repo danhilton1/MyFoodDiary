@@ -23,7 +23,7 @@ class LogInViewController: UIViewController {
     let weightDispatchGroup = DispatchGroup()
     let formatter = DateFormatter()
     var allFood = [Food]()
-    var testFoodArray = [Food]()
+//    var testFoodArray = [Food]()
     var allWeight = [Weight]()
     
     
@@ -67,14 +67,14 @@ class LogInViewController: UIViewController {
     //MARK:- Data Methods
     
     func loadAllFoodData(user: String?) {
-        Food.downloadAllFood(user: user!) { (allFood) in
+        Food.downloadAllFood(user: user!, anonymous: false) { (allFood) in
             self.allFood = allFood
             self.foodDispatchGroup.leave()
         }
     }
     
     func loadAllWeightData(user: String?, completed: @escaping FinishedDownload) {
-        Weight.downloadAllWeight(user: user!) { (allWeight) in
+        Weight.downloadAllWeight(user: user!, anonymous: false) { (allWeight) in
             self.allWeight = allWeight
             self.weightDispatchGroup.leave()
             completed()

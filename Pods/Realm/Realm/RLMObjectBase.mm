@@ -167,12 +167,12 @@ id RLMCreateManagedAccessor(Class cls, __unsafe_unretained RLMRealm *realm, RLMC
     return self;
 }
 
-- (id)valueForKey:(NSString *)key {
-    if (_observationInfo) {
-        return _observationInfo->valueForKey(key);
-    }
-    return [super valueForKey:key];
-}
+//- (id)valueForKey:(NSString *)key {
+//    if (_observationInfo) {
+//        return _observationInfo->valueForKey(key);
+//    }
+//    return [super valueForKey:key];
+//}
 
 // Generic Swift properties can't be dynamic, so KVO doesn't work for them by default
 - (id)valueForUndefinedKey:(NSString *)key {

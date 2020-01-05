@@ -130,7 +130,7 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
         weightEntry.date = datePicker.date
         weightEntry.dateString = formatter.string(from: datePicker.date)
         
-        guard let user = Auth.auth().currentUser?.email else { return }
+        let user = Auth.auth().currentUser?.email ?? Auth.auth().currentUser!.uid
         weightEntry.saveWeight(user: user)
         //save(weightEntry)
         dismissViewWithAnimation()
@@ -139,16 +139,16 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
     }
     
     
-    func save(_ weight: Object) {
-        
-        do {
-            try realm.write {
-                realm.add(weight)
-            }
-        } catch {
-            print(error)
-        }
-    }
+//    func save(_ weight: Object) {
+//        
+//        do {
+//            try realm.write {
+//                realm.add(weight)
+//            }
+//        } catch {
+//            print(error)
+//        }
+//    }
 
     
     func dismissViewWithAnimation() {

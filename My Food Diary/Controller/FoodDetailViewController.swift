@@ -114,6 +114,9 @@ class FoodDetailViewController: UITableViewController {
     @IBAction func addButtonTapped(_ sender: UIBarButtonItem) {
         
         workingCopy.date = formatter.string(from: date ?? Date())
+        workingCopy.dateLastEdited = Date()
+        workingCopy.isDeleted = false
+        
         if !isEditingExistingEntry {
             workingCopy.dateValue = date
         }
@@ -144,6 +147,7 @@ class FoodDetailViewController: UITableViewController {
             navigationController?.popViewController(animated: true)
         }
         else if isAddingFromExistingEntry {
+            print(workingCopy)
             delegate?.reloadFood(entry: workingCopy, new: false)
             mealDelegate?.reloadFood(entry: workingCopy, new: false)
             dismissViewWithAnimation()
@@ -161,7 +165,7 @@ class FoodDetailViewController: UITableViewController {
     
     private func save(_ food: Food) {
         
-        guard let user = Auth.auth().currentUser?.email else { return }
+        let user = Auth.auth().currentUser?.email ?? Auth.auth().currentUser!.uid
         
         if !isEditingExistingEntry {
             
@@ -184,6 +188,7 @@ class FoodDetailViewController: UITableViewController {
                 fc.meal: food.meal ?? Food.Meal.other,
                 fc.date: food.date!,
                 fc.dateValue: food.dateValue!,
+                fc.dateLastEdited: Date(),
                 fc.servingSize: food.servingSize,
                 fc.servingSizeUnit: food.servingSizeUnit,
                 fc.serving: food.serving,
@@ -196,7 +201,7 @@ class FoodDetailViewController: UITableViewController {
                 if let error = error {
                     print("Error updating document: \(error)")
                 } else {
-                    print("Document successfully updated")
+                    print("Document \(food.name!) successfully updated")
                 }
             }
             

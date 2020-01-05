@@ -7,10 +7,10 @@
 //
 
 import Foundation
-import RealmSwift
+//import RealmSwift
 
 
-class Food: Object {
+class Food {
     
     
     enum Meal: Int {
@@ -47,32 +47,30 @@ class Food: Object {
         }
     }
     // 100g values
-    @objc dynamic var date: String?
-    @objc dynamic var meal: String?
-    @objc dynamic var name: String? = ""
-    @objc dynamic var servingSize: String = "100"
+    var date: String?
+    var dateValue: Date?
+    var dateLastEdited: Date?
+    var meal: String?
+    var name: String? = ""
+    var servingSize: String = "100"
     var servingSizeUnit: String = "g"
-    @objc dynamic var serving: Double = 1
-    @objc dynamic var totalServing: Double {
+    var serving: Double = 1
+    var totalServing: Double {
         return (Double(servingSize.filter("01234567890.".contains)) ?? 100) * serving
     }
-    @objc dynamic var calories: Int = 0
-    @objc dynamic var protein: Double = 0
-    @objc dynamic var carbs: Double = 0
-    @objc dynamic var fat: Double = 0
-    @objc dynamic var isDeleted = false
-    @objc dynamic var dateValue: Date? //{
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = "E, d MMM"
-//        guard let date = date else { return Date() }
-//        return formatter.date(from: date) ?? Date()
-//    }
+    var calories: Int = 0
+    var protein: Double = 0
+    var carbs: Double = 0
+    var fat: Double = 0
+    var isDeleted = false
+    
     
     
     func copy(with zone: NSZone? = nil) -> Food {
         let copy = Food()
         copy.date = self.date
         copy.dateValue = self.dateValue
+        copy.dateLastEdited = self.dateLastEdited
         copy.meal = self.meal
         copy.name = self.name
         copy.servingSize = self.servingSize
@@ -82,6 +80,7 @@ class Food: Object {
         copy.protein = self.protein
         copy.carbs = self.carbs
         copy.fat = self.fat
+        copy.isDeleted = self.isDeleted
         return copy
     }
     

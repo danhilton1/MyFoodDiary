@@ -118,7 +118,16 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
         var nutrientArray = [Double]()
         
         for food in foodList! {
-            nutrientArray.append(food.value(forKey: nutrient.stringValue) as! Double)
+            switch nutrient {
+            case .protein:
+                nutrientArray.append(food.protein)
+            case .carbs:
+                nutrientArray.append(food.carbs)
+            case .fat:
+                nutrientArray.append(food.fat)
+            default:
+                nutrientArray.append(Double(food.calories))
+            }
         }
         
         return nutrientArray.reduce(0, +)

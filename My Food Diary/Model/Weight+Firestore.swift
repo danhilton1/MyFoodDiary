@@ -39,7 +39,7 @@ extension Weight {
         }
     }
     
-    static func downloadAllWeight(user: String, completion: @escaping ([Weight]) -> ()) {
+    static func downloadAllWeight(user: String, anonymous: Bool, completion: @escaping ([Weight]) -> ()) {
         
         let calendar = Calendar.current
         let defaultDateComponents = DateComponents(calendar: calendar, timeZone: .current, year: 2019, month: 1, day: 1)
@@ -57,24 +57,29 @@ extension Weight {
                 for weightDocument in weight!.documents {
                     allWeight.append(Weight(snapshot: weightDocument))
                 }
-                dateOfMostRecentEntry = allWeight.last?.date
-                //print(dateOfMostRecentEntry)
-                
-                dispatchGroup.enter()
-                db.collection("users").document(user).collection("weight")
-                    .whereField("date", isGreaterThan: dateOfMostRecentEntry?.addingTimeInterval(1) ?? calendar.date(from: defaultDateComponents)!)
-                    .order(by: "date")
-                    .getDocuments() { (weight, error) in
-                        if let error = error {
-                            print("Error getting documents: \(error)")
-                        }
-                        else {
-                            for weightDocument in weight!.documents {
-                                allWeight.append(Weight(snapshot: weightDocument))
-                                print(Weight(snapshot: weightDocument).weight)
+                if anonymous {
+                    completion(allWeight)
+                }
+                else {
+                    dateOfMostRecentEntry = allWeight.last?.date
+                    //print(dateOfMostRecentEntry)
+                    
+                    dispatchGroup.enter()
+                    db.collection("users").document(user).collection("weight")
+                        .whereField("date", isGreaterThan: dateOfMostRecentEntry?.addingTimeInterval(1) ?? calendar.date(from: defaultDateComponents)!)
+                        .order(by: "date")
+                        .getDocuments() { (weight, error) in
+                            if let error = error {
+                                print("Error getting documents: \(error)")
                             }
-                            dispatchGroup.leave()
-                        }
+                            else {
+                                for weightDocument in weight!.documents {
+                                    allWeight.append(Weight(snapshot: weightDocument))
+                                    print(Weight(snapshot: weightDocument).weight)
+                                }
+                                dispatchGroup.leave()
+                            }
+                    }
                 }
                 dispatchGroup.notify(queue: .main) {
                     completion(allWeight)

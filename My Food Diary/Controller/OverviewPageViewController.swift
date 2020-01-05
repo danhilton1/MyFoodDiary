@@ -11,8 +11,8 @@ import Firebase
 
 class OverviewPageViewController: UIPageViewController, UIPageViewControllerDataSource {
     
-    private let db = Firestore.firestore()
-    let userEmail = Auth.auth().currentUser?.email
+//    private let db = Firestore.firestore()
+//    let userEmail = Auth.auth().currentUser?.email
     
     let calendar = Calendar.current
     

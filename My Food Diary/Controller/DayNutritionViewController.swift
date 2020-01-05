@@ -189,7 +189,15 @@ class DayNutritionViewController: UIViewController, UITableViewDataSource, UITab
     func getTotalValueOfNutrient(_ nutrient: macroNutrient) -> Double {
         var nutrientArray = [Double]()
         for food in foodList! {
-            nutrientArray.append(food.value(forKey: nutrient.stringValue) as! Double)
+            switch nutrient {
+            case .protein:
+                nutrientArray.append(food.protein)
+            case .carbs:
+                nutrientArray.append(food.carbs)
+            default:
+                nutrientArray.append(food.fat)
+            }
+//            nutrientArray.append(food.value(forKey: nutrient.stringValue) as! Double)
         }
         
         //let nutrientArray = (foodList?.value(forKey: nutrient.stringValue)) as! [Double]

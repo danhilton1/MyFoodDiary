@@ -15,6 +15,7 @@ enum FoodsCollection {
     static let meal = "meal"
     static let date = "date"
     static let dateValue = "dateValue"
+    static let dateLastEdited = "dateLastEdited"
     static let servingSize = "servingSize"
     static let servingSizeUnit = "servingSizeUnit"
     static let serving = "serving"
@@ -38,6 +39,8 @@ extension Food {
         self.date = foodDictionary["date"] as? String
         let dateValue = foodDictionary["dateValue"] as? Timestamp
         self.dateValue = dateValue?.dateValue()
+        let dateLastEdited = foodDictionary["dateLastEdited"] as? Timestamp
+        self.dateLastEdited = dateLastEdited?.dateValue()
         self.servingSize = "\(foodDictionary["servingSize"] ?? "100")"
         self.servingSizeUnit = foodDictionary["servingSizeUnit"] as? String ?? "g"
         self.serving = (foodDictionary["serving"] as? Double) ?? 1
@@ -56,6 +59,7 @@ extension Food {
             fc.meal: self.meal ?? Food.Meal.other,
             fc.date: self.date!,
             fc.dateValue: self.dateValue ?? Date(),
+            fc.dateLastEdited: self.dateLastEdited ?? Date(),
             fc.servingSize: self.servingSize,
             fc.servingSizeUnit: self.servingSizeUnit,
             fc.serving: self.serving,
@@ -74,7 +78,7 @@ extension Food {
     }
     
     
-    static func downloadAllFood(user: String, completion: @escaping ([Food]) -> ()) {
+    static func downloadAllFood(user: String, anonymous: Bool, completion: @escaping ([Food]) -> ()) {
         
         let calendar = Calendar.current
         let defaultDateComponents = DateComponents(calendar: calendar, timeZone: .current, year: 2019, month: 1, day: 1)
@@ -83,7 +87,7 @@ extension Food {
         let dispatchGroup = DispatchGroup()
         
         
-        db.collection("users").document(user).collection("foods").order(by: "dateValue").getDocuments(source: .cache) { (foods, error) in
+        db.collection("users").document(user).collection("foods").order(by: "dateLastEdited").getDocuments(source: .cache) { (foods, error) in
             if let error = error {
                 print("Error getting documents: \(error)")
             }
@@ -91,24 +95,52 @@ extension Food {
                 for foodDocument in foods!.documents {
                     allFood.append(Food(snapshot: foodDocument))
                 }
-                //print(allFood.count)
-                dateOfMostRecentEntry = allFood.last?.dateValue
+                if anonymous {
+                    completion(allFood)
+                }
+                else {
+                    //print(allFood.count)
+                    dateOfMostRecentEntry = allFood.last?.dateLastEdited
                     //print(dateOfMostRecentEntry)
-                dispatchGroup.enter()
-                db.collection("users").document(user).collection("foods")
-                    .whereField("dateValue", isGreaterThan: dateOfMostRecentEntry?.addingTimeInterval(1) ?? calendar.date(from: defaultDateComponents)!)
-                    .order(by: "dateValue")
-                    .getDocuments() { (foods, error) in
-                        if let error = error {
-                            print("Error getting documents: \(error)")
-                        }
-                        else {
-                            for foodDocument in foods!.documents {
-                                allFood.append(Food(snapshot: foodDocument))
-                                print(Food(snapshot: foodDocument).name!)
+                    dispatchGroup.enter()
+                    db.collection("users").document(user).collection("foods")
+                        .whereField("dateLastEdited", isGreaterThan: dateOfMostRecentEntry?.addingTimeInterval(1) ?? calendar.date(from: defaultDateComponents)!)
+                        .order(by: "dateLastEdited")
+                        .getDocuments() { (foods, error) in
+                            if let error = error {
+                                print("Error getting documents: \(error)")
                             }
-                            dispatchGroup.leave()
-                        }
+                            else {
+                                for foodDocument in foods!.documents {
+                                    let foodToAdd = Food(snapshot: foodDocument)
+                                    
+                                    // Check if the food already exists and just needs updating rather than adding again.
+                                    if foodToAdd.dateLastEdited! > foodToAdd.dateValue! {
+                                        for food in allFood {
+                                            if foodToAdd.name == food.name {
+                                                food.dateLastEdited = foodToAdd.dateLastEdited
+                                                food.meal = foodToAdd.meal
+                                                food.servingSize = foodToAdd.servingSize
+                                                food.servingSizeUnit = foodToAdd.servingSizeUnit
+                                                food.serving = foodToAdd.serving
+                                                food.calories = foodToAdd.calories
+                                                food.protein = foodToAdd.protein
+                                                food.carbs = foodToAdd.carbs
+                                                food.fat = foodToAdd.fat
+                                                food.isDeleted = foodToAdd.isDeleted
+                                                print("\(foodToAdd) updated.")
+                                            }
+                                            // if new food has been added AND edited before synced to other it needs to be ADDED to allFood instead of updating existing entry
+                                        }
+                                    }
+                                    else {
+                                        allFood.append(foodToAdd)
+                                        print(foodToAdd.name!)
+                                    }
+                                }
+                                dispatchGroup.leave()
+                            }
+                    }
                 }
                 dispatchGroup.notify(queue: .main) {
                     completion(allFood)
@@ -118,23 +150,6 @@ extension Food {
         }
         
     }
-    
-    //                    let foodDictionary = foodDocument.data()
-    //                    let food = Food()
-    //                    food.name = "\(foodDictionary["name"] ?? "Food")"
-    //                    food.meal = "\(foodDictionary["meal"] ?? Food.Meal.breakfast.stringValue)"
-    //                    food.date = "\(foodDictionary["date"] ?? formatter.string(from: Date()))"
-    //                    let dateValue = foodDictionary["dateValue"] as? Timestamp
-    //                    food.dateValue = dateValue?.dateValue()
-    //                    food.servingSize = "\(foodDictionary["servingSize"] ?? "100 g")"
-    //                    food.serving = (foodDictionary["serving"] as? Double) ?? 1
-    //                    food.calories = foodDictionary["calories"] as! Int
-    //                    food.protein = foodDictionary["protein"] as! Double
-    //                    food.carbs = foodDictionary["carbs"] as! Double
-    //                    food.fat = foodDictionary["fat"] as! Double
-    //                    food.isDeleted = foodDictionary["isDeleted"] as! Bool
-                        
-    //                    allFood.append(food)
     
     
 }

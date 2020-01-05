@@ -1095,7 +1095,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="TrC-wf-omx" kind="show" id="yv6-fi-Xci"/>
+                                    <action selector="continueButtonTapped:" destination="1wD-RQ-Wg8" eventType="touchUpInside" id="I12-9V-lxs"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Food Diary" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WVB-yF-PMx">
@@ -1134,6 +1134,7 @@
                     <connections>
                         <outlet property="logInButton" destination="WUd-Aq-FMP" id="fww-YA-4Mj"/>
                         <outlet property="registerButton" destination="Y1Y-3l-roi" id="Z2O-pg-2aE"/>
+                        <segue destination="TrC-wf-omx" kind="show" identifier="GoToTabBar" id="3y6-f0-LZg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KCJ-bk-F89" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2416,7 +2417,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="Vpn-DS-ftJ"/>
         <segue reference="czJ-8k-2CO"/>
-        <segue reference="gK3-K4-laE"/>
+        <segue reference="3y6-f0-LZg"/>
         <segue reference="AX7-nl-74f"/>
     </inferredMetricsTieBreakers>
 </document>

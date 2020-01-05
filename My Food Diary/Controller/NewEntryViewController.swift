@@ -32,7 +32,6 @@ class NewEntryViewController: UIViewController, UITableViewDelegate, UITableView
     enum Segues {
         static let goToManualEntry = "GoToManualEntry"
         static let goToBarcodeScanner = "GoToBarcodeScanner"
-        static let goToFoodHistory = "GoToFoodHistory"
         static let goToFoodDetail = "GoToFoodDetail"
     }
     
@@ -117,13 +116,6 @@ class NewEntryViewController: UIViewController, UITableViewDelegate, UITableView
             destVC.date = date
             destVC.delegate = delegate
             destVC.mealDelegate = mealDelegate
-            destVC.selectedSegmentIndex = meal.intValue
-        }
-        else if segue.identifier == Segues.goToFoodHistory {
-            let destVC = segue.destination as! FoodHistoryViewController
-            destVC.delegate = delegate
-            destVC.mealDelegate = mealDelegate
-            destVC.date = date
             destVC.selectedSegmentIndex = meal.intValue
         }
         else if segue.identifier == Segues.goToFoodDetail {

@@ -9,7 +9,7 @@
 
 
 import UIKit
-import RealmSwift
+//import RealmSwift
 import Charts
 import Firebase
 
@@ -17,9 +17,9 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
 
     
     //MARK: - Properties
-    private let realm = try! Realm()
-    private let db = Firestore.firestore()
-    let userEmail = Auth.auth().currentUser?.email
+    //private let realm = try! Realm()
+//    private let db = Firestore.firestore()
+//    let userEmail = Auth.auth().currentUser?.email
     
     var date: Date?   //  Required to be set before VC presented
     //private var foodList: Results<Food>?
@@ -400,16 +400,19 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
                 pageVC?.allFood.append(food)
             }
             else {
+                
                 for foodEntry in allFood! {
                     if foodEntry.name == entry?.name {
                         foodEntry.date = entry?.date
                         foodEntry.dateValue = entry?.dateValue
+                        foodEntry.dateLastEdited = entry?.dateLastEdited
                         foodEntry.meal = entry?.meal
                         foodEntry.serving = entry?.serving ?? 1
                         foodEntry.calories = entry?.calories ?? 0
                         foodEntry.protein = entry?.protein ?? 0
                         foodEntry.carbs = entry?.carbs ?? 0
                         foodEntry.fat = entry?.fat ?? 0
+                        foodEntry.isDeleted = entry!.isDeleted
                     }
                 }
             }

@@ -240,19 +240,37 @@ extension MealDetailViewController {
         
         if editingStyle == .delete {
             let fc = FoodsCollection.self
-            let foodRef = db.collection(FoodsCollection.collection).document((selectedFoodList?[indexPath.section].name!)!)
+            guard let user = Auth.auth().currentUser?.email else { return }
+            guard let food = selectedFoodList?[indexPath.section] else { return }
+            let foodRef = db.collection("users").document(user).collection(FoodsCollection.collection).document(food.name!)
             
             foodRef.updateData([
-                fc.isDeleted: true
+                fc.isDeleted: true,
+                fc.dateLastEdited: Date()
             ]) { error in
                 if let error = error {
                     print("Error updating document: \(error)")
                 } else {
-                    print("Document successfully updated")
+                    print("Document \(food.name ?? "") successfully updated")
                 }
             }
             
             
+            
+            let nav = parent as! UINavigationController
+            let PVC = nav.viewControllers.first as! OverviewPageViewController
+            let overviewVC = PVC.viewControllers?.first as! OverviewViewController
+            
+            var index = 0
+               for entry in allFood! {
+                    if entry.name == food.name {
+                        selectedFoodList?.remove(at: indexPath.section)
+                        overviewVC.allFood?[index].isDeleted = true
+                        overviewVC.loadFirebaseData()
+                        break
+                   }
+                   index += 1
+               }
 //            do {
 //                try realm.write {
 //                    selectedMeal?[indexPath.section].isDeleted = true
@@ -263,7 +281,7 @@ extension MealDetailViewController {
 //            }
             
             let indexSet = IndexSet(arrayLiteral: indexPath.section)
-            print(indexSet)
+            
             if tableView.numberOfSections == 1 {
                 noEntriesToDisplay = true
             }
