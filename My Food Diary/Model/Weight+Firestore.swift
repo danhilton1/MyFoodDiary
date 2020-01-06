@@ -57,14 +57,15 @@ extension Weight {
                 for weightDocument in weight!.documents {
                     allWeight.append(Weight(snapshot: weightDocument))
                 }
+                dispatchGroup.enter()
+                
                 if anonymous {
-                    completion(allWeight)
+                    dispatchGroup.leave()
                 }
                 else {
-                    dateOfMostRecentEntry = allWeight.last?.date
-                    //print(dateOfMostRecentEntry)
                     
-                    dispatchGroup.enter()
+                    dateOfMostRecentEntry = allWeight.last?.date
+ 
                     db.collection("users").document(user).collection("weight")
                         .whereField("date", isGreaterThan: dateOfMostRecentEntry?.addingTimeInterval(1) ?? calendar.date(from: defaultDateComponents)!)
                         .order(by: "date")

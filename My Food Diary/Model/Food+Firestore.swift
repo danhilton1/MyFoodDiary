@@ -95,14 +95,15 @@ extension Food {
                 for foodDocument in foods!.documents {
                     allFood.append(Food(snapshot: foodDocument))
                 }
+                dispatchGroup.enter()
                 if anonymous {
-                    completion(allFood)
+                    dispatchGroup.leave()
                 }
                 else {
                     //print(allFood.count)
                     dateOfMostRecentEntry = allFood.last?.dateLastEdited
                     //print(dateOfMostRecentEntry)
-                    dispatchGroup.enter()
+                    
                     db.collection("users").document(user).collection("foods")
                         .whereField("dateLastEdited", isGreaterThan: dateOfMostRecentEntry?.addingTimeInterval(1) ?? calendar.date(from: defaultDateComponents)!)
                         .order(by: "dateLastEdited")

@@ -12,10 +12,9 @@ import SVProgressHUD
 
 class WelcomeViewController: UIViewController {
     
-//    private let db = Firestore.firestore()
-    
     typealias FinishedDownload = () -> ()
     
+    let defaults = UserDefaults()
     var allFood = [Food]()
     var allWeight = [Weight]()
     let foodDispatchGroup = DispatchGroup()
@@ -52,33 +51,71 @@ class WelcomeViewController: UIViewController {
     
     @IBAction func continueButtonTapped(_ sender: UIButton) {
         
-        let ac = UIAlertController(title: "Confirm", message: "If you continue without an account you will not be able to sync data across devices.", preferredStyle: .alert)
+        let ac = UIAlertController(title: "Warning", message: "If you continue without an account you will not be able to sync data across devices.", preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        ac.addAction(UIAlertAction(title: "Continue", style: .default) { (action) in
+        ac.addAction(UIAlertAction(title: "Continue Anyway", style: .default) { [weak self] (action) in
             SVProgressHUD.show()
+            guard let strongSelf = self else { return }
+            let db = Firestore.firestore()
             
-            Auth.auth().signInAnonymously() { [weak self] (authResult, error) in
-                guard let strongSelf = self else { return }
+            // Check if user has already used the app and if so, sign into their anonymous account and load locally stored data
+            if let userEmail = strongSelf.defaults.value(forKey: "anonymousUserEmail") as? String {
                 
-                if let error = error {
-                    print(error)
-                }
-                else {
+                let userPassword = strongSelf.defaults.value(forKey: "anonymousUserPassword") as! String
+                
+                Auth.auth().signIn(withEmail: userEmail, password: userPassword) { (authResult, error) in
                     guard let user = authResult?.user else { return }
-                    print("\(user.uid) Log In Successful")
-                    
                     strongSelf.foodDispatchGroup.enter()  // enter dispatchGroup to allow data to finish downloading before segue
-                    strongSelf.loadAllFoodData(user: user.uid)
+                    strongSelf.loadAllFoodData(user: user.email!)
                     
                     strongSelf.foodDispatchGroup.notify(queue: .main) {
                         strongSelf.weightDispatchGroup.enter()
-                        strongSelf.loadAllWeightData(user: user.uid, completed: { () in
+                        strongSelf.loadAllWeightData(user: user.email!, completed: { () in
                     
                             strongSelf.weightDispatchGroup.notify(queue: .main) {
+                                print("Anonymous User: \(user.email!) Successfully Logged In.")
                                 strongSelf.performSegue(withIdentifier: "GoToTabBar", sender: self)
                                 SVProgressHUD.dismiss()
                             }
                         })
+                    }
+                }
+            }
+            else {
+            
+                Auth.auth().signInAnonymously() { (authResult, error) in
+                    
+                    if let error = error {
+                        print(error)
+                    }
+                    else {
+                        guard let user = authResult?.user else { return }
+                        
+                        let email = "\(user.uid)@anonymous.com"
+                        let password = "password"
+                        strongSelf.defaults.set(email, forKey: "anonymousUserEmail")
+                        strongSelf.defaults.set(password, forKey: "anonymousUserPassword")
+                        
+                        Auth.auth().createUser(withEmail: email, password: password) { (newUser, error) in
+                            if let error = error {
+                                print(error)
+                            }
+                            else {
+                                db.collection("users").document(user.email!).setData([
+                                    "email": email,
+                                    "uid": user.uid
+                                ]) { error in
+                                    if let error = error {
+                                        print("Error adding user: \(error)")
+                                        SVProgressHUD.showError(withStatus: error.localizedDescription)
+                                    } else {
+                                        print("User added with ID: \(user.uid)")
+                                        strongSelf.performSegue(withIdentifier: "GoToTabBar", sender: self)
+                                        SVProgressHUD.dismiss()
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
