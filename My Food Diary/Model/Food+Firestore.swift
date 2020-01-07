@@ -94,15 +94,17 @@ extension Food {
             else {
                 for foodDocument in foods!.documents {
                     allFood.append(Food(snapshot: foodDocument))
+//                    print(Food(snapshot: foodDocument).name)
                 }
                 dispatchGroup.enter()
+                
                 if anonymous {
                     dispatchGroup.leave()
                 }
                 else {
                     //print(allFood.count)
                     dateOfMostRecentEntry = allFood.last?.dateLastEdited
-                    //print(dateOfMostRecentEntry)
+//                    print(dateOfMostRecentEntry)
                     
                     db.collection("users").document(user).collection("foods")
                         .whereField("dateLastEdited", isGreaterThan: dateOfMostRecentEntry?.addingTimeInterval(1) ?? calendar.date(from: defaultDateComponents)!)
@@ -112,31 +114,41 @@ extension Food {
                                 print("Error getting documents: \(error)")
                             }
                             else {
-                                for foodDocument in foods!.documents {
-                                    let foodToAdd = Food(snapshot: foodDocument)
-                                    
-                                    // Check if the food already exists and just needs updating rather than adding again.
-                                    if foodToAdd.dateLastEdited! > foodToAdd.dateValue! {
-                                        for food in allFood {
-                                            if foodToAdd.name == food.name {
-                                                food.dateLastEdited = foodToAdd.dateLastEdited
-                                                food.meal = foodToAdd.meal
-                                                food.servingSize = foodToAdd.servingSize
-                                                food.servingSizeUnit = foodToAdd.servingSizeUnit
-                                                food.serving = foodToAdd.serving
-                                                food.calories = foodToAdd.calories
-                                                food.protein = foodToAdd.protein
-                                                food.carbs = foodToAdd.carbs
-                                                food.fat = foodToAdd.fat
-                                                food.isDeleted = foodToAdd.isDeleted
-                                                print("\(foodToAdd) updated.")
-                                            }
-                                            // if new food has been added AND edited before synced to other it needs to be ADDED to allFood instead of updating existing entry
-                                        }
-                                    }
-                                    else {
+                                // if allFood is empty then this means user is either using a new device, has deleted and reinstalled the app, or has not made any entries. If so, add all entries from database.
+                                if allFood.isEmpty {
+                                    print("New device or reinstalled app - loading all data.")
+                                    for foodDocument in foods!.documents {
+                                        let foodToAdd = Food(snapshot: foodDocument)
                                         allFood.append(foodToAdd)
-                                        print(foodToAdd.name!)
+                                    }
+                                }
+                                else {
+                                
+                                    for foodDocument in foods!.documents {
+                                        let foodToAdd = Food(snapshot: foodDocument)
+                                        // Check if the food already exists and just needs updating rather than adding again.
+                                        if foodToAdd.dateLastEdited! > foodToAdd.dateValue! {
+                                            for food in allFood {
+                                                if foodToAdd.name == food.name {
+                                                    food.dateLastEdited = foodToAdd.dateLastEdited
+                                                    food.meal = foodToAdd.meal
+                                                    food.servingSize = foodToAdd.servingSize
+                                                    food.servingSizeUnit = foodToAdd.servingSizeUnit
+                                                    food.serving = foodToAdd.serving
+                                                    food.calories = foodToAdd.calories
+                                                    food.protein = foodToAdd.protein
+                                                    food.carbs = foodToAdd.carbs
+                                                    food.fat = foodToAdd.fat
+                                                    food.isDeleted = foodToAdd.isDeleted
+                                                    print("\(foodToAdd.name!) updated.")
+                                                }
+                                                // if new food has been added AND edited before synced to other it needs to be ADDED to allFood instead of updating existing entry
+                                            }
+                                        }
+                                        else {
+                                            allFood.append(foodToAdd)
+                                            print("\(foodToAdd.name!) added")
+                                        }
                                     }
                                 }
                                 dispatchGroup.leave()
