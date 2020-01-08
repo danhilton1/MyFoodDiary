@@ -24,28 +24,35 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
     weak var delegate: WeightDelegate?
     let formatter = DateFormatter()
     let buttonFormatter = DateFormatter()
-    private var weightEntry = Weight()
     
-    private let datePicker = UIDatePicker()
+    var weightEntry: Weight?
+    var isEditingExistingEntry = false
+    var selectedSegmentIndex = 0
+    let datePicker = UIDatePicker()
     private let toolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
     private let textFieldToolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
     
-    //MARK:- viewDidLoad
+    //MARK:- view methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setUpNavBar()
         setUpToolBar()
+        setUpViews()
         tableView.tableFooterView = UIView()
-        
-        formatter.dateFormat = "E, dd MMM YYYY"
-        buttonFormatter.dateFormat = "E, dd MMM"
-        dateButton.setTitle(buttonFormatter.string(from: Date()), for: .normal)
-        
-        datePicker.datePickerMode = .date
-        datePicker.locale = Locale.current
-
+    
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        tabBarController?.tabBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        tabBarController?.tabBar.isHidden = false
+        isEditingExistingEntry = false
     }
     
     //MARK:- Set Up Methods
@@ -79,7 +86,18 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
         
     }
     
-    
+    func setUpViews() {
+        unitSegmentedControl.selectedSegmentIndex = selectedSegmentIndex
+        if let weight = weightEntry?.weight {
+            weightTextField.text = "\(weight)"
+        }
+        formatter.dateFormat = "E, dd MMM YYYY"
+        buttonFormatter.dateFormat = "E, dd MMM"
+        dateButton.setTitle(buttonFormatter.string(from: weightEntry?.date ?? Date()), for: .normal)
+        datePicker.date = weightEntry?.date ?? Date()
+        datePicker.datePickerMode = .date
+        datePicker.locale = Locale.current
+    }
     
     
     //MARK:- Button Methods
@@ -94,7 +112,12 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
     
     // Nav bar button
     @objc func dismissButtonTapped(_ sender: UIBarButtonItem) {
-        dismissViewWithAnimation()
+        if isEditingExistingEntry {
+            navigationController?.popViewController(animated: true)
+        }
+        else {
+            dismissViewWithAnimation()
+        }
     }
     
     // Toolbar button
@@ -115,9 +138,19 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
     
     @IBAction func addButtonTapped(_ sender: UIBarButtonItem) {
         
+        let entry: Weight
+        var originalWeight = 0.0
+        if weightEntry != nil {
+            entry = weightEntry!
+            originalWeight = weightEntry!.weight
+        }
+        else {
+            entry = Weight()
+        }
+        
         if let weight = weightTextField.text {
             if !weight.isEmpty {
-                weightEntry.weight = Double(weight)!
+                entry.weight = Double(weight)!
             }
             else {
                 let AC = UIAlertController(title: "Error", message: "Please enter a weight.", preferredStyle: .alert)
@@ -126,15 +159,39 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
                 return
             }
         }
-        weightEntry.unit = unitSegmentedControl.titleForSegment(at: unitSegmentedControl.selectedSegmentIndex)!
-        weightEntry.date = datePicker.date
-        weightEntry.dateString = formatter.string(from: datePicker.date)
+        entry.unit = unitSegmentedControl.titleForSegment(at: unitSegmentedControl.selectedSegmentIndex)!
+        entry.date = datePicker.date
+        entry.dateLastEdited = datePicker.date
+        entry.dateString = formatter.string(from: datePicker.date)
         
         let user = Auth.auth().currentUser?.email ?? Auth.auth().currentUser!.uid
-        weightEntry.saveWeight(user: user)
-        //save(weightEntry)
-        dismissViewWithAnimation()
-        delegate?.reloadData(weightEntry: weightEntry, date: datePicker.date)
+        
+        if isEditingExistingEntry {
+            print(entry.date)
+            let weightDocumentToUpdate = db.collection("users").document(user).collection("weight").document("\(originalWeight) \(entry.date)")
+            
+            weightDocumentToUpdate.updateData([
+                "weight": entry.weight,
+                "unit": entry.unit,
+                "date": entry.date,
+                "dateString": entry.dateString!,
+                "dateLastEdited": Date()
+            ]) { error in
+                if let error = error {
+                    print("Error updating document: \(error)")
+                } else {
+                    print("Document successfully updated")
+                }
+            }
+            isEditingExistingEntry = false
+            navigationController?.popViewController(animated: true)
+            delegate?.reloadData(weightEntry: entry, date: datePicker.date)
+        }
+        else {
+            entry.saveWeight(user: user)
+            dismissViewWithAnimation()
+            delegate?.reloadData(weightEntry: entry, date: datePicker.date)
+        }
         
     }
     

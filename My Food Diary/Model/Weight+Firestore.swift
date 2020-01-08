@@ -21,6 +21,8 @@ extension Weight {
         guard let date = weightDictionary["date"] as? Timestamp else { return }
         self.date = date.dateValue()
         self.dateString = weightDictionary["dateString"] as? String
+        let dateLastEdited = weightDictionary["dateLastEdited"] as? Timestamp
+        self.dateLastEdited = dateLastEdited?.dateValue()
     }
     
     func saveWeight(user: String) {
@@ -29,7 +31,8 @@ extension Weight {
             "weight": self.weight,
             "unit": self.unit,
             "date": self.date,
-            "dateString": self.dateString!
+            "dateString": self.dateString!,
+            "dateLastEdited": self.dateLastEdited!
         ]) { error in
             if let error = error {
                 print("Error adding document: \(error)")
@@ -47,7 +50,7 @@ extension Weight {
         var dateOfMostRecentEntry: Date?
         let dispatchGroup = DispatchGroup()
         
-        db.collection("users").document(user).collection("weight").order(by: "date").getDocuments(source: .cache) {
+        db.collection("users").document(user).collection("weight").order(by: "dateLastEdited").getDocuments(source: .cache) {
             (weight, error) in
             
             if let error = error {
@@ -64,19 +67,43 @@ extension Weight {
                 }
                 else {
                     
-                    dateOfMostRecentEntry = allWeight.last?.date
+                    dateOfMostRecentEntry = allWeight.last?.dateLastEdited
  
                     db.collection("users").document(user).collection("weight")
-                        .whereField("date", isGreaterThan: dateOfMostRecentEntry?.addingTimeInterval(1) ?? calendar.date(from: defaultDateComponents)!)
-                        .order(by: "date")
+                        .whereField("dateLastEdited", isGreaterThan: dateOfMostRecentEntry?.addingTimeInterval(1) ?? calendar.date(from: defaultDateComponents)!)
+                        .order(by: "dateLastEdited")
                         .getDocuments() { (weight, error) in
                             if let error = error {
                                 print("Error getting documents: \(error)")
                             }
                             else {
-                                for weightDocument in weight!.documents {
-                                    allWeight.append(Weight(snapshot: weightDocument))
-                                    print(Weight(snapshot: weightDocument).weight)
+                                
+                                if allWeight.isEmpty {
+                                    print("New device or reinstalled app - loading all data.")
+                                    for weightDocument in weight!.documents {
+                                        let weightToAdd = Weight(snapshot: weightDocument)
+                                        allWeight.append(weightToAdd)
+                                    }
+                                }
+                                else {
+                                    for weightDocument in weight!.documents {
+                                        let weightToAdd = Weight(snapshot: weightDocument)
+                                        
+                                        if weightToAdd.dateLastEdited! > weightToAdd.date {
+                                            for weightEntry in allWeight {
+                                                if weightToAdd.date == weightEntry.date {
+                                                    weightEntry.weight = weightToAdd.weight
+                                                    weightEntry.unit = weightToAdd.unit
+                                                    weightEntry.dateLastEdited = weightToAdd.dateLastEdited
+                                                    print("Entry updated.")
+                                                }
+                                            }
+                                        }
+                                        else {
+                                            allWeight.append(weightToAdd)
+                                            print("\(weightToAdd.weight) added" )
+                                        }
+                                    }
                                 }
                                 dispatchGroup.leave()
                             }

@@ -27,6 +27,8 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var weightEntries: [Weight]?
     var allWeightEntries: [Weight]?
     var weightEntriesDates: [Date]?
+    var weightEntryToEdit: Weight?
+    private var averageWeight: Double = 0.0
     
     private let calendar = Calendar.current
     private let defaults = UserDefaults()
@@ -35,7 +37,7 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
     private var lineChartDataSet = LineChartDataSet(entries: [ChartDataEntry(x: 0, y: 0 )], label: "Weight")
     private var startOfWeekDate: Date?
     
-    private var averageWeight: Double = 0.0
+    
     
     //MARK:- viewDidLoad
     
@@ -45,7 +47,7 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
         navigationController?.navigationBar.barTintColor = Color.skyBlue
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.allowsSelection = false
+        tableView.allowsSelection = true
         tableView.register(UINib(nibName: "LineChartCell", bundle: nil), forCellReuseIdentifier: "LineChartCell")
 //        allWeightEntries = realm.objects(Weight.self)
         setUpWeekData(direction: .backward, date: Date(), considerToday: true)
@@ -78,6 +80,7 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
         var closestInterval: TimeInterval = .greatestFiniteMagnitude
         var mostCurrentEntry: Weight?
+        print(allWeightEntries)
         for entry in allWeightEntries! {
             let interval: TimeInterval = abs(entry.date.timeIntervalSinceNow)
             if interval < closestInterval {
@@ -203,6 +206,24 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let NC = segue.destination as! UINavigationController
             let VC = NC.viewControllers.first as! NewWeightEntryViewController
             VC.delegate = self
+            
+        }
+        else if segue.identifier == "GoToEditWeightEntry" {
+            let VC = segue.destination as! NewWeightEntryViewController
+            VC.delegate = self
+            
+            if let weightEntry = weightEntryToEdit {
+                VC.weightEntry = weightEntry
+                VC.isEditingExistingEntry = true
+                switch weightEntry.unit {
+                case "lbs":
+                    VC.selectedSegmentIndex = 1
+                default:
+                    VC.selectedSegmentIndex = 0
+                }
+                
+            }
+            
         }
     }
     
@@ -269,6 +290,8 @@ extension WeightViewController {
             let chartData = LineChartData(dataSet: lineChartDataSet)
             cell.lineChart.data = chartData
             
+            cell.isUserInteractionEnabled = false
+            
             return cell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "mealDetailCell", for: indexPath) as! MealDetailCell
@@ -279,13 +302,31 @@ extension WeightViewController {
             if lineChartDataSet.entries[indexPath.row].y == 0 {
                 cell.typeLabel.text = "\(days[indexPath.row]): "
                 cell.numberLabel.text = "-"
+                cell.isUserInteractionEnabled = false
             }
             else {
                 cell.typeLabel.text = "\(days[indexPath.row]):"
                 cell.numberLabel.text = "\(lineChartDataSet.entries[indexPath.row].y) \(lastEntryUnit)"
+                cell.isUserInteractionEnabled = true
             }
+            
             return cell
         }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        var index = 0
+        for entry in allWeightEntries! {
+            if entry.weight == lineChartDataSet.entries[indexPath.row].y && entry.date == weightEntriesDates![indexPath.row] {
+                weightEntryToEdit = allWeightEntries?[index]
+                break
+            }
+            index += 1
+        }
+        performSegue(withIdentifier: "GoToEditWeightEntry", sender: self)
+        tableView.deselectRow(at: indexPath, animated: true)
         
     }
     

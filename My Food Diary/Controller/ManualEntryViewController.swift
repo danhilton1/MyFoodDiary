@@ -64,7 +64,7 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tableViewTapped))
         tableView.addGestureRecognizer(tapGesture)
-        
+        tableView.tableFooterView = UIView()
         tableView.keyboardDismissMode = .interactive
         
         addInputAccessoryForTextFields(textFields: [foodNameTextField,servingSizeTextField,servingTextField,caloriesTextField,proteinTextField,carbsTextField,fatTextField], dismissable: true, previousNextable: true)
