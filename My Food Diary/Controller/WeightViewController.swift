@@ -281,7 +281,7 @@ extension WeightViewController {
             cell.caloriesTitleLabel.isHidden = true
             cell.averageTitleLabel.text = "Average Daily Weight:"
             cell.goalValueLabel.text = "\(defaults.value(forKey: "GoalWeight") ?? 0) \(lastEntryUnit)"
-            
+            cell.lineChart.topAnchor.constraint(equalTo: cell.topAnchor, constant: 10).isActive = true
             
             lineChartDataSet.colors = [Color.skyBlue]
             lineChartDataSet.circleColors = [Color.skyBlue]
@@ -341,7 +341,12 @@ extension WeightViewController {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
-            return 450
+            if UIScreen.main.bounds.height < 700 {
+                return 420
+            }
+            else {
+                return 450
+            }
         }
         else {
             return 40

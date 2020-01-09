@@ -1059,10 +1059,10 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y1Y-3l-roi">
-                                <rect key="frame" x="80" y="470.5" width="254" height="50"/>
+                                <rect key="frame" x="40" y="470.5" width="334" height="55"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="Leq-aW-ZFS"/>
+                                    <constraint firstAttribute="height" constant="55" id="Leq-aW-ZFS"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="20"/>
                                 <state key="normal" title="Register"/>
@@ -1071,10 +1071,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WUd-Aq-FMP">
-                                <rect key="frame" x="80" y="570.5" width="254" height="50"/>
+                                <rect key="frame" x="40" y="575.5" width="334" height="55"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="vgM-Un-WtS"/>
+                                    <constraint firstAttribute="height" constant="55" id="vgM-Un-WtS"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="20"/>
                                 <state key="normal" title="Log In"/>
@@ -1083,7 +1083,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Emn-MJ-l0U">
-                                <rect key="frame" x="79" y="665.5" width="256" height="34"/>
+                                <rect key="frame" x="79" y="675.5" width="256" height="34"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="18"/>
                                 <state key="normal" title="Continue without logging in">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1106,16 +1106,16 @@
                             <constraint firstItem="WVB-yF-PMx" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Ao-WQ-Tcb" secondAttribute="leading" constant="50" id="2PT-0j-sM6"/>
                             <constraint firstItem="WVB-yF-PMx" firstAttribute="centerX" secondItem="8ww-8c-rhu" secondAttribute="centerX" id="2XN-ZM-5Sg"/>
                             <constraint firstItem="6uw-Tr-FyE" firstAttribute="top" secondItem="WVB-yF-PMx" secondAttribute="bottom" constant="30" id="66S-yq-sWj"/>
-                            <constraint firstItem="WUd-Aq-FMP" firstAttribute="leading" secondItem="6Ao-WQ-Tcb" secondAttribute="leading" constant="80" id="6gU-84-GrG"/>
+                            <constraint firstItem="WUd-Aq-FMP" firstAttribute="leading" secondItem="6Ao-WQ-Tcb" secondAttribute="leading" constant="40" id="6gU-84-GrG"/>
                             <constraint firstItem="Emn-MJ-l0U" firstAttribute="top" secondItem="WUd-Aq-FMP" secondAttribute="bottom" constant="45" id="7QK-of-e61"/>
                             <constraint firstItem="WVB-yF-PMx" firstAttribute="top" secondItem="6Ao-WQ-Tcb" secondAttribute="top" priority="250" constant="90" id="83e-eM-VCh"/>
-                            <constraint firstItem="6Ao-WQ-Tcb" firstAttribute="trailing" secondItem="WUd-Aq-FMP" secondAttribute="trailing" constant="80" id="B1b-df-4jb"/>
-                            <constraint firstItem="Y1Y-3l-roi" firstAttribute="leading" secondItem="6Ao-WQ-Tcb" secondAttribute="leading" constant="80" id="DhQ-gY-X82"/>
+                            <constraint firstItem="6Ao-WQ-Tcb" firstAttribute="trailing" secondItem="WUd-Aq-FMP" secondAttribute="trailing" constant="40" id="B1b-df-4jb"/>
+                            <constraint firstItem="Y1Y-3l-roi" firstAttribute="leading" secondItem="6Ao-WQ-Tcb" secondAttribute="leading" constant="40" id="DhQ-gY-X82"/>
                             <constraint firstItem="WUd-Aq-FMP" firstAttribute="top" secondItem="Y1Y-3l-roi" secondAttribute="bottom" constant="50" id="GvO-d6-M1y"/>
                             <constraint firstItem="6Ao-WQ-Tcb" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Emn-MJ-l0U" secondAttribute="trailing" constant="50" id="H9o-R6-zz6"/>
                             <constraint firstItem="6Ao-WQ-Tcb" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Emn-MJ-l0U" secondAttribute="bottom" constant="50" id="RdM-hR-J6J"/>
                             <constraint firstItem="Emn-MJ-l0U" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Ao-WQ-Tcb" secondAttribute="leading" constant="50" id="UBc-T9-7dq"/>
-                            <constraint firstItem="6Ao-WQ-Tcb" firstAttribute="trailing" secondItem="Y1Y-3l-roi" secondAttribute="trailing" constant="80" id="abY-5n-dyk"/>
+                            <constraint firstItem="6Ao-WQ-Tcb" firstAttribute="trailing" secondItem="Y1Y-3l-roi" secondAttribute="trailing" constant="40" id="abY-5n-dyk"/>
                             <constraint firstItem="6uw-Tr-FyE" firstAttribute="centerX" secondItem="8ww-8c-rhu" secondAttribute="centerX" id="fqa-4v-Mbs"/>
                             <constraint firstItem="WVB-yF-PMx" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6Ao-WQ-Tcb" secondAttribute="top" constant="40" id="k9T-BH-BcT"/>
                             <constraint firstItem="Y1Y-3l-roi" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6uw-Tr-FyE" secondAttribute="bottom" constant="45" id="mz7-EI-TTJ"/>
@@ -1126,6 +1126,7 @@
                     <navigationItem key="navigationItem" id="rwx-qw-IdI"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
+                        <outlet property="iconImageView" destination="6uw-Tr-FyE" id="BNa-mj-Ouk"/>
                         <outlet property="logInButton" destination="WUd-Aq-FMP" id="fww-YA-4Mj"/>
                         <outlet property="registerButton" destination="Y1Y-3l-roi" id="Z2O-pg-2aE"/>
                         <segue destination="TrC-wf-omx" kind="show" identifier="GoToTabBar" id="3y6-f0-LZg"/>
@@ -1167,7 +1168,7 @@
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fSj-0N-DfD">
-                                <rect key="frame" x="100" y="639" width="214" height="50"/>
+                                <rect key="frame" x="40" y="639" width="334" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="7GH-Mk-c5q"/>
@@ -1203,7 +1204,7 @@
                             <constraint firstItem="a0a-V1-0Ow" firstAttribute="top" secondItem="EC8-XN-3qt" secondAttribute="bottom" constant="85" id="B5e-La-RKj"/>
                             <constraint firstItem="EVD-UY-vzI" firstAttribute="centerY" secondItem="dlv-9x-VDd" secondAttribute="centerY" id="R4H-zk-nPT"/>
                             <constraint firstItem="raU-uz-fBh" firstAttribute="leading" secondItem="vZQ-xy-Vu5" secondAttribute="leading" constant="40" id="RUc-xy-6qW"/>
-                            <constraint firstItem="fSj-0N-DfD" firstAttribute="leading" secondItem="vZQ-xy-Vu5" secondAttribute="leading" constant="100" id="TwI-5a-HW9"/>
+                            <constraint firstItem="fSj-0N-DfD" firstAttribute="leading" secondItem="vZQ-xy-Vu5" secondAttribute="leading" constant="40" id="TwI-5a-HW9"/>
                             <constraint firstItem="raU-uz-fBh" firstAttribute="top" secondItem="a0a-V1-0Ow" secondAttribute="bottom" constant="40" id="aOc-al-qaB"/>
                             <constraint firstItem="vZQ-xy-Vu5" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="fSj-0N-DfD" secondAttribute="bottom" constant="40" id="dEo-86-ILT"/>
                             <constraint firstItem="EVD-UY-vzI" firstAttribute="centerX" secondItem="SKv-h3-xOy" secondAttribute="centerX" id="fKo-p5-kS1"/>
@@ -1211,7 +1212,7 @@
                             <constraint firstItem="vZQ-xy-Vu5" firstAttribute="trailing" secondItem="raU-uz-fBh" secondAttribute="trailing" constant="40" id="jdW-TX-jR9"/>
                             <constraint firstItem="EC8-XN-3qt" firstAttribute="top" secondItem="vZQ-xy-Vu5" secondAttribute="top" constant="85" id="oTp-YC-xq9"/>
                             <constraint firstItem="dlv-9x-VDd" firstAttribute="leading" secondItem="vZQ-xy-Vu5" secondAttribute="leading" constant="20" id="pR2-eC-rnA"/>
-                            <constraint firstItem="vZQ-xy-Vu5" firstAttribute="trailing" secondItem="fSj-0N-DfD" secondAttribute="trailing" constant="100" id="uwq-Ti-onD"/>
+                            <constraint firstItem="vZQ-xy-Vu5" firstAttribute="trailing" secondItem="fSj-0N-DfD" secondAttribute="trailing" constant="40" id="uwq-Ti-onD"/>
                             <constraint firstItem="dlv-9x-VDd" firstAttribute="top" secondItem="vZQ-xy-Vu5" secondAttribute="top" constant="10" id="w4k-su-njo"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="vZQ-xy-Vu5"/>
@@ -1219,6 +1220,7 @@
                     <navigationItem key="navigationItem" title="Log In" id="04Q-QZ-5Xz"/>
                     <connections>
                         <outlet property="emailTextField" destination="a0a-V1-0Ow" id="ibu-iG-v5g"/>
+                        <outlet property="iconImageView" destination="EC8-XN-3qt" id="AIS-DL-oyB"/>
                         <outlet property="logInButton" destination="fSj-0N-DfD" id="8Rl-Q9-3Lv"/>
                         <outlet property="passwordTextField" destination="raU-uz-fBh" id="2Ax-QU-j0x"/>
                         <segue destination="TrC-wf-omx" kind="show" identifier="GoToTabBar" id="NOO-Zw-O1E"/>
@@ -2172,7 +2174,7 @@
                         <viewLayoutGuide key="safeArea" id="cMD-RF-Cng"/>
                     </view>
                     <navigationItem key="navigationItem" title="Nutrition" id="wA0-a8-AvF">
-                        <barButtonItem key="leftBarButtonItem" image="xmark.circle.fill" catalog="system" id="zan-9g-uK6">
+                        <barButtonItem key="leftBarButtonItem" image="plus-icon" id="zan-9g-uK6">
                             <color key="tintColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <connections>
                                 <action selector="dismissButtonTapped:" destination="MK6-FC-eag" id="0MM-Xj-iCp"/>
@@ -2407,13 +2409,12 @@
         <image name="chart.pie" catalog="system" width="64" height="60"/>
         <image name="plus-icon" width="37.5" height="37.5"/>
         <image name="tick-icon" width="37.5" height="37.5"/>
-        <image name="xmark.circle.fill" catalog="system" width="64" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Vpn-DS-ftJ"/>
         <segue reference="czJ-8k-2CO"/>
         <segue reference="feM-Sd-7op"/>
-        <segue reference="3y6-f0-LZg"/>
-        <segue reference="AX7-nl-74f"/>
+        <segue reference="gK3-K4-laE"/>
+        <segue reference="nVt-VS-1vu"/>
     </inferredMetricsTieBreakers>
 </document>

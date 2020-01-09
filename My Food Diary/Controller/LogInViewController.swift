@@ -27,6 +27,7 @@ class LogInViewController: UIViewController {
     var allWeight = [Weight]()
     
     
+    @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var logInButton: UIButton!
@@ -39,6 +40,11 @@ class LogInViewController: UIViewController {
         view.backgroundColor = Color.skyBlue
         logInButton.setTitleColor(Color.skyBlue, for: .normal)
         logInButton.layer.cornerRadius = logInButton.frame.size.height / 2
+        if UIScreen.main.bounds.height < 700 {
+            iconImageView.heightAnchor.constraint(equalToConstant: 170).isActive = true
+            iconImageView.widthAnchor.constraint(equalToConstant: 170).isActive = true
+            emailTextField.topAnchor.constraint(equalTo: iconImageView.bottomAnchor, constant: 40).isActive = true
+        }
         
         emailTextField.delegate = self
         passwordTextField.delegate = self
@@ -130,7 +136,12 @@ class LogInViewController: UIViewController {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y == 0 {
                 UIView.animate(withDuration: 0.5) {
-                    self.view.frame.origin.y -= (keyboardSize.height - 150)
+                    if UIScreen.main.bounds.height < 700 {
+                        self.view.frame.origin.y -= (keyboardSize.height - 60)
+                    }
+                    else {
+                        self.view.frame.origin.y -= (keyboardSize.height - 150)
+                    }
                 }
             }
         }

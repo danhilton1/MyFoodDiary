@@ -60,6 +60,7 @@ class NutritionViewController: UIViewController {
         super.viewDidLoad()
         
         tabBarController?.tabBar.isHidden = true
+        setUpNavBar()
         weekVC = children[1] as? WeekNutritionViewController
         monthVC = children.last as? MonthNutritionViewController
         dateLabel.text = dateAsString
@@ -69,6 +70,19 @@ class NutritionViewController: UIViewController {
         setUpWeekView(direction: .backward, date: date, considerToday: true)
         setUpMonthView(direction: .backward, date: date, considerToday: true)
         setUpWeekView(direction: .backward, date: date, considerToday: true)
+    }
+    
+    func setUpNavBar() {
+        let dismissButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        dismissButton.setImage(UIImage(named: "plus-icon"), for: .normal)
+        dismissButton.addTarget(self, action: #selector(dismissButtonTapped), for: .touchUpInside)
+        dismissButton.imageView?.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 4))
+        dismissButton.imageView?.clipsToBounds = false
+        dismissButton.imageView?.contentMode = .center
+        let barButton = UIBarButtonItem(customView: dismissButton)
+        navigationItem.leftBarButtonItem = barButton
+        
+        navigationController?.navigationBar.barTintColor = Color.skyBlue
     }
     
     //MARK: - Set Data Methods

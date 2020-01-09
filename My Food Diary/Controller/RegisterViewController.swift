@@ -26,6 +26,10 @@ class RegisterViewController: UIViewController {
         view.backgroundColor = Color.skyBlue
         registerButton.setTitleColor(Color.skyBlue, for: .normal)
         registerButton.layer.cornerRadius = registerButton.frame.size.height / 2
+        emailTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        passwordTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        emailTextField.layer.cornerRadius = 20
+        passwordTextField.layer.cornerRadius = 20
         
         emailTextField.delegate = self
         passwordTextField.delegate = self
@@ -99,7 +103,12 @@ class RegisterViewController: UIViewController {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y == 0 {
                 UIView.animate(withDuration: 0.5) {
-                    self.view.frame.origin.y -= (keyboardSize.height / 3)
+                    if UIScreen.main.bounds.height < 700 {
+                        self.view.frame.origin.y -= (keyboardSize.height / 2)
+                    }
+                    else {
+                        self.view.frame.origin.y -= (keyboardSize.height / 3)
+                    }
                 }
             }
         }
