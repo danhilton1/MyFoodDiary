@@ -22,23 +22,9 @@ class RegisterViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        view.backgroundColor = Color.skyBlue
-        registerButton.setTitleColor(Color.skyBlue, for: .normal)
-        registerButton.layer.cornerRadius = registerButton.frame.size.height / 2
-        emailTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        passwordTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        emailTextField.layer.cornerRadius = 20
-        passwordTextField.layer.cornerRadius = 20
         
-        emailTextField.delegate = self
-        passwordTextField.delegate = self
-        addInputAccessoriesForTextFields(textFields: [emailTextField, passwordTextField], dismissable: true, previousNextable: true)
-        
-        emailTextField.setLeftPaddingPoints(6)
-        passwordTextField.setLeftPaddingPoints(6)
-        emailTextField.placeholder = "Enter your email address"
-        passwordTextField.placeholder = "Enter a password"
+        setUpViews()
+        setUpTextFields()
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
         view.addGestureRecognizer(tapGesture)
@@ -54,6 +40,27 @@ class RegisterViewController: UIViewController {
         super.viewWillDisappear(true)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: self.view.window)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: self.view.window)
+    }
+    
+    func setUpViews() {
+        view.backgroundColor = Color.skyBlue
+        registerButton.setTitleColor(Color.skyBlue, for: .normal)
+        registerButton.layer.cornerRadius = registerButton.frame.size.height / 2
+        emailTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        passwordTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        emailTextField.layer.cornerRadius = 20
+        passwordTextField.layer.cornerRadius = 20
+    }
+    
+    func setUpTextFields() {
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+        addInputAccessoriesForTextFields(textFields: [emailTextField, passwordTextField], dismissable: true, previousNextable: true)
+        
+        emailTextField.setLeftPaddingPoints(6)
+        passwordTextField.setLeftPaddingPoints(6)
+        emailTextField.placeholder = "Enter your email address"
+        passwordTextField.placeholder = "Enter a password"
     }
     
     //MARK:- Button Methods

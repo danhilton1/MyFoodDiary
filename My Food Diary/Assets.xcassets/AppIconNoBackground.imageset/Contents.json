@@ -2,20 +2,25 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "dan-app-3ai.png",
+      "filename" : "dan-app-7ai.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "dan-app-7ai@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
+      "filename" : "dan-app-7ai@3x.png",
       "scale" : "3x"
     }
   ],
   "info" : {
     "version" : 1,
     "author" : "xcode"
+  },
+  "properties" : {
+    "template-rendering-intent" : "original"
   }
 }

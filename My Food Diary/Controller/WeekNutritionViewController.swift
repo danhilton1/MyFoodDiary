@@ -136,10 +136,19 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
     
     func getAverageOfValue(dataSet: ChartDataSet) -> Double {
         var average = 0.0
+        var numberOfEntries = 0.0
         for value in dataSet.entries {
-            average += value.y
+            if value.y > 0 {
+                average += value.y
+                numberOfEntries += 1
+            }
         }
-        return average / Double(dataSet.entries.count)
+        if (average / numberOfEntries).isNaN {
+            return 0
+        }
+        else {
+            return average / numberOfEntries
+        }
     }
     
     

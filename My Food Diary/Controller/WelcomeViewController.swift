@@ -50,8 +50,8 @@ class WelcomeViewController: UIViewController {
         registerButton.setTitleColor(Color.skyBlue, for: .normal)
         logInButton.setTitleColor(Color.skyBlue, for: .normal)
         if UIScreen.main.bounds.height < 700 {
-            iconImageView.heightAnchor.constraint(equalToConstant: 170).isActive = true
-            iconImageView.widthAnchor.constraint(equalToConstant: 170).isActive = true
+            iconImageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
+            iconImageView.widthAnchor.constraint(equalToConstant: 150).isActive = true
             registerButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
             registerButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
             logInButton.heightAnchor.constraint(equalToConstant: 50).isActive = true

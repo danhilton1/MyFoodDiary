@@ -37,19 +37,8 @@ class LogInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = Color.skyBlue
-        logInButton.setTitleColor(Color.skyBlue, for: .normal)
-        logInButton.layer.cornerRadius = logInButton.frame.size.height / 2
-        if UIScreen.main.bounds.height < 700 {
-            iconImageView.heightAnchor.constraint(equalToConstant: 170).isActive = true
-            iconImageView.widthAnchor.constraint(equalToConstant: 170).isActive = true
-            emailTextField.topAnchor.constraint(equalTo: iconImageView.bottomAnchor, constant: 40).isActive = true
-        }
-        
-        emailTextField.delegate = self
-        passwordTextField.delegate = self
-        passwordTextField.placeholder = "Password"
-        addInputAccessoriesForTextFields(textFields: [emailTextField, passwordTextField], dismissable: true, previousNextable: true)
+        setUpViews()
+        setUpTextFields()
         
         formatter.dateFormat = "E, d MMM"
         
@@ -68,6 +57,24 @@ class LogInViewController: UIViewController {
         super.viewWillDisappear(true)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: self.view.window)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: self.view.window)
+    }
+    
+    func setUpViews() {
+        view.backgroundColor = Color.skyBlue
+        logInButton.setTitleColor(Color.skyBlue, for: .normal)
+        logInButton.layer.cornerRadius = logInButton.frame.size.height / 2
+        if UIScreen.main.bounds.height < 700 {
+            iconImageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
+            iconImageView.widthAnchor.constraint(equalToConstant: 150).isActive = true
+            emailTextField.topAnchor.constraint(equalTo: iconImageView.bottomAnchor, constant: 40).isActive = true
+        }
+    }
+    
+    func setUpTextFields() {
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+        passwordTextField.placeholder = "Password"
+        addInputAccessoriesForTextFields(textFields: [emailTextField, passwordTextField], dismissable: true, previousNextable: true)
     }
     
     //MARK:- Data Methods
