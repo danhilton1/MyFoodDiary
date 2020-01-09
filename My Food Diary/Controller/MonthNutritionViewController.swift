@@ -87,18 +87,10 @@ class MonthNutritionViewController: WeekNutritionViewController {
             var averageProtein = 0.0
             var averageCarbs = 0.0
             var averageFat = 0.0
-            for value in proteinChartDataSet.entries {
-                averageProtein += value.y
-            }
-            averageProtein = averageProtein / Double(proteinChartDataSet.entries.count)
-            for value in carbsChartDataSet.entries {
-                averageCarbs += value.y
-            }
-            averageCarbs = averageCarbs / Double(carbsChartDataSet.entries.count)
-            for value in fatChartDataSet.entries {
-                averageFat += value.y
-            }
-            averageFat = averageFat / Double(fatChartDataSet.entries.count)
+            
+            averageProtein = getAverageValueOfNutrient(entries: proteinChartDataSet.entries, nutrient: averageProtein)
+            averageCarbs = getAverageValueOfNutrient(entries: carbsChartDataSet.entries, nutrient: averageCarbs)
+            averageFat = getAverageValueOfNutrient(entries: fatChartDataSet.entries, nutrient: averageFat)
             
             cell.proteinLabel.text = averageProtein.removePointZeroEndingAndConvertToString() + " g"
             cell.carbsLabel.text = averageCarbs.removePointZeroEndingAndConvertToString() + " g"
@@ -164,6 +156,23 @@ class MonthNutritionViewController: WeekNutritionViewController {
         }
         
         return UITableViewCell()
+    }
+    
+    func getAverageValueOfNutrient(entries: [ChartDataEntry], nutrient: Double) -> Double {
+        var numberOfEntries = 0.0
+        var nutrient = nutrient
+        for value in entries {
+            if value.y > 0 {
+                nutrient += value.y
+                numberOfEntries += 1
+            }
+        }
+        nutrient = nutrient / numberOfEntries
+        
+        if nutrient.isNaN {
+            nutrient = 0
+        }
+        return nutrient
     }
     
 
