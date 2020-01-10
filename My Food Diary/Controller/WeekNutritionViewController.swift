@@ -151,6 +151,19 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
         }
     }
     
+    func configureCalorieLabelColour(calories: Int, goalCalories: Int, cell: LineChartCell) {
+        
+        if calories < (goalCalories - 500) || calories > (goalCalories + 500) || goalCalories == 0 {
+            cell.caloriesLabel.textColor = Color.salmon
+        }
+        else if calories >= (goalCalories - 500) && calories <= (goalCalories + 500) && calories != goalCalories {
+            cell.caloriesLabel.textColor = .systemOrange
+        }
+        else {
+            cell.caloriesLabel.textColor = Color.mint
+        }
+    }
+    
     
     enum macroNutrient {
         case protein
@@ -222,15 +235,6 @@ extension WeekNutritionViewController {
         else if indexPath.row == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "LineChartCell", for: indexPath) as! LineChartCell
             let defaults = UserDefaults()
-            if let goalCalories = (defaults.value(forKey: "GoalCalories") as? Double) {
-                let limitLine = ChartLimitLine(limit: goalCalories, label: "")
-                limitLine.lineDashLengths = [8]
-                limitLine.lineWidth = 1.5
-                limitLine.lineColor = Color.mint
-                limitLine.valueFont = UIFont(name: "Montserrat-Regular", size: 12)!
-                
-                cell.lineChart.leftAxis.addLimitLine(limitLine)
-            }
             
             lineChartDataSet.colors = [Color.skyBlue]
             lineChartDataSet.circleColors = [Color.skyBlue]
@@ -241,6 +245,19 @@ extension WeekNutritionViewController {
             cell.lineChart.data = chartData
             
             var averageCalories = round(getAverageOfValue(dataSet: lineChartDataSet))
+            
+            if let goalCalories = (defaults.value(forKey: "GoalCalories") as? Int) {
+                configureCalorieLabelColour(calories: Int(averageCalories), goalCalories: goalCalories, cell: cell)
+                
+                let limitLine = ChartLimitLine(limit: Double(goalCalories), label: "")
+                limitLine.lineDashLengths = [8]
+                limitLine.lineWidth = 1.5
+                limitLine.lineColor = Color.mint
+                limitLine.valueFont = UIFont(name: "Montserrat-Regular", size: 12)!
+                
+                cell.lineChart.leftAxis.addLimitLine(limitLine)
+            }
+            
             cell.caloriesLabel.text = averageCalories.removePointZeroEndingAndConvertToString()
             cell.goalValueLabel.text = "\(defaults.value(forKey: "GoalCalories") ?? 0)"
             

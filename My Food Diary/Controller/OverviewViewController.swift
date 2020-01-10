@@ -372,7 +372,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         let ac = UIAlertController(title: "Goal Calories", message: "Please set your goal calories", preferredStyle: .alert)
         
         ac.addTextField { (textField) in
-            textField.text = "\(self.defaults.value(forKey: "GoalCalories") ?? 0)"
+            textField.text = "\(self.defaults.value(forKey: "GoalCalories") ?? "")"
             textField.placeholder = "Enter value here"
             textField.keyboardType = .numberPad
         }
@@ -402,17 +402,18 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             else {
                 
                 for foodEntry in allFood! {
-                    if foodEntry.name == entry?.name {
-                        foodEntry.date = entry?.date
-                        foodEntry.dateValue = entry?.dateValue
-                        foodEntry.dateLastEdited = entry?.dateLastEdited
-                        foodEntry.meal = entry?.meal
-                        foodEntry.serving = entry?.serving ?? 1
-                        foodEntry.calories = entry?.calories ?? 0
-                        foodEntry.protein = entry?.protein ?? 0
-                        foodEntry.carbs = entry?.carbs ?? 0
-                        foodEntry.fat = entry?.fat ?? 0
-                        foodEntry.isDeleted = entry!.isDeleted
+                    if foodEntry.name == food.name {
+                        foodEntry.date = food.date
+                        foodEntry.dateCreated = food.dateCreated
+                        foodEntry.dateLastEdited = food.dateLastEdited
+                        foodEntry.meal = food.meal
+                        foodEntry.serving = food.serving
+                        foodEntry.calories = food.calories
+                        foodEntry.protein = food.protein
+                        foodEntry.carbs = food.carbs
+                        foodEntry.fat = food.fat
+                        foodEntry.isDeleted = food.isDeleted
+                        foodEntry.numberOfTimesAdded = food.numberOfTimesAdded
                     }
                 }
             }
@@ -490,8 +491,8 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         }
         sortedFood = foodDictionary.values.sorted { (food1, food2) -> Bool in
             guard
-                let food1Date = food1.dateValue,
-                let food2Date = food2.dateValue
+                let food1Date = food1.dateCreated,
+                let food2Date = food2.dateCreated
             else {
                 return false
             }

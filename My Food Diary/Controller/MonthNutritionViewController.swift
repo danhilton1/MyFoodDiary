@@ -107,15 +107,6 @@ class MonthNutritionViewController: WeekNutritionViewController {
             
             cell.lineChart.xAxis.granularityEnabled = true
             cell.lineChart.xAxis.axisMaximum = 3.5
-            if let goalCalories = (defaults.value(forKey: "GoalCalories") as? Double) {
-                let limitLine = ChartLimitLine(limit: goalCalories, label: "")
-                limitLine.lineDashLengths = [8]
-                limitLine.lineWidth = 1.5
-                limitLine.lineColor = Color.mint
-                limitLine.valueFont = UIFont(name: "Montserrat-Regular", size: 12)!
-                
-                cell.lineChart.leftAxis.addLimitLine(limitLine)
-            }
             
             cell.lineChart.xAxis.valueFormatter = IndexAxisValueFormatter(values: VC?.monthChartLabels.reversed() ?? ["1", "2", "3", "4", "5"])
 
@@ -149,6 +140,18 @@ class MonthNutritionViewController: WeekNutritionViewController {
             }
             cell.lineChart.animate(yAxisDuration: 0.5)
             var averageCalories = round(getAverageOfValue(dataSet: lineChartDataSet))
+            
+            if let goalCalories = (defaults.value(forKey: "GoalCalories") as? Int) {
+                configureCalorieLabelColour(calories: Int(averageCalories), goalCalories: goalCalories, cell: cell)
+                let limitLine = ChartLimitLine(limit: Double(goalCalories), label: "")
+                limitLine.lineDashLengths = [8]
+                limitLine.lineWidth = 1.5
+                limitLine.lineColor = Color.mint
+                limitLine.valueFont = UIFont(name: "Montserrat-Regular", size: 12)!
+                
+                cell.lineChart.leftAxis.addLimitLine(limitLine)
+            }
+            
             cell.caloriesLabel.text = averageCalories.removePointZeroEndingAndConvertToString()
             cell.goalValueLabel.text = "\(defaults.value(forKey: "GoalCalories") ?? 0)"
             
@@ -172,6 +175,7 @@ class MonthNutritionViewController: WeekNutritionViewController {
         if nutrient.isNaN {
             nutrient = 0
         }
+        
         return nutrient
     }
     

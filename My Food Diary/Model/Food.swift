@@ -12,6 +12,25 @@ import Foundation
 
 class Food {
     
+    // 100g values
+    var date: String?
+    var dateCreated: Date?
+    var dateLastEdited: Date?
+    var meal: String?
+    var name: String? = ""
+    var servingSize: String = "100"
+    var servingSizeUnit: String = "g"
+    var serving: Double = 1
+    var totalServing: Double {
+        return (Double(servingSize.filter("01234567890.".contains)) ?? 100) * serving
+    }
+    var calories: Int = 0
+    var protein: Double = 0
+    var carbs: Double = 0
+    var fat: Double = 0
+    var isDeleted = false
+    var numberOfTimesAdded = 0
+    
     
     enum Meal: Int {
         
@@ -46,30 +65,12 @@ class Food {
             }
         }
     }
-    // 100g values
-    var date: String?
-    var dateValue: Date?
-    var dateLastEdited: Date?
-    var meal: String?
-    var name: String? = ""
-    var servingSize: String = "100"
-    var servingSizeUnit: String = "g"
-    var serving: Double = 1
-    var totalServing: Double {
-        return (Double(servingSize.filter("01234567890.".contains)) ?? 100) * serving
-    }
-    var calories: Int = 0
-    var protein: Double = 0
-    var carbs: Double = 0
-    var fat: Double = 0
-    var isDeleted = false
-    
     
     
     func copy(with zone: NSZone? = nil) -> Food {
         let copy = Food()
         copy.date = self.date
-        copy.dateValue = self.dateValue
+        copy.dateCreated = self.dateCreated
         copy.dateLastEdited = self.dateLastEdited
         copy.meal = self.meal
         copy.name = self.name
@@ -81,6 +82,7 @@ class Food {
         copy.carbs = self.carbs
         copy.fat = self.fat
         copy.isDeleted = self.isDeleted
+        copy.numberOfTimesAdded = self.numberOfTimesAdded
         return copy
     }
     

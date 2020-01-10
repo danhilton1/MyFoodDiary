@@ -93,8 +93,8 @@ class NewEntryViewController: UIViewController, UITableViewDelegate, UITableView
         }
         sortedFood = foodDictionary.values.sorted { (food1, food2) -> Bool in
             guard
-                let food1Date = food1.dateValue,
-                let food2Date = food2.dateValue
+                let food1Date = food1.dateCreated,
+                let food2Date = food2.dateCreated
             else {
                 return false
             }

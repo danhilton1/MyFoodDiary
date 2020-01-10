@@ -118,7 +118,7 @@ class FoodDetailViewController: UITableViewController {
         workingCopy.isDeleted = false
         
         if !isEditingExistingEntry {
-            workingCopy.dateValue = date
+            workingCopy.dateCreated = date
         }
         
         switch mealPicker.selectedSegmentIndex {
@@ -167,19 +167,8 @@ class FoodDetailViewController: UITableViewController {
         
         let user = Auth.auth().currentUser?.email ?? Auth.auth().currentUser!.uid
         
-        if !isEditingExistingEntry {
+        if isEditingExistingEntry {
             
-            food.saveFood(user: user)
-            
-//            do {
-//                try realm.write {
-//                    realm.add(food)
-//                }
-//            } catch {
-//                print(error)
-//            }
-        }
-        else {
             let fc = FoodsCollection.self
             let foodEntry = db.collection("users").document(user).collection(fc.collection).document(food.name!)
             
@@ -187,7 +176,7 @@ class FoodDetailViewController: UITableViewController {
                 fc.name: food.name!,
                 fc.meal: food.meal ?? Food.Meal.other,
                 fc.date: food.date!,
-                fc.dateValue: food.dateValue!,
+                fc.dateCreated: food.dateCreated!,
                 fc.dateLastEdited: Date(),
                 fc.servingSize: food.servingSize,
                 fc.servingSizeUnit: food.servingSizeUnit,
@@ -204,27 +193,10 @@ class FoodDetailViewController: UITableViewController {
                     print("Document \(food.name!) successfully updated")
                 }
             }
-            
-//            do {
-//                try realm.write {
-//                    let foodList = realm.objects(Food.self)
-//                    for entry in foodList {
-//                        if entry.dateValue == food.dateValue {
-//                            entry.meal = food.meal
-//                            entry.name = food.name
-//                            entry.servingSize = food.servingSize
-//                            entry.serving = food.serving
-//                            entry.calories = food.calories
-//                            entry.protein = food.protein
-//                            entry.carbs = food.carbs
-//                            entry.fat = food.fat
-//                            entry.isDeleted = food.isDeleted
-//                        }
-//                    }
-//                }
-//            } catch {
-//                print(error)
-//            }
+        }
+        else {
+            food.numberOfTimesAdded += 1
+            food.saveFood(user: user)
         }
     }
     

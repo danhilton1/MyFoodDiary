@@ -14,7 +14,7 @@ enum FoodsCollection {
     static let name = "name"
     static let meal = "meal"
     static let date = "date"
-    static let dateValue = "dateValue"
+    static let dateCreated = "dateCreated"
     static let dateLastEdited = "dateLastEdited"
     static let servingSize = "servingSize"
     static let servingSizeUnit = "servingSizeUnit"
@@ -24,6 +24,7 @@ enum FoodsCollection {
     static let carbs = "carbs"
     static let fat = "fat"
     static let isDeleted = "isDeleted"
+    static let numberOfTimesAdded = "numberOfTimesAdded"
 }
 
 private let db = Firestore.firestore()
@@ -37,8 +38,8 @@ extension Food {
         self.name = foodDictionary["name"] as? String
         self.meal = foodDictionary["meal"] as? String
         self.date = foodDictionary["date"] as? String
-        let dateValue = foodDictionary["dateValue"] as? Timestamp
-        self.dateValue = dateValue?.dateValue()
+        let dateCreated = foodDictionary["dateCreated"] as? Timestamp
+        self.dateCreated = dateCreated?.dateValue()
         let dateLastEdited = foodDictionary["dateLastEdited"] as? Timestamp
         self.dateLastEdited = dateLastEdited?.dateValue()
         self.servingSize = "\(foodDictionary["servingSize"] ?? "100")"
@@ -49,6 +50,7 @@ extension Food {
         self.carbs = foodDictionary["carbs"] as! Double
         self.fat = foodDictionary["fat"] as! Double
         self.isDeleted = foodDictionary["isDeleted"] as! Bool
+        self.numberOfTimesAdded = foodDictionary["numberOfTimesAdded"] as! Int
     }
     
     func saveFood(user: String) {
@@ -58,7 +60,7 @@ extension Food {
             fc.name: self.name!,
             fc.meal: self.meal ?? Food.Meal.other,
             fc.date: self.date!,
-            fc.dateValue: self.dateValue ?? Date(),
+            fc.dateCreated: self.dateCreated ?? Date(),
             fc.dateLastEdited: self.dateLastEdited ?? Date(),
             fc.servingSize: self.servingSize,
             fc.servingSizeUnit: self.servingSizeUnit,
@@ -67,7 +69,8 @@ extension Food {
             fc.protein: self.protein,
             fc.carbs: self.carbs,
             fc.fat: self.fat,
-            fc.isDeleted: false
+            fc.isDeleted: false,
+            fc.numberOfTimesAdded: self.numberOfTimesAdded
         ]) { error in
             if let error = error {
                 print("Error adding document: \(error)")
@@ -127,7 +130,7 @@ extension Food {
                                     for foodDocument in foods!.documents {
                                         let foodToAdd = Food(snapshot: foodDocument)
                                         // Check if the food already exists and just needs updating rather than adding again.
-                                        if foodToAdd.dateLastEdited! > foodToAdd.dateValue! {
+                                        if foodToAdd.dateLastEdited! > foodToAdd.dateCreated! {
                                             for food in allFood {
                                                 if foodToAdd.name == food.name {
                                                     food.dateLastEdited = foodToAdd.dateLastEdited
@@ -140,6 +143,7 @@ extension Food {
                                                     food.carbs = foodToAdd.carbs
                                                     food.fat = foodToAdd.fat
                                                     food.isDeleted = foodToAdd.isDeleted
+                                                    food.numberOfTimesAdded = foodToAdd.numberOfTimesAdded
                                                     print("\(foodToAdd.name!) updated.")
                                                 }
                                                 // if new food has been added AND edited before synced to other it needs to be ADDED to allFood instead of updating existing entry

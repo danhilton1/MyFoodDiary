@@ -193,7 +193,7 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
         workingCopy.name = foodNameTextField.text
         workingCopy.meal = meal.stringValue
         workingCopy.date = formatter.string(from: date ?? Date())
-        workingCopy.dateValue = date
+        workingCopy.dateCreated = date
         workingCopy.dateLastEdited = date
         workingCopy.servingSize = (servingSizeTextField.text ?? "100")
         workingCopy.serving = Double(servingTextField.text ?? "1") ?? 1
@@ -201,6 +201,7 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
         workingCopy.protein = Double(proteinTextField.text ?? "0") ?? 0
         workingCopy.carbs = Double(carbsTextField.text ?? "0") ?? 0
         workingCopy.fat = Double(fatTextField.text ?? "0") ?? 0
+        workingCopy.numberOfTimesAdded += 1
         
         let user = Auth.auth().currentUser?.email ?? Auth.auth().currentUser!.uid
         workingCopy.saveFood(user: user)
