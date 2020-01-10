@@ -43,7 +43,7 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var carbsTextField: UITextField!
     @IBOutlet weak var fatTextField: UITextField!
     
-
+    var activeTextField = UITextField()
 
     
     //MARK: - viewDidLoad
@@ -94,23 +94,56 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
 
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         
-        switch mealPicker.selectedSegmentIndex {
-            
-        case 0:
-            addAndSaveNewEntry(meal: .breakfast)
-        case 1:
-            addAndSaveNewEntry(meal: .lunch)
-        case 2:
-            addAndSaveNewEntry(meal: .dinner)
-        case 3:
-            addAndSaveNewEntry(meal: .other)
-        default:
-            dismissViewWithAnimation()
-        }
+        activeTextField.resignFirstResponder()
         
-        dismissViewWithAnimation()
-        delegate?.reloadFood(entry: workingCopy, new: true)
-        mealDelegate?.reloadFood(entry: workingCopy, new: true)
+        if foodNameTextField.text == "" || servingSizeTextField.text == "" ||
+            servingTextField.text == "" || caloriesTextField.text == "" {
+            
+            let ac = UIAlertController(title: "Missing Information", message: "You must fill out all of the required fields.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .cancel) { [weak self] (action) in
+                guard let strongSelf = self else { return }
+                if strongSelf.foodNameTextField.text == "" {
+                    strongSelf.foodNameTextField.becomeFirstResponder()
+                }
+                else if strongSelf.servingSizeTextField.text == "" {
+                    strongSelf.servingSizeTextField.becomeFirstResponder()
+                }
+                else if strongSelf.servingTextField.text == "" {
+                    strongSelf.servingTextField.becomeFirstResponder()
+                }
+                else if strongSelf.caloriesTextField.text == "" {
+                    strongSelf.caloriesTextField.becomeFirstResponder()
+                }
+                })
+            
+            present(ac, animated: true)
+            
+            foodNameTextField.attributedPlaceholder = NSAttributedString(string: "Required", attributes: [NSAttributedString.Key.foregroundColor: Color.salmon])
+            servingSizeTextField.attributedPlaceholder = NSAttributedString(string: "Required", attributes: [NSAttributedString.Key.foregroundColor: Color.salmon])
+            servingTextField.attributedPlaceholder = NSAttributedString(string: "Required", attributes: [NSAttributedString.Key.foregroundColor: Color.salmon])
+            caloriesTextField.attributedPlaceholder = NSAttributedString(string: "Required", attributes: [NSAttributedString.Key.foregroundColor: Color.salmon])
+            
+        }
+        else {
+        
+            switch mealPicker.selectedSegmentIndex {
+                
+            case 0:
+                addAndSaveNewEntry(meal: .breakfast)
+            case 1:
+                addAndSaveNewEntry(meal: .lunch)
+            case 2:
+                addAndSaveNewEntry(meal: .dinner)
+            case 3:
+                addAndSaveNewEntry(meal: .other)
+            default:
+                dismissViewWithAnimation()
+            }
+            
+            dismissViewWithAnimation()
+            delegate?.reloadFood(entry: workingCopy, new: true)
+            mealDelegate?.reloadFood(entry: workingCopy, new: true)
+        }
     }
     
     @IBAction func unitButtonTapped(_ sender: UIButton) {
@@ -151,40 +184,6 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
     
     //MARK: - New Entry Add and Save methods
     
-    func save(_ food: Food) {
-        
-//        let user = Auth.auth().currentUser?.email
-//
-//        let fc = FoodsCollection.self
-//
-//        db.collection("users").document(user!).collection(fc.collection).document(food.name!).setData([
-//            fc.name: food.name ?? "N/A",
-//            fc.meal: food.meal ?? Food.Meal.other,
-//            fc.date: food.date!,
-//            fc.dateValue: food.dateValue ?? Date(),
-//            fc.servingSize: food.servingSize,
-//            fc.serving: food.serving,
-//            fc.calories: food.calories,
-//            fc.protein: food.protein,
-//            fc.carbs: food.carbs,
-//            fc.fat: food.fat,
-//            fc.isDeleted: false
-//        ]) { error in
-//            if let error = error {
-//                print("Error adding document: \(error)")
-//            } else {
-//                print("Document added with ID: \(food.name!)")
-//            }
-//        }
-        
-//        do {
-//            try realm.write {
-//                realm.add(food)
-//            }
-//        } catch {
-//            print(error)
-//        }
-    }
     
     private func addAndSaveNewEntry(meal: Food.Meal) {
         
@@ -205,8 +204,6 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
         
         let user = Auth.auth().currentUser?.email ?? Auth.auth().currentUser!.uid
         workingCopy.saveFood(user: user)
-        //save(workingCopy)
-        
         
     }
     
@@ -251,18 +248,22 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
         return true
     }
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.activeTextField = textField
+    }
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if (textField == foodNameTextField) {
-                let oldString = textField.text!
-                let newStart = oldString.index(oldString.startIndex, offsetBy: range.location)
-                let newEnd = oldString.index(oldString.startIndex, offsetBy: range.location + range.length)
-                let newString = oldString.replacingCharacters(in: newStart..<newEnd, with: string)
-                textField.text = newString.replacingOccurrences(of: " ", with: "\u{00a0}")
-                return false;
-            } else {
-                return true;
-            }
+            let oldString = textField.text!
+            let newStart = oldString.index(oldString.startIndex, offsetBy: range.location)
+            let newEnd = oldString.index(oldString.startIndex, offsetBy: range.location + range.length)
+            let newString = oldString.replacingCharacters(in: newStart..<newEnd, with: string)
+            textField.text = newString.replacingOccurrences(of: " ", with: "\u{00a0}")
+            return false;
+        } else {
+            return true;
         }
+    }
         
     
     @objc func tableViewTapped() {

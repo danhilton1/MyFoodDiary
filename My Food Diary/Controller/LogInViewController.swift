@@ -64,8 +64,8 @@ class LogInViewController: UIViewController {
         logInButton.setTitleColor(Color.skyBlue, for: .normal)
         logInButton.layer.cornerRadius = logInButton.frame.size.height / 2
         if UIScreen.main.bounds.height < 700 {
-            iconImageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
-            iconImageView.widthAnchor.constraint(equalToConstant: 150).isActive = true
+            iconImageView.heightAnchor.constraint(equalToConstant: 140).isActive = true
+            iconImageView.widthAnchor.constraint(equalToConstant: 140).isActive = true
             emailTextField.topAnchor.constraint(equalTo: iconImageView.bottomAnchor, constant: 40).isActive = true
         }
     }
