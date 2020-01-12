@@ -18,6 +18,7 @@ class LogInViewController: UIViewController {
     typealias FinishedDownload = () -> ()
     
     private let db = Firestore.firestore()
+    private let defaults = UserDefaults()
     
     let foodDispatchGroup = DispatchGroup()
     let weightDispatchGroup = DispatchGroup()
@@ -117,6 +118,9 @@ class LogInViewController: UIViewController {
                     strongSelf.loadAllWeightData(user: authResult?.user.email, completed: { () in
                 
                         strongSelf.weightDispatchGroup.notify(queue: .main) {
+                            strongSelf.defaults.set(authResult!.user.email, forKey: "userEmail")
+                            strongSelf.defaults.set(strongSelf.passwordTextField.text, forKey: "userPassword")
+                            strongSelf.defaults.set(true, forKey: "userSignedIn")
                             strongSelf.performSegue(withIdentifier: "GoToTabBar", sender: self)
                             SVProgressHUD.dismiss()
                         }

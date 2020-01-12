@@ -13,6 +13,7 @@ import SVProgressHUD
 class RegisterViewController: UIViewController {
     
     let db = Firestore.firestore()
+    let defaults = UserDefaults()
     
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -69,14 +70,15 @@ class RegisterViewController: UIViewController {
         
         SVProgressHUD.show()
         
-        Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { (authResult, error) in
+        Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { [weak self] (authResult, error) in
+            guard let strongSelf = self else { return }
             if let error = error {
                 print(error)
                 SVProgressHUD.showError(withStatus: error.localizedDescription)
             }
             else {
                 print("Registration Successful")
-                self.db.collection("users").document((authResult?.user.email)!).setData([
+                strongSelf.db.collection("users").document((authResult?.user.email)!).setData([
                     "email": (authResult?.user.email)!,
                     "uid": authResult!.user.uid
                 ]) { error in
@@ -85,8 +87,10 @@ class RegisterViewController: UIViewController {
                         SVProgressHUD.showError(withStatus: error.localizedDescription)
                     } else {
                         print("User added with ID: \(authResult!.user.email!)")
+                        strongSelf.defaults.set(authResult!.user.email, forKey: "userEmail")
+                        strongSelf.defaults.set(true, forKey: "userSignedIn")
                         SVProgressHUD.dismiss()
-                        self.performSegue(withIdentifier: "GoToOverview", sender: self)
+                        strongSelf.performSegue(withIdentifier: "GoToOverview", sender: self)
                     }
                 }
             }

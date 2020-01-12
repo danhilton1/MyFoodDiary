@@ -7,8 +7,12 @@
 //
 
 import UIKit
+import Firebase
+import SVProgressHUD
 
 class MoreViewController: UITableViewController {
+    
+    private let defaults = UserDefaults()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +28,36 @@ class MoreViewController: UITableViewController {
         tabBarController?.tabBar.isHidden = false
     }
 
+    @IBAction func logOutButtonTapped(_ sender: UIButton) {
+        
+        let ac = UIAlertController(title: "Are You Sure?", message: "Do you wish to sign out of your account?", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        ac.addAction(UIAlertAction(title: "Log Out", style: .destructive) { [weak self] (action) in
+            guard let strongSelf = self else { return }
+            
+            do {
+                try Auth.auth().signOut()
+                
+                if Auth.auth().currentUser == nil {
+                    strongSelf.defaults.removeObject(forKey: "userEmail")
+                    strongSelf.defaults.removeObject(forKey: "userPassword")
+                    strongSelf.defaults.set(false, forKey: "userSignedIn")
+                    
+                    let welcomeVC = strongSelf.storyboard?.instantiateViewController(withIdentifier: "WelcomeVC") as! WelcomeViewController
+                    strongSelf.present(welcomeVC, animated: true)
+                }
+            }
+            catch {
+                print(error)
+                SVProgressHUD.showError(withStatus: error.localizedDescription)
+            }
+            
+        })
+        
+        present(ac, animated: true)
+        
+    }
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "GoToNutrition" {
@@ -33,6 +67,16 @@ class MoreViewController: UITableViewController {
             
         }
         
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 0
+        }
+        else {
+            return 20
+        }
     }
 
 }

@@ -30,6 +30,7 @@ class WelcomeViewController: UIViewController {
         super.viewDidLoad()
 
         setUpViews()
+        checkIfUserIsSignedIn()
         
     }
     
@@ -58,6 +59,38 @@ class WelcomeViewController: UIViewController {
             logInButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
         }
     }
+
+    func checkIfUserIsSignedIn() {
+        if defaults.bool(forKey: "userSignedIn") {
+            SVProgressHUD.show()
+            let email = defaults.value(forKey: "userEmail") as! String
+            let password = defaults.value(forKey: "userPassword") as! String
+            Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
+                guard let strongSelf = self else { return }
+                
+                if error != nil {
+                    print(error!)
+                    SVProgressHUD.showError(withStatus: error?.localizedDescription)
+                }
+                else {
+                    print("Log In Successful")
+                    strongSelf.foodDispatchGroup.enter()  // enter dispatchGroup to allow data to finish downloading before segue
+                    strongSelf.loadAllFoodData(user: email, anonymous: false)
+                    
+                    strongSelf.foodDispatchGroup.notify(queue: .main) {
+                        strongSelf.weightDispatchGroup.enter()  // using two dispatch groups as Food and Weight data size will differ
+                        strongSelf.loadAllWeightData(user: email, anonymous: false, completed: { () in
+                    
+                            strongSelf.weightDispatchGroup.notify(queue: .main) {
+                                strongSelf.performSegue(withIdentifier: "GoToTabBar", sender: self)
+                                SVProgressHUD.dismiss()
+                            }
+                        })
+                    }
+                }
+            }
+        }
+    }
     
     @IBAction func continueButtonTapped(_ sender: UIButton) {
         
@@ -76,11 +109,11 @@ class WelcomeViewController: UIViewController {
                 Auth.auth().signIn(withEmail: userEmail, password: userPassword) { (authResult, error) in
                     guard let user = authResult?.user else { return }
                     strongSelf.foodDispatchGroup.enter()  // enter dispatchGroup to allow data to finish downloading before segue
-                    strongSelf.loadAllFoodData(user: user.email!)
+                    strongSelf.loadAllFoodData(user: user.email!, anonymous: true)
                     
                     strongSelf.foodDispatchGroup.notify(queue: .main) {
                         strongSelf.weightDispatchGroup.enter()
-                        strongSelf.loadAllWeightData(user: user.email!, completed: { () in
+                        strongSelf.loadAllWeightData(user: user.email!, anonymous: true, completed: { () in
                     
                             strongSelf.weightDispatchGroup.notify(queue: .main) {
                                 print("Anonymous User: \(user.email!) Successfully Logged In.")
@@ -133,15 +166,15 @@ class WelcomeViewController: UIViewController {
         present(ac, animated: true)
     }
     
-    func loadAllFoodData(user: String) {
-        Food.downloadAllFood(user: user, anonymous: true) { (allFood) in
+    func loadAllFoodData(user: String, anonymous: Bool) {
+        Food.downloadAllFood(user: user, anonymous: anonymous) { (allFood) in
             self.allFood = allFood
             self.foodDispatchGroup.leave()
         }
     }
     
-    func loadAllWeightData(user: String, completed: @escaping FinishedDownload) {
-        Weight.downloadAllWeight(user: user, anonymous: true) { (allWeight) in
+    func loadAllWeightData(user: String, anonymous: Bool, completed: @escaping FinishedDownload) {
+        Weight.downloadAllWeight(user: user, anonymous: anonymous) { (allWeight) in
             self.allWeight = allWeight
             self.weightDispatchGroup.leave()
             completed()

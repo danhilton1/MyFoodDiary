@@ -96,6 +96,7 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
         
         activeTextField.resignFirstResponder()
         
+        // Check if user has filled in all of the required textfields.
         if foodNameTextField.text == "" || servingSizeTextField.text == "" ||
             servingTextField.text == "" || caloriesTextField.text == "" {
             

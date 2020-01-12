@@ -47,6 +47,7 @@
 		37A07E4122DD02D700E4A351 /* Montserrat-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 37A07E4022DD02D700E4A351 /* Montserrat-Light.otf */; };
 		37A07E4322DD04C000E4A351 /* Montserrat-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 37A07E4222DD04C000E4A351 /* Montserrat-Regular.otf */; };
 		37A8AEB523A2DDFE002DCA43 /* Food+Firestore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A8AEB423A2DDFE002DCA43 /* Food+Firestore.swift */; };
+		37B9BD3F23CB9F3000864540 /* MyAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B9BD3E23CB9F3000864540 /* MyAccountViewController.swift */; };
 		37BBEBFA235659F600D390E5 /* LineChartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BBEBF8235659F600D390E5 /* LineChartCell.swift */; };
 		37BBEBFB235659F600D390E5 /* LineChartCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37BBEBF9235659F600D390E5 /* LineChartCell.xib */; };
 		37C2E37C2387365B006A4C51 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C2E37B2387365B006A4C51 /* WelcomeViewController.swift */; };
@@ -100,6 +101,7 @@
 		37A07E4022DD02D700E4A351 /* Montserrat-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.otf"; sourceTree = "<group>"; };
 		37A07E4222DD04C000E4A351 /* Montserrat-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.otf"; sourceTree = "<group>"; };
 		37A8AEB423A2DDFE002DCA43 /* Food+Firestore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Food+Firestore.swift"; sourceTree = "<group>"; };
+		37B9BD3E23CB9F3000864540 /* MyAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountViewController.swift; sourceTree = "<group>"; };
 		37BBEBF8235659F600D390E5 /* LineChartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChartCell.swift; sourceTree = "<group>"; };
 		37BBEBF9235659F600D390E5 /* LineChartCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LineChartCell.xib; sourceTree = "<group>"; };
 		37C2E37B2387365B006A4C51 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 				377C9BF9236DBA6A008165DA /* WeightViewController.swift */,
 				37E0C03223800020005FEB29 /* NewWeightEntryViewController.swift */,
 				372E70DC2381A783001DCB06 /* MoreViewController.swift */,
+				37B9BD3E23CB9F3000864540 /* MyAccountViewController.swift */,
 				377208B42291A1F8002DDA29 /* AppDelegate.swift */,
 			);
 			path = Controller;
@@ -392,6 +395,7 @@
 				37360AF923520BE300AA02A2 /* MonthNutritionViewController.swift in Sources */,
 				379DB00622B2EBB300F3DC5B /* MealDetailViewController.swift in Sources */,
 				37E0C03323800020005FEB29 /* NewWeightEntryViewController.swift in Sources */,
+				37B9BD3F23CB9F3000864540 /* MyAccountViewController.swift in Sources */,
 				37360AF523520BC000AA02A2 /* DayNutritionViewController.swift in Sources */,
 				3704184323832D7100F3B296 /* DateButton.swift in Sources */,
 				37DE71072351097900B1C4AC /* NutritionViewController.swift in Sources */,

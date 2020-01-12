@@ -99,6 +99,24 @@ struct FoodDatabase: Codable {
     
 }
 
+struct FoodSearchDatabase: Codable {
+    let products: [Products]
+}
+
+struct Products: Codable {
+    let nutriments: NutrimentsEdit
+    let productName: String
+    let servingSize: String?
+    
+    enum CodingKeys: String, CodingKey {
+
+        case nutriments = "nutriments"
+        case productName = "product_name"
+        case servingSize = "serving_size"
+
+    }
+}
+
 struct Product: Codable {
     
     let nutriments: Nutriments
@@ -133,6 +151,43 @@ struct Nutriments: Codable {
     let protein100g: Double
     let carbs100g: Double
     let fat100g: Double
+    
+    
+    enum CodingKeys: String, CodingKey {
+
+//        case energyServing = "energy_serving"
+//        case proteinServing = "proteins_serving"
+//        case carbServing = "carbohydrates_serving"
+//        case fatServing = "fat_serving"
+
+        case energy100g = "energy_100g"
+        case protein100g = "proteins_100g"
+        case carbs100g = "carbohydrates_100g"
+        case fat100g = "fat_100g"
+
+    }
+    
+}
+
+struct NutrimentsEdit: Codable {
+    
+//    let energyServing: Int
+//    var calories: Int {
+//        return Int(round(Double(energyServing) / 4.184))
+//    }
+//    let proteinServing: Double
+//    let carbServing: Double
+//    let fatServing: Double
+    
+    
+    let energy100g: Int
+    var calories100g: Int {
+        return Int(round(Double(energy100g) / 4.184))
+    }
+    let protein100g: String
+    let carbs100g: String
+    let fat100g: String
+    
     
     enum CodingKeys: String, CodingKey {
 

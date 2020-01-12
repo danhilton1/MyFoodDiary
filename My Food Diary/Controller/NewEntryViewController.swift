@@ -245,6 +245,47 @@ extension NewEntryViewController: UISearchBarDelegate {
         }
     }
     
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        if let searchText = searchBar.text {
+            let searchWords = searchText.replacingOccurrences(of: " ", with: "+")
+            var countryIdentifier = Locale.current.identifier
+            print(countryIdentifier)
+            if countryIdentifier == "en_GB" {
+                countryIdentifier = "uk"
+            }
+            else if countryIdentifier == "en_US" {
+                countryIdentifier = "us"
+            }
+            
+            let urlString = "https://\(countryIdentifier).openfoodfacts.org/cgi/search.pl?action=process&search_terms=\(searchWords)&sort_by=unique_scans_n&page_size=20&action=display&json=1"
+            print(urlString)
+            guard let url = URL(string: urlString) else { return }
+            
+            URLSession.shared.dataTask(with: url) { [weak self] (date, response, error) in
+                guard let strongSelf = self else { return }
+                guard let data = date else { return }
+                let food = Food()
+                print(data.count)
+                do {
+                    let scannedFood = try JSONDecoder().decode(FoodSearchDatabase.self, from: data)
+                    for i in 0..<4 {
+                        print(scannedFood.products[i].productName)
+                    }
+                    //print(scannedFood.products.productName)
+//                    for product in scannedFood.products {
+//                        food.name = product.productName
+//                    }
+                    
+                    
+                }
+                catch {
+                   print(error)
+                }
+            }.resume()
+        }
+    }
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = ""
         searchBar.resignFirstResponder()
