@@ -57,7 +57,6 @@ class FoodDetailViewController: UITableViewController {
 
         setUpCells()
         
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -117,8 +116,9 @@ class FoodDetailViewController: UITableViewController {
         workingCopy.dateLastEdited = Date()
         workingCopy.isDeleted = false
         
-        if !isEditingExistingEntry {
+        if !isEditingExistingEntry && !isAddingFromExistingEntry {
             workingCopy.dateCreated = date
+            workingCopy.dateLastEdited = date
         }
         
         switch mealPicker.selectedSegmentIndex {

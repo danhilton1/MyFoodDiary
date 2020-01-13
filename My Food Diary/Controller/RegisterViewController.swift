@@ -18,6 +18,7 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var registerButton: UIButton!
+    @IBOutlet weak var confirmPasswordTextField: LogInTextField!
     
     //MARK:- View methods
 
@@ -49,51 +50,73 @@ class RegisterViewController: UIViewController {
         registerButton.layer.cornerRadius = registerButton.frame.size.height / 2
         emailTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
         passwordTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        confirmPasswordTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
         emailTextField.layer.cornerRadius = 20
         passwordTextField.layer.cornerRadius = 20
+        confirmPasswordTextField.layer.cornerRadius = 20
     }
     
     func setUpTextFields() {
         emailTextField.delegate = self
         passwordTextField.delegate = self
-        addInputAccessoriesForTextFields(textFields: [emailTextField, passwordTextField], dismissable: true, previousNextable: true)
+        confirmPasswordTextField.delegate = self
+        addInputAccessoriesForTextFields(textFields: [emailTextField, passwordTextField, confirmPasswordTextField], dismissable: true, previousNextable: true)
         
         emailTextField.setLeftPaddingPoints(6)
         passwordTextField.setLeftPaddingPoints(6)
+        confirmPasswordTextField.setLeftPaddingPoints(6)
         emailTextField.placeholder = "Enter your email address"
         passwordTextField.placeholder = "Enter a password"
+        confirmPasswordTextField.placeholder = "Re-enter your password"
     }
     
     //MARK:- Button Methods
     
     @IBAction func registerButtonTapped(_ sender: UIButton) {
         
-        SVProgressHUD.show()
+        if passwordTextField.text == confirmPasswordTextField.text {
         
-        Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { [weak self] (authResult, error) in
-            guard let strongSelf = self else { return }
-            if let error = error {
-                print(error)
-                SVProgressHUD.showError(withStatus: error.localizedDescription)
-            }
-            else {
-                print("Registration Successful")
-                strongSelf.db.collection("users").document((authResult?.user.email)!).setData([
-                    "email": (authResult?.user.email)!,
-                    "uid": authResult!.user.uid
-                ]) { error in
-                    if let error = error {
-                        print("Error adding user: \(error)")
-                        SVProgressHUD.showError(withStatus: error.localizedDescription)
-                    } else {
-                        print("User added with ID: \(authResult!.user.email!)")
-                        strongSelf.defaults.set(authResult!.user.email, forKey: "userEmail")
-                        strongSelf.defaults.set(true, forKey: "userSignedIn")
-                        SVProgressHUD.dismiss()
-                        strongSelf.performSegue(withIdentifier: "GoToOverview", sender: self)
+            SVProgressHUD.show()
+            Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { [weak self] (authResult, error) in
+                guard let strongSelf = self else { return }
+                if let error = error {
+                    print(error)
+                    SVProgressHUD.showError(withStatus: error.localizedDescription)
+                }
+                else {
+                    print("Registration Successful")
+                    strongSelf.db.collection("users").document((authResult?.user.email)!).setData([
+                        "email": (authResult?.user.email)!,
+                        "uid": authResult!.user.uid
+                    ]) { error in
+                        if let error = error {
+                            print("Error adding user: \(error)")
+                            SVProgressHUD.showError(withStatus: error.localizedDescription)
+                        } else {
+                            print("User added with ID: \(authResult!.user.email!)")
+                            strongSelf.defaults.set(authResult!.user.email, forKey: "userEmail")
+                            strongSelf.defaults.set(true, forKey: "userSignedIn")
+                            SVProgressHUD.dismiss()
+                            strongSelf.performSegue(withIdentifier: "GoToOverview", sender: self)
+                        }
                     }
                 }
             }
+        }
+        else {
+            passwordTextField.resignFirstResponder()
+            confirmPasswordTextField.resignFirstResponder()
+            
+            let ac = UIAlertController(title: "Password Mismatch", message: "The passwords you entered do not match. Please make sure they are identical.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .cancel) { [weak self] (action) in
+                guard let strongSelf = self else { return }
+                
+                strongSelf.confirmPasswordTextField.text = ""
+                strongSelf.passwordTextField.becomeFirstResponder()
+            })
+            
+            present(ac, animated: true)
+            
         }
     }
     
@@ -107,6 +130,7 @@ class RegisterViewController: UIViewController {
     @objc func viewTapped() {
         emailTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()
+        confirmPasswordTextField.resignFirstResponder()
     }
     
     
@@ -148,6 +172,7 @@ class RegisterViewController: UIViewController {
 //MARK:- UITextFieldDelegate Method
 
 extension RegisterViewController: UITextFieldDelegate {
+    
     
     func addInputAccessoriesForTextFields(textFields: [UITextField], dismissable: Bool = true, previousNextable: Bool = false) {
         for (index, textField) in textFields.enumerated() {

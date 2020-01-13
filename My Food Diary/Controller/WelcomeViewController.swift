@@ -68,9 +68,9 @@ class WelcomeViewController: UIViewController {
             Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
                 guard let strongSelf = self else { return }
                 
-                if error != nil {
-                    print(error!)
-                    SVProgressHUD.showError(withStatus: error?.localizedDescription)
+                if let error = error {
+                    print(error)
+                    SVProgressHUD.showError(withStatus: error.localizedDescription)
                 }
                 else {
                     print("Log In Successful")
@@ -108,24 +108,31 @@ class WelcomeViewController: UIViewController {
                 
                 Auth.auth().signIn(withEmail: userEmail, password: userPassword) { (authResult, error) in
                     guard let user = authResult?.user else { return }
-                    strongSelf.foodDispatchGroup.enter()  // enter dispatchGroup to allow data to finish downloading before segue
-                    strongSelf.loadAllFoodData(user: user.email!, anonymous: true)
                     
-                    strongSelf.foodDispatchGroup.notify(queue: .main) {
-                        strongSelf.weightDispatchGroup.enter()
-                        strongSelf.loadAllWeightData(user: user.email!, anonymous: true, completed: { () in
-                    
-                            strongSelf.weightDispatchGroup.notify(queue: .main) {
-                                print("Anonymous User: \(user.email!) Successfully Logged In.")
-                                strongSelf.performSegue(withIdentifier: "GoToTabBar", sender: self)
-                                SVProgressHUD.dismiss()
-                            }
-                        })
+                    if let error = error {
+                        print(error)
+                        SVProgressHUD.showError(withStatus: error.localizedDescription)
+                    }
+                    else {
+                        strongSelf.foodDispatchGroup.enter()  // enter dispatchGroup to allow data to finish downloading before segue
+                        strongSelf.loadAllFoodData(user: user.email!, anonymous: true)
+                        
+                        strongSelf.foodDispatchGroup.notify(queue: .main) {
+                            strongSelf.weightDispatchGroup.enter()
+                            strongSelf.loadAllWeightData(user: user.email!, anonymous: true, completed: { () in
+                        
+                                strongSelf.weightDispatchGroup.notify(queue: .main) {
+                                    print("Anonymous User: \(user.email!) Successfully Logged In.")
+                                    strongSelf.performSegue(withIdentifier: "GoToTabBar", sender: self)
+                                    SVProgressHUD.dismiss()
+                                }
+                            })
+                        }
                     }
                 }
             }
             else {
-            
+            // if user has not used the app before, sign them in anonymously and assign the device a dummy account to use for future
                 Auth.auth().signInAnonymously() { (authResult, error) in
                     
                     if let error = error {

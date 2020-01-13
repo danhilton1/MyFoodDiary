@@ -129,6 +129,7 @@ extension Food {
                                 
                                     for foodDocument in foods!.documents {
                                         let foodToAdd = Food(snapshot: foodDocument)
+
                                         // Check if the food already exists and just needs updating rather than adding again.
                                         if foodToAdd.dateLastEdited! > foodToAdd.dateCreated! {
                                             for food in allFood {
@@ -146,7 +147,7 @@ extension Food {
                                                     food.numberOfTimesAdded = foodToAdd.numberOfTimesAdded
                                                     print("\(foodToAdd.name!) updated.")
                                                 }
-                                                // if new food has been added AND edited before synced to other it needs to be ADDED to allFood instead of updating existing entry
+                                                // if new food has been added AND edited before synced to other it needs to be ADDED to allFood instead of updating existing entry. also currently doesn't work if more than one entry has been updated. Also doesn't work if an entry has been permanently deleted.
                                             }
                                         }
                                         else {

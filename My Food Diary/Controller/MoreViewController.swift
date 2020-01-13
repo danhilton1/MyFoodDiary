@@ -43,7 +43,7 @@ class MoreViewController: UITableViewController {
                     strongSelf.defaults.removeObject(forKey: "userPassword")
                     strongSelf.defaults.set(false, forKey: "userSignedIn")
                     
-                    let welcomeVC = strongSelf.storyboard?.instantiateViewController(withIdentifier: "WelcomeVC") as! WelcomeViewController
+                    let welcomeVC = strongSelf.storyboard?.instantiateViewController(withIdentifier: "WelcomeNav") as! UINavigationController
                     strongSelf.present(welcomeVC, animated: true)
                 }
             }

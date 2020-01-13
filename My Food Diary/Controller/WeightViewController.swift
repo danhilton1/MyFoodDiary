@@ -179,7 +179,7 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let ac = UIAlertController(title: "Goal Weight", message: "Please set your goal weight", preferredStyle: .alert)
         
         ac.addTextField { (textField) in
-            textField.text = "\(self.defaults.value(forKey: "GoalWeight") ?? 0)"
+            textField.text = "\(self.defaults.value(forKey: "GoalWeight") ?? "")"
             textField.placeholder = "Enter value here"
             textField.keyboardType = .decimalPad
         }
