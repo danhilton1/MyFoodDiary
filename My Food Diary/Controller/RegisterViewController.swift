@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import SVProgressHUD
+import SwiftKeychainWrapper
 
 class RegisterViewController: UIViewController {
     
@@ -95,6 +96,7 @@ class RegisterViewController: UIViewController {
                         } else {
                             print("User added with ID: \(authResult!.user.email!)")
                             strongSelf.defaults.set(authResult!.user.email, forKey: "userEmail")
+                            KeychainWrapper.standard.set(strongSelf.passwordTextField.text!, forKey: "userPassword")
                             strongSelf.defaults.set(true, forKey: "userSignedIn")
                             SVProgressHUD.dismiss()
                             strongSelf.performSegue(withIdentifier: "GoToOverview", sender: self)

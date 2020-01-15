@@ -8,11 +8,9 @@
 
 import UIKit
 import Charts
-import RealmSwift
 
 class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    let realm = try! Realm()
     
 //    var foodList: Results<Food>?
 //    var foodListCopy: Results<Food>?

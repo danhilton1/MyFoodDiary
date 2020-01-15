@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import RealmSwift
 import Firebase
 
 class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
@@ -19,7 +18,6 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var weightTextField: UITextField!
     
     let db = Firestore.firestore()
-    let realm = try! Realm()
     
     weak var delegate: WeightDelegate?
     let formatter = DateFormatter()

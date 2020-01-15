@@ -30,7 +30,7 @@ class MoreViewController: UITableViewController {
 
     @IBAction func logOutButtonTapped(_ sender: UIButton) {
         
-        let ac = UIAlertController(title: "Are You Sure?", message: "Do you wish to sign out of your account?", preferredStyle: .alert)
+        let ac = UIAlertController(title: "Log Out?", message: "Are you sure you wish to sign out of your account?", preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         ac.addAction(UIAlertAction(title: "Log Out", style: .destructive) { [weak self] (action) in
             guard let strongSelf = self else { return }

@@ -13,6 +13,7 @@ import Foundation
 class Food {
     
     // 100g values
+    var uuid = UUID().uuidString
     var date: String?
     var dateCreated: Date?
     var dateLastEdited: Date?

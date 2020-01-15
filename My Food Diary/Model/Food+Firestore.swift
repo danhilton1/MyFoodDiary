@@ -11,6 +11,7 @@ import Firebase
 
 enum FoodsCollection {
     static let collection = "foods"
+    static let uuid = "uuid"
     static let name = "name"
     static let meal = "meal"
     static let date = "date"
@@ -35,6 +36,7 @@ extension Food {
     convenience init(snapshot: QueryDocumentSnapshot) {
         self.init()
         let foodDictionary = snapshot.data()
+        self.uuid = foodDictionary["uuid"] as! String
         self.name = foodDictionary["name"] as? String
         self.meal = foodDictionary["meal"] as? String
         self.date = foodDictionary["date"] as? String
@@ -57,6 +59,7 @@ extension Food {
         let fc = FoodsCollection.self
         
         db.collection("users").document(user).collection(fc.collection).document(self.name!).setData([
+            fc.uuid: self.uuid,
             fc.name: self.name!,
             fc.meal: self.meal ?? Food.Meal.other,
             fc.date: self.date!,
@@ -126,14 +129,16 @@ extension Food {
                                     }
                                 }
                                 else {
-                                
                                     for foodDocument in foods!.documents {
                                         let foodToAdd = Food(snapshot: foodDocument)
-
+                                        
                                         // Check if the food already exists and just needs updating rather than adding again.
                                         if foodToAdd.dateLastEdited! > foodToAdd.dateCreated! {
+                                            var uuidArray = [String]()
                                             for food in allFood {
-                                                if foodToAdd.name == food.name {
+                                                uuidArray.append(food.uuid)
+                                                
+                                                if foodToAdd.uuid == food.uuid {
                                                     food.dateLastEdited = foodToAdd.dateLastEdited
                                                     food.meal = foodToAdd.meal
                                                     food.servingSize = foodToAdd.servingSize
@@ -147,7 +152,11 @@ extension Food {
                                                     food.numberOfTimesAdded = foodToAdd.numberOfTimesAdded
                                                     print("\(foodToAdd.name!) updated.")
                                                 }
-                                                // if new food has been added AND edited before synced to other it needs to be ADDED to allFood instead of updating existing entry. also currently doesn't work if more than one entry has been updated. Also doesn't work if an entry has been permanently deleted.
+                                                // doesn't work if an entry has been permanently deleted.
+                                            }
+                                            if !uuidArray.contains(foodToAdd.uuid) {
+                                                allFood.append(foodToAdd)
+                                                print("\(foodToAdd.name!) edited and added.")
                                             }
                                         }
                                         else {

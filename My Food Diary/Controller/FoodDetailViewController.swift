@@ -7,12 +7,10 @@
 //
 
 import UIKit
-import RealmSwift
 import Firebase
 
 class FoodDetailViewController: UITableViewController {
     
-    let realm = try! Realm()
     let db = Firestore.firestore()
     
     //MARK:- Properties

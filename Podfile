@@ -6,11 +6,11 @@ target 'My Food Diary' do
 
   # Pods for Eat Me
 
-pod 'RealmSwift'
 pod 'Charts'
 pod 'Firebase/Analytics'
 pod 'Firebase/Auth'
 pod 'Firebase/Firestore'
 pod 'SVProgressHUD'
+pod 'SwiftKeychainWrapper'
 
 end

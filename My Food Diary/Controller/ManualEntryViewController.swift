@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import RealmSwift
 import Firebase
 
 protocol NewEntryDelegate: class {
@@ -18,7 +17,6 @@ protocol NewEntryDelegate: class {
 
 class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
     
-    let realm = try! Realm()
     let db = Firestore.firestore()
     
     weak var delegate: NewEntryDelegate?

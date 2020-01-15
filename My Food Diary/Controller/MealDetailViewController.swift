@@ -7,12 +7,10 @@
 //
 
 import UIKit
-import RealmSwift
 import Firebase
 
 class MealDetailViewController: UITableViewController, NewEntryDelegate {
     
-    let realm = try! Realm()
     let db = Firestore.firestore()
     
     var calories = 0

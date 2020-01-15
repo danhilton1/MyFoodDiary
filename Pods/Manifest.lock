@@ -119,23 +119,19 @@ PODS:
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
   - Protobuf (3.9.2)
-  - Realm (3.19.0):
-    - Realm/Headers (= 3.19.0)
-  - Realm/Headers (3.19.0)
-  - RealmSwift (3.19.0):
-    - Realm (= 3.19.0)
   - SVProgressHUD (2.2.5)
+  - SwiftKeychainWrapper (3.4.0)
 
 DEPENDENCIES:
   - Charts
   - Firebase/Analytics
   - Firebase/Auth
   - Firebase/Firestore
-  - RealmSwift
   - SVProgressHUD
+  - SwiftKeychainWrapper
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - BoringSSL-GRPC
     - Charts
     - Firebase
@@ -157,9 +153,9 @@ SPEC REPOS:
     - leveldb-library
     - nanopb
     - Protobuf
-    - Realm
-    - RealmSwift
     - SVProgressHUD
+  trunk:
+    - SwiftKeychainWrapper
 
 SPEC CHECKSUMS:
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
@@ -183,10 +179,9 @@ SPEC CHECKSUMS:
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Protobuf: 67fb42ba613def994e61854de2b3164f13790cc4
-  Realm: 995d585bcf699aaff226715886c849a29dd3d07f
-  RealmSwift: 35f284a537989f2187b413e5917091948cb87a3f
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+  SwiftKeychainWrapper: 6fc49fbf7d4a6b0772917acb0e53a1639f6078d6
 
-PODFILE CHECKSUM: 48fb6c151cbf1fd85d5ee637b68f1a2414e0ca41
+PODFILE CHECKSUM: 198651b4ced96f86e630aaaea861e7c8c3d40ebb
 
-COCOAPODS: 1.7.0
+COCOAPODS: 1.8.4

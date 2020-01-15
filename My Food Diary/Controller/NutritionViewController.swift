@@ -8,13 +8,11 @@
 
 import UIKit
 import Charts
-import RealmSwift
 
 class NutritionViewController: UIViewController {
     
     //MARK: - Properties and Objects
     
-    let realm = try! Realm()
     let calendar = Calendar.current
     
     @IBOutlet weak var segmentedControl: UISegmentedControl!

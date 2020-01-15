@@ -6,7 +6,7 @@
 //  Copyright © 2019 Daniel Hilton. All rights reserved.
 //
 
-import RealmSwift
+import Foundation
 
 
 class Weight {

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import RealmSwift
 import Charts
 import Firebase
 
@@ -21,7 +20,7 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var dateLabel: UILabel!
     
     let db = Firestore.firestore()
-    let realm = try! Realm()
+
 //    var weightEntries: Results<Weight>?
 //    private var allWeightEntries: Results<Weight>?
     var weightEntries: [Weight]?

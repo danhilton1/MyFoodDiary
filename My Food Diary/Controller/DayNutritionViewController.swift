@@ -8,12 +8,9 @@
 
 import UIKit
 import Charts
-import RealmSwift
 
 class DayNutritionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    
-    let realm = try! Realm()
     
     @IBOutlet weak var tableView: UITableView!
     

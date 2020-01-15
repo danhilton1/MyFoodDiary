@@ -7,12 +7,10 @@
 //
 
 import UIKit
-import RealmSwift
 import Firebase
 
 class NewEntryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    let realm = try! Realm()
     let db = Firestore.firestore()
     
     @IBOutlet weak var tableView: UITableView!

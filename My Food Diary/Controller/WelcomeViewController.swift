@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import SVProgressHUD
+import SwiftKeychainWrapper
 
 class WelcomeViewController: UIViewController {
     
@@ -64,8 +65,8 @@ class WelcomeViewController: UIViewController {
         if defaults.bool(forKey: "userSignedIn") {
             SVProgressHUD.show()
             let email = defaults.value(forKey: "userEmail") as! String
-            let password = defaults.value(forKey: "userPassword") as! String
-            Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
+            let password = KeychainWrapper.standard.string(forKey: "userPassword")
+            Auth.auth().signIn(withEmail: email, password: password!) { [weak self] authResult, error in
                 guard let strongSelf = self else { return }
                 
                 if let error = error {
@@ -104,9 +105,9 @@ class WelcomeViewController: UIViewController {
             // Check if user has already used the app and if so, sign into their anonymous account and load locally stored data
             if let userEmail = strongSelf.defaults.value(forKey: "anonymousUserEmail") as? String {
                 
-                let userPassword = strongSelf.defaults.value(forKey: "anonymousUserPassword") as! String
+                let userPassword = KeychainWrapper.standard.string(forKey: "anonymousUserPassword")
                 
-                Auth.auth().signIn(withEmail: userEmail, password: userPassword) { (authResult, error) in
+                Auth.auth().signIn(withEmail: userEmail, password: userPassword!) { (authResult, error) in
                     guard let user = authResult?.user else { return }
                     
                     if let error = error {
@@ -144,7 +145,8 @@ class WelcomeViewController: UIViewController {
                         let email = "\(user.uid)@anonymous.com"
                         let password = "password"
                         strongSelf.defaults.set(email, forKey: "anonymousUserEmail")
-                        strongSelf.defaults.set(password, forKey: "anonymousUserPassword")
+                        KeychainWrapper.standard.set(password, forKey: "anonymousUserPassword")
+//                        strongSelf.defaults.set(password, forKey: "anonymousUserPassword")
                         
                         Auth.auth().createUser(withEmail: email, password: password) { (newUser, error) in
                             if let error = error {

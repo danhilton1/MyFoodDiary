@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import SVProgressHUD
+import SwiftKeychainWrapper
 
 
 class LogInViewController: UIViewController {
@@ -119,8 +120,9 @@ class LogInViewController: UIViewController {
                 
                         strongSelf.weightDispatchGroup.notify(queue: .main) {
                             strongSelf.defaults.set(authResult!.user.email, forKey: "userEmail")
-                            strongSelf.defaults.set(strongSelf.passwordTextField.text, forKey: "userPassword")
+                            //strongSelf.defaults.set(strongSelf.passwordTextField.text, forKey: "userPassword")
                             strongSelf.defaults.set(true, forKey: "userSignedIn")
+                            KeychainWrapper.standard.set(strongSelf.passwordTextField.text!, forKey: "userPassword")
                             strongSelf.performSegue(withIdentifier: "GoToTabBar", sender: self)
                             SVProgressHUD.dismiss()
                         }
