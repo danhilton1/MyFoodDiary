@@ -202,6 +202,9 @@ class WelcomeViewController: UIViewController {
             let weightVC = weightNavController.viewControllers.first as! WeightViewController
             weightVC.allWeightEntries = allWeight
             
+            let moreNavController = tabController.viewControllers?[2] as! UINavigationController
+            let moreVC = moreNavController.viewControllers.first as! MoreViewController
+            moreVC.allFood = allFood
         }
     }
 

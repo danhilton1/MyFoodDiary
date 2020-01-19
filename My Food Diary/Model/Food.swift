@@ -70,6 +70,7 @@ class Food {
     
     func copy(with zone: NSZone? = nil) -> Food {
         let copy = Food()
+        copy.uuid = self.uuid
         copy.date = self.date
         copy.dateCreated = self.dateCreated
         copy.dateLastEdited = self.dateLastEdited

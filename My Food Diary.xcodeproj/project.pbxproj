@@ -52,6 +52,9 @@
 		37BBEBFB235659F600D390E5 /* LineChartCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37BBEBF9235659F600D390E5 /* LineChartCell.xib */; };
 		37C2E37C2387365B006A4C51 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C2E37B2387365B006A4C51 /* WelcomeViewController.swift */; };
 		37CA772D22A1BB4F00C03A06 /* ManualEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CA772C22A1BB4F00C03A06 /* ManualEntryViewController.swift */; };
+		37D5136F23D4A8AF00780CD1 /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D5136E23D4A8AF00780CD1 /* StatsViewController.swift */; };
+		37D5137123D4BA1800780CD1 /* GoalsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D5137023D4BA1800780CD1 /* GoalsViewController.swift */; };
+		37D5137323D4BC0D00780CD1 /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D5137223D4BC0D00780CD1 /* UserDefaultsKeys.swift */; };
 		37DE59D722D1055D00079A6A /* OverviewPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DE59D622D1055D00079A6A /* OverviewPageViewController.swift */; };
 		37DE71072351097900B1C4AC /* NutritionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DE71062351097900B1C4AC /* NutritionViewController.swift */; };
 		37E0C03323800020005FEB29 /* NewWeightEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E0C03223800020005FEB29 /* NewWeightEntryViewController.swift */; };
@@ -106,6 +109,9 @@
 		37BBEBF9235659F600D390E5 /* LineChartCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LineChartCell.xib; sourceTree = "<group>"; };
 		37C2E37B2387365B006A4C51 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		37CA772C22A1BB4F00C03A06 /* ManualEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualEntryViewController.swift; sourceTree = "<group>"; };
+		37D5136E23D4A8AF00780CD1 /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
+		37D5137023D4BA1800780CD1 /* GoalsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsViewController.swift; sourceTree = "<group>"; };
+		37D5137223D4BC0D00780CD1 /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
 		37DE59D622D1055D00079A6A /* OverviewPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewPageViewController.swift; sourceTree = "<group>"; };
 		37DE71062351097900B1C4AC /* NutritionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionViewController.swift; sourceTree = "<group>"; };
 		37E0C03223800020005FEB29 /* NewWeightEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWeightEntryViewController.swift; sourceTree = "<group>"; };
@@ -172,6 +178,7 @@
 				3713FFE4237F433C000D1E50 /* Weight.swift */,
 				37A8AEB423A2DDFE002DCA43 /* Food+Firestore.swift */,
 				3723E68B23B4CFF3003C1EB0 /* Weight+Firestore.swift */,
+				37D5137223D4BC0D00780CD1 /* UserDefaultsKeys.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -211,6 +218,8 @@
 				37E0C03223800020005FEB29 /* NewWeightEntryViewController.swift */,
 				372E70DC2381A783001DCB06 /* MoreViewController.swift */,
 				37B9BD3E23CB9F3000864540 /* MyAccountViewController.swift */,
+				37D5136E23D4A8AF00780CD1 /* StatsViewController.swift */,
+				37D5137023D4BA1800780CD1 /* GoalsViewController.swift */,
 				377208B42291A1F8002DDA29 /* AppDelegate.swift */,
 			);
 			path = Controller;
@@ -386,7 +395,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				37C2E37C2387365B006A4C51 /* WelcomeViewController.swift in Sources */,
+				37D5136F23D4A8AF00780CD1 /* StatsViewController.swift in Sources */,
 				37CA772D22A1BB4F00C03A06 /* ManualEntryViewController.swift in Sources */,
+				37D5137123D4BA1800780CD1 /* GoalsViewController.swift in Sources */,
 				377A57D2233F896100D816DD /* Color.swift in Sources */,
 				37360AF723520BCC00AA02A2 /* WeekNutritionViewController.swift in Sources */,
 				37DE59D722D1055D00079A6A /* OverviewPageViewController.swift in Sources */,
@@ -405,6 +416,7 @@
 				376CD1D8238F095000257076 /* LogInTextField.swift in Sources */,
 				3713FFE5237F433C000D1E50 /* Weight.swift in Sources */,
 				378F9199231AC204007142AA /* FoodHistoryCell.swift in Sources */,
+				37D5137323D4BC0D00780CD1 /* UserDefaultsKeys.swift in Sources */,
 				37BBEBFA235659F600D390E5 /* LineChartCell.swift in Sources */,
 				376CD1D6238F046900257076 /* LogInViewController.swift in Sources */,
 				377208B72291A1F8002DDA29 /* OverviewViewController.swift in Sources */,

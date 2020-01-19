@@ -185,7 +185,7 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         
         ac.addAction(UIAlertAction(title: "Set", style: .default, handler: { (UIAlertAction) in
-            self.defaults.setValue(Double(ac.textFields![0].text ?? "0"), forKey: "GoalWeight")
+            self.defaults.setValue(Double(ac.textFields![0].text ?? "0"), forKey: UserDefaultsKeys.goalWeight)
             self.goalWeightLabel.text = "\(self.defaults.value(forKey: "GoalWeight") ?? 0) \(self.allWeightEntries?.last?.unit ?? "kg")"
             let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! LineChartCell
             cell.goalValueLabel.text = "\(self.defaults.value(forKey: "GoalWeight") ?? 0) \(self.allWeightEntries?.last?.unit ?? "kg")"

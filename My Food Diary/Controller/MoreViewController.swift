@@ -13,6 +13,8 @@ import SVProgressHUD
 class MoreViewController: UITableViewController {
     
     private let defaults = UserDefaults()
+    
+    var allFood: [Food]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,6 +67,10 @@ class MoreViewController: UITableViewController {
             VC.navigationController?.navigationBar.tintColor = .white
             VC.navigationItem.leftBarButtonItem = nil
             
+        }
+        else if segue.identifier == "GoToStats" {
+            let VC = segue.destination as! StatsViewController
+            VC.allFood = allFood
         }
         
     }

@@ -23,7 +23,7 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
     weak var mealDelegate: NewEntryDelegate?
     var date: Date?
     var selectedSegmentIndex = 0
-    private var activeField: UITextField?
+    //private var activeField: UITextField?
     private let formatter = DateFormatter()
 
     private var workingCopy: Food = Food()

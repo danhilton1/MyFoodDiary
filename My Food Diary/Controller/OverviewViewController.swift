@@ -32,6 +32,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     private let defaults = UserDefaults()
     private let food = Food()
     private var totalCalories = 0
+    private var remainingCalories = 0
     private var calorieArray = [Int]()
     private var proteinArray = [Double]()
     private var carbsArray = [Double]()
@@ -63,7 +64,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var eatMeTableView: UITableView!
     @IBOutlet weak var totalCaloriesLabel: UILabel!
     @IBOutlet weak var goalCaloriesLabel: UILabel!
-    
+    @IBOutlet weak var remainingCaloriesLabel: UILabel!
     
     //MARK: - view Methods
 
@@ -79,7 +80,6 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         configureDateView()
         //loadAllFood()
         loadFirebaseData()
-        goalCaloriesLabel.text = "\(defaults.value(forKey: "GoalCalories") ?? 0)"
         
         setUpToolBar()
         datePicker.datePickerMode = .date
@@ -92,6 +92,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         super.viewWillAppear(true)
         //loadAllFood()
         loadFirebaseData()
+        configureTotalCaloriesLabel()
         presentingViewController?.tabBarController?.tabBar.isHidden = false
         tabBarController?.tabBar.isHidden = false
     }
@@ -127,15 +128,19 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     private func configureTotalCaloriesLabel() {
-        guard let goalCalories = defaults.value(forKey: "GoalCalories") as? Int else { return }
+        guard let goalCalories = defaults.value(forKey: UserDefaultsKeys.goalCalories) as? Int else { return }
+        goalCaloriesLabel.text = "\(goalCalories)"
         if totalCalories < (goalCalories - 500) || totalCalories > (goalCalories + 500) || goalCalories == 0 {
             totalCaloriesLabel.textColor = Color.salmon
+            remainingCaloriesLabel.textColor = Color.salmon
         }
         else if totalCalories >= (goalCalories - 500) && totalCalories <= (goalCalories + 500) && totalCalories != goalCalories {
             totalCaloriesLabel.textColor = .systemOrange
+            remainingCaloriesLabel.textColor = .systemOrange
         }
         else {
             totalCaloriesLabel.textColor = Color.mint
+            remainingCaloriesLabel.textColor = Color.mint
         }
     }
     
@@ -182,6 +187,9 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         var tempTotalCalories = 0
         tempTotalCalories = totalCalsArray.reduce(0, +)
         totalCalories = tempTotalCalories
+        let goalCalories = defaults.value(forKey: UserDefaultsKeys.goalCalories) as? Int ?? totalCalories
+        remainingCalories = goalCalories - totalCalories
+        remainingCaloriesLabel.text = "\(remainingCalories)"
         totalCaloriesLabel.text = "\(tempTotalCalories)"
         configureTotalCaloriesLabel()
         totalCalsArray = []
@@ -402,7 +410,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             else {
                 
                 for foodEntry in allFood! {
-                    if foodEntry.name == food.name {
+                    if foodEntry.uuid == food.uuid {
                         foodEntry.date = food.date
                         foodEntry.dateCreated = food.dateCreated
                         foodEntry.dateLastEdited = food.dateLastEdited
