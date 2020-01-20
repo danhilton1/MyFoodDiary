@@ -139,18 +139,25 @@ extension Food {
                                                 uuidArray.append(food.uuid)
                                                 
                                                 if foodToAdd.uuid == food.uuid {
-                                                    food.dateLastEdited = foodToAdd.dateLastEdited
-                                                    food.meal = foodToAdd.meal
-                                                    food.servingSize = foodToAdd.servingSize
-                                                    food.servingSizeUnit = foodToAdd.servingSizeUnit
-                                                    food.serving = foodToAdd.serving
-                                                    food.calories = foodToAdd.calories
-                                                    food.protein = foodToAdd.protein
-                                                    food.carbs = foodToAdd.carbs
-                                                    food.fat = foodToAdd.fat
-                                                    food.isDeleted = foodToAdd.isDeleted
-                                                    food.numberOfTimesAdded = foodToAdd.numberOfTimesAdded
-                                                    print("\(foodToAdd.name!) updated.")
+                                                    if foodToAdd.numberOfTimesAdded > food.numberOfTimesAdded {
+                                                        allFood.append(foodToAdd)
+                                                        print("Existing food added.")
+                                                    }
+                                                    else {
+                                                        food.dateLastEdited = foodToAdd.dateLastEdited
+    //                                                    food.date = foodToAdd.date
+                                                        food.meal = foodToAdd.meal
+                                                        food.servingSize = foodToAdd.servingSize
+                                                        food.servingSizeUnit = foodToAdd.servingSizeUnit
+                                                        food.serving = foodToAdd.serving
+                                                        food.calories = foodToAdd.calories
+                                                        food.protein = foodToAdd.protein
+                                                        food.carbs = foodToAdd.carbs
+                                                        food.fat = foodToAdd.fat
+                                                        food.isDeleted = foodToAdd.isDeleted
+                                                        food.numberOfTimesAdded = foodToAdd.numberOfTimesAdded
+                                                        print("\(foodToAdd.name!) updated.")
+                                                    }
                                                 }
                                                 // doesn't work if an entry has been permanently deleted.
                                             }

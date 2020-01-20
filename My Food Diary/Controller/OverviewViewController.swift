@@ -150,26 +150,6 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     
     //MARK:- Data methods
     
-//    func loadAllFood() {
-//
-//        formatter.dateFormat = "E, d MMM"
-//
-//        foodList = realm.objects(Food.self)
-//        let predicate = NSPredicate(format: "date contains[c] %@", formatter.string(from: date ?? Date()))
-//        foodList = foodList?.filter(predicate)
-//        let deletedPredicate = NSPredicate(format: "isDeleted == FALSE")
-//        foodList = foodList?.filter(deletedPredicate)
-        
-//        totalCalsArray = (foodList?.value(forKey: "calories")) as! [Int]
-//        totalCalories = totalCalsArray.reduce(0, +)
-//        totalCaloriesLabel.text = "\(totalCalories)"
-//        configureTotalCaloriesLabel()
-        
-//        eatMeTableView.reloadData()
-//
-//    }
-    
-    
     func loadFirebaseData() {
         
         formatter.dateFormat = "E, d MMM"

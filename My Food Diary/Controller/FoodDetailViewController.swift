@@ -145,9 +145,8 @@ class FoodDetailViewController: UITableViewController {
             navigationController?.popViewController(animated: true)
         }
         else if isAddingFromExistingEntry {
-            print(workingCopy)
-            delegate?.reloadFood(entry: workingCopy, new: false)
-            mealDelegate?.reloadFood(entry: workingCopy, new: false)
+            delegate?.reloadFood(entry: workingCopy, new: true)
+            mealDelegate?.reloadFood(entry: workingCopy, new: true)
             dismissViewWithAnimation()
         }
         else {

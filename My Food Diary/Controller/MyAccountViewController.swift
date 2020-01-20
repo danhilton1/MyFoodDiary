@@ -8,15 +8,24 @@
 
 import UIKit
 import Firebase
+import SVProgressHUD
+import SwiftKeychainWrapper
 
 class MyAccountViewController: UITableViewController {
 
     let popUpView = UIView()
     let dimmedView = UIView()
+    var detailToChange = detailsToChange.password
+    var newEmail: String?
+    var newPassword: String?
+    let defaults = UserDefaults()
     
     var centerYconstraint = NSLayoutConstraint()
     
     @IBOutlet weak var emailLabel: UILabel!
+    let emailTextField = UITextField()
+    let passwordTextField = UITextField()
+    let newItemTextField = UITextField()
     
     enum detailsToChange {
         static let email = "email"
@@ -34,7 +43,10 @@ class MyAccountViewController: UITableViewController {
         dimmedView.isUserInteractionEnabled = true
         tableView.isUserInteractionEnabled = true
         //popUpView.isUserInteractionEnabled = true
-        
+        if UIScreen.main.bounds.height < 700 {
+            emailLabel.frame.size.height = 70
+//            emailLabel.heightAnchor.constraint(equalToConstant: 70).isActive = true
+        }
         
         
         
@@ -47,14 +59,14 @@ class MyAccountViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         navigationController?.navigationBar.tintColor = .white
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: self.view.window)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: self.view.window)
+//        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: self.view.window)
+//        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: self.view.window)
     }
 
     // MARK: - Button Methods
@@ -62,22 +74,57 @@ class MyAccountViewController: UITableViewController {
     
     @IBAction func changeEmailTapped(_ sender: UIButton) {
         displayPopUpView(itemToChange: detailsToChange.email)
+        detailToChange = detailsToChange.email
     }
     
     @IBAction func changePasswordTapped(_ sender: UIButton) {
         displayPopUpView(itemToChange: detailsToChange.password)
+        detailToChange = detailsToChange.password
     }
     
     @objc func confirmButtonTapped(_ sender: UIButton) {
-        UIView.animate(withDuration: 0.3) {
-            self.popUpView.alpha = 0
-            self.dimmedView.alpha = 0
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            self.popUpView.removeFromSuperview()
-            self.dimmedView.removeFromSuperview()
-            self.popUpView.subviews[self.popUpView.subviews.count - 2].removeFromSuperview()
-            self.popUpView.subviews[self.popUpView.subviews.count - 2].removeFromSuperview()
+        
+        if let newDetailText = newItemTextField.text {
+            if emailTextField.text == (defaults.value(forKey: UserDefaultsKeys.userEmail) as? String) && passwordTextField.text == KeychainWrapper.standard.string(forKey: "userPassword") {
+                if detailToChange == detailsToChange.email {
+                    Auth.auth().currentUser?.updateEmail(to: newDetailText) { (error) in
+                        if let error = error {
+                            print("Error updating email - \(error)")
+                            SVProgressHUD.showError(withStatus: error.localizedDescription)
+                        }
+                        else {
+                            self.defaults.set(newDetailText, forKey: UserDefaultsKeys.userEmail)
+                            SVProgressHUD.showSuccess(withStatus: "Email successfully updated!")
+                        }
+                    }
+                }
+                else {
+                    Auth.auth().currentUser?.updatePassword(to: newDetailText) { (error) in
+                        if let error = error {
+                            print("Error updating password - \(error)")
+                            SVProgressHUD.showError(withStatus: error.localizedDescription)
+                        }
+                        else {
+                            KeychainWrapper.standard.set(newDetailText, forKey: "userPassword")
+                            SVProgressHUD.showSuccess(withStatus: "Password successfully updated!")
+                        }
+                    }
+                }
+                
+                UIView.animate(withDuration: 0.3) {
+                    self.popUpView.alpha = 0
+                    self.dimmedView.alpha = 0
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    self.popUpView.removeFromSuperview()
+                    self.dimmedView.removeFromSuperview()
+                    self.popUpView.subviews[self.popUpView.subviews.count - 2].removeFromSuperview()
+                    self.popUpView.subviews[self.popUpView.subviews.count - 2].removeFromSuperview()
+                }
+            }
+            else {
+                SVProgressHUD.showError(withStatus: "Entered user details do not match account details. Please enter correct information.")
+            }
         }
     }
     
@@ -121,12 +168,11 @@ class MyAccountViewController: UITableViewController {
         cancelButton.setImage(UIImage(named: "Cancel-Icon"), for: .normal)
         cancelButton.addTarget(self, action: #selector(viewTapped), for: .touchUpInside)
         
-        let emailLabel = UILabel()
-        emailLabel.translatesAutoresizingMaskIntoConstraints = false
-        emailLabel.font = UIFont(name: "Montserrat-Medium", size: 18)!
-        emailLabel.text = "Email Address"
+        let popUpEmailLabel = UILabel()
+        popUpEmailLabel.translatesAutoresizingMaskIntoConstraints = false
+        popUpEmailLabel.font = UIFont(name: "Montserrat-Medium", size: 18)!
+        popUpEmailLabel.text = "Email Address"
         
-        let emailTextField = UITextField()
         emailTextField.translatesAutoresizingMaskIntoConstraints = false
         emailTextField.font = UIFont(name: "Montserrat-Regular", size: 15)!
         emailTextField.textColor = .darkGray
@@ -139,7 +185,6 @@ class MyAccountViewController: UITableViewController {
         passwordLabel.font = UIFont(name: "Montserrat-Medium", size: 18)!
         passwordLabel.text = "Password"
         
-        let passwordTextField = UITextField()
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         passwordTextField.font = UIFont(name: "Montserrat-Regular", size: 15)!
         passwordTextField.placeholder = "Enter your password here"
@@ -150,12 +195,12 @@ class MyAccountViewController: UITableViewController {
         newItemLabel.font = UIFont(name: "Montserrat-Medium", size: 18)!
         newItemLabel.text = "New \(itemToChange.capitalized)"
         
-        let newItemTextField = UITextField()
         newItemTextField.translatesAutoresizingMaskIntoConstraints = false
         newItemTextField.font = UIFont(name: "Montserrat-Regular", size: 15)!
         newItemTextField.placeholder = "Enter your new \(itemToChange) here"
         newItemTextField.autocapitalizationType = .none
         newItemTextField.keyboardType = .emailAddress
+        newItemTextField.autocorrectionType = .no
         if itemToChange == detailsToChange.password {
             newItemTextField.isSecureTextEntry = true
             newItemTextField.keyboardType = .default
@@ -171,7 +216,7 @@ class MyAccountViewController: UITableViewController {
         confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
         
         popUpView.addSubview(cancelButton)
-        popUpView.addSubview(emailLabel)
+        popUpView.addSubview(popUpEmailLabel)
         popUpView.addSubview(emailTextField)
         popUpView.addSubview(passwordLabel)
         popUpView.addSubview(passwordTextField)
@@ -180,12 +225,14 @@ class MyAccountViewController: UITableViewController {
         popUpView.addSubview(confirmButton)
         
         view.addSubview(popUpView)
+        
 //        centerYconstraint = NSLayoutConstraint(item: popUpView, attribute: .centerY, relatedBy: .equal, toItem: view, attribute: .centerY, multiplier: 1, constant: 0)
 //        centerYconstraint = popUpView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         
         NSLayoutConstraint.activate([
+            popUpView.topAnchor.constraint(equalTo: emailLabel.bottomAnchor, constant: 30),
             popUpView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            popUpView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+//            popUpView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             popUpView.widthAnchor.constraint(equalToConstant: 300),
             popUpView.heightAnchor.constraint(equalToConstant: 300),
             
@@ -194,12 +241,12 @@ class MyAccountViewController: UITableViewController {
             cancelButton.topAnchor.constraint(equalTo: popUpView.topAnchor, constant: 10),
             cancelButton.trailingAnchor.constraint(equalTo: popUpView.trailingAnchor, constant: -10),
             
-            emailLabel.topAnchor.constraint(equalTo: popUpView.topAnchor, constant: 30),
-            emailLabel.trailingAnchor.constraint(equalTo: popUpView.trailingAnchor, constant: 20),
-            emailLabel.leadingAnchor.constraint(equalTo: popUpView.leadingAnchor, constant: 20),
-            emailLabel.heightAnchor.constraint(equalToConstant: 20),
+            popUpEmailLabel.topAnchor.constraint(equalTo: popUpView.topAnchor, constant: 30),
+            popUpEmailLabel.trailingAnchor.constraint(equalTo: popUpView.trailingAnchor, constant: 20),
+            popUpEmailLabel.leadingAnchor.constraint(equalTo: popUpView.leadingAnchor, constant: 20),
+            popUpEmailLabel.heightAnchor.constraint(equalToConstant: 20),
             
-            emailTextField.topAnchor.constraint(equalTo: emailLabel.bottomAnchor, constant: 10),
+            emailTextField.topAnchor.constraint(equalTo: popUpEmailLabel.bottomAnchor, constant: 10),
             emailTextField.trailingAnchor.constraint(equalTo: popUpView.trailingAnchor, constant: 20),
             emailTextField.leadingAnchor.constraint(equalTo: popUpView.leadingAnchor, constant: 20),
             emailTextField.heightAnchor.constraint(equalToConstant: 20),
@@ -232,11 +279,21 @@ class MyAccountViewController: UITableViewController {
             //confirmButton.leadingAnchor.constraint(equalTo: popUpView.leadingAnchor, constant: 20),
             confirmButton.bottomAnchor.constraint(greaterThanOrEqualTo: popUpView.bottomAnchor, constant: -15)
         ])
-        
+        if UIScreen.main.bounds.height < 700 {
+            popUpView.topAnchor.constraint(equalTo: emailLabel.bottomAnchor, constant: 20).isActive = true
+            popUpView.widthAnchor.constraint(equalToConstant: 280).isActive = true
+            popUpView.heightAnchor.constraint(equalToConstant: 280).isActive = true
+            newItemLabel.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 28).isActive = true
+            confirmButton.bottomAnchor.constraint(equalTo: popUpView.bottomAnchor, constant: -12).isActive = true
+            confirmButton.topAnchor.constraint(equalTo: newItemTextField.bottomAnchor, constant: 12).isActive = true
+            confirmButton.layer.cornerRadius = 14
+        }
+//        popUpView.center = view.center
         dimmedView.backgroundColor = .black
         dimmedView.alpha = 0
         dimmedView.frame = view.frame
         view.addSubview(dimmedView)
+        view.bringSubviewToFront(emailLabel)
         view.bringSubviewToFront(popUpView)
         
         UIView.animate(withDuration: 0.3) {
@@ -246,31 +303,31 @@ class MyAccountViewController: UITableViewController {
         
     }
     
-    @objc func keyboardWillShow(notification: NSNotification) {
-        
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.popUpView.frame.origin.y == 254 {
-                UIView.animate(withDuration: 0.5) {
-                    if UIScreen.main.bounds.height < 700 {
-                        self.popUpView.frame.origin.y -= (keyboardSize.height - 60)
-                    }
-                    else {
-                        self.popUpView.frame.origin.y -= (keyboardSize.height - 220)
-
-//                        self.popUpView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = false
-                    }
-                }
-            }
-        }
-    }
-    
-    @objc func keyboardWillHide(notification: NSNotification) {
-        if self.popUpView.frame.origin.y != 254 {
-            UIView.animate(withDuration: 0.5) {
-                self.popUpView.frame.origin.y = 254
-            }
-        }
-    }
+//    @objc func keyboardWillShow(notification: NSNotification) {
+//
+//        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+//            if popUpView.frame.origin.y == 254 {
+//                UIView.animate(withDuration: 0.5) {
+//                    if UIScreen.main.bounds.height < 700 {
+//                        self.popUpView.frame.origin.y -= (keyboardSize.height - 60)
+//                    }
+//                    else {
+//                        self.popUpView.frame.origin.y -= (keyboardSize.height - 220)
+//
+////                        self.popUpView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = false
+//                    }
+//                }
+//            }
+//        }
+//    }
+//
+//    @objc func keyboardWillHide(notification: NSNotification) {
+//        if self.popUpView.frame.origin.y != 254 {
+//            UIView.animate(withDuration: 0.5) {
+//                self.popUpView.frame.origin.y = 254
+//            }
+//        }
+//    }
     
 
 }

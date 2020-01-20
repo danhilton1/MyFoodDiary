@@ -53,6 +53,12 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
         setUpLabels()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        tableView.reloadData()
+        setUpLabels()
+    }
+    
     //MARK:- Data methods
     
     func loadWeightEntries(date: Date?) {
@@ -79,7 +85,7 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
         var closestInterval: TimeInterval = .greatestFiniteMagnitude
         var mostCurrentEntry: Weight?
-        print(allWeightEntries)
+//        print(allWeightEntries)
         for entry in allWeightEntries! {
             let interval: TimeInterval = abs(entry.date.timeIntervalSinceNow)
             if interval < closestInterval {
@@ -87,13 +93,14 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 mostCurrentEntry = entry
             }
         }
-        if let currentWeight = mostCurrentEntry?.weight {
-            currentWeightLabel.text = "\(currentWeight) \(mostCurrentEntry?.unit ?? "kg")"
+        if var currentWeight = mostCurrentEntry?.weight {
+            currentWeightLabel.text = "\(currentWeight.removePointZeroEndingAndConvertToString()) \(mostCurrentEntry?.unit ?? "kg")"
         }
         else {
             currentWeightLabel.text = "0 kg"
         }
-        goalWeightLabel.text = "\(defaults.value(forKey: "GoalWeight") ?? "0") kg"
+        let goalWeightUnit = defaults.value(forKey: UserDefaultsKeys.goalWeightUnit) as? String
+        goalWeightLabel.text = "\(defaults.value(forKey: UserDefaultsKeys.goalWeight) ?? "0") \(goalWeightUnit ?? "kg")"
         
     }
     
@@ -183,12 +190,11 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
             textField.keyboardType = .decimalPad
         }
         
-        
         ac.addAction(UIAlertAction(title: "Set", style: .default, handler: { (UIAlertAction) in
             self.defaults.setValue(Double(ac.textFields![0].text ?? "0"), forKey: UserDefaultsKeys.goalWeight)
-            self.goalWeightLabel.text = "\(self.defaults.value(forKey: "GoalWeight") ?? 0) \(self.allWeightEntries?.last?.unit ?? "kg")"
+            self.goalWeightLabel.text = "\(self.defaults.value(forKey: UserDefaultsKeys.goalWeight) ?? 0) \(self.allWeightEntries?.last?.unit ?? "kg")"
             let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! LineChartCell
-            cell.goalValueLabel.text = "\(self.defaults.value(forKey: "GoalWeight") ?? 0) \(self.allWeightEntries?.last?.unit ?? "kg")"
+            cell.goalValueLabel.text = "\(self.defaults.value(forKey: UserDefaultsKeys.goalWeight) ?? 0) \(self.allWeightEntries?.last?.unit ?? "kg")"
             
         }))
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
@@ -247,6 +253,7 @@ extension WeightViewController {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        let goalWeightUnit = defaults.value(forKey: UserDefaultsKeys.goalWeightUnit) as? String
         let lastEntryUnit = allWeightEntries?.last?.unit ?? "kg"
         
         switch indexPath.section {
@@ -279,7 +286,7 @@ extension WeightViewController {
             cell.caloriesTitleLabel.text = "Weight"
             cell.caloriesTitleLabel.isHidden = true
             cell.averageTitleLabel.text = "Average Daily Weight:"
-            cell.goalValueLabel.text = "\(defaults.value(forKey: "GoalWeight") ?? 0) \(lastEntryUnit)"
+            cell.goalValueLabel.text = "\(defaults.value(forKey: UserDefaultsKeys.goalWeight) ?? 0) \(goalWeightUnit ?? lastEntryUnit)"
             cell.lineChart.topAnchor.constraint(equalTo: cell.topAnchor, constant: 10).isActive = true
             
             lineChartDataSet.colors = [Color.skyBlue]
@@ -392,7 +399,7 @@ extension WeightViewController {
             cell.lineChart.animate(yAxisDuration: 0.5)
 
             tableView.reloadData()
-
+            setUpLabels()
         }
     }
 }

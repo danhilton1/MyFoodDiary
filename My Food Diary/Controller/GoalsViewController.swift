@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import SVProgressHUD
 
-class GoalsViewController: UITableViewController {
+class GoalsViewController: UITableViewController, UITextFieldDelegate {
 
     //MARK:- Outlets
     @IBOutlet weak var caloriesGoalTextField: UITextField!
@@ -59,6 +59,8 @@ class GoalsViewController: UITableViewController {
         fatGoalTextField.text = defaults.value(forKey: UserDefaultsKeys.goalFat) as? String
         var goalWeight = defaults.value(forKey: UserDefaultsKeys.goalWeight) as? Double ?? 0
         weightGoalTextField.text = goalWeight.removePointZeroEndingAndConvertToString()
+        let weightUnit = defaults.value(forKey: UserDefaultsKeys.goalWeightUnit) as? String
+        weightUnitButton.setTitle(weightUnit ?? "kg", for: .normal)
         updateGoalsButton.setTitleColor(.white, for: .normal)
         updateGoalsButton.backgroundColor = Color.skyBlue
         updateGoalsButton.layer.cornerRadius = 25
@@ -68,7 +70,20 @@ class GoalsViewController: UITableViewController {
         tableView.tableFooterView = footerView
     }
 
+    //MARK:- Button Methods
+    
     @IBAction func weightUnitButtonTapped(_ sender: UIButton) {
+        let ac = UIAlertController(title: "Please select your unit of weight.", message: nil, preferredStyle: .actionSheet)
+        ac.addAction(UIAlertAction(title: "kg", style: .default) { [weak self] (action) in
+            guard let strongSelf = self else { return }
+            strongSelf.weightUnitButton.setTitle("kg", for: .normal)
+        })
+        ac.addAction(UIAlertAction(title: "lbs", style: .default) { [weak self] (action) in
+            guard let strongSelf = self else { return }
+            strongSelf.weightUnitButton.setTitle("lbs", for: .normal)
+        })
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(ac, animated: true)
     }
     
     @IBAction func updateGoalsTapped(_ sender: UIButton) {
@@ -77,6 +92,7 @@ class GoalsViewController: UITableViewController {
         defaults.set(carbsGoalTextField.text, forKey: UserDefaultsKeys.goalCarbs)
         defaults.set(fatGoalTextField.text, forKey: UserDefaultsKeys.goalFat)
         defaults.set(Double(weightGoalTextField.text ?? "0"), forKey: UserDefaultsKeys.goalWeight)
+        defaults.set(weightUnitButton.title(for: .normal), forKey: UserDefaultsKeys.goalWeightUnit)
         
         SVProgressHUD.show()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
@@ -87,7 +103,9 @@ class GoalsViewController: UITableViewController {
     
 }
 
-extension GoalsViewController: UITextFieldDelegate {
+//MARK:- Extension for table view methods
+
+extension GoalsViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 1 && indexPath.row == 1 {
             return 120

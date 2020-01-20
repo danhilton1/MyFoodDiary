@@ -16,4 +16,5 @@ enum UserDefaultsKeys {
     static let goalCarbs = "goalCarbs"
     static let goalFat = "goalFat"
     static let goalWeight = "GoalWeight"
+    static let goalWeightUnit = "GoalWeightUnit"
 }
