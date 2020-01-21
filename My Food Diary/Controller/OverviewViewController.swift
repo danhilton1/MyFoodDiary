@@ -128,7 +128,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     private func configureTotalCaloriesLabel() {
-        guard let goalCalories = defaults.value(forKey: UserDefaultsKeys.goalCalories) as? Int else { return }
+        let goalCalories = defaults.value(forKey: UserDefaultsKeys.goalCalories) as? Int ?? 0
         goalCaloriesLabel.text = "\(goalCalories)"
         if totalCalories < (goalCalories - 500) || totalCalories > (goalCalories + 500) || goalCalories == 0 {
             totalCaloriesLabel.textColor = Color.salmon
@@ -368,6 +368,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         ac.addAction(UIAlertAction(title: "Set", style: .default, handler: { (UIAlertAction) in
             self.defaults.setValue(Int(ac.textFields![0].text ?? "0"), forKey: "GoalCalories")
             self.goalCaloriesLabel.text = "\(self.defaults.value(forKey: "GoalCalories") ?? 0)"
+            self.loadFirebaseData()
             self.configureTotalCaloriesLabel()
             let parentVC = self.parent as? OverviewPageViewController
             parentVC?.setViewControllers([self], direction: .forward, animated: false, completion: nil)
@@ -414,6 +415,11 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         if dayLabel.text == "Today" {  // Keeps the date property up to date when navigating from other VC's
             date = Date()
         }
+        else {
+            date = date?.addingTimeInterval(1) // Makes sure no food can have exactly the same date and time added
+        }
+        let parentVC = self.parent as? OverviewPageViewController
+        parentVC?.setViewControllers([self], direction: .forward, animated: false, completion: nil)
     }
     
     //MARK:- Configure date method

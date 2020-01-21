@@ -120,7 +120,7 @@ class NewEntryViewController: UIViewController, UITableViewDelegate, UITableView
             let destVC = segue.destination as! FoodDetailViewController
             guard let indexPath = tableView.indexPathForSelectedRow else { return }
             destVC.food = sortedFood[indexPath.row]
-            destVC.isAddingFromExistingEntry = true
+//            destVC.isAddingFromExistingEntry = true
             destVC.delegate = delegate
             destVC.mealDelegate = mealDelegate
             destVC.date = date

@@ -57,8 +57,8 @@ extension Food {
     
     func saveFood(user: String) {
         let fc = FoodsCollection.self
-        
-        db.collection("users").document(user).collection(fc.collection).document(self.name!).setData([
+        let name = self.name?.replacingOccurrences(of: "/", with: "")
+        db.collection("users").document(user).collection(fc.collection).document("\(name!) \(self.uuid)").setData([
             fc.uuid: self.uuid,
             fc.name: self.name!,
             fc.meal: self.meal ?? Food.Meal.other,
@@ -141,7 +141,7 @@ extension Food {
                                                 if foodToAdd.uuid == food.uuid {
                                                     if foodToAdd.numberOfTimesAdded > food.numberOfTimesAdded {
                                                         allFood.append(foodToAdd)
-                                                        print("Existing food added.")
+                                                        print("Existing food added - \(foodToAdd)")
                                                     }
                                                     else {
                                                         food.dateLastEdited = foodToAdd.dateLastEdited

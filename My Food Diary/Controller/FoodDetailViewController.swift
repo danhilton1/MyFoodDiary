@@ -19,7 +19,7 @@ class FoodDetailViewController: UITableViewController {
     var date: Date?
     var selectedSegmentIndex = 0
     var isEditingExistingEntry = false
-    var isAddingFromExistingEntry = false
+//    var isAddingFromExistingEntry = false
     var workingCopy: Food = Food()
     private let formatter = DateFormatter()
     
@@ -114,9 +114,10 @@ class FoodDetailViewController: UITableViewController {
         workingCopy.dateLastEdited = Date()
         workingCopy.isDeleted = false
         
-        if !isEditingExistingEntry && !isAddingFromExistingEntry {
-            workingCopy.dateCreated = date
-            workingCopy.dateLastEdited = date
+        if !isEditingExistingEntry {
+            workingCopy.dateCreated = Date()
+            workingCopy.dateLastEdited = Date()
+            workingCopy.uuid = UUID().uuidString
         }
         
         switch mealPicker.selectedSegmentIndex {
@@ -144,18 +145,12 @@ class FoodDetailViewController: UITableViewController {
             mealDelegate?.reloadFood(entry: workingCopy, new: false)
             navigationController?.popViewController(animated: true)
         }
-        else if isAddingFromExistingEntry {
-            delegate?.reloadFood(entry: workingCopy, new: true)
-            mealDelegate?.reloadFood(entry: workingCopy, new: true)
-            dismissViewWithAnimation()
-        }
         else {
             delegate?.reloadFood(entry: workingCopy, new: true)
             mealDelegate?.reloadFood(entry: workingCopy, new: true)
             dismissViewWithAnimation()
         }
         isEditingExistingEntry = false
-        isAddingFromExistingEntry = false
         
     }
     
@@ -167,7 +162,8 @@ class FoodDetailViewController: UITableViewController {
         if isEditingExistingEntry {
             
             let fc = FoodsCollection.self
-            let foodEntry = db.collection("users").document(user).collection(fc.collection).document(food.name!)
+            let name = food.name?.replacingOccurrences(of: "/", with: "")
+            let foodEntry = db.collection("users").document(user).collection(fc.collection).document("\(name!) \(food.uuid)")
             
             foodEntry.updateData([
                 fc.name: food.name!,

@@ -191,8 +191,8 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
         workingCopy.name = foodNameTextField.text
         workingCopy.meal = meal.stringValue
         workingCopy.date = formatter.string(from: date ?? Date())
-        workingCopy.dateCreated = date
-        workingCopy.dateLastEdited = date
+        workingCopy.dateCreated = Date()
+        workingCopy.dateLastEdited = Date()
         workingCopy.servingSize = (servingSizeTextField.text ?? "100")
         workingCopy.serving = Double(servingTextField.text ?? "1") ?? 1
         workingCopy.calories = Int(caloriesTextField.text ?? "0") ?? 0
