@@ -25,7 +25,7 @@ enum FoodsCollection {
     static let carbs = "carbs"
     static let fat = "fat"
     static let isDeleted = "isDeleted"
-    static let numberOfTimesAdded = "numberOfTimesAdded"
+//    static let numberOfTimesAdded = "numberOfTimesAdded"
 }
 
 private let db = Firestore.firestore()
@@ -52,7 +52,7 @@ extension Food {
         self.carbs = foodDictionary["carbs"] as! Double
         self.fat = foodDictionary["fat"] as! Double
         self.isDeleted = foodDictionary["isDeleted"] as! Bool
-        self.numberOfTimesAdded = foodDictionary["numberOfTimesAdded"] as! Int
+//        self.numberOfTimesAdded = foodDictionary["numberOfTimesAdded"] as! Int
     }
     
     func saveFood(user: String) {
@@ -73,7 +73,7 @@ extension Food {
             fc.carbs: self.carbs,
             fc.fat: self.fat,
             fc.isDeleted: false,
-            fc.numberOfTimesAdded: self.numberOfTimesAdded
+//            fc.numberOfTimesAdded: self.numberOfTimesAdded
         ]) { error in
             if let error = error {
                 print("Error adding document: \(error)")
@@ -139,25 +139,20 @@ extension Food {
                                                 uuidArray.append(food.uuid)
                                                 
                                                 if foodToAdd.uuid == food.uuid {
-                                                    if foodToAdd.numberOfTimesAdded > food.numberOfTimesAdded {
-                                                        allFood.append(foodToAdd)
-                                                        print("Existing food added - \(foodToAdd)")
-                                                    }
-                                                    else {
-                                                        food.dateLastEdited = foodToAdd.dateLastEdited
-    //                                                    food.date = foodToAdd.date
-                                                        food.meal = foodToAdd.meal
-                                                        food.servingSize = foodToAdd.servingSize
-                                                        food.servingSizeUnit = foodToAdd.servingSizeUnit
-                                                        food.serving = foodToAdd.serving
-                                                        food.calories = foodToAdd.calories
-                                                        food.protein = foodToAdd.protein
-                                                        food.carbs = foodToAdd.carbs
-                                                        food.fat = foodToAdd.fat
-                                                        food.isDeleted = foodToAdd.isDeleted
-                                                        food.numberOfTimesAdded = foodToAdd.numberOfTimesAdded
-                                                        print("\(foodToAdd.name!) updated.")
-                                                    }
+                                                    food.dateLastEdited = foodToAdd.dateLastEdited
+//                                                    food.date = foodToAdd.date
+                                                    food.meal = foodToAdd.meal
+                                                    food.servingSize = foodToAdd.servingSize
+                                                    food.servingSizeUnit = foodToAdd.servingSizeUnit
+                                                    food.serving = foodToAdd.serving
+                                                    food.calories = foodToAdd.calories
+                                                    food.protein = foodToAdd.protein
+                                                    food.carbs = foodToAdd.carbs
+                                                    food.fat = foodToAdd.fat
+                                                    food.isDeleted = foodToAdd.isDeleted
+//                                                    food.numberOfTimesAdded = foodToAdd.numberOfTimesAdded
+                                                    print("\(foodToAdd.name!) updated.")
+                                                    
                                                 }
                                                 // doesn't work if an entry has been permanently deleted.
                                             }

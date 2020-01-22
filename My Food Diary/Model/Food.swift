@@ -30,7 +30,7 @@ class Food {
     var carbs: Double = 0
     var fat: Double = 0
     var isDeleted = false
-    var numberOfTimesAdded = 0
+//    var numberOfTimesAdded = 0
     
     
     enum Meal: Int {
@@ -84,7 +84,7 @@ class Food {
         copy.carbs = self.carbs
         copy.fat = self.fat
         copy.isDeleted = self.isDeleted
-        copy.numberOfTimesAdded = self.numberOfTimesAdded
+//        copy.numberOfTimesAdded = self.numberOfTimesAdded
         return copy
     }
     

@@ -188,7 +188,7 @@ class FoodDetailViewController: UITableViewController {
             }
         }
         else {
-            food.numberOfTimesAdded += 1
+//            food.numberOfTimesAdded += 1
             food.saveFood(user: user)
         }
     }

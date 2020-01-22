@@ -36,22 +36,33 @@ class StatsViewController: UIViewController {
     }
    
     func setUpViews() {
-        if var foodEntries = allFood {
-            foodEntries.sort { $0.numberOfTimesAdded > $1.numberOfTimesAdded }
+        if let foodEntries = allFood {
             
-            setLabelText(foodLabel: numberOneFoodLabel, entriesLabel: numberOneEntriesLabel, entry: foodEntries[0])
-            setLabelText(foodLabel: numberTwoFoodLabel, entriesLabel: numberTwoEntriesLabel, entry: foodEntries[1])
-            setLabelText(foodLabel: numberThreeFoodLabel, entriesLabel: numberThreeEntriesLabel, entry: foodEntries[2])
+            var foodNames = [String]()
+            for food in foodEntries {
+                foodNames.append(food.name!)
+            }
+            
+            var foodCountDictionary = [String: Int]()
+            for name in foodNames {
+                foodCountDictionary[name] = (foodCountDictionary[name] ?? 0) + 1
+            }
+            
+            let sortedFood = foodCountDictionary.sorted { $0.value > $1.value }
+//            print(sortedFood)
+            setLabelText(foodLabel: numberOneFoodLabel, entriesLabel: numberOneEntriesLabel, foodName: sortedFood[0].key, numberOfEntries: sortedFood[0].value)
+            setLabelText(foodLabel: numberTwoFoodLabel, entriesLabel: numberTwoEntriesLabel, foodName: sortedFood[1].key, numberOfEntries: sortedFood[1].value)
+            setLabelText(foodLabel: numberThreeFoodLabel, entriesLabel: numberThreeEntriesLabel, foodName: sortedFood[2].key, numberOfEntries: sortedFood[2].value)
         }
     }
 
-    func setLabelText(foodLabel: UILabel, entriesLabel: UILabel, entry: Food) {
-        foodLabel.text = entry.name
-        if entry.numberOfTimesAdded < 2 {
-            entriesLabel.text = "\(entry.numberOfTimesAdded) entry"
+    func setLabelText(foodLabel: UILabel, entriesLabel: UILabel, foodName: String, numberOfEntries: Int) {
+        foodLabel.text = foodName
+        if numberOfEntries < 2 {
+            entriesLabel.text = "\(numberOfEntries) entry"
         }
         else {
-            entriesLabel.text = "\(entry.numberOfTimesAdded) entries"
+            entriesLabel.text = "\(numberOfEntries) entries"
         }
     }
     
