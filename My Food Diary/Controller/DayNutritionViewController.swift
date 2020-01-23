@@ -14,7 +14,8 @@ class DayNutritionViewController: UIViewController, UITableViewDataSource, UITab
     
     @IBOutlet weak var tableView: UITableView!
     
-//    var foodList: Results<Food>?
+    let defaults = UserDefaults()
+    
     var foodList: [Food]?
     var calories = 0
     
@@ -139,6 +140,10 @@ class DayNutritionViewController: UIViewController, UITableViewDataSource, UITab
             cell.proteinValueLabel.text = protein.removePointZeroEndingAndConvertToString() + " g"
             cell.carbsValueLabel.text = carbs.removePointZeroEndingAndConvertToString() + " g"
             cell.fatValueLabel.text = fat.removePointZeroEndingAndConvertToString() + " g"
+            
+            cell.goalProteinLabel.text = "\(defaults.value(forKey: UserDefaultsKeys.goalProtein) ?? "0") g"
+            cell.goalCarbsLabel.text = "\(defaults.value(forKey: UserDefaultsKeys.goalCarbs) ?? "0") g"
+            cell.goalFatLabel.text = "\(defaults.value(forKey: UserDefaultsKeys.goalFat) ?? "0") g"
             
             if proteinPercentage.isNaN && carbsPercentage.isNaN && fatPercentage.isNaN {
                 cell.proteinPercentLabel.text = "0"

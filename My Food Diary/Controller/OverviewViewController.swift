@@ -402,7 +402,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
                         foodEntry.carbs = food.carbs
                         foodEntry.fat = food.fat
                         foodEntry.isDeleted = food.isDeleted
-                        foodEntry.numberOfTimesAdded = food.numberOfTimesAdded
+//                        foodEntry.numberOfTimesAdded = food.numberOfTimesAdded
                     }
                 }
             }

@@ -94,6 +94,7 @@ class MyAccountViewController: UITableViewController {
                         }
                         else {
                             self.defaults.set(newDetailText, forKey: UserDefaultsKeys.userEmail)
+                            self.emailLabel.text = newDetailText
                             SVProgressHUD.showSuccess(withStatus: "Email successfully updated!")
                         }
                     }
@@ -158,6 +159,7 @@ class MyAccountViewController: UITableViewController {
     
     func displayPopUpView(itemToChange: String) {
         
+        view.addSubview(popUpView)
         popUpView.translatesAutoresizingMaskIntoConstraints = false
         popUpView.layer.cornerRadius = 25
         popUpView.backgroundColor = .white
@@ -223,11 +225,6 @@ class MyAccountViewController: UITableViewController {
         popUpView.addSubview(newItemLabel)
         popUpView.addSubview(newItemTextField)
         popUpView.addSubview(confirmButton)
-        
-        view.addSubview(popUpView)
-        
-//        centerYconstraint = NSLayoutConstraint(item: popUpView, attribute: .centerY, relatedBy: .equal, toItem: view, attribute: .centerY, multiplier: 1, constant: 0)
-//        centerYconstraint = popUpView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         
         NSLayoutConstraint.activate([
             popUpView.topAnchor.constraint(equalTo: emailLabel.bottomAnchor, constant: 30),
