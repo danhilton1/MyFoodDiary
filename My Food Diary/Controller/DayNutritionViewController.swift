@@ -141,9 +141,9 @@ class DayNutritionViewController: UIViewController, UITableViewDataSource, UITab
             cell.carbsValueLabel.text = carbs.removePointZeroEndingAndConvertToString() + " g"
             cell.fatValueLabel.text = fat.removePointZeroEndingAndConvertToString() + " g"
             
-            cell.goalProteinLabel.text = "\(defaults.value(forKey: UserDefaultsKeys.goalProtein) ?? "0") g"
-            cell.goalCarbsLabel.text = "\(defaults.value(forKey: UserDefaultsKeys.goalCarbs) ?? "0") g"
-            cell.goalFatLabel.text = "\(defaults.value(forKey: UserDefaultsKeys.goalFat) ?? "0") g"
+            cell.goalProteinLabel.text = "\(defaults.value(forKey: UserDefaultsKeys.goalProtein) as? String ?? "0") g"
+            cell.goalCarbsLabel.text = "\(defaults.value(forKey: UserDefaultsKeys.goalCarbs) as? String ?? "0") g"
+            cell.goalFatLabel.text = "\(defaults.value(forKey: UserDefaultsKeys.goalFat) as? String ?? "0") g"
             
             if proteinPercentage.isNaN && carbsPercentage.isNaN && fatPercentage.isNaN {
                 cell.proteinPercentLabel.text = "0"

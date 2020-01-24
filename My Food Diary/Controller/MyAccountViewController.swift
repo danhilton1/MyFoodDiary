@@ -39,9 +39,11 @@ class MyAccountViewController: UITableViewController {
         
         tableView.tableFooterView = UIView()
         
-        view.isUserInteractionEnabled = true
-        dimmedView.isUserInteractionEnabled = true
-        tableView.isUserInteractionEnabled = true
+        checkIfUserIsAnonymous()
+        
+//        view.isUserInteractionEnabled = true
+//        dimmedView.isUserInteractionEnabled = true
+//        tableView.isUserInteractionEnabled = true
         //popUpView.isUserInteractionEnabled = true
         if UIScreen.main.bounds.height < 700 {
             emailLabel.frame.size.height = 70
@@ -67,6 +69,13 @@ class MyAccountViewController: UITableViewController {
         super.viewWillDisappear(true)
 //        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: self.view.window)
 //        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: self.view.window)
+    }
+    
+    func checkIfUserIsAnonymous() {
+        if defaults.value(forKey: "anonymousUserEmail") as? String != nil {
+            emailLabel.text = "Account not created"
+            tableView.isUserInteractionEnabled = false
+        }
     }
 
     // MARK: - Button Methods

@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import SVProgressHUD
+import SwiftKeychainWrapper
 
 class MoreViewController: UITableViewController {
     
@@ -16,13 +17,18 @@ class MoreViewController: UITableViewController {
     
     var allFood: [Food]?
 
+    @IBOutlet weak var logOutButton: UIButton!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tabBarController?.tabBar.isHidden = false
         navigationController?.navigationBar.barTintColor = Color.skyBlue
         
+        tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
+        logOutButton.layer.cornerRadius = 20
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -42,7 +48,8 @@ class MoreViewController: UITableViewController {
                 
                 if Auth.auth().currentUser == nil {
                     strongSelf.defaults.removeObject(forKey: "userEmail")
-                    strongSelf.defaults.removeObject(forKey: "userPassword")
+                    KeychainWrapper.standard.removeObject(forKey: "userPassword")
+                    strongSelf.defaults.removeObject(forKey: "anonymousUserEmail")
                     strongSelf.defaults.set(false, forKey: "userSignedIn")
                     
                     let welcomeVC = strongSelf.storyboard?.instantiateViewController(withIdentifier: "WelcomeNav") as! UINavigationController
@@ -85,4 +92,9 @@ class MoreViewController: UITableViewController {
         }
     }
 
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 1 {
+            tableView.deselectRow(at: indexPath, animated: false)
+        }
+    }
 }

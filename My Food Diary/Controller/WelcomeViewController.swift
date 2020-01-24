@@ -62,9 +62,9 @@ class WelcomeViewController: UIViewController {
     }
 
     func checkIfUserIsSignedIn() {
-        if defaults.bool(forKey: "userSignedIn") {
+        if defaults.bool(forKey: UserDefaultsKeys.isUserSignedIn) {
             SVProgressHUD.show()
-            let email = defaults.value(forKey: "userEmail") as! String
+            let email = defaults.value(forKey: UserDefaultsKeys.userEmail) as! String
             let password = KeychainWrapper.standard.string(forKey: "userPassword")
             Auth.auth().signIn(withEmail: email, password: password!) { [weak self] authResult, error in
                 guard let strongSelf = self else { return }
@@ -95,7 +95,7 @@ class WelcomeViewController: UIViewController {
     
     @IBAction func continueButtonTapped(_ sender: UIButton) {
         
-        let ac = UIAlertController(title: "Warning", message: "If you continue without an account you will not be able to sync data across devices.", preferredStyle: .alert)
+        let ac = UIAlertController(title: "Warning", message: "If you continue without an account you will lose all data if the app is deleted and will not be able to sync data across devices.", preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         ac.addAction(UIAlertAction(title: "Continue Anyway", style: .default) { [weak self] (action) in
             SVProgressHUD.show()
@@ -153,7 +153,7 @@ class WelcomeViewController: UIViewController {
                                 print(error)
                             }
                             else {
-                                db.collection("users").document(user.email!).setData([
+                                db.collection("users").document(email).setData([
                                     "email": email,
                                     "uid": user.uid
                                 ]) { error in
