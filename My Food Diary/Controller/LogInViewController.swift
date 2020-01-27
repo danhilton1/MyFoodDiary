@@ -107,6 +107,7 @@ class LogInViewController: UIViewController {
             
             if error != nil {
                 print(error!)
+                SVProgressHUD.setMinimumDismissTimeInterval(3)
                 SVProgressHUD.showError(withStatus: error?.localizedDescription)
             }
             else {

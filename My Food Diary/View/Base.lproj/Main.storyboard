@@ -8,6 +8,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Minya-Nouvelle-Bold.ttf">
+            <string>MinyaNouvelle-Bold</string>
+        </array>
         <array key="Montserrat-Bold.otf">
             <string>Montserrat-Bold</string>
         </array>
@@ -533,7 +536,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BarcodeScannerIcon" translatesAutoresizingMaskIntoConstraints="NO" id="emP-Y4-4pZ">
-                                <rect key="frame" x="160" y="21.5" width="33" height="33"/>
+                                <rect key="frame" x="127" y="21.5" width="66" height="33"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3tw-2j-oI4">
                                 <rect key="frame" x="0.0" y="15" width="206" height="46"/>
@@ -1083,14 +1086,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppIconNoBackground" translatesAutoresizingMaskIntoConstraints="NO" id="6uw-Tr-FyE">
-                                <rect key="frame" x="127" y="220.5" width="160" height="160"/>
+                                <rect key="frame" x="127" y="224" width="160" height="160"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="160" id="7zu-Ud-Mah"/>
                                     <constraint firstAttribute="width" constant="160" id="HLB-s9-m11"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y1Y-3l-roi">
-                                <rect key="frame" x="40" y="460.5" width="334" height="52"/>
+                                <rect key="frame" x="40" y="464" width="334" height="52"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="52" id="Leq-aW-ZFS"/>
@@ -1102,7 +1105,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WUd-Aq-FMP">
-                                <rect key="frame" x="40" y="562.5" width="334" height="52"/>
+                                <rect key="frame" x="40" y="566" width="334" height="52"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="52" id="vgM-Un-WtS"/>
@@ -1114,7 +1117,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Emn-MJ-l0U">
-                                <rect key="frame" x="79" y="659.5" width="256" height="34"/>
+                                <rect key="frame" x="79" y="663" width="256" height="34"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="18"/>
                                 <state key="normal" title="Continue without logging in">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1124,8 +1127,8 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Food Diary" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WVB-yF-PMx">
-                                <rect key="frame" x="79" y="134" width="256.5" height="41.5"/>
-                                <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="34"/>
+                                <rect key="frame" x="67.5" y="134" width="279" height="45"/>
+                                <fontDescription key="fontDescription" name="MinyaNouvelle-Bold" family="Minya Nouvelle" pointSize="45"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -1226,6 +1229,16 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Tj-ud-okU">
+                                <rect key="frame" x="108.5" y="539" width="197" height="33"/>
+                                <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
+                                <state key="normal" title="Forgot Your Password?">
+                                    <color key="titleColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                                <connections>
+                                    <segue destination="K4C-29-g7c" kind="show" id="LFS-32-2ds"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.32702541349999997" green="0.56057441230000005" blue="0.75688779350000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
@@ -1237,6 +1250,8 @@
                             <constraint firstItem="EVD-UY-vzI" firstAttribute="centerY" secondItem="dlv-9x-VDd" secondAttribute="centerY" id="R4H-zk-nPT"/>
                             <constraint firstItem="raU-uz-fBh" firstAttribute="leading" secondItem="vZQ-xy-Vu5" secondAttribute="leading" constant="40" id="RUc-xy-6qW"/>
                             <constraint firstItem="fSj-0N-DfD" firstAttribute="leading" secondItem="vZQ-xy-Vu5" secondAttribute="leading" constant="40" id="TwI-5a-HW9"/>
+                            <constraint firstItem="2Tj-ud-okU" firstAttribute="top" secondItem="raU-uz-fBh" secondAttribute="bottom" constant="15" id="URi-Fo-6XA"/>
+                            <constraint firstItem="2Tj-ud-okU" firstAttribute="centerX" secondItem="SKv-h3-xOy" secondAttribute="centerX" id="X1A-CO-IhC"/>
                             <constraint firstItem="raU-uz-fBh" firstAttribute="top" secondItem="a0a-V1-0Ow" secondAttribute="bottom" constant="40" id="aOc-al-qaB"/>
                             <constraint firstItem="vZQ-xy-Vu5" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="fSj-0N-DfD" secondAttribute="bottom" constant="40" id="dEo-86-ILT"/>
                             <constraint firstItem="EVD-UY-vzI" firstAttribute="centerX" secondItem="SKv-h3-xOy" secondAttribute="centerX" id="fKo-p5-kS1"/>
@@ -1310,7 +1325,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hb4-Ba-1Rs">
-                                <rect key="frame" x="20" y="54" width="33" height="33"/>
+                                <rect key="frame" x="20" y="54" width="66" height="66"/>
                                 <state key="normal" image="BackIcon">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -1319,13 +1334,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Register Account" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ohg-MU-5ai">
-                                <rect key="frame" x="80" y="53.5" width="254" height="34.5"/>
+                                <rect key="frame" x="80" y="70" width="254" height="34.5"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="28"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AddUserIcon" translatesAutoresizingMaskIntoConstraints="NO" id="n8e-HX-VeZ">
-                                <rect key="frame" x="187" y="98" width="40" height="40"/>
+                                <rect key="frame" x="187" y="114.5" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="gl7-3w-coP"/>
                                     <constraint firstAttribute="height" constant="40" id="orN-VW-F86"/>
@@ -1382,6 +1397,86 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p0z-gY-yuz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1633.3333333333335" y="-412.5"/>
+        </scene>
+        <!--Forgot Password View Controller-->
+        <scene sceneID="ae6-dY-WCi">
+            <objects>
+                <viewController id="K4C-29-g7c" customClass="ForgotPasswordViewController" customModule="My_Food_Diary" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="WqY-Ee-1B4">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forgotten Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z6O-qT-dP3">
+                                <rect key="frame" x="61" y="94" width="292" height="35"/>
+                                <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="28"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please enter the email address used to create your account" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aJk-ba-c22">
+                                <rect key="frame" x="20" y="169" width="374" height="41.5"/>
+                                <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uzz-kO-bSi" customClass="LogInTextField" customModule="My_Food_Diary" customModuleProvider="target">
+                                <rect key="frame" x="20" y="245.5" width="334" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="cML-kf-tb3"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yeD-iT-1hX">
+                                <rect key="frame" x="127" y="355.5" width="160" height="45"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="160" id="97E-Rd-1Oc"/>
+                                    <constraint firstAttribute="height" constant="45" id="FTD-8E-4zP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="21"/>
+                                <state key="normal" title="Submit"/>
+                                <connections>
+                                    <action selector="submitButtonTapped:" destination="K4C-29-g7c" eventType="touchUpInside" id="HBM-1A-MUQ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4gd-SN-brr">
+                                <rect key="frame" x="20" y="44" width="33" height="33"/>
+                                <state key="normal" image="BackIcon">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="backButtonTapped:" destination="I4G-MR-uy6" eventType="touchUpInside" id="HkT-pN-tfZ"/>
+                                    <action selector="backButtonTapped:" destination="K4C-29-g7c" eventType="touchUpInside" id="td4-Yn-bKm"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.32702541349999997" green="0.56057441230000005" blue="0.75688779350000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="4gd-SN-brr" firstAttribute="leading" secondItem="LYl-xz-t2D" secondAttribute="leading" constant="20" id="0KQ-PB-CCD"/>
+                            <constraint firstItem="aJk-ba-c22" firstAttribute="top" secondItem="Z6O-qT-dP3" secondAttribute="bottom" constant="40" id="Azp-xy-vrq"/>
+                            <constraint firstItem="Z6O-qT-dP3" firstAttribute="centerX" secondItem="WqY-Ee-1B4" secondAttribute="centerX" id="DSj-tj-tSG"/>
+                            <constraint firstItem="yeD-iT-1hX" firstAttribute="top" secondItem="uzz-kO-bSi" secondAttribute="bottom" constant="70" id="Ldt-5V-u9E"/>
+                            <constraint firstItem="aJk-ba-c22" firstAttribute="leading" secondItem="LYl-xz-t2D" secondAttribute="leading" constant="20" id="UJF-Pg-oWm"/>
+                            <constraint firstItem="uzz-kO-bSi" firstAttribute="leading" secondItem="LYl-xz-t2D" secondAttribute="leading" constant="20" id="YYE-77-gzd"/>
+                            <constraint firstItem="yeD-iT-1hX" firstAttribute="centerX" secondItem="WqY-Ee-1B4" secondAttribute="centerX" id="cFk-8C-iOU"/>
+                            <constraint firstItem="4gd-SN-brr" firstAttribute="top" secondItem="LYl-xz-t2D" secondAttribute="top" id="guq-8p-Xbf"/>
+                            <constraint firstItem="uzz-kO-bSi" firstAttribute="top" secondItem="aJk-ba-c22" secondAttribute="bottom" constant="35" id="kt6-Z8-79T"/>
+                            <constraint firstItem="LYl-xz-t2D" firstAttribute="trailing" secondItem="uzz-kO-bSi" secondAttribute="trailing" constant="60" id="s8j-TD-rMz"/>
+                            <constraint firstItem="Z6O-qT-dP3" firstAttribute="top" secondItem="LYl-xz-t2D" secondAttribute="top" constant="50" id="sW4-6s-IaP"/>
+                            <constraint firstItem="LYl-xz-t2D" firstAttribute="trailing" secondItem="aJk-ba-c22" secondAttribute="trailing" constant="20" id="vrI-mr-Nym"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="LYl-xz-t2D"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="hmY-Sg-6vZ"/>
+                    <connections>
+                        <outlet property="emailTextField" destination="uzz-kO-bSi" id="0jn-Jb-zzZ"/>
+                        <outlet property="submitButton" destination="yeD-iT-1hX" id="vUm-PJ-sy5"/>
+                        <outlet property="textLabel" destination="aJk-ba-c22" id="4N2-9B-G8B"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zhh-wP-nUu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-665.21739130434787" y="-657.58928571428567"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="duX-zy-Dnw">
@@ -2950,7 +3045,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="Vpn-DS-ftJ"/>
         <segue reference="feM-Sd-7op"/>
-        <segue reference="gK3-K4-laE"/>
+        <segue reference="3y6-f0-LZg"/>
         <segue reference="nVt-VS-1vu"/>
     </inferredMetricsTieBreakers>
 </document>

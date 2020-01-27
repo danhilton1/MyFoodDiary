@@ -82,6 +82,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                 guard let strongSelf = self else { return }
                 if let error = error {
                     print(error)
+                    SVProgressHUD.setMinimumDismissTimeInterval(3)
                     SVProgressHUD.showError(withStatus: error.localizedDescription)
                 }
                 else {
@@ -92,6 +93,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                     ]) { error in
                         if let error = error {
                             print("Error adding user: \(error)")
+                            SVProgressHUD.setMinimumDismissTimeInterval(3)
                             SVProgressHUD.showError(withStatus: error.localizedDescription)
                         } else {
                             print("User added with ID: \(authResult!.user.email!)")

@@ -71,7 +71,18 @@ class WelcomeViewController: UIViewController {
                 
                 if let error = error {
                     print(error)
-                    SVProgressHUD.showError(withStatus: error.localizedDescription)
+                    if error.localizedDescription == "Network error (such as timeout, interrupted connection or unreachable host) has occurred." {
+                        let ac = UIAlertController(title: "Network Error", message: "You have no internet connection and are unable to log into your account. Saved data cannot be retrieved and any entries made will not be saved to your account.", preferredStyle: .alert)
+                        ac.addAction(UIAlertAction(title: "OK", style: .default) { (action) in
+                            strongSelf.performSegue(withIdentifier: "GoToTabBar", sender: self)
+                            SVProgressHUD.dismiss()
+                        })
+                        strongSelf.present(ac, animated: true)
+                    }
+                    else {
+                        SVProgressHUD.setMinimumDismissTimeInterval(3)
+                        SVProgressHUD.showError(withStatus: error.localizedDescription)
+                    }
                 }
                 else {
                     print("Log In Successful")
@@ -112,6 +123,7 @@ class WelcomeViewController: UIViewController {
                     
                     if let error = error {
                         print(error)
+                        SVProgressHUD.setMinimumDismissTimeInterval(3)
                         SVProgressHUD.showError(withStatus: error.localizedDescription)
                     }
                     else {

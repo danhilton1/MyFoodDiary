@@ -87,6 +87,8 @@ class GoalsViewController: UITableViewController, UITextFieldDelegate {
     }
     
     @IBAction func updateGoalsTapped(_ sender: UIButton) {
+        SVProgressHUD.show()
+        
         defaults.set(Int(caloriesGoalTextField.text ?? "0"), forKey: UserDefaultsKeys.goalCalories)
         defaults.set(proteinGoalTextField.text, forKey: UserDefaultsKeys.goalProtein)
         defaults.set(carbsGoalTextField.text, forKey: UserDefaultsKeys.goalCarbs)
@@ -94,10 +96,14 @@ class GoalsViewController: UITableViewController, UITextFieldDelegate {
         defaults.set(Double(weightGoalTextField.text ?? "0"), forKey: UserDefaultsKeys.goalWeight)
         defaults.set(weightUnitButton.title(for: .normal), forKey: UserDefaultsKeys.goalWeightUnit)
         
-        SVProgressHUD.show()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            SVProgressHUD.setMinimumDismissTimeInterval(1)
+            SVProgressHUD.showSuccess(withStatus: "Goals Updated")
+            
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.3) {
             self.navigationController?.popViewController(animated: true)
-            SVProgressHUD.dismiss()
         }
     }
     
