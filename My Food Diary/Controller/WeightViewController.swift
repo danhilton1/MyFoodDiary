@@ -82,7 +82,8 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         dateLabelFormatter.dateFormat = "E, d MMM"
         dateLabel.text = "Week Starting: \(dateLabelFormatter.string(from: startOfWeekDate ?? Date()))"
-
+        let weightUnit = defaults.value(forKey: UserDefaultsKeys.weightUnit) as? String
+        
         var closestInterval: TimeInterval = .greatestFiniteMagnitude
         var mostCurrentEntry: Weight?
 //        print(allWeightEntries)
@@ -94,13 +95,13 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         }
         if var currentWeight = mostCurrentEntry?.weight {
-            currentWeightLabel.text = "\(currentWeight.removePointZeroEndingAndConvertToString()) \(mostCurrentEntry?.unit ?? "kg")"
+            currentWeightLabel.text = "\(currentWeight.removePointZeroEndingAndConvertToString()) \(weightUnit ?? "kg")"
         }
         else {
-            currentWeightLabel.text = "0 kg"
+            currentWeightLabel.text = "0 \(weightUnit ?? "kg")"
         }
-        let goalWeightUnit = defaults.value(forKey: UserDefaultsKeys.goalWeightUnit) as? String
-        goalWeightLabel.text = "\(defaults.value(forKey: UserDefaultsKeys.goalWeight) ?? "0") \(goalWeightUnit ?? "kg")"
+        
+        goalWeightLabel.text = "\(defaults.value(forKey: UserDefaultsKeys.goalWeight) ?? "0") \(weightUnit ?? "kg")"
         
     }
     
@@ -203,6 +204,147 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
     }
     
+    @IBAction func settingsButtonTapped(_ sender: UIButton) {
+        
+        let ac = UIAlertController(title: "Weight Unit", message: "Please select your preferred unit of weight.", preferredStyle: .actionSheet)
+        ac.addAction(UIAlertAction(title: "kg", style: .default) { [weak self] (action) in
+            guard let strongSelf = self else { return }
+            strongSelf.tableView.alpha = 0
+            strongSelf.setWeightUnitAndReloadData(unit: "kg")
+            UIView.animate(withDuration: 0.2) {
+                strongSelf.tableView.alpha = 1
+            }
+        })
+        
+        ac.addAction(UIAlertAction(title: "lbs", style: .default) { [weak self] (action) in
+            guard let strongSelf = self else { return }
+            strongSelf.tableView.alpha = 0
+            strongSelf.setWeightUnitAndReloadData(unit: "lbs")
+            UIView.animate(withDuration: 0.2) {
+                strongSelf.tableView.alpha = 1
+            }
+        })
+        
+        ac.addAction(UIAlertAction(title: "st", style: .default) { [weak self] (action) in
+            guard let strongSelf = self else { return }
+            strongSelf.tableView.alpha = 0
+            strongSelf.setWeightUnitAndReloadData(unit: "st")
+            UIView.animate(withDuration: 0.2) {
+                strongSelf.tableView.alpha = 1
+            }
+        })
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        
+        present(ac, animated: true)
+        
+    }
+    
+    
+    func setWeightUnitAndReloadData(unit: String) {
+        if let allWeight = allWeightEntries {
+            
+            switch unit {
+                
+            case "lbs":
+                
+                if defaults.value(forKey: UserDefaultsKeys.weightUnit) as? String == "kg" {
+                    
+                    for weight in allWeight {
+                        weight.weight = weight.weight * 2.205
+                    }
+                    defaults.set("lbs", forKey: UserDefaultsKeys.weightUnit)
+                    if var goalWeight = defaults.value(forKey: UserDefaultsKeys.goalWeight) as? Double {
+                        goalWeight = goalWeight * 2.205
+                        defaults.set((goalWeight.roundToXDecimalPoints(decimalPoints: 1)), forKey: UserDefaultsKeys.goalWeight)
+                    }
+                    setUpLabels()
+                    let date = startOfWeekDate?.next(.monday, direction: .forward, considerToday: false)
+                    setUpWeekData(direction: .backward, date: date, considerToday: false)
+                    tableView.reloadData()
+                }
+                else if defaults.value(forKey: UserDefaultsKeys.weightUnit) as? String == "st" {
+                    
+                    for weight in allWeight {
+                        weight.weight = weight.weight * 14
+                    }
+                    defaults.set("lbs", forKey: UserDefaultsKeys.weightUnit)
+                    if var goalWeight = defaults.value(forKey: UserDefaultsKeys.goalWeight) as? Double {
+                        goalWeight = goalWeight * 14
+                        defaults.set((goalWeight.roundToXDecimalPoints(decimalPoints: 1)), forKey: UserDefaultsKeys.goalWeight)
+                    }
+                    setUpLabels()
+                    let date = startOfWeekDate?.next(.monday, direction: .forward, considerToday: false)
+                    setUpWeekData(direction: .backward, date: date, considerToday: false)
+                    tableView.reloadData()
+                }
+                
+            case "st":
+                
+                if defaults.value(forKey: UserDefaultsKeys.weightUnit) as? String == "kg" {
+                    for weight in allWeight {
+                        weight.weight = weight.weight / 6.35
+                    }
+                    defaults.set("st", forKey: UserDefaultsKeys.weightUnit)
+                    if var goalWeight = defaults.value(forKey: UserDefaultsKeys.goalWeight) as? Double {
+                        goalWeight = goalWeight / 6.35
+                        defaults.set((goalWeight.roundToXDecimalPoints(decimalPoints: 1)), forKey: UserDefaultsKeys.goalWeight)
+                    }
+                    setUpLabels()
+                    let date = startOfWeekDate?.next(.monday, direction: .forward, considerToday: false)
+                    setUpWeekData(direction: .backward, date: date, considerToday: false)
+                    tableView.reloadData()
+                }
+                else if defaults.value(forKey: UserDefaultsKeys.weightUnit) as? String == "lbs" {
+                    for weight in allWeight {
+                        weight.weight = weight.weight / 14
+                    }
+                    defaults.set("st", forKey: UserDefaultsKeys.weightUnit)
+                    if var goalWeight = defaults.value(forKey: UserDefaultsKeys.goalWeight) as? Double {
+                        goalWeight = goalWeight / 14
+                        defaults.set((goalWeight.roundToXDecimalPoints(decimalPoints: 1)), forKey: UserDefaultsKeys.goalWeight)
+                    }
+                    setUpLabels()
+                    let date = startOfWeekDate?.next(.monday, direction: .forward, considerToday: false)
+                    setUpWeekData(direction: .backward, date: date, considerToday: false)
+                    tableView.reloadData()
+                }
+                
+            default:
+                
+                if defaults.value(forKey: UserDefaultsKeys.weightUnit) as? String == "lbs" {
+                    for weight in allWeight {
+                        weight.weight = weight.weight / 2.205
+                    }
+                    defaults.set("kg", forKey: UserDefaultsKeys.weightUnit)
+                    if var goalWeight = defaults.value(forKey: UserDefaultsKeys.goalWeight) as? Double {
+                        goalWeight = goalWeight / 2.205
+                        defaults.set((goalWeight.roundToXDecimalPoints(decimalPoints: 1)), forKey: UserDefaultsKeys.goalWeight)
+                    }
+                    setUpLabels()
+                    let date = startOfWeekDate?.next(.monday, direction: .forward, considerToday: false)
+                    setUpWeekData(direction: .backward, date: date, considerToday: false)
+                    tableView.reloadData()
+                }
+                else if defaults.value(forKey: UserDefaultsKeys.weightUnit) as? String == "st" {
+                    for weight in allWeight {
+                        weight.weight = weight.weight * 6.35
+                    }
+                    defaults.set("kg", forKey: UserDefaultsKeys.weightUnit)
+                    if var goalWeight = defaults.value(forKey: UserDefaultsKeys.goalWeight) as? Double {
+                        goalWeight = goalWeight * 6.35
+                        defaults.set((goalWeight.roundToXDecimalPoints(decimalPoints: 1)), forKey: UserDefaultsKeys.goalWeight)
+                    }
+                    setUpLabels()
+                    let date = startOfWeekDate?.next(.monday, direction: .forward, considerToday: false)
+                    setUpWeekData(direction: .backward, date: date, considerToday: false)
+                    tableView.reloadData()
+                }
+            }
+        }
+    }
+
+    
+    
     
     //MARK:- Segue Method
     
@@ -253,8 +395,8 @@ extension WeightViewController {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let goalWeightUnit = defaults.value(forKey: UserDefaultsKeys.goalWeightUnit) as? String
-        let lastEntryUnit = allWeightEntries?.last?.unit ?? "kg"
+        let weightUnit = defaults.value(forKey: UserDefaultsKeys.weightUnit) as? String
+//        let lastEntryUnit = allWeightEntries?.last?.unit ?? "kg"
         
         switch indexPath.section {
         case 0:
@@ -273,12 +415,12 @@ extension WeightViewController {
             if averageWeight.isNaN {
                 cell.lineChart.leftAxis.axisMinimum = 0
                 cell.lineChart.leftAxis.axisMaximum = 20
-                cell.caloriesLabel.text = "0 \(lastEntryUnit)"
+                cell.caloriesLabel.text = "0 \(weightUnit ?? "kg")"
             }
             else {
                 cell.lineChart.leftAxis.axisMinimum = (averageWeight - 10)
                 cell.lineChart.leftAxis.axisMaximum = (averageWeight + 10)
-                cell.caloriesLabel.text = "\(averageWeight.roundToXDecimalPoints(decimalPoints: 1)) \(lastEntryUnit)"
+                cell.caloriesLabel.text = "\(averageWeight.roundToXDecimalPoints(decimalPoints: 1)) \(weightUnit ?? "kg")"
             }
             
             cell.lineChart.xAxis.axisMaximum = 6.5
@@ -286,14 +428,16 @@ extension WeightViewController {
             cell.caloriesTitleLabel.text = "Weight"
             cell.caloriesTitleLabel.isHidden = true
             cell.averageTitleLabel.text = "Average Daily Weight:"
-            cell.goalValueLabel.text = "\(defaults.value(forKey: UserDefaultsKeys.goalWeight) ?? 0) \(goalWeightUnit ?? lastEntryUnit)"
+            cell.goalValueLabel.text = "\(defaults.value(forKey: UserDefaultsKeys.goalWeight) ?? 0) \(weightUnit ?? "kg")"
             cell.lineChart.topAnchor.constraint(equalTo: cell.topAnchor, constant: 10).isActive = true
             
             lineChartDataSet.colors = [Color.skyBlue]
             lineChartDataSet.circleColors = [Color.skyBlue]
             lineChartDataSet.valueFont = UIFont(name: "Montserrat-SemiBold", size: 12)!
             
+            
             let chartData = LineChartData(dataSet: lineChartDataSet)
+            chartData.setValueFormatter(XValueFormatter())
             cell.lineChart.data = chartData
             
             cell.isUserInteractionEnabled = false
@@ -312,7 +456,7 @@ extension WeightViewController {
             }
             else {
                 cell.typeLabel.text = "\(days[indexPath.row]):"
-                cell.numberLabel.text = "\(lineChartDataSet.entries[indexPath.row].y) \(lastEntryUnit)"
+                cell.numberLabel.text = "\(lineChartDataSet.entries[indexPath.row].y) \(weightUnit ?? "kg")"
                 cell.isUserInteractionEnabled = true
             }
             
@@ -409,3 +553,18 @@ extension WeightViewController {
 protocol WeightDelegate: class {
     func reloadData(weightEntry: Weight, date: Date?)
 }
+
+
+//public class XValueFormatterWeight: NSObject, IValueFormatter {
+//
+//    public func stringForValue(_ value: Double, entry: ChartDataEntry, dataSetIndex: Int, viewPortHandler: ViewPortHandler?) -> String {
+//        var valueString = String(value)
+//        if valueString.hasSuffix(".0") {
+//            valueString.removeLast(2)
+//            return "\(valueString) kg"
+//        }
+//        else {
+//            return "\(value) kg"
+//        }
+//    }
+//}

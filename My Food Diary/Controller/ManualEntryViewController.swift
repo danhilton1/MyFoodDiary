@@ -19,6 +19,8 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
     
     let db = Firestore.firestore()
     
+    let defaults = UserDefaults()
+    
     weak var delegate: NewEntryDelegate?
     weak var mealDelegate: NewEntryDelegate?
     var date: Date?
@@ -201,7 +203,7 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
         workingCopy.fat = Double(fatTextField.text ?? "0") ?? 0
 //        workingCopy.numberOfTimesAdded += 1
         print(date!)
-        let user = Auth.auth().currentUser?.email ?? Auth.auth().currentUser!.uid
+        let user = Auth.auth().currentUser?.email ?? (defaults.value(forKey: UserDefaultsKeys.userEmail) as? String ?? "")
         workingCopy.saveFood(user: user)
         
     }

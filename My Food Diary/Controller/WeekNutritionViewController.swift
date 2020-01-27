@@ -184,19 +184,19 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     
-    public class XValueFormatter: NSObject, IValueFormatter {
+}
 
-        public func stringForValue(_ value: Double, entry: ChartDataEntry, dataSetIndex: Int, viewPortHandler: ViewPortHandler?) -> String {
-            var numberString = String(value)
-            if numberString.hasSuffix(".0") && value != 0 {
-                numberString.removeLast(2)
-                return numberString
-            }
-            
-            return value <= 0.0 ? "" : String(describing: value)
+public class XValueFormatter: NSObject, IValueFormatter {
+
+    public func stringForValue(_ value: Double, entry: ChartDataEntry, dataSetIndex: Int, viewPortHandler: ViewPortHandler?) -> String {
+        var numberString = String(value)
+        if numberString.hasSuffix(".0") && value != 0 {
+            numberString.removeLast(2)
+            return numberString
         }
+        
+        return value <= 0.0 ? "" : String(describing: value)
     }
-    
 }
 
 

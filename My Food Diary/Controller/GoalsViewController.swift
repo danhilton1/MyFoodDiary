@@ -59,7 +59,7 @@ class GoalsViewController: UITableViewController, UITextFieldDelegate {
         fatGoalTextField.text = defaults.value(forKey: UserDefaultsKeys.goalFat) as? String
         var goalWeight = defaults.value(forKey: UserDefaultsKeys.goalWeight) as? Double ?? 0
         weightGoalTextField.text = goalWeight.removePointZeroEndingAndConvertToString()
-        let weightUnit = defaults.value(forKey: UserDefaultsKeys.goalWeightUnit) as? String
+        let weightUnit = defaults.value(forKey: UserDefaultsKeys.weightUnit) as? String
         weightUnitButton.setTitle(weightUnit ?? "kg", for: .normal)
         updateGoalsButton.setTitleColor(.white, for: .normal)
         updateGoalsButton.backgroundColor = Color.skyBlue
@@ -94,11 +94,11 @@ class GoalsViewController: UITableViewController, UITextFieldDelegate {
         defaults.set(carbsGoalTextField.text, forKey: UserDefaultsKeys.goalCarbs)
         defaults.set(fatGoalTextField.text, forKey: UserDefaultsKeys.goalFat)
         defaults.set(Double(weightGoalTextField.text ?? "0"), forKey: UserDefaultsKeys.goalWeight)
-        defaults.set(weightUnitButton.title(for: .normal), forKey: UserDefaultsKeys.goalWeightUnit)
+        defaults.set(weightUnitButton.title(for: .normal), forKey: UserDefaultsKeys.weightUnit)
         
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-            SVProgressHUD.setMinimumDismissTimeInterval(1)
+            SVProgressHUD.setMinimumDismissTimeInterval(0.9)
             SVProgressHUD.showSuccess(withStatus: "Goals Updated")
             
         }

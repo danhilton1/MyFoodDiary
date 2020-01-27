@@ -32,6 +32,9 @@ class WelcomeViewController: UIViewController {
 
         setUpViews()
         checkIfUserIsSignedIn()
+        if defaults.value(forKey: UserDefaultsKeys.weightUnit) as? String == nil {
+            defaults.setValue("kg", forKey: UserDefaultsKeys.weightUnit)
+        }
         
     }
     
@@ -72,7 +75,7 @@ class WelcomeViewController: UIViewController {
                 if let error = error {
                     print(error)
                     if error.localizedDescription == "Network error (such as timeout, interrupted connection or unreachable host) has occurred." {
-                        let ac = UIAlertController(title: "Network Error", message: "You have no internet connection and are unable to log into your account. Saved data cannot be retrieved and any entries made will not be saved to your account.", preferredStyle: .alert)
+                        let ac = UIAlertController(title: "Network Error", message: "There was an error connecting to the server. Please find a stable internet connection. Stored data cannot be retrieved but you can still make new entries.", preferredStyle: .alert)
                         ac.addAction(UIAlertAction(title: "OK", style: .default) { (action) in
                             strongSelf.performSegue(withIdentifier: "GoToTabBar", sender: self)
                             SVProgressHUD.dismiss()
