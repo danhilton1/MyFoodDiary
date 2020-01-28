@@ -13,11 +13,12 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
     
     //MARK:- Properties
     
-    @IBOutlet weak var unitSegmentedControl: UISegmentedControl!
     @IBOutlet weak var dateButton: DateButton!
     @IBOutlet weak var weightTextField: UITextField!
+    @IBOutlet weak var unitLabel: UILabel!
     
     let db = Firestore.firestore()
+    let defaults = UserDefaults()
     
     weak var delegate: WeightDelegate?
     let formatter = DateFormatter()
@@ -85,10 +86,11 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
     }
     
     func setUpViews() {
-        unitSegmentedControl.selectedSegmentIndex = selectedSegmentIndex
+        
         if let weight = weightEntry?.weight {
             weightTextField.text = "\(weight)"
         }
+        unitLabel.text = defaults.value(forKey: UserDefaultsKeys.weightUnit) as? String ?? "kg"
         formatter.dateFormat = "E, dd MMM YYYY"
         buttonFormatter.dateFormat = "E, dd MMM"
         dateButton.setTitle(buttonFormatter.string(from: weightEntry?.date ?? Date()), for: .normal)
@@ -137,10 +139,10 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
     @IBAction func addButtonTapped(_ sender: UIBarButtonItem) {
         
         let entry: Weight
-        var originalWeight = 0.0
+//        var originalWeight = 0.0
         if weightEntry != nil {
             entry = weightEntry!
-            originalWeight = weightEntry!.weight
+//            originalWeight = weightEntry!.weight
         }
         else {
             entry = Weight()
@@ -157,7 +159,7 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
                 return
             }
         }
-        entry.unit = unitSegmentedControl.titleForSegment(at: unitSegmentedControl.selectedSegmentIndex)!
+        entry.unit = unitLabel.text ?? "kg"
         entry.date = datePicker.date
         entry.dateLastEdited = datePicker.date
         entry.dateString = formatter.string(from: datePicker.date)
@@ -166,7 +168,7 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
         
         if isEditingExistingEntry {
             print(entry.date)
-            let weightDocumentToUpdate = db.collection("users").document(user).collection("weight").document("\(originalWeight) \(entry.date)")
+            let weightDocumentToUpdate = db.collection("users").document(user).collection("weight").document("\(entry.dateString!)")
             
             weightDocumentToUpdate.updateData([
                 "weight": entry.weight,
@@ -193,17 +195,6 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
         
     }
     
-    
-//    func save(_ weight: Object) {
-//        
-//        do {
-//            try realm.write {
-//                realm.add(weight)
-//            }
-//        } catch {
-//            print(error)
-//        }
-//    }
 
     
     func dismissViewWithAnimation() {

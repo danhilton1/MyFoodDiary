@@ -27,7 +27,7 @@ extension Weight {
     
     func saveWeight(user: String) {
         
-        db.collection("users").document(user).collection("weight").document("\(self.weight) \(self.date)").setData([
+        db.collection("users").document(user).collection("weight").document("\(self.dateString!)").setData([
             "weight": self.weight,
             "unit": self.unit,
             "date": self.date,
@@ -37,7 +37,7 @@ extension Weight {
             if let error = error {
                 print("Error adding document: \(error)")
             } else {
-                print("Document added with ID: \(self.weight) \(self.date)")
+                print("Document \(self.weight) added with ID: \(self.dateString!)")
             }
         }
     }
