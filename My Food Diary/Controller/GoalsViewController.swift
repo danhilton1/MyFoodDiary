@@ -90,9 +90,9 @@ class GoalsViewController: UITableViewController, UITextFieldDelegate {
         SVProgressHUD.show()
         
         defaults.set(Int(caloriesGoalTextField.text ?? "0"), forKey: UserDefaultsKeys.goalCalories)
-        defaults.set(proteinGoalTextField.text, forKey: UserDefaultsKeys.goalProtein)
-        defaults.set(carbsGoalTextField.text, forKey: UserDefaultsKeys.goalCarbs)
-        defaults.set(fatGoalTextField.text, forKey: UserDefaultsKeys.goalFat)
+        defaults.set(Double(proteinGoalTextField.text ?? "0"), forKey: UserDefaultsKeys.goalProtein)
+        defaults.set(Double(carbsGoalTextField.text ?? "0"), forKey: UserDefaultsKeys.goalCarbs)
+        defaults.set(Double(fatGoalTextField.text ?? "0"), forKey: UserDefaultsKeys.goalFat)
         defaults.set(Double(weightGoalTextField.text ?? "0"), forKey: UserDefaultsKeys.goalWeight)
         defaults.set(weightUnitButton.title(for: .normal), forKey: UserDefaultsKeys.weightUnit)
         

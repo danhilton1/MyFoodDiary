@@ -18,6 +18,12 @@ class DayNutritionCell: UITableViewCell {
     @IBOutlet weak var proteinValueLabel: UILabel!
     @IBOutlet weak var carbsValueLabel: UILabel!
     @IBOutlet weak var fatValueLabel: UILabel!
+    
+    @IBOutlet weak var remainingProteinLabel: UILabel!
+    @IBOutlet weak var remainingCarbsLabel: UILabel!
+    @IBOutlet weak var remainingFatLabel: UILabel!
+    
+    
     @IBOutlet weak var proteinPercentLabel: UILabel!
     @IBOutlet weak var carbsPercentLabel: UILabel!
     @IBOutlet weak var fatPercentLabel: UILabel!
@@ -39,6 +45,8 @@ class DayNutritionCell: UITableViewCell {
         proteinKey.layer.cornerRadius = proteinKey.frame.size.width / 2
         carbsKey.layer.cornerRadius = carbsKey.frame.size.width / 2
         fatKey.layer.cornerRadius = fatKey.frame.size.width / 2
+        
+        carbsPercentLabel.textColor = Color.skyBlue
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

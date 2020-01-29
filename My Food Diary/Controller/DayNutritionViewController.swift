@@ -141,9 +141,20 @@ class DayNutritionViewController: UIViewController, UITableViewDataSource, UITab
             cell.carbsValueLabel.text = carbs.removePointZeroEndingAndConvertToString() + " g"
             cell.fatValueLabel.text = fat.removePointZeroEndingAndConvertToString() + " g"
             
-            cell.goalProteinLabel.text = "\(defaults.value(forKey: UserDefaultsKeys.goalProtein) as? String ?? "0") g"
-            cell.goalCarbsLabel.text = "\(defaults.value(forKey: UserDefaultsKeys.goalCarbs) as? String ?? "0") g"
-            cell.goalFatLabel.text = "\(defaults.value(forKey: UserDefaultsKeys.goalFat) as? String ?? "0") g"
+            var goalProtein = defaults.value(forKey: UserDefaultsKeys.goalProtein) as? Double ?? 0
+            var goalCarbs = defaults.value(forKey: UserDefaultsKeys.goalCarbs) as? Double ?? 0
+            var goalFat = defaults.value(forKey: UserDefaultsKeys.goalFat) as? Double ?? 0
+            var remainingProtein = goalProtein - protein
+            var remainingCarbs = goalCarbs - carbs
+            var remainingFat = goalFat - fat
+            
+            cell.remainingProteinLabel.text = remainingProtein.removePointZeroEndingAndConvertToString() + " g"
+            cell.remainingCarbsLabel.text = remainingCarbs.removePointZeroEndingAndConvertToString() + " g"
+            cell.remainingFatLabel.text = remainingFat.removePointZeroEndingAndConvertToString() + " g"
+            
+            cell.goalProteinLabel.text = goalProtein.removePointZeroEndingAndConvertToString() + " g"
+            cell.goalCarbsLabel.text = goalCarbs.removePointZeroEndingAndConvertToString() + " g"
+            cell.goalFatLabel.text = goalFat.removePointZeroEndingAndConvertToString() + " g"
             
             if proteinPercentage.isNaN && carbsPercentage.isNaN && fatPercentage.isNaN {
                 cell.proteinPercentLabel.text = "0"

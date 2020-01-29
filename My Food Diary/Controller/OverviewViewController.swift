@@ -134,14 +134,19 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             totalCaloriesLabel.textColor = Color.salmon
             remainingCaloriesLabel.textColor = Color.salmon
         }
-        else if totalCalories >= (goalCalories - 500) && totalCalories <= (goalCalories + 500) && totalCalories != goalCalories {
-            totalCaloriesLabel.textColor = .systemOrange
-            remainingCaloriesLabel.textColor = .systemOrange
-        }
-        else {
+        else if totalCalories >= (goalCalories - 100) && totalCalories <= (goalCalories + 100) {
             totalCaloriesLabel.textColor = Color.mint
             remainingCaloriesLabel.textColor = Color.mint
         }
+        else {
+            totalCaloriesLabel.textColor = .systemOrange
+            remainingCaloriesLabel.textColor = .systemOrange
+        }
+        
+//        else {
+//            totalCaloriesLabel.textColor = Color.mint
+//            remainingCaloriesLabel.textColor = Color.mint
+//        }
     }
     
     
