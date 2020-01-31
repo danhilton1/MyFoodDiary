@@ -68,6 +68,7 @@ class NutritionViewController: UIViewController {
         setUpWeekView(direction: .backward, date: date, considerToday: true)
         setUpMonthView(direction: .backward, date: date, considerToday: true)
         setUpWeekView(direction: .backward, date: date, considerToday: true)
+        
     }
     
     func setUpNavBar() {
@@ -86,11 +87,7 @@ class NutritionViewController: UIViewController {
     //MARK: - Set Data Methods
     
     func setFoodList(date: Date?) {
-//        foodList = realm.objects(Food.self)
-//        let predicate = NSPredicate(format: "date contains[c] %@", formatter.string(from: date ?? Date()))
-//        foodList = foodList?.filter(predicate)
-//        let deletedPredicate = NSPredicate(format: "isDeleted == FALSE")
-//        foodList = foodList?.filter(deletedPredicate)
+
         foodList = [Food]()
         for food in allFood! {
             if food.date == formatter.string(from: date ?? Date()) && !food.isDeleted {
@@ -100,11 +97,7 @@ class NutritionViewController: UIViewController {
     }
     
     func setFoodListCopy(date: Date?) {
-//        foodListCopy = realm.objects(Food.self)
-//        let predicate = NSPredicate(format: "date contains[c] %@", formatter.string(from: date ?? Date()))
-//        foodListCopy = foodListCopy?.filter(predicate)
-//        let deletedPredicate = NSPredicate(format: "isDeleted == FALSE")
-//        foodListCopy = foodListCopy?.filter(deletedPredicate)
+
         foodListCopy = [Food]()
         for food in allFood! {
             if food.date == formatter.string(from: date ?? Date()) && !food.isDeleted {

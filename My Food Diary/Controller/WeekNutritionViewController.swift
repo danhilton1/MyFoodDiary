@@ -14,6 +14,8 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
     
 //    var foodList: Results<Food>?
 //    var foodListCopy: Results<Food>?
+    let calendar = Calendar.current
+    var startOfWeekDate: Date?
     
     var foodList: [Food]?
     var foodListCopy: [Food]?
@@ -183,6 +185,21 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
         }
     }
     
+    func setXaxisDateValues(date: Date, lineChartCell: LineChartCell?, barChartCell: BarChartNutritionCell?) {
+        var date = date
+        let axisDateFormatter = DateFormatter()
+        axisDateFormatter.dateFormat = "dd"
+        
+        let xAxisValues = IndexAxisValueFormatter(values: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"])
+        var valuesArray = [String]()
+        for value in xAxisValues.values {
+            valuesArray.append("\(value) \(axisDateFormatter.string(from: date))")
+            date = calendar.date(byAdding: .day, value: 1, to: date)!
+        }
+        lineChartCell?.lineChart.xAxis.valueFormatter = IndexAxisValueFormatter(values: valuesArray)
+        barChartCell?.barChart.xAxis.valueFormatter = IndexAxisValueFormatter(values: valuesArray)
+    }
+    
     
 }
 
@@ -224,6 +241,10 @@ extension WeekNutritionViewController {
             cell.barChart.animate(yAxisDuration: 0.5)
             cell.barChart.data = chartData
             
+            let parentVC = parent as! NutritionViewController
+            let dayNumberDate = parentVC.startOfWeekVCDate ?? Date()
+            setXaxisDateValues(date: dayNumberDate, lineChartCell: nil, barChartCell: cell)
+            
             cell.proteinLabel.text = averageProtein.removePointZeroEndingAndConvertToString() + " g"
             cell.carbsLabel.text = averageCarbs.removePointZeroEndingAndConvertToString() + " g"
             cell.fatLabel.text = averageFat.removePointZeroEndingAndConvertToString() + " g"
@@ -241,6 +262,10 @@ extension WeekNutritionViewController {
             let chartData = LineChartData(dataSet: lineChartDataSet)
             cell.lineChart.animate(yAxisDuration: 0.5)
             cell.lineChart.data = chartData
+            
+            let parentVC = parent as! NutritionViewController
+            let dayNumberDate = parentVC.startOfWeekVCDate ?? Date()
+            setXaxisDateValues(date: dayNumberDate, lineChartCell: cell, barChartCell: nil)
             
             var averageCalories = round(getAverageOfValue(dataSet: lineChartDataSet))
             

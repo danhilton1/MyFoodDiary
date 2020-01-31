@@ -417,6 +417,21 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
+    public func setXaxisDateValues(date: Date, lineChartCell: LineChartCell?, barChartCell: BarChartNutritionCell?) {
+        var date = date
+        let axisDateFormatter = DateFormatter()
+        axisDateFormatter.dateFormat = "dd"
+        
+        let xAxisValues = IndexAxisValueFormatter(values: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"])
+        var valuesArray = [String]()
+        for value in xAxisValues.values {
+            valuesArray.append("\(value) \(axisDateFormatter.string(from: date))")
+            date = calendar.date(byAdding: .day, value: 1, to: date)!
+        }
+        lineChartCell?.lineChart.xAxis.valueFormatter = IndexAxisValueFormatter(values: valuesArray)
+        barChartCell?.barChart.xAxis.valueFormatter = IndexAxisValueFormatter(values: valuesArray)
+    }
+    
 }
 
 
@@ -483,18 +498,9 @@ extension WeightViewController {
             chartData.setValueFormatter(XValueFormatter())
             cell.lineChart.data = chartData
             
-            var dayNumberDate = startOfWeekDate ?? Date()
+            let dayNumberDate = startOfWeekDate ?? Date()
             
-            let axisDateFormatter = DateFormatter()
-            axisDateFormatter.dateFormat = "dd"
-            
-            let xAxisValues = IndexAxisValueFormatter(values: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"])
-            var valuesArray = [String]()
-            for value in xAxisValues.values {
-                valuesArray.append("\(value) \(axisDateFormatter.string(from: dayNumberDate))")
-                dayNumberDate = calendar.date(byAdding: .day, value: 1, to: dayNumberDate)!
-            }
-            cell.lineChart.xAxis.valueFormatter = IndexAxisValueFormatter(values: valuesArray)
+            setXaxisDateValues(date: dayNumberDate, lineChartCell: cell, barChartCell: nil)
             
             cell.isUserInteractionEnabled = false
             
