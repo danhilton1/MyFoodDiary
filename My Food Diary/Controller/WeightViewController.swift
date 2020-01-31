@@ -133,6 +133,7 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
             var entry = weightEntries?.last?.weight ?? 0
             lineChartDataSet.append(ChartDataEntry(x: Double(i), y: entry.roundToXDecimalPoints(decimalPoints: 1)))
         }
+        
     }
     
     func reloadData(weightEntry: Weight, date: Date?) {
@@ -481,6 +482,19 @@ extension WeightViewController {
             let chartData = LineChartData(dataSet: lineChartDataSet)
             chartData.setValueFormatter(XValueFormatter())
             cell.lineChart.data = chartData
+            
+            var dayNumberDate = startOfWeekDate ?? Date()
+            
+            let axisDateFormatter = DateFormatter()
+            axisDateFormatter.dateFormat = "dd"
+            
+            let xAxisValues = IndexAxisValueFormatter(values: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"])
+            var valuesArray = [String]()
+            for value in xAxisValues.values {
+                valuesArray.append("\(value) \(axisDateFormatter.string(from: dayNumberDate))")
+                dayNumberDate = calendar.date(byAdding: .day, value: 1, to: dayNumberDate)!
+            }
+            cell.lineChart.xAxis.valueFormatter = IndexAxisValueFormatter(values: valuesArray)
             
             cell.isUserInteractionEnabled = false
             
