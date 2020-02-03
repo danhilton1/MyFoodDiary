@@ -7,7 +7,7 @@
 //
 
 import Foundation
-//import RealmSwift
+import AnyCodable
 
 
 class Food {
@@ -181,14 +181,14 @@ struct NutrimentsEdit: Codable {
 //    let carbServing: Double
 //    let fatServing: Double
     
-    
+//    let energy_100g: Int
     let energy100g: Int
     var calories100g: Int {
         return Int(round(Double(energy100g) / 4.184))
     }
-    let protein100g: String
-    let carbs100g: String
-    let fat100g: String
+    let protein100g: Double
+    let carbs100g: Double
+    let fat100g: Double
     
     
     enum CodingKeys: String, CodingKey {
@@ -197,12 +197,13 @@ struct NutrimentsEdit: Codable {
 //        case proteinServing = "proteins_serving"
 //        case carbServing = "carbohydrates_serving"
 //        case fatServing = "fat_serving"
-
+//
         case energy100g = "energy_100g"
         case protein100g = "proteins_100g"
         case carbs100g = "carbohydrates_100g"
         case fat100g = "fat_100g"
 
     }
-    
 }
+
+

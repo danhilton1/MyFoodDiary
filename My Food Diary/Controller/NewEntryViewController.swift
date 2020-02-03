@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import SVProgressHUD
 
 class NewEntryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -16,6 +17,7 @@ class NewEntryViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var enterManuallyButton: UIButton!
+    @IBOutlet weak var historyLabel: UILabel!
     
     var date: Date?
     var meal = Food.Meal.breakfast
@@ -119,7 +121,7 @@ class NewEntryViewController: UIViewController, UITableViewDelegate, UITableView
         else if segue.identifier == Segues.goToFoodDetail {
             let destVC = segue.destination as! FoodDetailViewController
             guard let indexPath = tableView.indexPathForSelectedRow else { return }
-            destVC.food = sortedFood[indexPath.row]
+            destVC.food = sortedFoodCopy[indexPath.row]
 //            destVC.isAddingFromExistingEntry = true
             destVC.delegate = delegate
             destVC.mealDelegate = mealDelegate
@@ -256,31 +258,80 @@ extension NewEntryViewController: UISearchBarDelegate {
                 countryIdentifier = "us"
             }
             
-            let urlString = "https://\(countryIdentifier).openfoodfacts.org/cgi/search.pl?action=process&search_terms=\(searchWords)&sort_by=unique_scans_n&page_size=20&action=display&json=1"
+            let urlString = "https://\(countryIdentifier).openfoodfacts.org/cgi/search.pl?action=process&search_terms=\(searchWords)&sort_by=product_name&page_size=40&action=display&json=1"
             print(urlString)
             guard let url = URL(string: urlString) else { return }
             
-            URLSession.shared.dataTask(with: url) { [weak self] (date, response, error) in
+            SVProgressHUD.show()
+            
+            URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
                 guard let strongSelf = self else { return }
-                guard let data = date else { return }
-                let food = Food()
-                print(data.count)
+                guard let data = data else { return }
+//                let food = Food()
+                
                 do {
-                    let scannedFood = try JSONDecoder().decode(FoodSearchDatabase.self, from: data)
-                    for i in 0..<4 {
-                        print(scannedFood.products[i].productName)
+                    if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                        if let products = json["products"] as? [[String: Any]] {
+                            
+                            var searchFoodList = [Food]()
+                            for product in products {
+ 
+                                if let nutrients = product["nutriments"] as? [String: Any],
+                                   let productName = product["product_name"] as? String,
+                                   let energy = nutrients["energy_100g"],  //Unable to cast nutrients to type as JSON data can vary
+                                   let protein = nutrients["proteins_100g"],
+                                   let carbs = nutrients["carbohydrates_100g"],
+                                   let fat = nutrients["fat_100g"] {
+                                    
+                                    if !productName.isEmpty && !"\(energy)".isEmpty && !"\(protein)".isEmpty && !"\(carbs)".isEmpty && !"\(fat)".isEmpty {
+                                        
+                                        let servingSize = product["serving_size"] as? String ?? "100"
+                                        var trimmedServingSize = ""
+                                        for character in servingSize {
+                                            if character == "g" || character == " " {
+                                                break
+                                            }
+                                            else {
+                                                trimmedServingSize.append(character)
+                                            }
+                                        }
+                                        let energyString = "\(energy)"
+                                        let calories = Int(round(Double(energyString)! / 4.184))
+                                        let proteinString = "\(protein)"
+                                        let carbsString = "\(carbs)"
+                                        let fatString = "\(fat)"
+                                        let food = Food()
+                                        
+                                        food.name = productName
+                                        food.servingSize = trimmedServingSize
+                                        food.calories = calories
+                                        food.protein = Double(proteinString)!
+                                        food.carbs = Double(carbsString)!
+                                        food.fat = Double(fatString)!
+                                        
+                                        searchFoodList.append(food)
+                                        
+                                    }
+                                }
+                            }
+                            strongSelf.sortedFoodCopy = searchFoodList
+                            DispatchQueue.main.async {
+                                strongSelf.tableView.reloadData()
+                                strongSelf.historyLabel.text = "Results"
+                                searchBar.resignFirstResponder()
+                            }
+                            
+                            SVProgressHUD.dismiss()
+                            
+                        }     
                     }
-                    //print(scannedFood.products.productName)
-//                    for product in scannedFood.products {
-//                        food.name = product.productName
-//                    }
-                    
-                    
                 }
                 catch {
                    print(error)
+                    SVProgressHUD.dismiss()
                 }
             }.resume()
+            
         }
     }
     
@@ -288,6 +339,9 @@ extension NewEntryViewController: UISearchBarDelegate {
         searchBar.text = ""
         searchBar.resignFirstResponder()
         sortedFoodCopy = sortedFood
+        if historyLabel.text == "Results" {
+            historyLabel.text = "History"
+        }
         tableView.reloadData()
     }
     

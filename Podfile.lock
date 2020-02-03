@@ -1,4 +1,5 @@
 PODS:
+  - AnyCodable-FlightSchool (0.2.3)
   - BoringSSL-GRPC (0.0.3):
     - BoringSSL-GRPC/Implementation (= 0.0.3)
     - BoringSSL-GRPC/Interface (= 0.0.3)
@@ -123,6 +124,7 @@ PODS:
   - SwiftKeychainWrapper (3.4.0)
 
 DEPENDENCIES:
+  - AnyCodable-FlightSchool (~> 0.2.3)
   - Charts
   - Firebase/Analytics
   - Firebase/Auth
@@ -155,9 +157,11 @@ SPEC REPOS:
     - Protobuf
     - SVProgressHUD
   trunk:
+    - AnyCodable-FlightSchool
     - SwiftKeychainWrapper
 
 SPEC CHECKSUMS:
+  AnyCodable-FlightSchool: cf53737f4bd1d9187cea453679734506e478fff3
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
   Charts: e0dd4cd8f257bccf98407b58183ddca8e8d5b578
   Firebase: 2d750c54cda57d5a6ae31212cfe5cc813c6be7e4
@@ -182,6 +186,6 @@ SPEC CHECKSUMS:
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftKeychainWrapper: 6fc49fbf7d4a6b0772917acb0e53a1639f6078d6
 
-PODFILE CHECKSUM: 198651b4ced96f86e630aaaea861e7c8c3d40ebb
+PODFILE CHECKSUM: cacbec9295d6d5abf355c0512a4b13c060765cd6
 
 COCOAPODS: 1.8.4

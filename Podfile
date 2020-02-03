@@ -12,5 +12,6 @@ pod 'Firebase/Auth'
 pod 'Firebase/Firestore'
 pod 'SVProgressHUD'
 pod 'SwiftKeychainWrapper'
+pod 'AnyCodable-FlightSchool', '~> 0.2.3'
 
 end
