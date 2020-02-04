@@ -536,10 +536,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BarcodeScannerIcon" translatesAutoresizingMaskIntoConstraints="NO" id="emP-Y4-4pZ">
-                                <rect key="frame" x="160" y="21.5" width="33" height="33"/>
+                                <rect key="frame" x="356.5" y="21.5" width="33" height="33"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3tw-2j-oI4">
-                                <rect key="frame" x="0.0" y="15" width="206" height="46"/>
+                                <rect key="frame" x="218" y="15" width="196" height="46"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="46" id="Imh-4u-2Wj"/>
@@ -550,19 +550,6 @@
                                 </state>
                                 <connections>
                                     <segue destination="ZBk-MS-8G1" kind="show" identifier="GoToBarcodeScanner" id="7F2-nV-Bz8"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Kh-1r-0Pd">
-                                <rect key="frame" x="208" y="15" width="206" height="46"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="46" id="7gc-BZ-zEd"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="17"/>
-                                <state key="normal" title="Enter Manually">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <segue destination="IYF-za-1ww" kind="show" identifier="GoToManualEntry" id="DcE-gC-QC3"/>
                                 </connections>
                             </button>
                             <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search for a food" translatesAutoresizingMaskIntoConstraints="NO" id="xm6-Ah-7ZQ">
@@ -648,41 +635,54 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Scan Barcode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w6Q-wk-vbP">
-                                <rect key="frame" x="31" y="27" width="121" height="21"/>
+                                <rect key="frame" x="228" y="27" width="120.5" height="21"/>
                                 <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Kh-1r-0Pd">
+                                <rect key="frame" x="0.0" y="15" width="206" height="46"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="46" id="7gc-BZ-zEd"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="17"/>
+                                <state key="normal" title="Enter Manually">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <segue destination="IYF-za-1ww" kind="show" identifier="GoToManualEntry" id="DcE-gC-QC3"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="0Kh-1r-0Pd" firstAttribute="leading" secondItem="eWe-S8-Iwa" secondAttribute="trailing" id="1iK-Pl-T3N"/>
+                            <constraint firstItem="eWe-S8-Iwa" firstAttribute="centerX" secondItem="EtL-Xu-1AI" secondAttribute="centerX" id="2zo-ly-rll"/>
                             <constraint firstItem="eWe-S8-Iwa" firstAttribute="centerY" secondItem="3tw-2j-oI4" secondAttribute="centerY" id="69z-gl-Ga3"/>
+                            <constraint firstAttribute="trailing" secondItem="3tw-2j-oI4" secondAttribute="trailing" id="6Do-2F-vwK"/>
                             <constraint firstItem="xE2-JG-pp7" firstAttribute="trailing" secondItem="TH2-gM-VBY" secondAttribute="trailing" id="6oG-JG-i9u"/>
                             <constraint firstItem="xm6-Ah-7ZQ" firstAttribute="top" secondItem="0Kh-1r-0Pd" secondAttribute="bottom" constant="15" id="CD2-V8-9rv"/>
-                            <constraint firstItem="3tw-2j-oI4" firstAttribute="leading" secondItem="xE2-JG-pp7" secondAttribute="leading" id="H2N-U3-nHd"/>
+                            <constraint firstItem="w6Q-wk-vbP" firstAttribute="leading" secondItem="eWe-S8-Iwa" secondAttribute="trailing" constant="20" id="GAP-h2-ctL"/>
                             <constraint firstItem="xE2-JG-pp7" firstAttribute="bottom" secondItem="aGH-ak-qJd" secondAttribute="bottom" id="J92-E0-BoD"/>
                             <constraint firstItem="TH2-gM-VBY" firstAttribute="leading" secondItem="xE2-JG-pp7" secondAttribute="leading" constant="20" id="Jfi-RT-Q0d"/>
                             <constraint firstItem="xm6-Ah-7ZQ" firstAttribute="leading" secondItem="xE2-JG-pp7" secondAttribute="leading" id="MXD-wJ-P2y"/>
                             <constraint firstItem="0Kh-1r-0Pd" firstAttribute="top" secondItem="xE2-JG-pp7" secondAttribute="top" constant="15" id="OeL-ap-vSl"/>
                             <constraint firstItem="xm6-Ah-7ZQ" firstAttribute="top" secondItem="emP-Y4-4pZ" secondAttribute="bottom" constant="21.5" id="Q6Q-8r-4AE"/>
                             <constraint firstItem="emP-Y4-4pZ" firstAttribute="top" secondItem="xE2-JG-pp7" secondAttribute="top" constant="21.5" id="Rhk-Hi-eMJ"/>
+                            <constraint firstItem="xE2-JG-pp7" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="emP-Y4-4pZ" secondAttribute="trailing" constant="10" id="T8o-zW-bR2"/>
                             <constraint firstItem="xm6-Ah-7ZQ" firstAttribute="trailing" secondItem="xE2-JG-pp7" secondAttribute="trailing" id="THy-dF-Yg4"/>
                             <constraint firstItem="xm6-Ah-7ZQ" firstAttribute="top" secondItem="3tw-2j-oI4" secondAttribute="bottom" constant="15" id="Vkl-XW-Uli"/>
                             <constraint firstItem="emP-Y4-4pZ" firstAttribute="centerY" secondItem="3tw-2j-oI4" secondAttribute="centerY" id="VzR-gm-LcE"/>
                             <constraint firstItem="TH2-gM-VBY" firstAttribute="top" secondItem="sDg-84-ZxD" secondAttribute="bottom" constant="3" id="Wxo-hF-Zke"/>
                             <constraint firstItem="emP-Y4-4pZ" firstAttribute="leading" secondItem="w6Q-wk-vbP" secondAttribute="trailing" constant="8" id="XY6-xo-UIv"/>
                             <constraint firstItem="aGH-ak-qJd" firstAttribute="top" secondItem="sDg-84-ZxD" secondAttribute="bottom" constant="10" id="Zhf-ec-rfq"/>
-                            <constraint firstItem="0Kh-1r-0Pd" firstAttribute="width" secondItem="3tw-2j-oI4" secondAttribute="width" id="bkR-fx-9hF"/>
                             <constraint firstItem="sDg-84-ZxD" firstAttribute="top" secondItem="xm6-Ah-7ZQ" secondAttribute="bottom" constant="10" id="faj-0k-8hL"/>
-                            <constraint firstItem="w6Q-wk-vbP" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="xE2-JG-pp7" secondAttribute="leading" constant="20" id="g48-es-86b"/>
                             <constraint firstItem="w6Q-wk-vbP" firstAttribute="top" secondItem="xE2-JG-pp7" secondAttribute="top" constant="27" id="h7s-PB-KYc"/>
                             <constraint firstItem="sDg-84-ZxD" firstAttribute="leading" secondItem="xE2-JG-pp7" secondAttribute="leading" constant="20" id="jBB-qd-6uh"/>
-                            <constraint firstItem="eWe-S8-Iwa" firstAttribute="leading" secondItem="3tw-2j-oI4" secondAttribute="trailing" id="kyN-Tj-9nh"/>
+                            <constraint firstItem="3tw-2j-oI4" firstAttribute="leading" secondItem="eWe-S8-Iwa" secondAttribute="trailing" constant="10" id="p0g-Ko-FdY"/>
                             <constraint firstItem="3tw-2j-oI4" firstAttribute="top" secondItem="xE2-JG-pp7" secondAttribute="top" constant="15" id="qHk-gX-SDM"/>
                             <constraint firstItem="xE2-JG-pp7" firstAttribute="trailing" secondItem="aGH-ak-qJd" secondAttribute="trailing" id="sEL-Yf-4nW"/>
-                            <constraint firstItem="xE2-JG-pp7" firstAttribute="trailing" secondItem="0Kh-1r-0Pd" secondAttribute="trailing" id="xHS-Po-q9B"/>
-                            <constraint firstItem="eWe-S8-Iwa" firstAttribute="leading" secondItem="emP-Y4-4pZ" secondAttribute="trailing" constant="13" id="y05-rX-FI5"/>
+                            <constraint firstItem="eWe-S8-Iwa" firstAttribute="leading" secondItem="0Kh-1r-0Pd" secondAttribute="trailing" id="sNa-0G-NAk"/>
+                            <constraint firstItem="0Kh-1r-0Pd" firstAttribute="leading" secondItem="xE2-JG-pp7" secondAttribute="leading" id="tqF-3l-bYY"/>
                             <constraint firstItem="aGH-ak-qJd" firstAttribute="leading" secondItem="xE2-JG-pp7" secondAttribute="leading" id="y7K-tb-ntE"/>
                             <constraint firstItem="xm6-Ah-7ZQ" firstAttribute="top" secondItem="w6Q-wk-vbP" secondAttribute="bottom" constant="28" id="yJW-d4-c9A"/>
                             <constraint firstItem="xE2-JG-pp7" firstAttribute="trailing" secondItem="sDg-84-ZxD" secondAttribute="trailing" constant="20" id="zIJ-M2-B0K"/>
@@ -701,7 +701,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0ww-vJ-oEs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1910" y="188"/>
+            <point key="canvasLocation" x="1908.6956521739132" y="187.5"/>
         </scene>
         <!--Scan Barcode-->
         <scene sceneID="mGu-uo-bcr">

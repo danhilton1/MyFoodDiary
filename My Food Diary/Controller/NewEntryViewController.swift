@@ -147,12 +147,17 @@ extension NewEntryViewController: UISearchBarDelegate {
         defaultCell.textLabel?.font = UIFont(name: "Montserrat-Regular", size: 16)
        
         if sortedFoodCopy.count == 0 {
-           tableView.separatorStyle = .none
-           defaultCell.textLabel?.text = "No food logged."
-           return defaultCell
+            tableView.separatorStyle = .none
+            if historyLabel.text == "History" {
+                defaultCell.textLabel?.text = "No food logged."
+            }
+            else {
+                defaultCell.textLabel?.text = "No matching foods found."
+            }
+            return defaultCell
         }
         else {
-           tableView.separatorStyle = .singleLine
+            tableView.separatorStyle = .singleLine
         }
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "foodHistoryCell", for: indexPath) as! FoodHistoryCell
@@ -249,8 +254,8 @@ extension NewEntryViewController: UISearchBarDelegate {
         
         if let searchText = searchBar.text {
             let searchWords = searchText.replacingOccurrences(of: " ", with: "+")
+            
             var countryIdentifier = Locale.current.identifier
-            print(countryIdentifier)
             if countryIdentifier == "en_GB" {
                 countryIdentifier = "uk"
             }
@@ -283,34 +288,53 @@ extension NewEntryViewController: UISearchBarDelegate {
                                    let carbs = nutrients["carbohydrates_100g"],
                                    let fat = nutrients["fat_100g"] {
                                     
+                                    // Make sure item has name, calories, protein, carbs and fat values
                                     if !productName.isEmpty && !"\(energy)".isEmpty && !"\(protein)".isEmpty && !"\(carbs)".isEmpty && !"\(fat)".isEmpty {
                                         
-                                        let servingSize = product["serving_size"] as? String ?? "100"
-                                        var trimmedServingSize = ""
-                                        for character in servingSize {
-                                            if character == "g" || character == " " {
-                                                break
-                                            }
-                                            else {
-                                                trimmedServingSize.append(character)
-                                            }
-                                        }
+                                        // Store JSON values in a string in order to access and convert to Int or Double
                                         let energyString = "\(energy)"
                                         let calories = Int(round(Double(energyString)! / 4.184))
                                         let proteinString = "\(protein)"
                                         let carbsString = "\(carbs)"
                                         let fatString = "\(fat)"
+                                        var trimmedServingSize = ""
+                                        
                                         let food = Food()
                                         
-                                        food.name = productName
-                                        food.servingSize = trimmedServingSize
-                                        food.calories = calories
-                                        food.protein = Double(proteinString)!
-                                        food.carbs = Double(carbsString)!
-                                        food.fat = Double(fatString)!
-                                        
-                                        searchFoodList.append(food)
-                                        
+                                        if let servingSize = product["serving_size"] as? String {
+                                            
+                                            // Only use the first set of numbers in servingSize
+                                            for character in servingSize {
+                                                if character == "g" || character == " " {
+                                                    break
+                                                }
+                                                else {
+                                                    trimmedServingSize.append(character)
+                                                }
+                                            }
+                                            let servingSizeNumber = Double(trimmedServingSize.filter("01234567890.".contains)) ?? 100
+                                            if servingSize.contains("ml") {
+                                                food.servingSizeUnit = "ml"
+                                            }
+                                            food.servingSize = trimmedServingSize.filter("01234567890.".contains)
+                                            food.name = productName
+                                            food.calories = Int((Double(calories) / 100) * servingSizeNumber)
+                                            food.protein = (Double(proteinString)! / 100.0) * servingSizeNumber
+                                            food.carbs = (Double(carbsString)! / 100.0) * servingSizeNumber
+                                            food.fat = (Double(fatString)! / 100.0) * servingSizeNumber
+                                            
+                                            searchFoodList.append(food)
+                                        }
+                                        else {
+  
+                                            food.name = productName
+                                            food.calories = calories
+                                            food.protein = Double(proteinString)!
+                                            food.carbs = Double(carbsString)!
+                                            food.fat = Double(fatString)!
+                                            
+                                            searchFoodList.append(food)
+                                        }
                                     }
                                 }
                             }
