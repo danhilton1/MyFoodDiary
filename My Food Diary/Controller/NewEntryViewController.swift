@@ -190,13 +190,14 @@ extension NewEntryViewController: UISearchBarDelegate {
                 guard let strongSelf = self else { return }
                 
                 guard let user = Auth.auth().currentUser?.email else { return }
-                let food = strongSelf.sortedFoodCopy[indexPath.row].name!
+                let foodName = strongSelf.sortedFoodCopy[indexPath.row].name!
+                let foodUUID = strongSelf.sortedFoodCopy[indexPath.row].uuid
                 
-                strongSelf.db.collection("users").document(user).collection("foods").document(food).delete() { err in
+                strongSelf.db.collection("users").document(user).collection("foods").document("\(foodName) \(foodUUID)").delete() { err in
                     if let err = err {
                         print("Error removing document: \(err)")
                     } else {
-                        print("Document: \(food) successfully removed!")
+                        print("Document: \(foodName) successfully removed!")
                     }
                 }
                 

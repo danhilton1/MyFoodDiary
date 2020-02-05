@@ -29,6 +29,7 @@ class MoreViewController: UITableViewController {
         tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
         logOutButton.layer.cornerRadius = 20
+        logOutButton.backgroundColor = Color.skyBlue
     }
 
     override func viewWillAppear(_ animated: Bool) {

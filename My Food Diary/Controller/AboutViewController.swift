@@ -23,7 +23,7 @@ class AboutViewController: UITableViewController {
         appLogoImageView.layer.cornerRadius = 25
         titleLabel.textColor = Color.skyBlue
         let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
-        versionLabel.text = "Version: \(appVersion ?? "0.0.0")"
+        versionLabel.text = "Version: \(appVersion ?? "1.0.0")"
         
         tableView.tableFooterView = UIView()
         tableView.separatorStyle = .none
