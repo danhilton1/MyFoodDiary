@@ -61,6 +61,7 @@
 		37DE59D722D1055D00079A6A /* OverviewPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DE59D622D1055D00079A6A /* OverviewPageViewController.swift */; };
 		37DE71072351097900B1C4AC /* NutritionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DE71062351097900B1C4AC /* NutritionViewController.swift */; };
 		37E0C03323800020005FEB29 /* NewWeightEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E0C03223800020005FEB29 /* NewWeightEntryViewController.swift */; };
+		37F46B5423EB53BF00DA2140 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F46B5323EB53BF00DA2140 /* AboutViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -121,6 +122,7 @@
 		37DE59D622D1055D00079A6A /* OverviewPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewPageViewController.swift; sourceTree = "<group>"; };
 		37DE71062351097900B1C4AC /* NutritionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionViewController.swift; sourceTree = "<group>"; };
 		37E0C03223800020005FEB29 /* NewWeightEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWeightEntryViewController.swift; sourceTree = "<group>"; };
+		37F46B5323EB53BF00DA2140 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		5B434528684980896B0F3161 /* Pods-My Food Diary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-My Food Diary.release.xcconfig"; path = "Target Support Files/Pods-My Food Diary/Pods-My Food Diary.release.xcconfig"; sourceTree = "<group>"; };
 		A7907AE86113D8A09C3BB819 /* Pods-My Food Diary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-My Food Diary.debug.xcconfig"; path = "Target Support Files/Pods-My Food Diary/Pods-My Food Diary.debug.xcconfig"; sourceTree = "<group>"; };
 		C202325955DAB3D0FB7E33AF /* Pods_My_Food_Diary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_My_Food_Diary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -227,6 +229,7 @@
 				37B9BD3E23CB9F3000864540 /* MyAccountViewController.swift */,
 				37D5136E23D4A8AF00780CD1 /* StatsViewController.swift */,
 				37D5137023D4BA1800780CD1 /* GoalsViewController.swift */,
+				37F46B5323EB53BF00DA2140 /* AboutViewController.swift */,
 				377208B42291A1F8002DDA29 /* AppDelegate.swift */,
 			);
 			path = Controller;
@@ -439,6 +442,7 @@
 				372F5A612301C375006A8665 /* FoodDetailViewController.swift in Sources */,
 				37BEA92123DE1E5F003983B9 /* ForgotPasswordViewController.swift in Sources */,
 				378917C022C8DC3B00571181 /* BarcodeScannerViewController.swift in Sources */,
+				37F46B5423EB53BF00DA2140 /* AboutViewController.swift in Sources */,
 				377208B52291A1F8002DDA29 /* AppDelegate.swift in Sources */,
 				37A8AEB523A2DDFE002DCA43 /* Food+Firestore.swift in Sources */,
 			);

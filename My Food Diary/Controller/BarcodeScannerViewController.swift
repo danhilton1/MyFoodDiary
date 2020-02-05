@@ -204,7 +204,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                 }
             }
         } else {
-            displayErrorAlert(message: "There was an error retrieving information for this barcode. Please try again or enter details manually.")
+            displayErrorAlert(message: "Information for this barcode could not be found. Please try again or enter details manually.")
             session.stopRunning()
             
         }
@@ -288,7 +288,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                     print("Error parsing JSON - \(error)")
                     
                     self.activityIndicator.stopAnimating()
-                    self.displayErrorAlert(message: "There was an error retrieving information for this barcode. Please try again or enter details manually.")
+                    self.displayErrorAlert(message: "Information for this barcode could not be found. Please try again or enter details manually.")
                 }
                 
             }
