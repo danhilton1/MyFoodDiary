@@ -89,6 +89,7 @@ class WelcomeViewController: UIViewController {
                 }
                 else {
                     print("Log In Successful")
+
                     strongSelf.foodDispatchGroup.enter()  // enter dispatchGroup to allow data to finish downloading before segue
                     strongSelf.loadAllFoodData(user: email, anonymous: false)
                     

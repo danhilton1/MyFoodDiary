@@ -64,10 +64,9 @@ class GoalsViewController: UITableViewController, UITextFieldDelegate {
         updateGoalsButton.setTitleColor(.white, for: .normal)
         updateGoalsButton.backgroundColor = Color.skyBlue
         updateGoalsButton.layer.cornerRadius = 25
-        let footerView = UIView()
-        footerView.frame = CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 800)
-        footerView.backgroundColor = tableView.separatorColor
-        tableView.tableFooterView = footerView
+        
+//        view.backgroundColor = tableView.separatorColor
+        tableView.tableFooterView = UIView()
     }
 
     //MARK:- Button Methods
