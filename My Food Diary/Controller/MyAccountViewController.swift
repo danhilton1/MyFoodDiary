@@ -27,6 +27,12 @@ class MyAccountViewController: UITableViewController {
     let passwordTextField = UITextField()
     let newItemTextField = UITextField()
     
+    @IBOutlet weak var emailCell: UITableViewCell!
+    @IBOutlet weak var changeEmailButton: UIButton!
+    
+    @IBOutlet weak var changePasswordButton: UIButton!
+    
+    @IBOutlet weak var passwordCell: UITableViewCell!
     enum detailsToChange {
         static let email = "email"
         static let password = "password"
@@ -74,7 +80,11 @@ class MyAccountViewController: UITableViewController {
     func checkIfUserIsAnonymous() {
         if defaults.value(forKey: "anonymousUserEmail") as? String != nil {
             emailLabel.text = "Account not created"
-            tableView.isUserInteractionEnabled = false
+            
+            changeEmailButton.setTitle("Create and link account", for: .normal)
+            changePasswordButton.setTitleColor(.lightGray, for: .normal)
+            passwordCell.isUserInteractionEnabled = false
+
         }
     }
 

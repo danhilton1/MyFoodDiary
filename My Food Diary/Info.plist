@@ -20,12 +20,24 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Allow $(PRODUCT_NAME) to use the camera?</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Montserrat-Thin.otf</string>
+		<string>Montserrat.Light.otf</string>
+		<string>Montserrat.ExtraLight.otf</string>
+		<string>Montserrat.Regular.otf</string>
+		<string>Montserrat-Bold.otf</string>
+		<string>Montserrat-SemiBold.otf</string>
+		<string>Montserrat-Medium.otf</string>
+		<string>Minya-Nouvelle-Bold.ttf</string>
+		<string>Minya-Nouvelle-Regular.ttf</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
-	<string>Main</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Allow $(PRODUCT_NAME) to use the camera?</string>
+	<string>LaunchScreenController</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
@@ -42,18 +54,6 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Montserrat-Thin.otf</string>
-		<string>Montserrat.Light.otf</string>
-		<string>Montserrat.ExtraLight.otf</string>
-		<string>Montserrat.Regular.otf</string>
-		<string>Montserrat-Bold.otf</string>
-		<string>Montserrat-SemiBold.otf</string>
-		<string>Montserrat-Medium.otf</string>
-		<string>Minya-Nouvelle-Bold.ttf</string>
-		<string>Minya-Nouvelle-Regular.ttf</string>
 	</array>
 </dict>
 </plist>

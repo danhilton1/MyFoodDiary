@@ -64,6 +64,8 @@
 		37DE71072351097900B1C4AC /* NutritionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DE71062351097900B1C4AC /* NutritionViewController.swift */; };
 		37E0C03323800020005FEB29 /* NewWeightEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E0C03223800020005FEB29 /* NewWeightEntryViewController.swift */; };
 		37F46B5423EB53BF00DA2140 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F46B5323EB53BF00DA2140 /* AboutViewController.swift */; };
+		37F6DD4E23F8709200B2D9A5 /* LaunchScreenController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37F6DD4D23F8709200B2D9A5 /* LaunchScreenController.storyboard */; };
+		37F6DD5023F8713400B2D9A5 /* LaunchScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F6DD4F23F8713400B2D9A5 /* LaunchScreenController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -139,6 +141,8 @@
 		37DE71062351097900B1C4AC /* NutritionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionViewController.swift; sourceTree = "<group>"; };
 		37E0C03223800020005FEB29 /* NewWeightEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWeightEntryViewController.swift; sourceTree = "<group>"; };
 		37F46B5323EB53BF00DA2140 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		37F6DD4D23F8709200B2D9A5 /* LaunchScreenController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreenController.storyboard; sourceTree = "<group>"; };
+		37F6DD4F23F8713400B2D9A5 /* LaunchScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenController.swift; sourceTree = "<group>"; };
 		5B434528684980896B0F3161 /* Pods-My Food Diary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-My Food Diary.release.xcconfig"; path = "Target Support Files/Pods-My Food Diary/Pods-My Food Diary.release.xcconfig"; sourceTree = "<group>"; };
 		8103B0172685A40BF0546A15 /* Pods_MyFoodDiaryTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyFoodDiaryTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7907AE86113D8A09C3BB819 /* Pods-My Food Diary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-My Food Diary.debug.xcconfig"; path = "Target Support Files/Pods-My Food Diary/Pods-My Food Diary.debug.xcconfig"; sourceTree = "<group>"; };
@@ -233,6 +237,8 @@
 			isa = PBXGroup;
 			children = (
 				377208B82291A1F8002DDA29 /* Main.storyboard */,
+				37F6DD4D23F8709200B2D9A5 /* LaunchScreenController.storyboard */,
+				37F6DD4F23F8713400B2D9A5 /* LaunchScreenController.swift */,
 				377208C02291A1FA002DDA29 /* LaunchScreen.storyboard */,
 				377A57D1233F896100D816DD /* Color.swift */,
 				37A07E3B22DD028300E4A351 /* Custom Fonts */,
@@ -426,6 +432,7 @@
 				37A07E4122DD02D700E4A351 /* Montserrat-Light.otf in Resources */,
 				37BBEBFB235659F600D390E5 /* LineChartCell.xib in Resources */,
 				37A07E3D22DD029F00E4A351 /* Montserrat-ExtraLight.otf in Resources */,
+				37F6DD4E23F8709200B2D9A5 /* LaunchScreenController.storyboard in Resources */,
 				37653D1A22FCB55E00B32E5B /* Montserrat-Bold.otf in Resources */,
 				37653D1C22FCB5C700B32E5B /* Montserrat-SemiBold.otf in Resources */,
 			);
@@ -557,6 +564,7 @@
 				37360AF22351D62E00AA02A2 /* DayNutritionCell.swift in Sources */,
 				374BC02522BABA8800013610 /* Food.swift in Sources */,
 				376CD1D4238F045F00257076 /* RegisterViewController.swift in Sources */,
+				37F6DD5023F8713400B2D9A5 /* LaunchScreenController.swift in Sources */,
 				377C9BFA236DBA6A008165DA /* WeightViewController.swift in Sources */,
 				372F5A612301C375006A8665 /* FoodDetailViewController.swift in Sources */,
 				37BEA92123DE1E5F003983B9 /* ForgotPasswordViewController.swift in Sources */,

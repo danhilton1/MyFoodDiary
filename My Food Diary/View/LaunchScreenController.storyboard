@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wrZ-z7-MFl">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Minya-Nouvelle-Bold.ttf">
+            <string>MinyaNouvelle-Bold</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Launch Screen Controller-->
+        <scene sceneID="oRh-I0-Wwf">
+            <objects>
+                <viewController id="wrZ-z7-MFl" customClass="LaunchScreenController" customModule="My_Food_Diary" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3JD-7F-awk">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppIconNoBackground" translatesAutoresizingMaskIntoConstraints="NO" id="CQ9-Kz-SH7">
+                                <rect key="frame" x="127" y="368" width="160" height="160"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="160" id="1cB-Yb-e07"/>
+                                    <constraint firstAttribute="width" constant="160" id="cTK-4t-mtq"/>
+                                </constraints>
+                            </imageView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Food Diary" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="35" translatesAutoresizingMaskIntoConstraints="NO" id="tyR-7i-MC8">
+                                <rect key="frame" x="67.5" y="134" width="279" height="45"/>
+                                <fontDescription key="fontDescription" name="MinyaNouvelle-Bold" family="Minya Nouvelle" pointSize="45"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.32102057340000001" green="0.58673346039999996" blue="0.83532440659999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="tyR-7i-MC8" firstAttribute="top" secondItem="2hY-nt-fqn" secondAttribute="top" constant="90" id="5bY-Ws-xTW"/>
+                            <constraint firstItem="tyR-7i-MC8" firstAttribute="centerX" secondItem="3JD-7F-awk" secondAttribute="centerX" id="B4Z-lX-WnG"/>
+                            <constraint firstItem="CQ9-Kz-SH7" firstAttribute="centerX" secondItem="3JD-7F-awk" secondAttribute="centerX" id="MsR-Px-b1s"/>
+                            <constraint firstItem="tyR-7i-MC8" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2hY-nt-fqn" secondAttribute="leading" constant="50" id="cj7-uV-tmX"/>
+                            <constraint firstItem="CQ9-Kz-SH7" firstAttribute="centerY" secondItem="3JD-7F-awk" secondAttribute="centerY" id="qEs-5y-iVt"/>
+                            <constraint firstItem="2hY-nt-fqn" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="tyR-7i-MC8" secondAttribute="trailing" constant="50" id="ynT-BY-FvH"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="2hY-nt-fqn"/>
+                    </view>
+                    <connections>
+                        <outlet property="AppIconImageView" destination="CQ9-Kz-SH7" id="naC-xg-1ZE"/>
+                        <outlet property="titleLabel" destination="tyR-7i-MC8" id="jCZ-T4-CiY"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dUw-8j-wRC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="90" y="105"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="AppIconNoBackground" width="341" height="341"/>
+    </resources>
+</document>

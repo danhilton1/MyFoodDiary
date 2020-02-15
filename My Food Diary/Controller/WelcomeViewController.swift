@@ -22,9 +22,11 @@ class WelcomeViewController: UIViewController {
     let weightDispatchGroup = DispatchGroup()
     
     
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var logInButton: UIButton!
+    @IBOutlet weak var continueButton: UIButton!
     
 
     override func viewDidLoad() {
@@ -50,6 +52,10 @@ class WelcomeViewController: UIViewController {
     
     func setUpViews() {
         view.backgroundColor = Color.skyBlue
+        titleLabel.alpha = 0
+        registerButton.alpha = 0
+        logInButton.alpha = 0
+        continueButton.alpha = 0
         registerButton.layer.cornerRadius = registerButton.frame.size.height / 2
         logInButton.layer.cornerRadius = logInButton.frame.size.height / 2
         registerButton.setTitleColor(Color.skyBlue, for: .normal)
@@ -61,6 +67,12 @@ class WelcomeViewController: UIViewController {
             registerButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
             logInButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
             logInButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        }
+        UIView.animate(withDuration: 0.3) {
+            self.titleLabel.alpha = 1
+            self.registerButton.alpha = 1
+            self.logInButton.alpha = 1
+            self.continueButton.alpha = 1
         }
     }
 
@@ -110,7 +122,7 @@ class WelcomeViewController: UIViewController {
     
     @IBAction func continueButtonTapped(_ sender: UIButton) {
         
-        let ac = UIAlertController(title: "Warning", message: "If you continue without an account you will lose all data if the app is deleted and will not be able to sync data across devices.", preferredStyle: .alert)
+        let ac = UIAlertController(title: "Continue?", message: "If you continue without an account you will lose all data if the app is deleted and will not be able to sync data across devices.", preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         ac.addAction(UIAlertAction(title: "Continue Anyway", style: .default) { [weak self] (action) in
             SVProgressHUD.show()
