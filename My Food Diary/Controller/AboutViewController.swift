@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import MessageUI
 
-class AboutViewController: UITableViewController {
+class AboutViewController: UITableViewController, MFMailComposeViewControllerDelegate {
 
     @IBOutlet weak var appLogoImageView: UIImageView!
     
@@ -29,6 +30,28 @@ class AboutViewController: UITableViewController {
         tableView.separatorStyle = .none
     }
 
+    
+    @IBAction func mailButtonTapped(_ sender: UIButton) {
+        if MFMailComposeViewController.canSendMail() {
+            let mail = MFMailComposeViewController()
+            mail.mailComposeDelegate = self
+            mail.setToRecipients(["contact.myfooddiary@gmail.com"])
 
-
+            present(mail, animated: true)
+        } else {
+            let ac = UIAlertController(title: "Unable to send mail", message: "An error was encountered when trying to compose an email. Please check your mail settings.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .cancel))
+            present(ac, animated: true)
+        }
+    }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true)
+    }
+    
+    
+    @IBAction func privacyPolicyButtonTapped(_ sender: UIButton) {
+        
+    }
+    
 }

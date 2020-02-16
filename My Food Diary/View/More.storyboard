@@ -668,40 +668,69 @@
                         <sections>
                             <tableViewSection id="76C-4L-4ie">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="260" id="S8j-bq-xfe">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="260"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="400" id="S8j-bq-xfe">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="400"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="S8j-bq-xfe" id="nLs-ht-Ezt">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="260"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="400"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppLogoBlueBackground" translatesAutoresizingMaskIntoConstraints="NO" id="0zI-YX-Au2">
-                                                    <rect key="frame" x="143" y="71" width="128" height="128"/>
+                                                    <rect key="frame" x="143" y="66" width="128" height="128"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="128" id="E2e-Pa-Dwp"/>
                                                         <constraint firstAttribute="height" constant="128" id="isd-iy-EDu"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Food Diary" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fei-2c-y1F">
-                                                    <rect key="frame" x="118" y="21.5" width="178.5" height="29.5"/>
+                                                    <rect key="frame" x="118" y="16.5" width="178.5" height="29.5"/>
                                                     <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="24"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version: 1.0.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KRM-0O-6Uh">
-                                                    <rect key="frame" x="154" y="219" width="106.5" height="21"/>
-                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
+                                                    <rect key="frame" x="160" y="204" width="94" height="18.5"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contact" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wlA-AQ-4IR">
+                                                    <rect key="frame" x="169" y="324.5" width="76.5" height="23.5"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="19"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="77g-gv-t1b">
+                                                    <rect key="frame" x="196" y="358" width="22.5" height="22"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <state key="normal" image="envelope" catalog="system"/>
+                                                    <connections>
+                                                        <action selector="mailButtonTapped:" destination="AQ4-yf-uoK" eventType="touchUpInside" id="Upn-xa-7iV"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gMb-P6-sra">
+                                                    <rect key="frame" x="152.5" y="232.5" width="109" height="32"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
+                                                    <state key="normal" title="Privacy Policy"/>
+                                                    <connections>
+                                                        <action selector="privacyPolicyButtonTapped:" destination="AQ4-yf-uoK" eventType="touchUpInside" id="hbk-F7-ODI"/>
+                                                        <segue destination="Gt2-OL-fwH" kind="presentation" id="fth-ER-PL2"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="77g-gv-t1b" secondAttribute="bottom" constant="20" id="7Np-kg-iKc"/>
                                                 <constraint firstItem="0zI-YX-Au2" firstAttribute="top" secondItem="Fei-2c-y1F" secondAttribute="bottom" constant="20" id="An3-Ba-CAB"/>
-                                                <constraint firstItem="KRM-0O-6Uh" firstAttribute="top" secondItem="0zI-YX-Au2" secondAttribute="bottom" constant="20" id="GBy-Qj-6Of"/>
+                                                <constraint firstItem="KRM-0O-6Uh" firstAttribute="top" secondItem="0zI-YX-Au2" secondAttribute="bottom" constant="10" id="GBy-Qj-6Of"/>
                                                 <constraint firstItem="0zI-YX-Au2" firstAttribute="centerX" secondItem="nLs-ht-Ezt" secondAttribute="centerX" id="UQa-r7-RZm"/>
-                                                <constraint firstAttribute="bottom" secondItem="KRM-0O-6Uh" secondAttribute="bottom" constant="20" id="bZG-hG-Gbt"/>
+                                                <constraint firstItem="77g-gv-t1b" firstAttribute="centerX" secondItem="nLs-ht-Ezt" secondAttribute="centerX" id="gn1-5x-bzU"/>
+                                                <constraint firstItem="wlA-AQ-4IR" firstAttribute="top" secondItem="gMb-P6-sra" secondAttribute="bottom" constant="60" id="lqx-dA-Izj"/>
                                                 <constraint firstItem="Fei-2c-y1F" firstAttribute="centerX" secondItem="nLs-ht-Ezt" secondAttribute="centerX" id="nHD-U0-lXZ"/>
+                                                <constraint firstItem="77g-gv-t1b" firstAttribute="top" secondItem="wlA-AQ-4IR" secondAttribute="bottom" constant="10" id="nt3-gC-9nR"/>
                                                 <constraint firstItem="KRM-0O-6Uh" firstAttribute="centerX" secondItem="nLs-ht-Ezt" secondAttribute="centerX" id="pGJ-5T-3ac"/>
+                                                <constraint firstItem="wlA-AQ-4IR" firstAttribute="centerX" secondItem="nLs-ht-Ezt" secondAttribute="centerX" id="urH-Cf-SPg"/>
+                                                <constraint firstItem="gMb-P6-sra" firstAttribute="centerX" secondItem="nLs-ht-Ezt" secondAttribute="centerX" id="urg-3X-4LD"/>
+                                                <constraint firstItem="gMb-P6-sra" firstAttribute="top" secondItem="KRM-0O-6Uh" secondAttribute="bottom" constant="10" id="vj7-Li-Yqn"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -724,8 +753,105 @@
             </objects>
             <point key="canvasLocation" x="-846" y="2407"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="1ai-wp-NXJ">
+            <objects>
+                <viewController id="Gt2-OL-fwH" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="a1A-5V-9Gx">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Yn0-eK-Txu">
+                                <rect key="frame" x="10" y="48" width="394" height="750"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <mutableString key="text">Daniel Hilton built the My Food Diary app as a Free app. This SERVICE is provided by Daniel Hilton at no cost and is intended for use as is.
+
+This page is used to inform visitors regarding my policies with the collection, use, and disclosure of Personal Information if anyone decided to use my Service.
+
+If you choose to use my Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that I collect is used for providing and improving the Service. I will not use or share your information with anyone except as described in this Privacy Policy.
+
+The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which is accessible at My Food Diary unless otherwise defined in this Privacy Policy.
+
+Information Collection and Use
+
+For a better experience, while using our Service, I may require you to provide us with certain personally identifiable information, including but not limited to Email address. The information that I request will be retained on your device and is not collected by me in any way.
+
+The app does use third party services that may collect information used to identify you.
+
+Link to privacy policy of third party service providers used by the app
+
+Firebase Analytics
+Log Data
+
+I want to inform you that whenever you use my Service, in a case of an error in the app I collect data and information (through third party products) on your phone called Log Data. This Log Data may include information such as your device Internet Protocol (“IP”) address, device name, operating system version, the configuration of the app when utilizing my Service, the time and date of your use of the Service, and other statistics.
+
+Cookies
+
+Cookies are files with a small amount of data that are commonly used as anonymous unique identifiers. These are sent to your browser from the websites that you visit and are stored on your device's internal memory.
+
+This Service does not use these “cookies” explicitly. However, the app may use third party code and libraries that use “cookies” to collect information and improve their services. You have the option to either accept or refuse these cookies and know when a cookie is being sent to your device. If you choose to refuse our cookies, you may not be able to use some portions of this Service.
+
+Service Providers
+
+I may employ third-party companies and individuals due to the following reasons:
+
+To facilitate our Service;
+To provide the Service on our behalf;
+To perform Service-related services; or
+To assist us in analyzing how our Service is used.
+I want to inform users of this Service that these third parties have access to your Personal Information. The reason is to perform the tasks assigned to them on our behalf. However, they are obligated not to disclose or use the information for any other purpose.
+
+Security
+
+I value your trust in providing us your Personal Information, thus we are striving to use commercially acceptable means of protecting it. But remember that no method of transmission over the internet, or method of electronic storage is 100% secure and reliable, and I cannot guarantee its absolute security.
+
+Links to Other Sites
+
+This Service may contain links to other sites. If you click on a third-party link, you will be directed to that site. Note that these external sites are not operated by me. Therefore, I strongly advise you to review the Privacy Policy of these websites. I have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services.
+
+Children’s Privacy
+
+These Services do not address anyone under the age of 13. I do not knowingly collect personally identifiable information from children under 13. In the case I discover that a child under 13 has provided me with personal information, I immediately delete this from our servers. If you are a parent or guardian and you are aware that your child has provided us with personal information, please contact me so that I will be able to do necessary actions.
+
+Changes to This Privacy Policy
+
+I may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. I will notify you of any changes by posting the new Privacy Policy on this page. These changes are effective immediately after they are posted on this page.
+
+Contact Us
+
+If you have any questions or suggestions about my Privacy Policy, do not hesitate to contact me at contact.myfooddiary@gmail.com.
+
+This privacy policy page was created at privacypolicytemplate.net and modified/generated by App Privacy Policy Generator</mutableString>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Privacy Policy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QFU-O3-aVz">
+                                <rect key="frame" x="15" y="20" width="114" height="20"/>
+                                <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="QFU-O3-aVz" firstAttribute="top" secondItem="dPB-kU-gcX" secondAttribute="top" constant="20" id="FWb-KE-Ilq"/>
+                            <constraint firstItem="QFU-O3-aVz" firstAttribute="leading" secondItem="dPB-kU-gcX" secondAttribute="leading" constant="15" id="Sct-Sy-6ag"/>
+                            <constraint firstItem="Yn0-eK-Txu" firstAttribute="top" secondItem="QFU-O3-aVz" secondAttribute="bottom" constant="8" symbolic="YES" id="Vqw-mA-MSf"/>
+                            <constraint firstItem="Yn0-eK-Txu" firstAttribute="leading" secondItem="dPB-kU-gcX" secondAttribute="leading" constant="10" id="ecR-Fp-I2H"/>
+                            <constraint firstItem="dPB-kU-gcX" firstAttribute="trailing" secondItem="Yn0-eK-Txu" secondAttribute="trailing" constant="10" id="wQZ-uv-SXN"/>
+                            <constraint firstItem="dPB-kU-gcX" firstAttribute="bottom" secondItem="Yn0-eK-Txu" secondAttribute="bottom" constant="10" id="ytV-sq-h09"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="dPB-kU-gcX"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="J6N-1F-JjR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-144" y="2741"/>
+        </scene>
     </scenes>
     <resources>
         <image name="AppLogoBlueBackground" width="341" height="341"/>
+        <image name="envelope" catalog="system" width="64" height="46"/>
     </resources>
 </document>
