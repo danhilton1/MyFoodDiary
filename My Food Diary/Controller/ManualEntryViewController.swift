@@ -88,7 +88,7 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
     //MARK: - Nav Bar Button Methods
     
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
-        dismissViewWithAnimation()
+        navigationController?.popViewController(animated: true)
     }
     
 

@@ -73,12 +73,15 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
         self.toolbar.items = [
             UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: #selector(dismissResponder)),
             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            UIBarButtonItem(title: "Today", style: .plain, target: self, action: #selector(todayTapped)),
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
             UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dateEntered))
         ]
         self.toolbar.sizeToFit()
         self.textFieldToolbar.items = [
             UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: #selector(dismissResponder)),
-            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(dismissResponder))
         ]
         self.textFieldToolbar.sizeToFit()
         weightTextField.inputAccessoryView = textFieldToolbar
@@ -124,6 +127,10 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
     @objc func dateEntered() {
         dateButton.resignFirstResponder()
         dateButton.setTitle(buttonFormatter.string(from: datePicker.date), for: .normal)
+    }
+    
+    @objc func todayTapped() {
+        datePicker.date = Date()
     }
     
     // Toolbar button

@@ -22,10 +22,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppIconNoBackground" translatesAutoresizingMaskIntoConstraints="NO" id="CQ9-Kz-SH7">
-                                <rect key="frame" x="127" y="368" width="160" height="160"/>
+                                <rect key="frame" x="137" y="378" width="140" height="140"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="160" id="1cB-Yb-e07"/>
-                                    <constraint firstAttribute="width" constant="160" id="cTK-4t-mtq"/>
+                                    <constraint firstAttribute="height" constant="140" id="1cB-Yb-e07"/>
+                                    <constraint firstAttribute="width" constant="140" id="cTK-4t-mtq"/>
                                 </constraints>
                             </imageView>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Food Diary" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="35" translatesAutoresizingMaskIntoConstraints="NO" id="tyR-7i-MC8">

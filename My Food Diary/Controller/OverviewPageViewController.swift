@@ -123,8 +123,9 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
     //MARK:- Button Methods
     
     @IBAction func addButtonTapped(_ sender: UIBarButtonItem) {
+        let newEntrySB = UIStoryboard(name: "NewEntry", bundle: nil)
         guard
-            let navController = storyboard?.instantiateViewController(withIdentifier: "NewEntryVCNav") as? UINavigationController,
+            let navController = newEntrySB.instantiateInitialViewController() as? UINavigationController,
             let newEntryVC = navController.viewControllers.first as? NewEntryViewController,
             let vc = viewControllers?[0] as? OverviewViewController
             else {

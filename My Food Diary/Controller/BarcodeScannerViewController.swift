@@ -69,20 +69,9 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
     }
     
     
-    private func dismissViewWithAnimation() {
-        // Custom animation to dismiss the VC from top to bottom as anmiation of NavController is fade
-        let transition: CATransition = CATransition()
-        transition.duration = 0.4
-        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-        transition.type = CATransitionType.reveal
-        transition.subtype = CATransitionSubtype.fromBottom
-        self.view.window!.layer.add(transition, forKey: nil)
-        self.dismiss(animated: false, completion: nil)
-    }
-    
     
     @IBAction func cancelPressed(_ sender: UIBarButtonItem) {
-        dismissViewWithAnimation()
+        navigationController?.popViewController(animated: true)
     }
     
     private func setUpActivityIndicator() {

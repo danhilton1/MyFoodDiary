@@ -37,6 +37,11 @@
 		377208C22291A1FA002DDA29 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 377208C02291A1FA002DDA29 /* LaunchScreen.storyboard */; };
 		377208D22291B002002DDA29 /* MealOverviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377208D02291B002002DDA29 /* MealOverviewCell.swift */; };
 		377208D32291B002002DDA29 /* MealOverviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 377208D12291B002002DDA29 /* MealOverviewCell.xib */; };
+		3779430223F9A80900D6CF7D /* More.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3779430123F9A80900D6CF7D /* More.storyboard */; };
+		3779430423F9AB7C00D6CF7D /* Weight.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3779430323F9AB7C00D6CF7D /* Weight.storyboard */; };
+		3779430623F9AE4500D6CF7D /* Nutrition.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3779430523F9AE4500D6CF7D /* Nutrition.storyboard */; };
+		3779430823F9AEEB00D6CF7D /* Overview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3779430723F9AEEB00D6CF7D /* Overview.storyboard */; };
+		3779430A23F9AF4900D6CF7D /* NewEntry.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3779430923F9AF4900D6CF7D /* NewEntry.storyboard */; };
 		3779E8AD238C7222004EC080 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3779E8AC238C7222004EC080 /* GoogleService-Info.plist */; };
 		377A57D2233F896100D816DD /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377A57D1233F896100D816DD /* Color.swift */; };
 		377C9BFA236DBA6A008165DA /* WeightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377C9BF9236DBA6A008165DA /* WeightViewController.swift */; };
@@ -114,6 +119,11 @@
 		377208C32291A1FA002DDA29 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		377208D02291B002002DDA29 /* MealOverviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealOverviewCell.swift; sourceTree = "<group>"; };
 		377208D12291B002002DDA29 /* MealOverviewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MealOverviewCell.xib; sourceTree = "<group>"; };
+		3779430123F9A80900D6CF7D /* More.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = More.storyboard; sourceTree = "<group>"; };
+		3779430323F9AB7C00D6CF7D /* Weight.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Weight.storyboard; sourceTree = "<group>"; };
+		3779430523F9AE4500D6CF7D /* Nutrition.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Nutrition.storyboard; sourceTree = "<group>"; };
+		3779430723F9AEEB00D6CF7D /* Overview.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Overview.storyboard; sourceTree = "<group>"; };
+		3779430923F9AF4900D6CF7D /* NewEntry.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NewEntry.storyboard; sourceTree = "<group>"; };
 		3779E8AC238C7222004EC080 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		377A57D1233F896100D816DD /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		377C9BF9236DBA6A008165DA /* WeightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightViewController.swift; sourceTree = "<group>"; };
@@ -237,6 +247,11 @@
 			isa = PBXGroup;
 			children = (
 				377208B82291A1F8002DDA29 /* Main.storyboard */,
+				3779430723F9AEEB00D6CF7D /* Overview.storyboard */,
+				3779430123F9A80900D6CF7D /* More.storyboard */,
+				3779430323F9AB7C00D6CF7D /* Weight.storyboard */,
+				3779430523F9AE4500D6CF7D /* Nutrition.storyboard */,
+				3779430923F9AF4900D6CF7D /* NewEntry.storyboard */,
 				37F6DD4D23F8709200B2D9A5 /* LaunchScreenController.storyboard */,
 				37F6DD4F23F8713400B2D9A5 /* LaunchScreenController.swift */,
 				377208C02291A1FA002DDA29 /* LaunchScreen.storyboard */,
@@ -417,17 +432,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3779430223F9A80900D6CF7D /* More.storyboard in Resources */,
 				37360AFD2352150700AA02A2 /* BarChartNutritionCell.xib in Resources */,
 				378A01122323FD250035C803 /* Montserrat-Medium.otf in Resources */,
+				3779430A23F9AF4900D6CF7D /* NewEntry.storyboard in Resources */,
 				37BEA92423DF2C80003983B9 /* Minya-Nouvelle-Regular.ttf in Resources */,
 				377208C22291A1FA002DDA29 /* LaunchScreen.storyboard in Resources */,
 				37A07E3F22DD02CA00E4A351 /* Montserrat-Thin.otf in Resources */,
 				37360AF32351D62E00AA02A2 /* DayNutritionCell.xib in Resources */,
 				3779E8AD238C7222004EC080 /* GoogleService-Info.plist in Resources */,
 				37BEA92523DF2C80003983B9 /* Minya-Nouvelle-Bold.ttf in Resources */,
+				3779430823F9AEEB00D6CF7D /* Overview.storyboard in Resources */,
 				377208BF2291A1FA002DDA29 /* Assets.xcassets in Resources */,
 				37A07E4322DD04C000E4A351 /* Montserrat-Regular.otf in Resources */,
+				3779430623F9AE4500D6CF7D /* Nutrition.storyboard in Resources */,
 				377208BA2291A1F8002DDA29 /* Main.storyboard in Resources */,
+				3779430423F9AB7C00D6CF7D /* Weight.storyboard in Resources */,
 				377208D32291B002002DDA29 /* MealOverviewCell.xib in Resources */,
 				37A07E4122DD02D700E4A351 /* Montserrat-Light.otf in Resources */,
 				37BBEBFB235659F600D390E5 /* LineChartCell.xib in Resources */,

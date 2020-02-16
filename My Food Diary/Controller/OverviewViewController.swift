@@ -109,6 +109,8 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         self.toolbar.items = [
             UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: #selector(dismissResponder)),
             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            UIBarButtonItem(title: "Today", style: .plain, target: self, action: #selector(todayTapped)),
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
             UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dateEntered))
         ]
         self.toolbar.sizeToFit()
@@ -352,6 +354,10 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             self.loadFirebaseData()
             self.configureDateView()
         }
+    }
+    
+    @objc func todayTapped() {
+        datePicker.date = Date()
     }
     
     @objc func dismissResponder() {
