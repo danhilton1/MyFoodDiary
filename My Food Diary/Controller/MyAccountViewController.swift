@@ -18,6 +18,14 @@ class MyAccountViewController: UITableViewController {
     var detailToChange = detailsToChange.password
     var newEmail: String?
     var newPassword: String?
+    var isAnonymous: Bool {
+        if defaults.value(forKey: "anonymousUserEmail") as? String != nil {
+            return true
+        }
+        else {
+            return false
+        }
+    }
     let defaults = UserDefaults()
     
     var centerYconstraint = NSLayoutConstraint()
@@ -29,10 +37,9 @@ class MyAccountViewController: UITableViewController {
     
     @IBOutlet weak var emailCell: UITableViewCell!
     @IBOutlet weak var changeEmailButton: UIButton!
-    
     @IBOutlet weak var changePasswordButton: UIButton!
-    
     @IBOutlet weak var passwordCell: UITableViewCell!
+    
     enum detailsToChange {
         static let email = "email"
         static let password = "password"
@@ -47,40 +54,31 @@ class MyAccountViewController: UITableViewController {
         
         checkIfUserIsAnonymous()
         
-//        view.isUserInteractionEnabled = true
-//        dimmedView.isUserInteractionEnabled = true
-//        tableView.isUserInteractionEnabled = true
-        //popUpView.isUserInteractionEnabled = true
         if UIScreen.main.bounds.height < 700 {
             emailLabel.frame.size.height = 70
-//            emailLabel.heightAnchor.constraint(equalToConstant: 70).isActive = true
         }
-        
-        
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
         dimmedView.addGestureRecognizer(tapGesture)
-//        emailLabel.addGestureRecognizer(tapGesture)
+        
+        SVProgressHUD.setMinimumDismissTimeInterval(2)
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         navigationController?.navigationBar.tintColor = .white
-//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
-//        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: self.view.window)
-//        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: self.view.window)
+
     }
     
     func checkIfUserIsAnonymous() {
-        if defaults.value(forKey: "anonymousUserEmail") as? String != nil {
+        if isAnonymous {
             emailLabel.text = "Account not created"
-            
             changeEmailButton.setTitle("Create and link account", for: .normal)
             changePasswordButton.setTitleColor(.lightGray, for: .normal)
             passwordCell.isUserInteractionEnabled = false
@@ -92,8 +90,14 @@ class MyAccountViewController: UITableViewController {
 
     
     @IBAction func changeEmailTapped(_ sender: UIButton) {
-        displayPopUpView(itemToChange: detailsToChange.email)
-        detailToChange = detailsToChange.email
+        if isAnonymous {
+            displayPopUpView(itemToChange: detailsToChange.password)
+            detailToChange = detailsToChange.password
+        }
+        else {
+            displayPopUpView(itemToChange: detailsToChange.email)
+            detailToChange = detailsToChange.email
+        }
     }
     
     @IBAction func changePasswordTapped(_ sender: UIButton) {
@@ -104,48 +108,118 @@ class MyAccountViewController: UITableViewController {
     @objc func confirmButtonTapped(_ sender: UIButton) {
         
         if let newDetailText = newItemTextField.text {
-            if emailTextField.text == (defaults.value(forKey: UserDefaultsKeys.userEmail) as? String) && passwordTextField.text == KeychainWrapper.standard.string(forKey: "userPassword") {
-                if detailToChange == detailsToChange.email {
-                    Auth.auth().currentUser?.updateEmail(to: newDetailText) { (error) in
-                        if let error = error {
-                            print("Error updating email - \(error)")
-                            SVProgressHUD.showError(withStatus: error.localizedDescription)
-                        }
-                        else {
-                            self.defaults.set(newDetailText, forKey: UserDefaultsKeys.userEmail)
-                            self.emailLabel.text = newDetailText
-                            SVProgressHUD.showSuccess(withStatus: "Email successfully updated!")
-                        }
-                    }
+            
+            SVProgressHUD.setBackgroundColor(.darkGray)
+            SVProgressHUD.setForegroundColor(.white)
+            
+            if isAnonymous {
+                emailTextField.resignFirstResponder()
+                passwordTextField.resignFirstResponder()
+                newItemTextField.resignFirstResponder()
+                
+                
+                SVProgressHUD.show()
+                
+                guard let email = emailTextField.text else {
+                    SVProgressHUD.showError(withStatus: "Invalid email address entered")
+                    return
+                }
+                guard let password = self.passwordTextField.text else {
+                    SVProgressHUD.showError(withStatus: "Invalid password entered")
+                    return
+                }
+                if password != self.newItemTextField.text {
+                    SVProgressHUD.showError(withStatus: "Entered passwords do not match. Please make sure they are identical.")
                 }
                 else {
-                    Auth.auth().currentUser?.updatePassword(to: newDetailText) { (error) in
+                                    
+                    Auth.auth().currentUser?.updateEmail(to: email) { (error) in
                         if let error = error {
-                            print("Error updating password - \(error)")
+                            print("Error creating account - \(error)")
                             SVProgressHUD.showError(withStatus: error.localizedDescription)
                         }
                         else {
-                            KeychainWrapper.standard.set(newDetailText, forKey: "userPassword")
-                            SVProgressHUD.showSuccess(withStatus: "Password successfully updated!")
+                            
+                            Auth.auth().currentUser?.updatePassword(to: password) { (error) in
+                                if let error = error {
+                                    print("Error creating account - \(error)")
+                                    SVProgressHUD.showError(withStatus: error.localizedDescription)
+                                    
+                                    guard let anonymousEmail = self.defaults.value(forKey: UserDefaultsKeys.anonymousUserEmail) as? String else { return }
+                                    Auth.auth().currentUser?.updateEmail(to: anonymousEmail)
+                                }
+                                else {
+                                    
+                                    self.defaults.removeObject(forKey: UserDefaultsKeys.anonymousUserEmail)
+                                    KeychainWrapper.standard.removeObject(forKey: "anonymousUserPassword")
+                                    self.defaults.set(email, forKey: UserDefaultsKeys.userEmail)
+                                    KeychainWrapper.standard.set(password, forKey: "userPassword")
+                                    self.defaults.set(true, forKey: UserDefaultsKeys.isUserSignedIn)
+                                    
+                                    SVProgressHUD.showSuccess(withStatus: "Account successfully created!")
+                                    
+                                    self.dismissPopUp()
+                                    self.emailLabel.text = email
+                                    self.changeEmailButton.setTitle("Change Email", for: .normal)
+                                    self.changePasswordButton.setTitleColor(Color.skyBlue, for: .normal)
+                                    self.passwordCell.isUserInteractionEnabled = true
+      
+                                }
+                            }
                         }
                     }
-                }
-                
-                UIView.animate(withDuration: 0.3) {
-                    self.popUpView.alpha = 0
-                    self.dimmedView.alpha = 0
-                }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    self.popUpView.removeFromSuperview()
-                    self.dimmedView.removeFromSuperview()
-                    self.popUpView.subviews[self.popUpView.subviews.count - 2].removeFromSuperview()
-                    self.popUpView.subviews[self.popUpView.subviews.count - 2].removeFromSuperview()
                 }
             }
             else {
-                SVProgressHUD.showError(withStatus: "Entered user details do not match account details. Please enter correct information.")
+                if emailTextField.text == (defaults.value(forKey: UserDefaultsKeys.userEmail) as? String) && passwordTextField.text == KeychainWrapper.standard.string(forKey: "userPassword") {
+                    if detailToChange == detailsToChange.email {
+                        Auth.auth().currentUser?.updateEmail(to: newDetailText) { (error) in
+                            if let error = error {
+                                print("Error updating email - \(error)")
+                                SVProgressHUD.showError(withStatus: error.localizedDescription)
+                            }
+                            else {
+                                self.defaults.set(newDetailText, forKey: UserDefaultsKeys.userEmail)
+                                self.emailLabel.text = newDetailText
+                                SVProgressHUD.showSuccess(withStatus: "Email successfully updated!")
+                            }
+                        }
+                    }
+                    else {
+                        Auth.auth().currentUser?.updatePassword(to: newDetailText) { (error) in
+                            if let error = error {
+                                print("Error updating password - \(error)")
+                                SVProgressHUD.showError(withStatus: error.localizedDescription)
+                            }
+                            else {
+                                KeychainWrapper.standard.set(newDetailText, forKey: "userPassword")
+                                SVProgressHUD.showSuccess(withStatus: "Password successfully updated!")
+                            }
+                        }
+                    }
+                    dismissPopUp()
+                }
+                else {
+                    SVProgressHUD.showError(withStatus: "Entered user details do not match account details. Please enter correct information.")
+                }
             }
         }
+    }
+    
+    func dismissPopUp() {
+        UIView.animate(withDuration: 0.3) {
+            self.popUpView.alpha = 0
+            self.dimmedView.alpha = 0
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.popUpView.removeFromSuperview()
+            self.dimmedView.removeFromSuperview()
+            self.popUpView.subviews[self.popUpView.subviews.count - 2].removeFromSuperview()
+            self.popUpView.subviews[self.popUpView.subviews.count - 2].removeFromSuperview()
+        }
+        emailTextField.text = nil
+        passwordTextField.text = nil
+        newItemTextField.text = nil
     }
     
     @objc func viewTapped() {
@@ -163,17 +237,6 @@ class MyAccountViewController: UITableViewController {
             }
     }
     
-//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        print(touches)
-//        if let touch = touches.first {
-//            let position = touch.location(in: dimmedView)
-//            print("tap")
-//            if !popUpView.frame.contains(position) {
-//                print("tapped working")
-//                viewTapped()
-//            }
-//        }
-//    }
     
     
     func displayPopUpView(itemToChange: String) {
@@ -214,11 +277,21 @@ class MyAccountViewController: UITableViewController {
         let newItemLabel = UILabel()
         newItemLabel.translatesAutoresizingMaskIntoConstraints = false
         newItemLabel.font = UIFont(name: "Montserrat-Medium", size: 18)!
-        newItemLabel.text = "New \(itemToChange.capitalized)"
+        if isAnonymous {
+           newItemLabel.text = "Confirm \(itemToChange.capitalized)"
+        }
+        else {
+            newItemLabel.text = "New \(itemToChange.capitalized)"
+        }
         
         newItemTextField.translatesAutoresizingMaskIntoConstraints = false
         newItemTextField.font = UIFont(name: "Montserrat-Regular", size: 15)!
-        newItemTextField.placeholder = "Enter your new \(itemToChange) here"
+        if defaults.value(forKey: "anonymousUserEmail") as? String != nil {
+            newItemTextField.placeholder = "Re-enter your \(itemToChange)"
+        }
+        else {
+            newItemTextField.placeholder = "Enter your new \(itemToChange) here"
+        }
         newItemTextField.autocapitalizationType = .none
         newItemTextField.keyboardType = .emailAddress
         newItemTextField.autocorrectionType = .no
@@ -233,7 +306,12 @@ class MyAccountViewController: UITableViewController {
         confirmButton.backgroundColor = Color.skyBlue
         confirmButton.setTitleColor(.white, for: .normal)
         confirmButton.titleLabel?.font = UIFont(name: "Montserrat-Medium", size: 18)!
-        confirmButton.setTitle("Confirm", for: .normal)
+        if isAnonymous {
+            confirmButton.setTitle("Create", for: .normal)
+        }
+        else {
+            confirmButton.setTitle("Confirm", for: .normal)
+        }
         confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
         
         popUpView.addSubview(cancelButton)
@@ -318,32 +396,6 @@ class MyAccountViewController: UITableViewController {
         }
         
     }
-    
-//    @objc func keyboardWillShow(notification: NSNotification) {
-//
-//        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-//            if popUpView.frame.origin.y == 254 {
-//                UIView.animate(withDuration: 0.5) {
-//                    if UIScreen.main.bounds.height < 700 {
-//                        self.popUpView.frame.origin.y -= (keyboardSize.height - 60)
-//                    }
-//                    else {
-//                        self.popUpView.frame.origin.y -= (keyboardSize.height - 220)
-//
-////                        self.popUpView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = false
-//                    }
-//                }
-//            }
-//        }
-//    }
-//
-//    @objc func keyboardWillHide(notification: NSNotification) {
-//        if self.popUpView.frame.origin.y != 254 {
-//            UIView.animate(withDuration: 0.5) {
-//                self.popUpView.frame.origin.y = 254
-//            }
-//        }
-//    }
     
 
 }

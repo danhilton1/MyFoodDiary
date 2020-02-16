@@ -172,9 +172,8 @@ class WelcomeViewController: UIViewController {
                         
                         let email = "\(user.uid)@anonymous.com"
                         let password = "password"
-                        strongSelf.defaults.set(email, forKey: "anonymousUserEmail")
+                        strongSelf.defaults.set(email, forKey: UserDefaultsKeys.anonymousUserEmail)
                         KeychainWrapper.standard.set(password, forKey: "anonymousUserPassword")
-//                        strongSelf.defaults.set(password, forKey: "anonymousUserPassword")
                         
                         Auth.auth().createUser(withEmail: email, password: password) { (newUser, error) in
                             if let error = error {

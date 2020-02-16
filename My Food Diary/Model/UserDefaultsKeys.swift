@@ -10,6 +10,7 @@ import Foundation
 
 enum UserDefaultsKeys {
     static let userEmail = "userEmail"
+    static let anonymousUserEmail = "anonymousUserEmail"
     static let isUserSignedIn = "userSignedIn"
     static let goalCalories = "GoalCalories"
     static let goalProtein = "goalProtein"
