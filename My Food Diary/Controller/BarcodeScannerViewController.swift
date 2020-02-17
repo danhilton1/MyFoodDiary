@@ -5,7 +5,7 @@
 //  Created by Daniel Hilton on 30/06/2019.
 //  Copyright © 2019 Daniel Hilton. All rights reserved.
 //
-// https://uk.openfoodfacts.org/cgi/search.pl?action=process&search_terms=chicken&sort_by=unique_scans_n&page_size=20&action=display&json=1
+// 
 
 
 import UIKit

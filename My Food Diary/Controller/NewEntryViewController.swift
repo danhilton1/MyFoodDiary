@@ -246,6 +246,7 @@ extension NewEntryViewController: UISearchBarDelegate {
             tableView.reloadData()
         }
         else {
+            historyLabel.text = "History"
             sortedFoodCopy = sortedFood
             tableView.reloadData()
         }
@@ -264,8 +265,8 @@ extension NewEntryViewController: UISearchBarDelegate {
                 countryIdentifier = "us"
             }
             
-            let urlString = "https://\(countryIdentifier).openfoodfacts.org/cgi/search.pl?action=process&search_terms=\(searchWords)&sort_by=product_name&page_size=40&action=display&json=1"
-            print(urlString)
+            let urlString = "https://\(countryIdentifier).openfoodfacts.org/cgi/search.pl?action=process&search_terms=\(searchWords)&sort_by=product_name&page_size=50&action=display&json=1"
+            
             guard let url = URL(string: urlString) else { return }
             
             SVProgressHUD.show()
@@ -303,7 +304,7 @@ extension NewEntryViewController: UISearchBarDelegate {
                                         let food = Food()
                                         
                                         if let servingSize = product["serving_size"] as? String {
-                                            
+                                            print(servingSize)
                                             // Only use the first set of numbers in servingSize
                                             for character in servingSize {
                                                 if character == "g" || character == " " {
@@ -312,6 +313,9 @@ extension NewEntryViewController: UISearchBarDelegate {
                                                 else {
                                                     trimmedServingSize.append(character)
                                                 }
+                                            }
+                                            if trimmedServingSize.filter("01234567890.".contains) == "" {
+                                                trimmedServingSize = servingSize
                                             }
                                             let servingSizeNumber = Double(trimmedServingSize.filter("01234567890.".contains)) ?? 100
                                             if servingSize.contains("ml") {
