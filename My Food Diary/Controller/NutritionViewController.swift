@@ -58,6 +58,7 @@ class NutritionViewController: UIViewController {
         super.viewDidLoad()
         
         tabBarController?.tabBar.isHidden = true
+        
         setUpNavBar()
         weekVC = children[1] as? WeekNutritionViewController
         monthVC = children.last as? MonthNutritionViewController
@@ -481,6 +482,7 @@ class NutritionViewController: UIViewController {
             monthVC?.reloadFood()
         }
     }
+    
     
 }
 

@@ -222,6 +222,11 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
         
     }
     
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.font = UIFont(name: "Montserrat-SemiBold", size: 17)!
+    }
+    
     
     //MARK:- TextFieldDelegate methods
     
