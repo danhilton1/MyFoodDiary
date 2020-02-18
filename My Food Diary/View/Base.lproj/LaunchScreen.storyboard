@@ -27,6 +27,8 @@
                         <color key="backgroundColor" red="0.32102057340000001" green="0.58673346039999996" blue="0.83532440659999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="9I2-07-fYg" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="125" id="WLR-gi-4hD"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="9I2-07-fYg" secondAttribute="trailing" constant="125" id="bsq-cU-Zal"/>
                             <constraint firstItem="9I2-07-fYg" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="h3P-My-nj1"/>
                             <constraint firstItem="9I2-07-fYg" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="hJx-Zo-VXB"/>
                         </constraints>

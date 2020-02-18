@@ -19,12 +19,12 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppIconNoBackground" translatesAutoresizingMaskIntoConstraints="NO" id="CQ9-Kz-SH7">
                                 <rect key="frame" x="137" y="378" width="140" height="140"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="140" id="1cB-Yb-e07"/>
-                                    <constraint firstAttribute="width" constant="140" id="cTK-4t-mtq"/>
+                                    <constraint firstAttribute="height" constant="140" id="Chz-8h-uhq"/>
+                                    <constraint firstAttribute="width" constant="140" id="qW1-rY-JJR"/>
                                 </constraints>
                             </imageView>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Food Diary" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="35" translatesAutoresizingMaskIntoConstraints="NO" id="tyR-7i-MC8">
-                                <rect key="frame" x="68.5" y="134" width="277.5" height="72"/>
+                                <rect key="frame" x="68.5" y="124" width="277.5" height="72"/>
                                 <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="45"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -32,9 +32,11 @@
                         </subviews>
                         <color key="backgroundColor" red="0.32102057340000001" green="0.58673346039999996" blue="0.83532440659999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="tyR-7i-MC8" firstAttribute="top" secondItem="2hY-nt-fqn" secondAttribute="top" constant="90" id="5bY-Ws-xTW"/>
+                            <constraint firstItem="tyR-7i-MC8" firstAttribute="top" secondItem="2hY-nt-fqn" secondAttribute="top" constant="80" id="5bY-Ws-xTW"/>
                             <constraint firstItem="tyR-7i-MC8" firstAttribute="centerX" secondItem="3JD-7F-awk" secondAttribute="centerX" id="B4Z-lX-WnG"/>
+                            <constraint firstItem="CQ9-Kz-SH7" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2hY-nt-fqn" secondAttribute="leading" constant="125" id="DJR-LQ-Q3N"/>
                             <constraint firstItem="CQ9-Kz-SH7" firstAttribute="centerX" secondItem="3JD-7F-awk" secondAttribute="centerX" id="MsR-Px-b1s"/>
+                            <constraint firstItem="2hY-nt-fqn" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="CQ9-Kz-SH7" secondAttribute="trailing" constant="125" id="YYx-0z-l2m"/>
                             <constraint firstItem="tyR-7i-MC8" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2hY-nt-fqn" secondAttribute="leading" constant="50" id="cj7-uV-tmX"/>
                             <constraint firstItem="CQ9-Kz-SH7" firstAttribute="centerY" secondItem="3JD-7F-awk" secondAttribute="centerY" id="qEs-5y-iVt"/>
                             <constraint firstItem="2hY-nt-fqn" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="tyR-7i-MC8" secondAttribute="trailing" constant="50" id="ynT-BY-FvH"/>
@@ -43,6 +45,8 @@
                     </view>
                     <connections>
                         <outlet property="AppIconImageView" destination="CQ9-Kz-SH7" id="naC-xg-1ZE"/>
+                        <outlet property="iconCenterXConstraint" destination="MsR-Px-b1s" id="acF-9Q-5hb"/>
+                        <outlet property="iconCenterYConstraint" destination="qEs-5y-iVt" id="2Sq-9z-ult"/>
                         <outlet property="titleLabel" destination="tyR-7i-MC8" id="jCZ-T4-CiY"/>
                     </connections>
                 </viewController>

@@ -245,23 +245,6 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     private func retrieveNutritionData(meal: String, foodList: [Food]) {
-//        for food in foodList {
-//            if food.meal == meal {
-//                calorieArray.append(food.calories)
-//                proteinArray.append(food.protein)
-//                carbsArray.append(food.carbs)
-//                fatArray.append(food.fat)
-//            }
-//        }
-//        // Add each value of array to the corresponding property to give total amount
-//        for i in 0..<calorieArray.count {
-//            calories += calorieArray[i]
-//            protein += proteinArray[i]
-//            carbs += carbsArray[i]
-//            fat += fatArray[i]
-//        }
-        
-        //Firebase
         
         for food in foodList {
             if food.meal == meal {
@@ -279,9 +262,6 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         }
         
     }
-    
-    
-    
     
     
     func setUpPieChart(cell: MealOverviewCell, section1 protein: Double, section2 carbs: Double, section3 fat: Double) {
@@ -478,16 +458,11 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     
     func filterFoodForMealDetail(meal: Food.Meal, destVC: MealDetailViewController) {
         
-        //let resultPredicate = NSPredicate(format: "meal contains[c] %@", meal.stringValue)
-        //destVC.selectedMeal = foodList?.filter(resultPredicate)
         destVC.navigationItem.title = meal.stringValue
         destVC.meal = meal
         
         var sortedFood = [Food]()
-        //for food in testFoodArray! {
-            //sortedFood.append(food)
-                
-        //}
+
         var foodDictionary = [String: Food]()
         for food in testFoodArray! {
             if food.meal == meal.stringValue && !food.isDeleted {
@@ -523,7 +498,7 @@ extension OverviewViewController {
         let label = UILabel()
         label.backgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
         label.textColor = UIColor.black
-        label.font = UIFont(name: "Montserrat-SemiBold", size: 17)
+        label.font = UIFont(name: "Montserrat-SemiBold", size: 16)
         
         switch section {
         case 0:
@@ -551,11 +526,23 @@ extension OverviewViewController {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if UIScreen.main.bounds.height < 700 {
-            return 110
+        if UIScreen.main.bounds.height < 800 {
+            return 114
+        }
+        else if UIScreen.main.bounds.height < 850 {
+            return 108
         }
         else {
-            return 120
+          return 120
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if UIScreen.main.bounds.height < 850 {
+            return 22
+        }
+        else {
+          return 25
         }
     }
     

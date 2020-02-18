@@ -28,10 +28,12 @@ class WelcomeViewController: UIViewController {
     @IBOutlet weak var logInButton: UIButton!
     @IBOutlet weak var continueButton: UIButton!
     
+    @IBOutlet weak var titleTopConstraint: NSLayoutConstraint!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        print(UIScreen.main.bounds.height)
         setUpViews()
         checkIfUserIsSignedIn()
         if defaults.value(forKey: UserDefaultsKeys.weightUnit) as? String == nil {
@@ -60,9 +62,24 @@ class WelcomeViewController: UIViewController {
         logInButton.layer.cornerRadius = logInButton.frame.size.height / 2
         registerButton.setTitleColor(Color.skyBlue, for: .normal)
         logInButton.setTitleColor(Color.skyBlue, for: .normal)
-        if UIScreen.main.bounds.height < 700 {
-            iconImageView.heightAnchor.constraint(equalToConstant: 140).isActive = true
-            iconImageView.widthAnchor.constraint(equalToConstant: 140).isActive = true
+        if UIScreen.main.bounds.height < 600 {
+            titleLabel.font = UIFont(name: "Noteworthy-Bold", size: 34)
+            titleTopConstraint.constant = 50
+            iconImageView.heightAnchor.constraint(equalToConstant: 80).isActive = true
+            
+            registerButton.heightAnchor.constraint(equalToConstant: 42).isActive = true
+            registerButton.widthAnchor.constraint(equalToConstant: 42).isActive = true
+            logInButton.heightAnchor.constraint(equalToConstant: 42).isActive = true
+            logInButton.widthAnchor.constraint(equalToConstant: 42).isActive = true
+            registerButton.layer.cornerRadius = 20
+            logInButton.layer.cornerRadius = 20
+            continueButton.titleLabel?.font = UIFont(name: "Montserrat-Regular", size: 15)
+        }
+        else if UIScreen.main.bounds.height < 700 {
+            titleLabel.font = UIFont(name: "Noteworthy-Bold", size: 38)
+            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 50).isActive = true
+//            iconImageView.heightAnchor.constraint(equalToConstant: 120).isActive = true
+//            iconImageView.widthAnchor.constraint(equalToConstant: 120).isActive = true
             registerButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
             registerButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
             logInButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
