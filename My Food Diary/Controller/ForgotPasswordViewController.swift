@@ -13,11 +13,14 @@ import SVProgressHUD
 class ForgotPasswordViewController: UIViewController {
 
     
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var textLabel: UILabel!
     @IBOutlet weak var emailTextField: LogInTextField!
-    
     @IBOutlet weak var submitButton: UIButton!
     
+    @IBOutlet weak var emailTextFieldHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var submitButtonHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var submitButtonTopConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +32,22 @@ class ForgotPasswordViewController: UIViewController {
         emailTextField.keyboardType = .emailAddress
         submitButton.layer.cornerRadius = 22
         submitButton.setTitleColor(Color.skyBlue, for: .normal)
+        checkDeviceAndUpdateConstraints()
         
+    }
+    
+    func checkDeviceAndUpdateConstraints() {
+        if UIScreen.main.bounds.height < 600 {
+            titleLabel.font = titleLabel.font.withSize(24)
+            textLabel.font = textLabel.font.withSize(14)
+            emailTextFieldHeightConstraint.constant = 35
+            emailTextField.font = emailTextField.font?.withSize(14)
+            submitButtonHeightConstraint.constant = 35
+            submitButtonTopConstraint.constant = 50
+            submitButton.titleLabel?.font = submitButton.titleLabel?.font.withSize(17)
+            emailTextField.layer.cornerRadius = 19
+            submitButton.layer.cornerRadius = 18
+        }
     }
     
     @IBAction func submitButtonTapped(_ sender: UIButton) {

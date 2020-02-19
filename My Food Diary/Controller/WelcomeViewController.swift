@@ -29,6 +29,7 @@ class WelcomeViewController: UIViewController {
     @IBOutlet weak var continueButton: UIButton!
     
     @IBOutlet weak var titleTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var titleBottomConstraint: NSLayoutConstraint!
     
 
     override func viewDidLoad() {
@@ -62,11 +63,24 @@ class WelcomeViewController: UIViewController {
         logInButton.layer.cornerRadius = logInButton.frame.size.height / 2
         registerButton.setTitleColor(Color.skyBlue, for: .normal)
         logInButton.setTitleColor(Color.skyBlue, for: .normal)
+        checkDeviceAndUpdateConstraints()
+        
+        UIView.animate(withDuration: 0.3) {
+            self.titleLabel.alpha = 1
+            self.registerButton.alpha = 1
+            self.logInButton.alpha = 1
+            self.continueButton.alpha = 1
+        }
+    }
+    
+    func checkDeviceAndUpdateConstraints() {
         if UIScreen.main.bounds.height < 600 {
             titleLabel.font = UIFont(name: "Noteworthy-Bold", size: 34)
-            titleTopConstraint.constant = 50
-            iconImageView.heightAnchor.constraint(equalToConstant: 80).isActive = true
-            
+            titleTopConstraint.constant = 40
+            titleBottomConstraint.constant = 10
+            iconImageView.transform = CGAffineTransform(scaleX: 1.25, y: 1.25)
+            registerButton.titleLabel?.font = registerButton.titleLabel?.font.withSize(18)
+            logInButton.titleLabel?.font = logInButton.titleLabel?.font.withSize(18)
             registerButton.heightAnchor.constraint(equalToConstant: 42).isActive = true
             registerButton.widthAnchor.constraint(equalToConstant: 42).isActive = true
             logInButton.heightAnchor.constraint(equalToConstant: 42).isActive = true
@@ -77,19 +91,11 @@ class WelcomeViewController: UIViewController {
         }
         else if UIScreen.main.bounds.height < 700 {
             titleLabel.font = UIFont(name: "Noteworthy-Bold", size: 38)
-            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 50).isActive = true
-//            iconImageView.heightAnchor.constraint(equalToConstant: 120).isActive = true
-//            iconImageView.widthAnchor.constraint(equalToConstant: 120).isActive = true
+            titleTopConstraint.constant = 50
             registerButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
             registerButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
             logInButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
             logInButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        }
-        UIView.animate(withDuration: 0.3) {
-            self.titleLabel.alpha = 1
-            self.registerButton.alpha = 1
-            self.logInButton.alpha = 1
-            self.continueButton.alpha = 1
         }
     }
 

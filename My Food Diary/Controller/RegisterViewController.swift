@@ -16,10 +16,26 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     let db = Firestore.firestore()
     let defaults = UserDefaults()
     
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var passwordLabel: UILabel!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var confirmPasswordTextField: LogInTextField!
+    @IBOutlet weak var backButton: UIButton!
+    
+    @IBOutlet weak var emailLabelTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var emailTextFieldHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var emailTextFieldTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var passwordTextFieldHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var passwordTextFieldTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var passwordTextFieldBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var confirmTextFieldHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var registerButtonTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var registerButtonBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var registerButtonHeightConstraint: NSLayoutConstraint!
+    
     
     //MARK:- View methods
 
@@ -55,6 +71,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         emailTextField.layer.cornerRadius = 20
         passwordTextField.layer.cornerRadius = 20
         confirmPasswordTextField.layer.cornerRadius = 20
+        checkDeviceAndUpdateConstraints()
     }
     
     func setUpTextFields() {
@@ -69,6 +86,33 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         emailTextField.placeholder = "Enter your email address"
         passwordTextField.placeholder = "Enter a password"
         confirmPasswordTextField.placeholder = "Re-enter your password"
+    }
+    
+    func checkDeviceAndUpdateConstraints() {
+        if UIScreen.main.bounds.height < 600 {
+            backButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
+            backButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+            titleLabel.font = titleLabel.font.withSize(22)
+            emailLabel.font = emailLabel.font.withSize(18)
+            passwordLabel.font = passwordLabel.font.withSize(18)
+            emailTextField.font = emailTextField.font?.withSize(14)
+            passwordTextField.font = passwordTextField.font?.withSize(14)
+            confirmPasswordTextField.font = confirmPasswordTextField.font?.withSize(14)
+            emailLabelTopConstraint.constant = 105
+            emailTextFieldHeightConstraint.constant = 35
+            emailTextFieldTopConstraint.constant = 10
+            passwordTextFieldHeightConstraint.constant = 35
+            passwordTextFieldTopConstraint.constant = 10
+            passwordTextFieldBottomConstraint.constant = 10
+            confirmTextFieldHeightConstraint.constant = 35
+            emailTextField.layer.cornerRadius = 19
+            passwordTextField.layer.cornerRadius = 19
+            confirmPasswordTextField.layer.cornerRadius = 19
+            registerButtonHeightConstraint.constant = 38
+            registerButtonTopConstraint.constant = 35
+            registerButtonBottomConstraint.constant = 80
+            registerButton.layer.cornerRadius = 20
+        }
     }
     
     //MARK:- Button Methods
@@ -142,7 +186,10 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y == 0 {
                 UIView.animate(withDuration: 0.5) {
-                    if UIScreen.main.bounds.height < 700 {
+                    if UIScreen.main.bounds.height < 600 {
+                        self.view.frame.origin.y -= (keyboardSize.height / 2) - 20
+                    }
+                    else if UIScreen.main.bounds.height < 700 {
                         self.view.frame.origin.y -= (keyboardSize.height / 2)
                     }
                     else {

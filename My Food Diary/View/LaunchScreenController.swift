@@ -10,7 +10,9 @@ import UIKit
 
 class LaunchScreenController: UIViewController {
 
-    @IBOutlet weak var iconToTitleLabelConstraint: NSLayoutConstraint!
+
+    @IBOutlet weak var imageViewTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var imageViewLeadingConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var iconCenterYConstraint: NSLayoutConstraint!
     @IBOutlet weak var iconCenterXConstraint: NSLayoutConstraint!
@@ -25,38 +27,34 @@ class LaunchScreenController: UIViewController {
         
         switch UIScreen.main.bounds.height {
         case ..<600:
-           yValue += 90
+           yValue += 64
         case ..<700:
-            yValue += 76
+            yValue += 50
         case ..<800:
             yValue += 56
         default:
             yValue += 42
         }
-//        if UIScreen.main.bounds.height < 600 {
-//            yValue += 90
-//        }
-//        else if UIScreen.main.bounds.height < 700 {
-//            yValue += 76
-//        }
-//        else if UIScreen.main.bounds.height < 800 {
-//            yValue += 56
-//        }
-//        else if UIScreen.main.bounds.height < 850 {
-//            yValue += 42
-//        }
-//        iconCenterXConstraint.isActive = false
-//        iconCenterYConstraint.isActive = false
-//        iconToTitleLabelConstraint.constant = 45
+        
+        let originalTransform = appIconImageView.transform
+        let scaledTransform = originalTransform.scaledBy(x: 1.25, y: 1.25)
+        let scaledAndTranslatedTransform = scaledTransform.translatedBy(x: 0, y: yValue + 45)
+        
         UIView.animate(withDuration: 0.6, delay: 0.2, options: .curveEaseInOut, animations: {
-            self.appIconImageView.transform = CGAffineTransform(translationX: 0, y: yValue + 45)
-//            self.appIconImageView.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 45).isActive = true
-//            self.view.layoutIfNeeded()
+            if UIScreen.main.bounds.height < 600 {
+                self.appIconImageView.transform = scaledAndTranslatedTransform
+            }
+            else {
+                self.appIconImageView.transform = CGAffineTransform(translationX: 0, y: yValue + 45)
+            }
+            
         }) { (success) in
             let sb = UIStoryboard(name: "Main", bundle: nil)
             let vc = sb.instantiateInitialViewController()
             UIApplication.shared.keyWindow?.rootViewController = vc
+            
         }
+        
     }
     
 

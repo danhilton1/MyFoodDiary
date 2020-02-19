@@ -29,10 +29,21 @@ class LogInViewController: UIViewController {
     var allWeight = [Weight]()
     
     
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var forgotPasswordButton: UIButton!
     @IBOutlet weak var logInButton: UIButton!
+    
+    // IBOutlet Constraints
+    @IBOutlet weak var iconTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var iconBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var emailTextFieldHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var passwordTextFieldHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var logInButtonBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var logInButtonHeightConstraint: NSLayoutConstraint!
+    
     
     //MARK:- View Methods
     
@@ -65,11 +76,7 @@ class LogInViewController: UIViewController {
         view.backgroundColor = Color.skyBlue
         logInButton.setTitleColor(Color.skyBlue, for: .normal)
         logInButton.layer.cornerRadius = logInButton.frame.size.height / 2
-        if UIScreen.main.bounds.height < 700 {
-            iconImageView.heightAnchor.constraint(equalToConstant: 140).isActive = true
-            iconImageView.widthAnchor.constraint(equalToConstant: 140).isActive = true
-            emailTextField.topAnchor.constraint(equalTo: iconImageView.bottomAnchor, constant: 40).isActive = true
-        }
+        checkDeviceAndUpdateConstraints()
     }
     
     func setUpTextFields() {
@@ -77,6 +84,31 @@ class LogInViewController: UIViewController {
         passwordTextField.delegate = self
         passwordTextField.placeholder = "Password"
         addInputAccessoriesForTextFields(textFields: [emailTextField, passwordTextField], dismissable: true, previousNextable: true)
+    }
+    
+    func checkDeviceAndUpdateConstraints() {
+        if UIScreen.main.bounds.height < 600 {
+            iconImageView.transform = CGAffineTransform(scaleX: 1.25, y: 1.25)
+            titleLabel.font = titleLabel.font.withSize(25)
+            iconTopConstraint.constant = 20
+            iconBottomConstraint.constant = 30
+            emailTextField.layer.cornerRadius = 20
+            emailTextField.font = emailTextField.font?.withSize(15)
+            passwordTextField.font = passwordTextField.font?.withSize(15)
+            passwordTextField.layer.cornerRadius = 20
+            forgotPasswordButton.titleLabel?.font = forgotPasswordButton.titleLabel?.font.withSize(15)
+            logInButton.titleLabel?.font = logInButton.titleLabel?.font.withSize(18)
+            logInButton.layer.cornerRadius = 20
+            emailTextFieldHeightConstraint.constant = 38
+            passwordTextFieldHeightConstraint.constant = 38
+            logInButtonHeightConstraint.constant = 40
+            logInButtonBottomConstraint.constant = 40
+        }
+        else if UIScreen.main.bounds.height < 700 {
+            iconImageView.heightAnchor.constraint(equalToConstant: 140).isActive = true
+            iconImageView.widthAnchor.constraint(equalToConstant: 140).isActive = true
+            emailTextField.topAnchor.constraint(equalTo: iconImageView.bottomAnchor, constant: 40).isActive = true
+        }
     }
     
     //MARK:- Data Methods
@@ -150,7 +182,10 @@ class LogInViewController: UIViewController {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y == 0 {
                 UIView.animate(withDuration: 0.5) {
-                    if UIScreen.main.bounds.height < 700 {
+                    if UIScreen.main.bounds.height < 600 {
+                        self.view.frame.origin.y -= (keyboardSize.height - 50)
+                    }
+                    else if UIScreen.main.bounds.height < 700 {
                         self.view.frame.origin.y -= (keyboardSize.height - 60)
                     }
                     else {

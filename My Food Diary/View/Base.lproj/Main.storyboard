@@ -110,6 +110,7 @@
                         <outlet property="iconImageView" destination="6uw-Tr-FyE" id="BNa-mj-Ouk"/>
                         <outlet property="logInButton" destination="WUd-Aq-FMP" id="fww-YA-4Mj"/>
                         <outlet property="registerButton" destination="Y1Y-3l-roi" id="Z2O-pg-2aE"/>
+                        <outlet property="titleBottomConstraint" destination="66S-yq-sWj" id="JZ6-U8-8hY"/>
                         <outlet property="titleLabel" destination="WVB-yF-PMx" id="KLG-tE-SkF"/>
                         <outlet property="titleTopConstraint" destination="k9T-BH-BcT" id="ieH-3E-0PW"/>
                         <segue destination="TrC-wf-omx" kind="show" identifier="GoToTabBar" id="3y6-f0-LZg"/>
@@ -207,6 +208,7 @@
                             <constraint firstItem="EVD-UY-vzI" firstAttribute="centerX" secondItem="SKv-h3-xOy" secondAttribute="centerX" id="fKo-p5-kS1"/>
                             <constraint firstItem="fSj-0N-DfD" firstAttribute="top" secondItem="raU-uz-fBh" secondAttribute="bottom" constant="95" id="ixl-RI-t20"/>
                             <constraint firstItem="vZQ-xy-Vu5" firstAttribute="trailing" secondItem="raU-uz-fBh" secondAttribute="trailing" constant="40" id="jdW-TX-jR9"/>
+                            <constraint firstItem="EVD-UY-vzI" firstAttribute="top" secondItem="vZQ-xy-Vu5" secondAttribute="top" constant="8" id="lj8-E7-k92"/>
                             <constraint firstItem="dlv-9x-VDd" firstAttribute="leading" secondItem="vZQ-xy-Vu5" secondAttribute="leading" constant="20" id="pR2-eC-rnA"/>
                             <constraint firstItem="vZQ-xy-Vu5" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="EC8-XN-3qt" secondAttribute="trailing" constant="125" id="ruN-5A-1p9"/>
                             <constraint firstItem="vZQ-xy-Vu5" firstAttribute="trailing" secondItem="fSj-0N-DfD" secondAttribute="trailing" constant="40" id="uwq-Ti-onD"/>
@@ -217,9 +219,17 @@
                     <navigationItem key="navigationItem" title="Log In" id="04Q-QZ-5Xz"/>
                     <connections>
                         <outlet property="emailTextField" destination="a0a-V1-0Ow" id="ibu-iG-v5g"/>
+                        <outlet property="emailTextFieldHeightConstraint" destination="cgs-xC-ugo" id="ih3-VR-qE3"/>
+                        <outlet property="forgotPasswordButton" destination="2Tj-ud-okU" id="m5v-et-yiy"/>
+                        <outlet property="iconBottomConstraint" destination="B5e-La-RKj" id="WMH-OP-RD5"/>
                         <outlet property="iconImageView" destination="EC8-XN-3qt" id="AIS-DL-oyB"/>
+                        <outlet property="iconTopConstraint" destination="GFb-OC-A9S" id="rj2-Ng-0Ti"/>
                         <outlet property="logInButton" destination="fSj-0N-DfD" id="8Rl-Q9-3Lv"/>
+                        <outlet property="logInButtonBottomConstraint" destination="dEo-86-ILT" id="DUv-24-3mf"/>
+                        <outlet property="logInButtonHeightConstraint" destination="7GH-Mk-c5q" id="2MI-mg-nnt"/>
                         <outlet property="passwordTextField" destination="raU-uz-fBh" id="2Ax-QU-j0x"/>
+                        <outlet property="passwordTextFieldHeightConstraint" destination="24f-fI-Ixw" id="Cle-Mp-vpQ"/>
+                        <outlet property="titleLabel" destination="EVD-UY-vzI" id="lWJ-Fv-ADR"/>
                         <segue destination="TrC-wf-omx" kind="show" identifier="GoToTabBar" id="NOO-Zw-O1E"/>
                     </connections>
                 </viewController>
@@ -246,13 +256,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rwg-6J-ZOJ">
-                                <rect key="frame" x="20" y="174" width="194" height="32"/>
+                                <rect key="frame" x="20" y="174" width="374" height="32"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="26"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iqe-Aa-cNn">
-                                <rect key="frame" x="20" y="306" width="194" height="32"/>
+                                <rect key="frame" x="20" y="306" width="374" height="32"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="26"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -320,6 +330,7 @@
                         <constraints>
                             <constraint firstItem="hb4-Ba-1Rs" firstAttribute="leading" secondItem="qUz-zr-dyE" secondAttribute="leading" constant="20" id="1y5-eH-h1i"/>
                             <constraint firstItem="Rwg-6J-ZOJ" firstAttribute="leading" secondItem="qUz-zr-dyE" secondAttribute="leading" constant="20" id="2Ef-LA-cQK"/>
+                            <constraint firstItem="Rwg-6J-ZOJ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="n8e-HX-VeZ" secondAttribute="bottom" constant="15" id="6U0-97-7hN"/>
                             <constraint firstItem="JG4-Xx-9kv" firstAttribute="top" secondItem="uEg-Vi-4Zc" secondAttribute="bottom" constant="50" id="6y1-op-bw8"/>
                             <constraint firstItem="iqe-Aa-cNn" firstAttribute="top" secondItem="KiP-My-j7D" secondAttribute="bottom" constant="35" id="Aze-wQ-fU1"/>
                             <constraint firstItem="qUz-zr-dyE" firstAttribute="trailing" secondItem="KiP-My-j7D" secondAttribute="trailing" constant="20" id="CYt-Nu-3Xq"/>
@@ -327,10 +338,11 @@
                             <constraint firstItem="uEg-Vi-4Zc" firstAttribute="top" secondItem="3iL-Ir-f7m" secondAttribute="bottom" constant="20" id="If5-qk-f44"/>
                             <constraint firstItem="3iL-Ir-f7m" firstAttribute="top" secondItem="iqe-Aa-cNn" secondAttribute="bottom" constant="20" id="LXx-s4-rsO"/>
                             <constraint firstItem="qUz-zr-dyE" firstAttribute="trailing" secondItem="uEg-Vi-4Zc" secondAttribute="trailing" constant="20" id="La9-X7-OyW"/>
-                            <constraint firstItem="qUz-zr-dyE" firstAttribute="trailing" secondItem="iqe-Aa-cNn" secondAttribute="trailing" constant="200" id="PdJ-Ft-xZ1"/>
+                            <constraint firstItem="Ohg-MU-5ai" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="hb4-Ba-1Rs" secondAttribute="trailing" constant="10" id="M7v-Vb-I1T"/>
+                            <constraint firstItem="qUz-zr-dyE" firstAttribute="trailing" secondItem="iqe-Aa-cNn" secondAttribute="trailing" constant="20" id="PdJ-Ft-xZ1"/>
                             <constraint firstItem="qUz-zr-dyE" firstAttribute="trailing" secondItem="3iL-Ir-f7m" secondAttribute="trailing" constant="20" id="YT1-eJ-ML8"/>
                             <constraint firstItem="KiP-My-j7D" firstAttribute="top" secondItem="Rwg-6J-ZOJ" secondAttribute="bottom" constant="20" id="ZQZ-Cj-pAk"/>
-                            <constraint firstItem="qUz-zr-dyE" firstAttribute="trailing" secondItem="Rwg-6J-ZOJ" secondAttribute="trailing" constant="200" id="Zq3-WT-S9w"/>
+                            <constraint firstItem="qUz-zr-dyE" firstAttribute="trailing" secondItem="Rwg-6J-ZOJ" secondAttribute="trailing" constant="20" id="Zq3-WT-S9w"/>
                             <constraint firstItem="uEg-Vi-4Zc" firstAttribute="leading" secondItem="qUz-zr-dyE" secondAttribute="leading" constant="20" id="agZ-Tf-5wK"/>
                             <constraint firstItem="qUz-zr-dyE" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="JG4-Xx-9kv" secondAttribute="bottom" constant="150" id="aqF-3b-3sk"/>
                             <constraint firstItem="Ohg-MU-5ai" firstAttribute="centerY" secondItem="hb4-Ba-1Rs" secondAttribute="centerY" id="c52-ni-KNl"/>
@@ -348,10 +360,24 @@
                     </view>
                     <navigationItem key="navigationItem" title="Register" id="Fdm-DX-nyz"/>
                     <connections>
+                        <outlet property="backButton" destination="hb4-Ba-1Rs" id="nvy-Xf-Bzt"/>
                         <outlet property="confirmPasswordTextField" destination="uEg-Vi-4Zc" id="Mza-jP-si2"/>
+                        <outlet property="confirmTextFieldHeightConstraint" destination="Xdl-7T-ltP" id="uNx-wa-iIU"/>
+                        <outlet property="emailLabel" destination="Rwg-6J-ZOJ" id="BPz-DO-UZR"/>
+                        <outlet property="emailLabelTopConstraint" destination="wmL-P6-5r3" id="NKj-5g-ND7"/>
                         <outlet property="emailTextField" destination="KiP-My-j7D" id="9gx-FQ-0pa"/>
+                        <outlet property="emailTextFieldHeightConstraint" destination="hyA-bo-ss3" id="hLt-aK-iFS"/>
+                        <outlet property="emailTextFieldTopConstraint" destination="ZQZ-Cj-pAk" id="fK8-K7-sZD"/>
+                        <outlet property="passwordLabel" destination="iqe-Aa-cNn" id="Wlb-BC-YXB"/>
                         <outlet property="passwordTextField" destination="3iL-Ir-f7m" id="oKi-5D-Ohp"/>
+                        <outlet property="passwordTextFieldBottomConstraint" destination="If5-qk-f44" id="bJi-np-r9d"/>
+                        <outlet property="passwordTextFieldHeightConstraint" destination="wej-pG-VDu" id="8iQ-dn-dXQ"/>
+                        <outlet property="passwordTextFieldTopConstraint" destination="LXx-s4-rsO" id="fqS-9Q-t14"/>
                         <outlet property="registerButton" destination="JG4-Xx-9kv" id="5d7-gf-bqT"/>
+                        <outlet property="registerButtonBottomConstraint" destination="aqF-3b-3sk" id="cGZ-Cy-WEt"/>
+                        <outlet property="registerButtonHeightConstraint" destination="3gU-Kg-0Ma" id="2gk-de-dao"/>
+                        <outlet property="registerButtonTopConstraint" destination="6y1-op-bw8" id="G9G-bs-HPA"/>
+                        <outlet property="titleLabel" destination="Ohg-MU-5ai" id="oIH-7i-vvO"/>
                         <segue destination="TrC-wf-omx" kind="show" identifier="GoToTabBar" id="gK3-K4-laE"/>
                     </connections>
                 </viewController>
@@ -384,8 +410,8 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="cML-kf-tb3"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yeD-iT-1hX">
                                 <rect key="frame" x="127" y="355" width="160" height="45"/>
@@ -431,8 +457,12 @@
                     <navigationItem key="navigationItem" id="hmY-Sg-6vZ"/>
                     <connections>
                         <outlet property="emailTextField" destination="uzz-kO-bSi" id="0jn-Jb-zzZ"/>
+                        <outlet property="emailTextFieldHeightConstraint" destination="cML-kf-tb3" id="bwF-cz-ES6"/>
                         <outlet property="submitButton" destination="yeD-iT-1hX" id="vUm-PJ-sy5"/>
+                        <outlet property="submitButtonHeightConstraint" destination="FTD-8E-4zP" id="wg6-By-OLD"/>
+                        <outlet property="submitButtonTopConstraint" destination="Ldt-5V-u9E" id="fgK-aS-nVr"/>
                         <outlet property="textLabel" destination="aJk-ba-c22" id="4N2-9B-G8B"/>
+                        <outlet property="titleLabel" destination="Z6O-qT-dP3" id="PDr-PG-BBN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zhh-wP-nUu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -514,6 +544,6 @@
         <image name="BackIcon" width="33" height="33"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="3y6-f0-LZg"/>
+        <segue reference="gK3-K4-laE"/>
     </inferredMetricsTieBreakers>
 </document>
