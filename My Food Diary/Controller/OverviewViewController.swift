@@ -62,9 +62,17 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBOutlet weak var dayLabel: UILabel!
     @IBOutlet weak var eatMeTableView: UITableView!
+    @IBOutlet weak var totalCaloriesTextLabel: UILabel!
     @IBOutlet weak var totalCaloriesLabel: UILabel!
+    @IBOutlet weak var goalCaloriesTextLabel: UILabel!
     @IBOutlet weak var goalCaloriesLabel: UILabel!
+    @IBOutlet weak var remainingCaloriesTextLabel: UILabel!
     @IBOutlet weak var remainingCaloriesLabel: UILabel!
+    
+    @IBOutlet weak var totalCalsTextLabelHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var goalCalsTextLabelHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var remainingCalsTextLabelHeightConstraint: NSLayoutConstraint!
+    
     
     //MARK: - view Methods
 
@@ -73,6 +81,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         
         
         setUpTableView()
+        checkDeviceAndUpdateConstraints()
         
         refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
         eatMeTableView.addSubview(refreshControl)
@@ -144,14 +153,22 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             totalCaloriesLabel.textColor = .systemOrange
             remainingCaloriesLabel.textColor = .systemOrange
         }
-        
-//        else {
-//            totalCaloriesLabel.textColor = Color.mint
-//            remainingCaloriesLabel.textColor = Color.mint
-//        }
     }
     
-    
+    func checkDeviceAndUpdateConstraints() {
+        if UIScreen.main.bounds.height < 600 {
+            totalCaloriesTextLabel.font = totalCaloriesTextLabel.font.withSize(15)
+            goalCaloriesTextLabel.font = goalCaloriesTextLabel.font.withSize(15)
+            remainingCaloriesTextLabel.font = remainingCaloriesTextLabel.font.withSize(14.5)
+            totalCaloriesLabel.font = totalCaloriesLabel.font.withSize(15)
+            goalCaloriesLabel.font = goalCaloriesLabel.font.withSize(15)
+            remainingCaloriesLabel.font = remainingCaloriesLabel.font.withSize(15)
+            
+            totalCalsTextLabelHeightConstraint.constant = 30
+            goalCalsTextLabelHeightConstraint.constant = 30
+            remainingCalsTextLabelHeightConstraint.constant = 60
+        }
+    }
     
     
     
@@ -498,7 +515,12 @@ extension OverviewViewController {
         let label = UILabel()
         label.backgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
         label.textColor = UIColor.black
-        label.font = UIFont(name: "Montserrat-SemiBold", size: 16)
+        if UIScreen.main.bounds.height < 600 {
+            label.font = UIFont(name: "Montserrat-SemiBold", size: 14)
+        }
+        else {
+            label.font = UIFont(name: "Montserrat-SemiBold", size: 16)
+        }
         
         switch section {
         case 0:
@@ -526,7 +548,10 @@ extension OverviewViewController {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if UIScreen.main.bounds.height < 800 {
+        if UIScreen.main.bounds.height < 600 {
+            return 110
+        }
+        else if UIScreen.main.bounds.height < 800 {
             return 114
         }
         else if UIScreen.main.bounds.height < 850 {

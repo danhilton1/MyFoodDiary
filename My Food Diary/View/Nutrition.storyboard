@@ -145,6 +145,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="dateLabel" destination="n78-BI-xYj" id="Ld3-mb-qE7"/>
+                        <outlet property="dateLabelWidthConstraint" destination="vFZ-xD-teo" id="cfo-54-iGD"/>
                         <outlet property="dayView" destination="tXM-xx-GRg" id="aPd-It-mjY"/>
                         <outlet property="monthView" destination="Njq-S6-Uys" id="8Fh-3W-bRk"/>
                         <outlet property="segmentedControl" destination="FJY-EU-KCA" id="9bp-hZ-Yfl"/>

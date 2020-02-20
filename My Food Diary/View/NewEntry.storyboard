@@ -313,12 +313,20 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="caloriesLabel" destination="lBC-bG-LVB" id="Jql-3P-htg"/>
                         <outlet property="caloriesTextField" destination="zAu-tZ-byQ" id="VGX-4G-3KR"/>
+                        <outlet property="carbsLabel" destination="9iQ-mG-X9f" id="M1b-IF-wKa"/>
                         <outlet property="carbsTextField" destination="GSj-dP-E5a" id="0zA-2Z-zpF"/>
+                        <outlet property="fatLabel" destination="jfb-hB-obp" id="yB1-on-1oA"/>
                         <outlet property="fatTextField" destination="YD9-mD-1Bg" id="6iB-4S-weh"/>
                         <outlet property="foodNameTextField" destination="Qdk-ma-xd3" id="UMG-Kg-eOW"/>
+                        <outlet property="mealLabel" destination="5DC-HU-cbd" id="d2b-eG-a01"/>
                         <outlet property="mealPicker" destination="Qrl-iq-QfK" id="nC9-fs-xa1"/>
+                        <outlet property="nameLabel" destination="82V-5Y-NUh" id="N1p-7N-g2A"/>
+                        <outlet property="proteinLabel" destination="NfJ-Tt-vuK" id="5V0-eC-JcA"/>
                         <outlet property="proteinTextField" destination="Luv-Zf-ZMY" id="USF-Ka-CQz"/>
+                        <outlet property="servingLabel" destination="2oS-95-0Ia" id="leT-aY-e5w"/>
+                        <outlet property="servingSizeLabel" destination="fXw-l7-arc" id="tgg-Od-I9C"/>
                         <outlet property="servingSizeTextField" destination="Mgx-P6-yYT" id="t7e-kk-fAe"/>
                         <outlet property="servingSizeUnitButton" destination="1EQ-hs-pMs" id="KD4-Vn-1ED"/>
                         <outlet property="servingTextField" destination="jNy-rj-FbO" id="h17-E2-2m2"/>
@@ -369,19 +377,19 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Food Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="uZA-Zz-wRn">
-                                                    <rect key="frame" x="20" y="2" width="262" height="22"/>
+                                                    <rect key="frame" x="20" y="2" width="257" height="22"/>
                                                     <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Total Serving" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a8d-id-iPZ">
-                                                    <rect key="frame" x="20" y="28" width="177.5" height="20"/>
+                                                    <rect key="frame" x="20" y="28" width="182.5" height="20"/>
                                                     <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calories" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vmu-gY-3Qj">
-                                                    <rect key="frame" x="282" y="10" width="112" height="30"/>
+                                                    <rect key="frame" x="287" y="10" width="107" height="30"/>
                                                     <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -398,10 +406,11 @@
                                                 <constraint firstAttribute="bottom" secondItem="Vmu-gY-3Qj" secondAttribute="bottom" constant="10" id="pDP-hg-tWy"/>
                                                 <constraint firstItem="Vmu-gY-3Qj" firstAttribute="top" secondItem="8ID-mK-xFS" secondAttribute="top" constant="10" id="sBN-nA-A64"/>
                                                 <constraint firstItem="uZA-Zz-wRn" firstAttribute="top" secondItem="8ID-mK-xFS" secondAttribute="top" constant="2" id="wAe-AE-Y0H"/>
-                                                <constraint firstItem="Vmu-gY-3Qj" firstAttribute="leading" secondItem="uZA-Zz-wRn" secondAttribute="trailing" id="zSW-oc-eD8"/>
+                                                <constraint firstItem="Vmu-gY-3Qj" firstAttribute="leading" secondItem="uZA-Zz-wRn" secondAttribute="trailing" constant="10" id="zSW-oc-eD8"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="calorieNameEqualWidthConstraint" destination="KP0-uR-Bdx" id="gYa-Oa-7Zr"/>
                                             <outlet property="caloriesLabel" destination="Vmu-gY-3Qj" id="yqj-QZ-6iE"/>
                                             <outlet property="foodNameLabel" destination="uZA-Zz-wRn" id="Syn-BO-tqt"/>
                                             <outlet property="totalServingLabel" destination="a8d-id-iPZ" id="mqs-5B-WUd"/>
@@ -921,6 +930,6 @@
         <image name="tick-icon" width="37.5" height="37.5"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="rOh-uq-5pz"/>
+        <segue reference="iWQ-te-NVG"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -43,6 +43,16 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var carbsTextField: UITextField!
     @IBOutlet weak var fatTextField: UITextField!
     
+    @IBOutlet weak var mealLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var servingSizeLabel: UILabel!
+    @IBOutlet weak var servingLabel: UILabel!
+    @IBOutlet weak var caloriesLabel: UILabel!
+    @IBOutlet weak var proteinLabel: UILabel!
+    @IBOutlet weak var carbsLabel: UILabel!
+    @IBOutlet weak var fatLabel: UILabel!
+    
+    
     var activeTextField = UITextField()
 
     
@@ -55,6 +65,7 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
 
         mealPicker.tintColor = Color.skyBlue
         mealPicker.selectedSegmentIndex = selectedSegmentIndex
+        checkDeviceAndUpdateConstraints()
         
         foodNameTextField.delegate = self
         caloriesTextField.delegate = self
@@ -82,6 +93,20 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
         presentingViewController?.tabBarController?.tabBar.isHidden = false
     }
 
+    func checkDeviceAndUpdateConstraints() {
+        if UIScreen.main.bounds.height < 600 {
+            mealLabel.font = mealLabel.font.withSize(16)
+            nameLabel.font = nameLabel.font.withSize(16)
+            servingSizeLabel.font = servingSizeLabel.font.withSize(16)
+            servingLabel.font = servingLabel.font.withSize(16)
+            caloriesLabel.font = caloriesLabel.font.withSize(16)
+            proteinLabel.font = proteinLabel.font.withSize(16)
+            carbsLabel.font = carbsLabel.font.withSize(16)
+            fatLabel.font = fatLabel.font.withSize(16)
+            
+            mealPicker.setTitle("Bfast", forSegmentAt: 0)
+        }
+    }
 
     
 

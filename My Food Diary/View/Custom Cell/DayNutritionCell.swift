@@ -15,6 +15,9 @@ class DayNutritionCell: UITableViewCell {
     @IBOutlet weak var proteinKey: UIView!
     @IBOutlet weak var carbsKey: UIView!
     @IBOutlet weak var fatKey: UIView!
+    @IBOutlet weak var proteinTextLabel: UILabel!
+    @IBOutlet weak var carbsTextLabel: UILabel!
+    @IBOutlet weak var fatTextLabel: UILabel!
     @IBOutlet weak var proteinValueLabel: UILabel!
     @IBOutlet weak var carbsValueLabel: UILabel!
     @IBOutlet weak var fatValueLabel: UILabel!
@@ -33,6 +36,16 @@ class DayNutritionCell: UITableViewCell {
     @IBOutlet weak var goalFatLabel: UILabel!
     
     @IBOutlet weak var pieChart: PieChartView!
+    
+    @IBOutlet weak var pieChartHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var pieChartWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var proteinKeyWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var proteinKeyHeightConstraint: NSLayoutConstraint!
+    
+    
+    @IBOutlet weak var goalProteinLabelCenterXConstraint: NSLayoutConstraint!
+    @IBOutlet weak var proteinValueLabelLeadingConstraint: NSLayoutConstraint!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()

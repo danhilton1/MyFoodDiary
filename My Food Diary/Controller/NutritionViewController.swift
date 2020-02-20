@@ -22,6 +22,9 @@ class NutritionViewController: UIViewController {
     @IBOutlet weak var monthView: UIView!
     @IBOutlet weak var dateLabel: UILabel!
     
+    @IBOutlet weak var dateLabelWidthConstraint: NSLayoutConstraint!
+    
+    
     var weekVC: WeekNutritionViewController?
     var monthVC: MonthNutritionViewController?
     
@@ -69,6 +72,11 @@ class NutritionViewController: UIViewController {
         setUpWeekView(direction: .backward, date: date, considerToday: true)
         setUpMonthView(direction: .backward, date: date, considerToday: true)
         setUpWeekView(direction: .backward, date: date, considerToday: true)
+        
+        if UIScreen.main.bounds.height < 600 {
+            dateLabelWidthConstraint.constant = 200
+            dateLabel.font = dateLabel.font.withSize(16)
+        }
         
     }
     

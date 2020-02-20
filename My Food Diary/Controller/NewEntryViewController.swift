@@ -19,6 +19,9 @@ class NewEntryViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var enterManuallyButton: UIButton!
     @IBOutlet weak var historyLabel: UILabel!
     
+
+    
+    
     var date: Date?
     var meal = Food.Meal.breakfast
     weak var delegate: NewEntryDelegate?
@@ -163,6 +166,10 @@ extension NewEntryViewController: UISearchBarDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "foodHistoryCell", for: indexPath) as! FoodHistoryCell
         cell.foodNameLabel.text = sortedFoodCopy[indexPath.row].name
         cell.caloriesLabel.text = "\(sortedFoodCopy[indexPath.row].calories) kcal"
+        if UIScreen.main.bounds.height < 600 {
+            cell.caloriesLabel.font = cell.caloriesLabel.font.withSize(14)
+            cell.calorieNameEqualWidthConstraint.constant = -135
+        }
 
         var totalServing = sortedFoodCopy[indexPath.row].totalServing
         let unit = sortedFoodCopy[indexPath.row].servingSizeUnit

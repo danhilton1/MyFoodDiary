@@ -162,19 +162,27 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="zOk-76-k9t">
-                                                    <rect key="frame" x="126.71366367086171" y="8.2709551656917029" width="159.00000000000045" height="43.999999999999545"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" red="0.21739959719999999" green="0.59010601039999999" blue="0.85885608199999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="18"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VDz-9B-27D">
+                                                    <rect key="frame" x="142" y="10" width="130" height="40"/>
+                                                    <color key="backgroundColor" red="0.32102057340000001" green="0.58673346039999996" blue="0.83532440659999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="130" id="Onf-4b-S3k"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="20"/>
                                                     <state key="normal" title="Log Out">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="logOutButtonTapped:" destination="RwQ-xf-d6n" eventType="touchUpInside" id="3GP-ku-OVA"/>
+                                                        <action selector="logOutButtonTapped:" destination="RwQ-xf-d6n" eventType="touchUpInside" id="HSD-xE-1Vi"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="VDz-9B-27D" firstAttribute="top" secondItem="4Bj-2A-qWM" secondAttribute="top" constant="10" id="3uw-0P-JTW"/>
+                                                <constraint firstAttribute="bottom" secondItem="VDz-9B-27D" secondAttribute="bottom" constant="10" id="4yz-nU-1Eq"/>
+                                                <constraint firstItem="VDz-9B-27D" firstAttribute="centerY" secondItem="4Bj-2A-qWM" secondAttribute="centerY" id="9IE-K2-sc1"/>
+                                                <constraint firstItem="VDz-9B-27D" firstAttribute="centerX" secondItem="4Bj-2A-qWM" secondAttribute="centerX" id="EP2-tS-LF8"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     </tableViewCell>
@@ -188,7 +196,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="More" id="D3b-7E-GRp"/>
                     <connections>
-                        <outlet property="logOutButton" destination="zOk-76-k9t" id="1hY-4H-wou"/>
+                        <outlet property="logOutButton" destination="VDz-9B-27D" id="hX7-JP-pZQ"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bi4-oc-pSh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

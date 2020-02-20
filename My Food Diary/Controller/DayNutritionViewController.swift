@@ -111,13 +111,6 @@ class DayNutritionViewController: UIViewController, UITableViewDataSource, UITab
             ]
             let attributedText = NSAttributedString(string: text, attributes: attributes)
             cell.pieChart.centerAttributedText = attributedText
-            
-//            let proteinArray = (foodList?.value(forKey: "protein")) as! [Double]
-//            protein = proteinArray.reduce(0, +)
-//            let carbsArray = (foodList?.value(forKey: "carbs")) as! [Double]
-//            carbs = carbsArray.reduce(0, +)
-//            let fatArray = (foodList?.value(forKey: "fat")) as! [Double]
-//            fat = fatArray.reduce(0, +)
 
             var chartDataSet: PieChartDataSet
             if protein == 0 && carbs == 0 && fat == 0.0 {
@@ -166,6 +159,29 @@ class DayNutritionViewController: UIViewController, UITableViewDataSource, UITab
                 cell.carbsPercentLabel.text = carbsPercentage.removePointZeroEndingAndConvertToString()
                 cell.fatPercentLabel.text = fatPercentage.removePointZeroEndingAndConvertToString()
             }
+            
+            if UIScreen.main.bounds.height < 600 {
+                cell.pieChartWidthConstraint.constant = 150
+                cell.pieChartHeightConstraint.constant = 150
+                cell.proteinKeyWidthConstraint.constant = 15
+                cell.proteinKeyHeightConstraint.constant = 15
+                cell.goalProteinLabelCenterXConstraint.isActive = false
+//                cell.proteinValueLabelLeadingConstraint.constant = 10
+                
+                cell.proteinTextLabel.font = cell.proteinTextLabel.font.withSize(14)
+                cell.carbsTextLabel.font = cell.carbsTextLabel.font.withSize(14)
+                cell.fatTextLabel.font = cell.fatTextLabel.font.withSize(14)
+                cell.proteinValueLabel.font = cell.proteinValueLabel.font.withSize(14)
+                cell.carbsValueLabel.font = cell.carbsValueLabel.font.withSize(14)
+                cell.fatValueLabel.font = cell.fatValueLabel.font.withSize(14)
+                cell.goalProteinLabel.font = cell.goalProteinLabel.font.withSize(14)
+                cell.goalCarbsLabel.font = cell.goalCarbsLabel.font.withSize(14)
+                cell.goalFatLabel.font = cell.goalFatLabel.font.withSize(14)
+                cell.remainingProteinLabel.font = cell.remainingProteinLabel.font.withSize(14)
+                cell.remainingCarbsLabel.font = cell.remainingCarbsLabel.font.withSize(14)
+                cell.remainingFatLabel.font = cell.remainingFatLabel.font.withSize(14)
+            }
+            
             return cell
         }
         else if indexPath.section == 1 {
@@ -184,6 +200,12 @@ class DayNutritionViewController: UIViewController, UITableViewDataSource, UITab
             default:
                 return cell
             }
+            
+            if UIScreen.main.bounds.height < 600 {
+                cell.typeLabel.font = cell.typeLabel.font.withSize(15)
+                cell.numberLabel.font = cell.numberLabel.font.withSize(15)
+            }
+            
             return cell
         }
         return UITableViewCell()
@@ -191,16 +213,31 @@ class DayNutritionViewController: UIViewController, UITableViewDataSource, UITab
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 && indexPath.section == 0 {
-            return 350
+            if UIScreen.main.bounds.height < 600 {
+                return 300
+            }
+            else {
+                return 350
+            }
         }
         else {
-            return 40
+            if UIScreen.main.bounds.height < 600 {
+                return 35
+            }
+            else {
+                return 40
+            }
         }
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let header = view as! UITableViewHeaderFooterView
-        header.textLabel?.font = UIFont(name: "Montserrat-SemiBold", size: 17)!
+        if UIScreen.main.bounds.height < 600 {
+            header.textLabel?.font = UIFont(name: "Montserrat-SemiBold", size: 15)!
+        }
+        else {
+            header.textLabel?.font = UIFont(name: "Montserrat-SemiBold", size: 17)!
+        }
     }
     
     

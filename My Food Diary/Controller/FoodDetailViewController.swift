@@ -34,6 +34,15 @@ class FoodDetailViewController: UITableViewController {
     @IBOutlet weak var carbsLabel: UILabel!
     @IBOutlet weak var fatLabel: UILabel!
     
+    @IBOutlet weak var mealLabel: UILabel!
+    @IBOutlet weak var servingSizeLabel: UILabel!
+    @IBOutlet weak var servingLabel: UILabel!
+    @IBOutlet weak var caloriesTextLabel: UILabel!
+    @IBOutlet weak var proteinTextLabel: UILabel!
+    @IBOutlet weak var carbsTextLabel: UILabel!
+    @IBOutlet weak var fatTextLabel: UILabel!
+    
+    
     weak var delegate: NewEntryDelegate?
     weak var mealDelegate: NewEntryDelegate?
     
@@ -54,6 +63,7 @@ class FoodDetailViewController: UITableViewController {
         }
 
         setUpCells()
+        checkDeviceAndUpdateLayout()
         
     }
     
@@ -104,6 +114,25 @@ class FoodDetailViewController: UITableViewController {
         }
         servingTextField.text = roundedServingString
         
+    }
+    
+    func checkDeviceAndUpdateLayout() {
+        if UIScreen.main.bounds.height < 600 {
+            foodNameLabel.font = foodNameLabel.font.withSize(20)
+            mealLabel.font = mealLabel.font.withSize(17)
+            servingSizeLabel.font = servingSizeLabel.font.withSize(17)
+            servingLabel.font = servingLabel.font.withSize(17)
+            caloriesTextLabel.font = caloriesTextLabel.font.withSize(17)
+            caloriesLabel.font = caloriesLabel.font.withSize(17)
+            proteinTextLabel.font = proteinTextLabel.font.withSize(17)
+            proteinLabel.font = proteinLabel.font.withSize(17)
+            carbsTextLabel.font = carbsTextLabel.font.withSize(17)
+            carbsLabel.font = carbsLabel.font.withSize(17)
+            fatTextLabel.font = fatTextLabel.font.withSize(17)
+            fatLabel.font = fatLabel.font.withSize(17)
+            
+            mealPicker.setTitle("Bfast", forSegmentAt: 0)
+        }
     }
 
     // MARK: - Add and save data methods
@@ -350,6 +379,24 @@ class FoodDetailViewController: UITableViewController {
         
     }
     
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == 0 && indexPath.section == 0 {
+            if UIScreen.main.bounds.height < 600 {
+                return 55
+            }
+            else {
+                return 60
+            }
+        }
+        else {
+            if UIScreen.main.bounds.height < 600 {
+                return 40
+            }
+            else {
+                return 46
+            }
+        }
+    }
 
 }
 

@@ -100,9 +100,6 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="sxB-vs-X79">
                                 <rect key="frame" x="145.5" y="45" width="13.5" height="35"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="35" id="xPc-e1-NpY"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="20"/>
                                 <color key="textColor" red="1" green="0.6199248128" blue="0.12649828769999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -110,9 +107,6 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="DOS-Bw-q4q">
                                 <rect key="frame" x="390.5" y="45" width="13.5" height="70"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="70" id="70x-T6-PjX"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="20"/>
                                 <color key="textColor" red="1" green="0.6199248128" blue="0.12649828769999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -130,9 +124,6 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="1PB-6U-Emm">
                                 <rect key="frame" x="145.5" y="80" width="13.5" height="35"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="35" id="DKR-w8-8gH"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="20"/>
                                 <color key="textColor" red="0.094117647060000004" green="0.73725490199999999" blue="0.60784313729999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -157,6 +148,7 @@
                             <constraint firstItem="6Fm-Rl-pWx" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1PB-6U-Emm" secondAttribute="trailing" constant="20" id="Cuh-cE-its"/>
                             <constraint firstItem="f9M-MH-vt8" firstAttribute="top" secondItem="TOj-Wq-obr" secondAttribute="bottom" constant="3" id="DN6-c3-6Ns"/>
                             <constraint firstItem="sxB-vs-X79" firstAttribute="top" secondItem="bOf-08-eRV" secondAttribute="bottom" constant="3" id="EpI-8V-oQJ"/>
+                            <constraint firstItem="sxB-vs-X79" firstAttribute="height" secondItem="knB-SE-ZJS" secondAttribute="height" id="Eso-vZ-J0b"/>
                             <constraint firstItem="sxB-vs-X79" firstAttribute="leading" secondItem="TOj-Wq-obr" secondAttribute="trailing" constant="10" id="Gtb-MM-i4m"/>
                             <constraint firstItem="KHe-fg-eea" firstAttribute="height" secondItem="tew-nN-CFl" secondAttribute="height" id="I8J-UJ-oJw"/>
                             <constraint firstItem="tew-nN-CFl" firstAttribute="top" secondItem="AmU-eU-Xb9" secondAttribute="top" id="IMP-df-fMa"/>
@@ -170,6 +162,7 @@
                             <constraint firstItem="DOS-Bw-q4q" firstAttribute="top" secondItem="bOf-08-eRV" secondAttribute="bottom" constant="3" id="ZuA-3M-iit"/>
                             <constraint firstItem="AmU-eU-Xb9" firstAttribute="trailing" secondItem="bOf-08-eRV" secondAttribute="trailing" id="aOa-Hv-o0C"/>
                             <constraint firstItem="f9M-MH-vt8" firstAttribute="top" secondItem="DOS-Bw-q4q" secondAttribute="bottom" constant="3" id="bDB-E6-09V"/>
+                            <constraint firstItem="1PB-6U-Emm" firstAttribute="height" secondItem="TOj-Wq-obr" secondAttribute="height" id="cLv-oS-Icg"/>
                             <constraint firstItem="6Fm-Rl-pWx" firstAttribute="top" secondItem="bOf-08-eRV" secondAttribute="bottom" constant="3" id="cuw-4N-90X"/>
                             <constraint firstItem="KHe-fg-eea" firstAttribute="top" secondItem="AmU-eU-Xb9" secondAttribute="top" id="dx4-WY-iDz"/>
                             <constraint firstItem="tew-nN-CFl" firstAttribute="centerX" secondItem="EgE-br-kvG" secondAttribute="centerX" id="e5e-q2-C7n"/>
@@ -178,6 +171,7 @@
                             <constraint firstItem="f9M-MH-vt8" firstAttribute="leading" secondItem="AmU-eU-Xb9" secondAttribute="leading" id="gYd-KF-M71"/>
                             <constraint firstItem="sxB-vs-X79" firstAttribute="centerY" secondItem="knB-SE-ZJS" secondAttribute="centerY" id="jlR-9p-khh"/>
                             <constraint firstItem="1PB-6U-Emm" firstAttribute="top" secondItem="sxB-vs-X79" secondAttribute="bottom" id="kF0-ia-P7M"/>
+                            <constraint firstItem="DOS-Bw-q4q" firstAttribute="height" secondItem="6Fm-Rl-pWx" secondAttribute="height" id="mfI-Bb-Ezy"/>
                             <constraint firstItem="KHe-fg-eea" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="0Be-vo-dmR" secondAttribute="trailing" constant="50" id="pEb-kc-mV1"/>
                             <constraint firstItem="sxB-vs-X79" firstAttribute="leading" secondItem="knB-SE-ZJS" secondAttribute="trailing" constant="7" id="rRb-2B-JJT"/>
                             <constraint firstItem="knB-SE-ZJS" firstAttribute="top" secondItem="bOf-08-eRV" secondAttribute="bottom" constant="3" id="sOv-ig-tak"/>
@@ -193,8 +187,14 @@
                         <outlet property="dayLabel" destination="tew-nN-CFl" id="i9N-Ts-4dk"/>
                         <outlet property="eatMeTableView" destination="f9M-MH-vt8" id="Fqc-NB-1uB"/>
                         <outlet property="goalCaloriesLabel" destination="1PB-6U-Emm" id="aJD-Qp-LZS"/>
+                        <outlet property="goalCaloriesTextLabel" destination="TOj-Wq-obr" id="QoZ-lp-iz7"/>
+                        <outlet property="goalCalsTextLabelHeightConstraint" destination="6aE-KH-U5r" id="ibV-mj-T95"/>
                         <outlet property="remainingCaloriesLabel" destination="DOS-Bw-q4q" id="Wjs-Ew-ghJ"/>
+                        <outlet property="remainingCaloriesTextLabel" destination="6Fm-Rl-pWx" id="Vqr-yT-foq"/>
+                        <outlet property="remainingCalsTextLabelHeightConstraint" destination="smK-vy-Dj3" id="tzX-kt-TV3"/>
                         <outlet property="totalCaloriesLabel" destination="sxB-vs-X79" id="wQu-bK-lUi"/>
+                        <outlet property="totalCaloriesTextLabel" destination="knB-SE-ZJS" id="Cds-Z7-wRD"/>
+                        <outlet property="totalCalsTextLabelHeightConstraint" destination="xQJ-7h-7hW" id="lD3-n6-EkT"/>
                         <segue destination="7NR-Gd-cya" kind="show" identifier="goToMealDetail" id="OwY-SH-FfB"/>
                     </connections>
                 </viewController>
@@ -500,12 +500,19 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="caloriesLabel" destination="aq4-ma-81Q" id="8OT-7H-FCH"/>
+                        <outlet property="caloriesTextLabel" destination="Kps-Jf-ngE" id="VIp-iH-xns"/>
                         <outlet property="carbsLabel" destination="h7f-73-SZT" id="UAS-yf-Yw1"/>
+                        <outlet property="carbsTextLabel" destination="b6N-8Z-xyX" id="g8N-Bx-weL"/>
                         <outlet property="fatLabel" destination="hBm-Be-EZW" id="JCJ-WF-dyV"/>
+                        <outlet property="fatTextLabel" destination="T6K-Ax-30o" id="PdU-Jv-PGb"/>
                         <outlet property="foodNameLabel" destination="XLl-IX-3UO" id="gqX-Dk-nzI"/>
+                        <outlet property="mealLabel" destination="isp-Aj-xjG" id="y75-1a-KDH"/>
                         <outlet property="mealPicker" destination="CzY-Lf-6KD" id="BKj-ca-HL9"/>
                         <outlet property="proteinLabel" destination="o0I-Mx-7Hs" id="IDR-fz-Dip"/>
+                        <outlet property="proteinTextLabel" destination="l74-jw-K9x" id="K0r-jO-hFs"/>
+                        <outlet property="servingLabel" destination="Bc9-vs-ZWe" id="y6j-lV-utx"/>
                         <outlet property="servingSizeButton" destination="38D-Qp-de5" id="iT2-dm-dEu"/>
+                        <outlet property="servingSizeLabel" destination="L1n-3v-gdE" id="aLI-jx-KwQ"/>
                         <outlet property="servingSizeUnitButton" destination="FIs-Nm-QnG" id="SNC-Ac-bPF"/>
                         <outlet property="servingTextField" destination="3DK-C6-soe" id="LCh-L0-PHV"/>
                     </connections>
@@ -610,6 +617,7 @@
                                 <connections>
                                     <outlet property="caloriesLabel" destination="TF3-C7-rRE" id="iiB-8u-bqi"/>
                                     <outlet property="foodNameLabel" destination="5JD-dB-aH8" id="6vT-FR-0vO"/>
+                                    <outlet property="mealDetailEqualWidthConstraint" destination="gAC-Lb-Caq" id="V4U-xc-boL"/>
                                     <outlet property="totalServingLabel" destination="hgh-F1-fdi" id="2GK-QR-dtq"/>
                                     <segue destination="vDg-93-jQl" kind="show" identifier="GoToFoodDetail" id="B6i-JJ-qje"/>
                                 </connections>

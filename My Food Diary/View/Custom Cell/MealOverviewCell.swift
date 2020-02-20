@@ -23,7 +23,9 @@ class MealOverviewCell: UITableViewCell {
     
     @IBOutlet weak var pieChart: PieChartView!
     
+    @IBOutlet weak var pieChartWidthConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var pieChartTrailingConstraint: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -33,12 +35,32 @@ class MealOverviewCell: UITableViewCell {
         carbsTextLabel.textColor = Color.skyBlue
         fatTextLabel.textColor = Color.salmon
         
+        checkDeviceAndUpdateConstraints()
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func checkDeviceAndUpdateConstraints() {
+        if UIScreen.main.bounds.height < 600 {
+            pieChartWidthConstraint.constant = 100
+            pieChartTrailingConstraint.constant = 2
+//            proteinTextLabel.text = "P"
+//            carbsTextLabel.text = "C"
+//            fatTextLabel.text = "F"
+            proteinLabel.font = proteinLabel.font.withSize(14)
+            carbsLabel.font = carbsLabel.font.withSize(14)
+            fatLabel.font = fatLabel.font.withSize(14)
+            proteinTextLabel.font = UIFont(name: "Montserrat-Medium", size: 14)
+            carbsTextLabel.font = UIFont(name: "Montserrat-Medium", size: 14)
+            fatTextLabel.font = UIFont(name: "Montserrat-Medium", size: 14)
+            
+            calorieLabel.font = calorieLabel.font.withSize(20)
+        }
     }
     
 }

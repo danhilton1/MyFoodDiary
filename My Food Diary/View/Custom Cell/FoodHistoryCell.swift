@@ -14,6 +14,10 @@ class FoodHistoryCell: UITableViewCell {
     @IBOutlet weak var totalServingLabel: UILabel!
     @IBOutlet weak var caloriesLabel: UILabel!
     
+    @IBOutlet weak var calorieNameEqualWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var mealDetailEqualWidthConstraint: NSLayoutConstraint!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

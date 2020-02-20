@@ -37,7 +37,9 @@ class BarChartNutritionCell: UITableViewCell {
         barChart.xAxis.drawGridLinesEnabled = true
         barChart.rightAxis.enabled = false
         barChart.leftAxis.axisMinimum = 0
-        
+        if UIScreen.main.bounds.height < 600 {
+            barChart.xAxis.labelFont = barChart.xAxis.labelFont.withSize(8)
+        }
         
 //        barChart.rightAxis.drawGridLinesEnabled = false
 //        barChart.rightAxis.drawAxisLineEnabled = false

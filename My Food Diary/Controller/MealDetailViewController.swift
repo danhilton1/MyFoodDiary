@@ -24,18 +24,7 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
         }
     }
     var allFood: [Food]?
-//    var selectedMeal: Results<Food>? {
-//        didSet {
-//            let predicate = NSPredicate(format: "isDeleted == FALSE")
-//            selectedMeal = selectedMeal?.filter(predicate)
-//
-//            guard let foodList = selectedMeal else { return }
-//            calories = 0
-//            for food in foodList {
-//                calories += food.calories
-//            }
-//        }
-//    }
+
     var delegate: NewEntryDelegate?
     var date: Date?
     var meal: Food.Meal = .breakfast
@@ -51,9 +40,12 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
         
         self.navigationController?.navigationBar.tintColor = .white
         
+        if UIScreen.main.bounds.height < 600 {
+            caloriesLabel.font = caloriesLabel.font.withSize(20)
+        }
+        
         caloriesLabel.text = "   Calories: \(calories)"
         
-        //tableView.allowsSelection = false
         tableView.tableFooterView = UIView()
         
         if selectedFoodList?.count == 0 {
@@ -154,6 +146,22 @@ extension MealDetailViewController {
         return 4
     }
     
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == 0 {
+            if UIScreen.main.bounds.height < 600 {
+                return 48
+            }
+            else {
+                return 52
+            }
+        }
+        if UIScreen.main.bounds.height < 600 {
+            return 28
+        }
+        else {
+            return 35
+        }
+    }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0
@@ -204,6 +212,13 @@ extension MealDetailViewController {
         var totalServing = servingSize * food.serving
         cell.totalServingLabel.text = totalServing.removePointZeroEndingAndConvertToString() + " \(food.servingSizeUnit)"
         
+        if UIScreen.main.bounds.height < 600 {
+            cell.foodNameLabel.font = cell.foodNameLabel.font.withSize(16)
+            cell.caloriesLabel.font = cell.caloriesLabel.font.withSize(16)
+            cell.totalServingLabel.font = cell.totalServingLabel.font.withSize(16)
+            cell.mealDetailEqualWidthConstraint.constant = -120
+        }
+        
         return cell
     }
     
@@ -214,15 +229,11 @@ extension MealDetailViewController {
         let roundedNutrientValue = nutrient.removePointZeroEndingAndConvertToString()
         cell.typeLabel.text = nutrientType + ":"
         cell.numberLabel.text = "\(roundedNutrientValue) g"
-        return cell
-    }
-    
-    
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == 0 {
-            return 52
+        if UIScreen.main.bounds.height < 600 {
+            cell.typeLabel.font = cell.typeLabel.font.withSize(15)
+            cell.numberLabel.font = cell.numberLabel.font.withSize(15)
         }
-        return 35
+        return cell
     }
     
     

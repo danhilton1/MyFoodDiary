@@ -32,8 +32,10 @@ class LaunchScreenController: UIViewController {
             yValue += 50
         case ..<800:
             yValue += 56
-        default:
+        case ..<850:
             yValue += 42
+        default:
+            yValue += 0
         }
         
         let originalTransform = appIconImageView.transform
