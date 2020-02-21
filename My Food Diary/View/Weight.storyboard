@@ -199,6 +199,7 @@
                             <constraint firstItem="4LE-0U-imx" firstAttribute="leading" secondItem="hXp-Hd-0T6" secondAttribute="leading" id="3EH-zo-JhG"/>
                             <constraint firstItem="ezv-Ji-oNs" firstAttribute="centerX" secondItem="Knl-5i-auq" secondAttribute="centerX" id="3cv-PC-clP"/>
                             <constraint firstItem="Pks-SM-aeh" firstAttribute="top" secondItem="Ga4-Ce-yTi" secondAttribute="bottom" constant="10" id="4Cg-Ad-Jt9"/>
+                            <constraint firstItem="aHi-z0-DA5" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="hXp-Hd-0T6" secondAttribute="leading" constant="30" id="6Aa-g1-KSK"/>
                             <constraint firstItem="Ga4-Ce-yTi" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Qle-TC-iMI" secondAttribute="trailing" constant="20" id="6O4-Uh-guI"/>
                             <constraint firstItem="SZY-Yo-C6c" firstAttribute="top" secondItem="ezv-Ji-oNs" secondAttribute="bottom" constant="10" id="6Ut-Ec-Kbn"/>
                             <constraint firstItem="4LE-0U-imx" firstAttribute="top" secondItem="Pks-SM-aeh" secondAttribute="bottom" constant="15" id="99c-qN-tJk"/>
@@ -209,12 +210,14 @@
                             <constraint firstItem="Q1c-7Y-OKA" firstAttribute="leading" secondItem="hXp-Hd-0T6" secondAttribute="leading" constant="10" id="IR4-zh-2mI"/>
                             <constraint firstItem="aHi-z0-DA5" firstAttribute="top" secondItem="Pks-SM-aeh" secondAttribute="top" id="JZl-JG-sxs"/>
                             <constraint firstItem="Qle-TC-iMI" firstAttribute="centerY" secondItem="Ga4-Ce-yTi" secondAttribute="centerY" id="JsR-vK-6P8"/>
+                            <constraint firstItem="hXp-Hd-0T6" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="aHi-z0-DA5" secondAttribute="trailing" constant="30" id="Kuq-R7-eX2"/>
                             <constraint firstItem="Qle-TC-iMI" firstAttribute="leading" secondItem="hXp-Hd-0T6" secondAttribute="leading" constant="20" id="N0G-Vd-RLE"/>
                             <constraint firstItem="hXp-Hd-0T6" firstAttribute="bottom" secondItem="SZY-Yo-C6c" secondAttribute="bottom" id="O8u-cd-s7A"/>
                             <constraint firstItem="ezv-Ji-oNs" firstAttribute="top" secondItem="4LE-0U-imx" secondAttribute="bottom" constant="10" id="Opr-6p-ZJ0"/>
                             <constraint firstItem="aHi-z0-DA5" firstAttribute="trailing" secondItem="Pks-SM-aeh" secondAttribute="trailing" id="UEl-qD-6ge"/>
                             <constraint firstItem="ezv-Ji-oNs" firstAttribute="centerY" secondItem="Q1c-7Y-OKA" secondAttribute="centerY" id="VlW-tX-TbH"/>
                             <constraint firstItem="hXp-Hd-0T6" firstAttribute="trailing" secondItem="SZY-Yo-C6c" secondAttribute="trailing" id="Wk1-Z9-SJD"/>
+                            <constraint firstItem="hXp-Hd-0T6" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Ga4-Ce-yTi" secondAttribute="trailing" constant="20" id="f2a-ZB-ZbF"/>
                             <constraint firstItem="aHi-z0-DA5" firstAttribute="leading" secondItem="Pks-SM-aeh" secondAttribute="leading" id="fSf-Fb-n5s"/>
                             <constraint firstItem="Ga4-Ce-yTi" firstAttribute="centerX" secondItem="Knl-5i-auq" secondAttribute="centerX" id="jBX-EY-YWR"/>
                             <constraint firstItem="Pks-SM-aeh" firstAttribute="centerX" secondItem="Knl-5i-auq" secondAttribute="centerX" id="l8p-b6-qN8"/>
@@ -236,9 +239,17 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="currentStackViewBottomConstraint" destination="4Cg-Ad-Jt9" id="vp4-GG-U99"/>
                         <outlet property="currentWeightLabel" destination="Y3l-ka-yhO" id="ioD-4I-jzj"/>
+                        <outlet property="currentWeightTextLabel" destination="Pxs-J4-n1n" id="yc4-Bf-wbY"/>
                         <outlet property="dateLabel" destination="ezv-Ji-oNs" id="iBe-BZ-18j"/>
+                        <outlet property="dateLabelWidthConstraint" destination="wnW-7D-CAk" id="UAx-xG-cgw"/>
+                        <outlet property="goalStackViewBottomConstraint" destination="99c-qN-tJk" id="0nD-43-Lgu"/>
                         <outlet property="goalWeightLabel" destination="7AR-q4-yfV" id="grp-2e-oYT"/>
+                        <outlet property="goalWeightTextLabel" destination="zKs-NJ-fJ5" id="ugC-Lm-yGc"/>
+                        <outlet property="settingsButtonHeightConstraint" destination="a5V-u2-s3V" id="dca-kt-FPo"/>
+                        <outlet property="settingsButtonTrailingConstraint" destination="6O4-Uh-guI" id="hza-Wy-GkM"/>
+                        <outlet property="settingsButtonWidthConstraint" destination="3ON-R0-ePP" id="JAe-PL-muP"/>
                         <outlet property="tableView" destination="SZY-Yo-C6c" id="7pX-l8-QQH"/>
                         <segue destination="qJx-wm-x5F" kind="show" identifier="GoToEditWeightEntry" id="wp5-cG-ddp"/>
                     </connections>
@@ -372,8 +383,12 @@
                     </navigationItem>
                     <connections>
                         <outlet property="dateButton" destination="DGN-Zk-kFy" id="CeJ-le-jvw"/>
+                        <outlet property="dateTextLabel" destination="0Os-z2-rpb" id="tZH-2t-BpU"/>
+                        <outlet property="dateTextLabelLeadingConstraint" destination="14K-px-O5a" id="QwD-2J-Rn9"/>
                         <outlet property="unitLabel" destination="V08-Dl-nfS" id="YkM-1A-1hl"/>
                         <outlet property="weightTextField" destination="Kzg-ql-h8Y" id="94w-GU-aQT"/>
+                        <outlet property="weightTextLabel" destination="V9B-5j-EAd" id="hFa-Yc-i62"/>
+                        <outlet property="weightTextLabelLeadingConstraint" destination="3m6-gz-efx" id="m1P-eT-Wvm"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iI8-fD-vPz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -389,6 +404,6 @@
         <image name="tick-icon" width="37.5" height="37.5"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="QPo-pl-5ij"/>
+        <segue reference="wp5-cG-ddp"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -19,11 +19,19 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var goalWeightLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     
+    @IBOutlet weak var currentWeightTextLabel: UILabel!
+    @IBOutlet weak var goalWeightTextLabel: UILabel!
+    @IBOutlet weak var dateLabelWidthConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var settingsButtonWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var settingsButtonHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var settingsButtonTrailingConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var currentStackViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var goalStackViewBottomConstraint: NSLayoutConstraint!
     
     let db = Firestore.firestore()
 
-//    var weightEntries: Results<Weight>?
-//    private var allWeightEntries: Results<Weight>?
     var weightEntries: [Weight]?
     var allWeightEntries: [Weight]?
     var weightEntriesDates: [Date]?
@@ -57,12 +65,29 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
 //        allWeightEntries = realm.objects(Weight.self)
         setUpWeekData(direction: .backward, date: Date(), considerToday: true)
         setUpLabels()
+        checkDeviceAndUpdateLayoutIfNeeded()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         tableView.reloadData()
         setUpLabels()
+    }
+    
+    func checkDeviceAndUpdateLayoutIfNeeded() {
+        if UIScreen.main.bounds.height < 600 {
+            dateLabelWidthConstraint.constant = 200
+            dateLabel.font = dateLabel.font.withSize(16)
+            settingsButtonWidthConstraint.constant = 18
+            settingsButtonHeightConstraint.constant = 18
+            settingsButtonTrailingConstraint.constant = 15
+            currentStackViewBottomConstraint.constant = 5
+            goalStackViewBottomConstraint.constant = 5
+            currentWeightTextLabel.font = currentWeightTextLabel.font.withSize(16)
+            goalWeightTextLabel.font = goalWeightTextLabel.font.withSize(16)
+            currentWeightLabel.font = currentWeightLabel.font.withSize(16)
+            goalWeightLabel.font = goalWeightLabel.font.withSize(16)
+        }
     }
     
     //MARK:- Data methods
@@ -72,9 +97,11 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
         formatter.dateFormat = "E, dd MMM YYYY"
         
         weightEntries = [Weight]()
-        for weightEntry in allWeightEntries! {
-            if weightEntry.dateString == formatter.string(from: date ?? Date()) {
-                weightEntries!.append(weightEntry)
+        if let allWeight = allWeightEntries {
+            for weightEntry in allWeight {
+                if weightEntry.dateString == formatter.string(from: date ?? Date()) {
+                    weightEntries!.append(weightEntry)
+                }
             }
         }
         
@@ -508,8 +535,14 @@ extension WeightViewController {
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "mealDetailCell", for: indexPath) as! MealDetailCell
             
-            cell.typeLabel.font = UIFont(name: "Montserrat-Regular", size: 17)!
-            cell.numberLabel.font = UIFont(name: "Montserrat-Medium", size: 17)!
+            if UIScreen.main.bounds.height < 600 {
+                cell.typeLabel.font = UIFont(name: "Montserrat-Regular", size: 15)!
+                cell.numberLabel.font = UIFont(name: "Montserrat-Medium", size: 15)!
+            }
+            else {
+                cell.typeLabel.font = UIFont(name: "Montserrat-Regular", size: 17)!
+                cell.numberLabel.font = UIFont(name: "Montserrat-Medium", size: 17)!
+            }
             let days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
             if lineChartDataSet.entries[indexPath.row].y == 0 {
                 cell.typeLabel.text = "\(days[indexPath.row]): "
@@ -555,12 +588,34 @@ extension WeightViewController {
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let header = view as! UITableViewHeaderFooterView
-        header.textLabel?.font = UIFont(name: "Montserrat-SemiBold", size: 17)!
+        if UIScreen.main.bounds.height < 600 {
+            header.textLabel?.font = UIFont(name: "Montserrat-SemiBold", size: 15)!
+        }
+        else {
+            header.textLabel?.font = UIFont(name: "Montserrat-SemiBold", size: 17)!
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 0
+        }
+        else {
+            if UIScreen.main.bounds.height < 600 {
+                return 24
+            }
+            else {
+                return 28
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
-            if UIScreen.main.bounds.height < 700 {
+            if UIScreen.main.bounds.height < 600 {
+                return 350
+            }
+            else if UIScreen.main.bounds.height < 700 {
                 return 420
             }
             else {
@@ -568,7 +623,12 @@ extension WeightViewController {
             }
         }
         else {
-            return 40
+            if UIScreen.main.bounds.height < 600 {
+                return 35
+            }
+            else {
+                return 40
+            }
         }
     }
     

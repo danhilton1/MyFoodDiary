@@ -13,9 +13,15 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
     
     //MARK:- Properties
     
+    @IBOutlet weak var weightTextLabel: UILabel!
+    @IBOutlet weak var dateTextLabel: UILabel!
     @IBOutlet weak var dateButton: DateButton!
     @IBOutlet weak var weightTextField: UITextField!
     @IBOutlet weak var unitLabel: UILabel!
+    
+    @IBOutlet weak var weightTextLabelLeadingConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var dateTextLabelLeadingConstraint: NSLayoutConstraint!
     
     let db = Firestore.firestore()
     let defaults = UserDefaults()
@@ -39,6 +45,7 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
         setUpNavBar()
         setUpToolBar()
         setUpViews()
+        checkDeviceAndUpdateLayoutIfNeeded()
         tableView.tableFooterView = UIView()
     
     }
@@ -52,6 +59,17 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
         super.viewWillDisappear(true)
         tabBarController?.tabBar.isHidden = false
         isEditingExistingEntry = false
+    }
+    
+    func checkDeviceAndUpdateLayoutIfNeeded() {
+        if UIScreen.main.bounds.height < 600 {
+            weightTextLabelLeadingConstraint.constant = 30
+            dateTextLabelLeadingConstraint.constant = 30
+            weightTextLabel.font = weightTextLabel.font.withSize(16)
+            dateTextLabel.font = dateTextLabel.font.withSize(16)
+            dateButton.titleLabel?.font = dateButton.titleLabel?.font.withSize(16)
+            weightTextField.font = weightTextField.font?.withSize(16)
+        }
     }
     
     //MARK:- Set Up Methods
@@ -212,6 +230,15 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
         transition.subtype = CATransitionSubtype.fromBottom
         self.view.window!.layer.add(transition, forKey: nil)
         self.dismiss(animated: false, completion: nil)
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if UIScreen.main.bounds.height < 600 {
+            return 50
+        }
+        else {
+            return 55
+        }
     }
     
 }
