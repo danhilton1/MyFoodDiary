@@ -392,6 +392,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Stats" id="hiX-Pz-IKI"/>
                     <connections>
+                        <outlet property="number3BottomConstraint" destination="zHq-QH-Goh" id="b3X-X3-gCH"/>
                         <outlet property="numberOneEntriesLabel" destination="Tse-3P-VzE" id="QQk-US-eSa"/>
                         <outlet property="numberOneFoodLabel" destination="kyA-NW-cAV" id="MRS-db-Msv"/>
                         <outlet property="numberThreeEntriesLabel" destination="kl3-iu-XY7" id="txN-tq-mnE"/>
@@ -446,7 +447,7 @@
                                                 <constraint firstItem="4IU-kT-2Ny" firstAttribute="top" secondItem="BNQ-65-5Yl" secondAttribute="top" constant="10" id="9NK-Dk-TiD"/>
                                                 <constraint firstItem="ULF-Aj-kRT" firstAttribute="leading" secondItem="eqb-fB-uRs" secondAttribute="trailing" constant="10" id="Eii-Pk-7hr"/>
                                                 <constraint firstItem="4IU-kT-2Ny" firstAttribute="leading" secondItem="BNQ-65-5Yl" secondAttribute="leading" constant="20" id="FbP-eh-oVa"/>
-                                                <constraint firstItem="eqb-fB-uRs" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="4IU-kT-2Ny" secondAttribute="trailing" constant="20" id="GHv-qP-vOF"/>
+                                                <constraint firstItem="eqb-fB-uRs" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="4IU-kT-2Ny" secondAttribute="trailing" constant="10" id="GHv-qP-vOF"/>
                                                 <constraint firstAttribute="bottom" secondItem="ULF-Aj-kRT" secondAttribute="bottom" constant="10" id="JDh-lc-Xhw"/>
                                                 <constraint firstItem="eqb-fB-uRs" firstAttribute="top" secondItem="BNQ-65-5Yl" secondAttribute="top" constant="5" id="MGa-PU-hkx"/>
                                                 <constraint firstAttribute="bottom" secondItem="4IU-kT-2Ny" secondAttribute="bottom" constant="10" id="Vsi-4y-uIW"/>
@@ -488,7 +489,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="6HP-PE-kOs" secondAttribute="bottom" constant="10" id="aye-xn-kd8"/>
                                                 <constraint firstItem="ele-Ou-zPo" firstAttribute="top" secondItem="WQX-n7-EDy" secondAttribute="top" constant="5" id="cnH-q6-T5W"/>
                                                 <constraint firstItem="kOq-2x-kFj" firstAttribute="leading" secondItem="WQX-n7-EDy" secondAttribute="leading" constant="20" id="fSG-L6-njV"/>
-                                                <constraint firstItem="ele-Ou-zPo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kOq-2x-kFj" secondAttribute="trailing" constant="20" id="pkc-gQ-cA4"/>
+                                                <constraint firstItem="ele-Ou-zPo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kOq-2x-kFj" secondAttribute="trailing" constant="10" id="pkc-gQ-cA4"/>
                                                 <constraint firstItem="kOq-2x-kFj" firstAttribute="top" secondItem="WQX-n7-EDy" secondAttribute="top" constant="10" id="yah-4o-uDw"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -519,7 +520,7 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="m9g-UY-0Im" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="RQf-X3-NqO" secondAttribute="trailing" constant="20" id="0Ge-vE-jiL"/>
+                                                <constraint firstItem="m9g-UY-0Im" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="RQf-X3-NqO" secondAttribute="trailing" constant="10" id="0Ge-vE-jiL"/>
                                                 <constraint firstItem="m9g-UY-0Im" firstAttribute="top" secondItem="v9g-Of-k4h" secondAttribute="top" constant="5" id="1Bh-Ck-qYn"/>
                                                 <constraint firstAttribute="bottom" secondItem="0I1-lX-yqu" secondAttribute="bottom" constant="10" id="1Y7-Dq-87p"/>
                                                 <constraint firstAttribute="trailing" secondItem="0I1-lX-yqu" secondAttribute="trailing" constant="43" id="M4l-a4-RGe"/>
@@ -565,7 +566,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="yR2-zx-gDO" secondAttribute="bottom" constant="10" id="E6G-zg-qSs"/>
                                                 <constraint firstItem="yR2-zx-gDO" firstAttribute="top" secondItem="rrs-GK-2YV" secondAttribute="top" constant="10" id="Fcn-Lx-ovK"/>
                                                 <constraint firstItem="yR2-zx-gDO" firstAttribute="leading" secondItem="rrs-GK-2YV" secondAttribute="leading" constant="20" id="ZxB-1M-2MB"/>
-                                                <constraint firstItem="s24-nC-RUC" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="yR2-zx-gDO" secondAttribute="trailing" constant="50" id="crp-Uy-DPg"/>
+                                                <constraint firstItem="s24-nC-RUC" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="yR2-zx-gDO" secondAttribute="trailing" constant="10" id="crp-Uy-DPg"/>
                                                 <constraint firstAttribute="bottom" secondItem="s24-nC-RUC" secondAttribute="bottom" constant="5" id="r6d-QS-5Hg"/>
                                                 <constraint firstItem="s24-nC-RUC" firstAttribute="top" secondItem="rrs-GK-2YV" secondAttribute="top" constant="5" id="zFB-TG-3EJ"/>
                                             </constraints>
@@ -611,7 +612,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="To9-cH-zHv" secondAttribute="bottom" constant="5" id="Kyg-mD-myf"/>
                                                 <constraint firstAttribute="bottom" secondItem="eET-0w-k1Z" secondAttribute="bottom" constant="10" id="M6b-Nf-v0v"/>
                                                 <constraint firstItem="eET-0w-k1Z" firstAttribute="top" secondItem="85f-Cq-eKt" secondAttribute="top" constant="10" id="Nzn-LI-7OL"/>
-                                                <constraint firstItem="To9-cH-zHv" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ioJ-7i-l4Y" secondAttribute="trailing" constant="50" id="Z0g-Fo-rML"/>
+                                                <constraint firstItem="To9-cH-zHv" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ioJ-7i-l4Y" secondAttribute="trailing" constant="10" id="Z0g-Fo-rML"/>
                                                 <constraint firstItem="ioJ-7i-l4Y" firstAttribute="leading" secondItem="85f-Cq-eKt" secondAttribute="leading" constant="20" id="voV-Jt-3gG"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -653,11 +654,19 @@
                     <navigationItem key="navigationItem" title="Goals" id="iWN-DJ-gMK"/>
                     <connections>
                         <outlet property="caloriesGoalTextField" destination="eqb-fB-uRs" id="WB2-BA-4pK"/>
+                        <outlet property="caloriesTextLabel" destination="4IU-kT-2Ny" id="XA2-6t-SZb"/>
                         <outlet property="carbsGoalTextField" destination="m9g-UY-0Im" id="jiy-RJ-XD9"/>
+                        <outlet property="carbsTextLabel" destination="RQf-X3-NqO" id="P4O-ON-S0S"/>
                         <outlet property="fatGoalTextField" destination="s24-nC-RUC" id="Ono-q2-W89"/>
+                        <outlet property="fatTextLabel" destination="yR2-zx-gDO" id="EeL-oc-LtQ"/>
                         <outlet property="proteinGoalTextField" destination="ele-Ou-zPo" id="MBi-dR-ZuJ"/>
+                        <outlet property="proteinTextLabel" destination="kOq-2x-kFj" id="xfl-Xq-ndL"/>
+                        <outlet property="updateButtonBottomConstraint" destination="Lo7-bx-rlm" id="12p-A2-zcy"/>
+                        <outlet property="updateButtonTopConstraint" destination="4Dk-x2-fWW" id="lNL-2R-chT"/>
                         <outlet property="updateGoalsButton" destination="FTn-3G-jSp" id="dey-Bf-jHR"/>
+                        <outlet property="updateGoalsButtonWidthConstraint" destination="W5i-uk-zX5" id="j9I-Vy-NrC"/>
                         <outlet property="weightGoalTextField" destination="To9-cH-zHv" id="Z7y-I7-fhN"/>
+                        <outlet property="weightTextLabel" destination="ioJ-7i-l4Y" id="Ww4-rQ-WI0"/>
                         <outlet property="weightUnitButton" destination="eET-0w-k1Z" id="4at-aG-uiU"/>
                     </connections>
                 </tableViewController>

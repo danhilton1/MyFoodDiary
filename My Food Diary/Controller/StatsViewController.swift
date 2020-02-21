@@ -24,10 +24,16 @@ class StatsViewController: UIViewController {
     @IBOutlet weak var numberTwoEntriesLabel: UILabel!
     @IBOutlet weak var numberThreeEntriesLabel: UILabel!
     
+    @IBOutlet weak var number3BottomConstraint: NSLayoutConstraint!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setUpViews()
+        if UIScreen.main.bounds.height < 600 {
+            number3BottomConstraint.constant = 50
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

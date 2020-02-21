@@ -12,6 +12,14 @@ import SVProgressHUD
 class GoalsViewController: UITableViewController, UITextFieldDelegate {
 
     //MARK:- Outlets
+    
+    @IBOutlet weak var caloriesTextLabel: UILabel!
+    @IBOutlet weak var proteinTextLabel: UILabel!
+    @IBOutlet weak var carbsTextLabel: UILabel!
+    @IBOutlet weak var fatTextLabel: UILabel!
+    @IBOutlet weak var weightTextLabel: UILabel!
+    
+    
     @IBOutlet weak var caloriesGoalTextField: UITextField!
     @IBOutlet weak var proteinGoalTextField: UITextField!
     @IBOutlet weak var carbsGoalTextField: UITextField!
@@ -19,6 +27,11 @@ class GoalsViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var weightGoalTextField: UITextField!
     @IBOutlet weak var weightUnitButton: UIButton!
     @IBOutlet weak var updateGoalsButton: UIButton!
+    
+    @IBOutlet weak var updateGoalsButtonWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var updateButtonTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var updateButtonBottomConstraint: NSLayoutConstraint!
+    
     
     //MARK:- Properties
     let defaults = UserDefaults()
@@ -32,6 +45,7 @@ class GoalsViewController: UITableViewController, UITextFieldDelegate {
         super.viewDidLoad()
 
         setUpViews()
+        checkDeviceAndUpdateLayoutIfNeeded()
         
         tableView.allowsSelection = false
         
@@ -64,9 +78,34 @@ class GoalsViewController: UITableViewController, UITextFieldDelegate {
         updateGoalsButton.setTitleColor(.white, for: .normal)
         updateGoalsButton.backgroundColor = Color.skyBlue
         updateGoalsButton.layer.cornerRadius = 25
+        if UIScreen.main.bounds.height < 600 {
+            updateGoalsButton.layer.cornerRadius = 20
+        }
         
 //        view.backgroundColor = tableView.separatorColor
         tableView.tableFooterView = UIView()
+    }
+    
+    func checkDeviceAndUpdateLayoutIfNeeded() {
+        if UIScreen.main.bounds.height < 600 {
+            caloriesTextLabel.font = caloriesTextLabel.font.withSize(15)
+            proteinTextLabel.font = proteinTextLabel.font.withSize(15)
+            carbsTextLabel.font = carbsTextLabel.font.withSize(15)
+            fatTextLabel.font = fatTextLabel.font.withSize(15)
+            weightTextLabel.font = weightTextLabel.font.withSize(15)
+            
+            caloriesGoalTextField.font = caloriesGoalTextField.font?.withSize(15)
+            proteinGoalTextField.font = proteinGoalTextField.font?.withSize(15)
+            carbsGoalTextField.font = carbsGoalTextField.font?.withSize(15)
+            fatGoalTextField.font = fatGoalTextField.font?.withSize(15)
+            weightGoalTextField.font = weightGoalTextField.font?.withSize(15)
+            
+            updateGoalsButton.titleLabel?.font = updateGoalsButton.titleLabel?.font.withSize(19)
+            updateGoalsButtonWidthConstraint.constant = 150
+            updateButtonTopConstraint.constant = 20
+            updateButtonBottomConstraint.constant = 20
+            
+        }
     }
 
     //MARK:- Button Methods
@@ -113,16 +152,35 @@ class GoalsViewController: UITableViewController, UITextFieldDelegate {
 extension GoalsViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 1 && indexPath.row == 1 {
-            return 120
+            if UIScreen.main.bounds.height < 600 {
+                return 80
+            }
+            else {
+                return 120
+            }
         }
         else {
             return 45
         }
     }
     
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if UIScreen.main.bounds.height < 600 {
+            return 25
+        }
+        else {
+            return 28
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let header = view as! UITableViewHeaderFooterView
-        header.textLabel?.font = UIFont(name: "Montserrat-SemiBold", size: 17)!
+        if UIScreen.main.bounds.height < 600 {
+            header.textLabel?.font = UIFont(name: "Montserrat-SemiBold", size: 15)!
+        }
+        else {
+            header.textLabel?.font = UIFont(name: "Montserrat-SemiBold", size: 17)!
+        }
     }
     
     
