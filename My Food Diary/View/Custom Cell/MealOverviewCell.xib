@@ -39,22 +39,22 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" axis="vertical" distribution="fillEqually" alignment="top" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="4N0-iF-bfk">
-                        <rect key="frame" x="325" y="18" width="58" height="84"/>
+                        <rect key="frame" x="325" y="15" width="58" height="90"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Protein" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="fql-xU-Zmr">
-                                <rect key="frame" x="0.0" y="0.0" width="58" height="20.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="58" height="22.5"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="16"/>
                                 <color key="textColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Carbs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="Ofc-II-cS2">
-                                <rect key="frame" x="0.0" y="31.5" width="45.5" height="21"/>
+                                <rect key="frame" x="0.0" y="33.5" width="45.5" height="23"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="16"/>
                                 <color key="textColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="v7T-vj-bVS">
-                                <rect key="frame" x="0.0" y="63.5" width="25.5" height="20.5"/>
+                                <rect key="frame" x="0.0" y="67.5" width="25.5" height="22.5"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="16"/>
                                 <color key="textColor" red="1" green="0.57810515169999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -62,22 +62,22 @@
                         </subviews>
                     </stackView>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="IaT-aK-k6i">
-                        <rect key="frame" x="267.5" y="18" width="53.5" height="84"/>
+                        <rect key="frame" x="267.5" y="15" width="53.5" height="90"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="120.7 g" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="sBj-c3-fO2">
-                                <rect key="frame" x="0.0" y="0.0" width="53.5" height="20.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="53.5" height="22.5"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="120.7 g" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="pfD-Pe-JcJ">
-                                <rect key="frame" x="0.0" y="31.5" width="53.5" height="21"/>
+                                <rect key="frame" x="0.0" y="33.5" width="53.5" height="23"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="120.7 g" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="S44-Ll-WO3">
-                                <rect key="frame" x="0.0" y="63.5" width="53.5" height="20.5"/>
+                                <rect key="frame" x="0.0" y="67.5" width="53.5" height="22.5"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -100,13 +100,13 @@
                     <constraint firstAttribute="bottom" secondItem="FTk-hj-aFc" secondAttribute="bottom" constant="10" id="J6q-to-pe7"/>
                     <constraint firstItem="FTk-hj-aFc" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="L7z-hX-e2o"/>
                     <constraint firstItem="FTk-hj-aFc" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Q23-gX-Vto"/>
-                    <constraint firstItem="4N0-iF-bfk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="18" id="Yf2-dl-Hc1"/>
+                    <constraint firstItem="4N0-iF-bfk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="Yf2-dl-Hc1"/>
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="4N0-iF-bfk" secondAttribute="trailing" constant="10" id="fOV-FC-b4a"/>
                     <constraint firstItem="4N0-iF-bfk" firstAttribute="leading" secondItem="IaT-aK-k6i" secondAttribute="trailing" constant="4" id="fh3-x0-NDl"/>
-                    <constraint firstAttribute="bottom" secondItem="4N0-iF-bfk" secondAttribute="bottom" constant="18" id="gVT-59-MuS"/>
-                    <constraint firstItem="IaT-aK-k6i" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="18" id="kMB-rP-NXP"/>
+                    <constraint firstAttribute="bottom" secondItem="4N0-iF-bfk" secondAttribute="bottom" constant="15" id="gVT-59-MuS"/>
+                    <constraint firstItem="IaT-aK-k6i" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="kMB-rP-NXP"/>
                     <constraint firstItem="FTk-hj-aFc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="BL3-ke-CAD" secondAttribute="trailing" constant="10" id="sre-7e-kdY"/>
-                    <constraint firstAttribute="bottom" secondItem="IaT-aK-k6i" secondAttribute="bottom" constant="18" id="szO-Ny-nUl"/>
+                    <constraint firstAttribute="bottom" secondItem="IaT-aK-k6i" secondAttribute="bottom" constant="15" id="szO-Ny-nUl"/>
                     <constraint firstAttribute="bottom" secondItem="BL3-ke-CAD" secondAttribute="bottom" constant="10.5" id="xWo-eg-gul"/>
                 </constraints>
             </tableViewCellContentView>

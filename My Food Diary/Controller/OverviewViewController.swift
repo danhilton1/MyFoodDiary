@@ -17,12 +17,8 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
 
     
     //MARK: - Properties
-    //private let realm = try! Realm()
-//    private let db = Firestore.firestore()
-//    let userEmail = Auth.auth().currentUser?.email
     
     var date: Date?   //  Required to be set before VC presented
-    //private var foodList: Results<Food>?
     var foodArray = [Food]()
     var testFoodArray: [Food]?
     var allFood: [Food]?
@@ -59,7 +55,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
        
     private let dimView = UIView()
     
-    
+    //IBOutlets
     @IBOutlet weak var dayLabel: UILabel!
     @IBOutlet weak var eatMeTableView: UITableView!
     @IBOutlet weak var totalCaloriesTextLabel: UILabel!
@@ -179,9 +175,12 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         formatter.dateFormat = "E, d MMM"
         
         testFoodArray = [Food]()
-        for food in allFood! {
-            if food.date == formatter.string(from: date ?? Date()) && !food.isDeleted {
-                testFoodArray!.append(food)
+        
+        if let allFoodEntries = allFood {
+            for food in allFoodEntries {
+                if food.date == formatter.string(from: date ?? Date()) && !food.isDeleted {
+                    testFoodArray!.append(food)
+                }
             }
         }
 
@@ -219,18 +218,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         // Updates the total amount of cals and macros for user entries
         
         // Checks the meal type and then appends each food property (cals, carbs, ..) to corresponding array
-//        if let foodList = food {
-//            switch meal {
-//            case .breakfast:
-//                retrieveNutritionData(meal: Food.Meal.breakfast.stringValue, foodList: foodList)
-//            case .lunch:
-//                retrieveNutritionData(meal: Food.Meal.lunch.stringValue, foodList: foodList)
-//            case .dinner:
-//                retrieveNutritionData(meal: Food.Meal.dinner.stringValue, foodList: foodList)
-//            default:
-//                retrieveNutritionData(meal: Food.Meal.other.stringValue, foodList: foodList)
-//            }
-//        }
+
         if let foodList = food {
             switch meal {
             case .breakfast:
@@ -314,8 +302,6 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             
             cell.pieChart.data = chartData
         }
-        
-        
     }
     
     

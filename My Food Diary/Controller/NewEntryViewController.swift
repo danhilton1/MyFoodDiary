@@ -14,20 +14,19 @@ class NewEntryViewController: UIViewController, UITableViewDelegate, UITableView
     
     let db = Firestore.firestore()
     
+    //IBOutlets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var enterManuallyButton: UIButton!
     @IBOutlet weak var historyLabel: UILabel!
     
-
-    
+    //MARK:- Properties
     
     var date: Date?
     var meal = Food.Meal.breakfast
     weak var delegate: NewEntryDelegate?
     weak var mealDelegate: NewEntryDelegate?
     var allFood: [Food]?
-    //private var foodList: Results<Food>?
     private var sortedFood = [Food]()
     private var sortedFoodCopy = [Food]()
     
@@ -38,6 +37,8 @@ class NewEntryViewController: UIViewController, UITableViewDelegate, UITableView
         static let goToFoodDetail = "GoToFoodDetail"
     }
     
+    //MARK:- View Methods
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -47,7 +48,6 @@ class NewEntryViewController: UIViewController, UITableViewDelegate, UITableView
         
         setUpNavBar()
         
-        //foodList = realm.objects(Food.self)
         setUpSortedFoodList()
         sortedFoodCopy = sortedFood
         
@@ -77,18 +77,7 @@ class NewEntryViewController: UIViewController, UITableViewDelegate, UITableView
         
         navigationController?.navigationBar.barTintColor = Color.skyBlue
     }
-
-    @objc func dismissButtonTapped(_ sender: UIBarButtonItem) {
-        let transition: CATransition = CATransition()
-        transition.duration = 0.4
-        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-        transition.type = CATransitionType.reveal
-        transition.subtype = CATransitionSubtype.fromBottom
-        self.view.window!.layer.add(transition, forKey: nil)
-        self.dismiss(animated: false, completion: nil)
-    }
-
-
+    
     func setUpSortedFoodList() {
         var foodDictionary = [String: Food]()
         for food in allFood! {
@@ -104,6 +93,20 @@ class NewEntryViewController: UIViewController, UITableViewDelegate, UITableView
             return food1Date > food2Date
         }
     }
+
+    //MARK:- Button Methods
+    
+    @objc func dismissButtonTapped(_ sender: UIBarButtonItem) {
+        let transition: CATransition = CATransition()
+        transition.duration = 0.4
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        transition.type = CATransitionType.reveal
+        transition.subtype = CATransitionSubtype.fromBottom
+        self.view.window!.layer.add(transition, forKey: nil)
+        self.dismiss(animated: false, completion: nil)
+    }
+
+    //MARK:- Segue Method
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -190,44 +193,46 @@ extension NewEntryViewController: UISearchBarDelegate {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
-            let ac = UIAlertController(title: "Confirm", message: "Are you sure you want to delete this item from your database?", preferredStyle: .alert)
+            let ac = UIAlertController(title: "Delete Food", message: "Are you sure you want to delete this item from your database?", preferredStyle: .alert)
             
             ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-            ac.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { [weak self] (action) in
+            ac.addAction(UIAlertAction(title: "Delete", style: .destructive) { [weak self] (action) in
                 guard let strongSelf = self else { return }
-                
-                guard let user = Auth.auth().currentUser?.email else { return }
-                let foodName = strongSelf.sortedFoodCopy[indexPath.row].name!
-                let foodUUID = strongSelf.sortedFoodCopy[indexPath.row].uuid
-                
-                strongSelf.db.collection("users").document(user).collection("foods").document("\(foodName) \(foodUUID)").delete() { err in
-                    if let err = err {
-                        print("Error removing document: \(err)")
-                    } else {
-                        print("Document: \(foodName) successfully removed!")
-                    }
-                }
                 
                 let currentNav = strongSelf.parent as! UINavigationController
                 let overviewNav = currentNav.presentingViewController as! UINavigationController
-                let overviewPVC = overviewNav.viewControllers[0] as! OverviewPageViewController
+                let overviewPVC = overviewNav.viewControllers.first as! OverviewPageViewController
                 let overviewVC = overviewPVC.viewControllers?.first as! OverviewViewController
                 
                 var index = 0
                 for entry in strongSelf.allFood! {
                     if entry.name == strongSelf.sortedFoodCopy[indexPath.row].name {
+                        strongSelf.deleteFirestoreFoodDocument(withName: entry.name!, uuid: entry.uuid)
                         strongSelf.allFood?.remove(at: index)
+                        overviewPVC.allFood.remove(at: index)
                         overviewVC.allFood?.remove(at: index)
-                        overviewVC.loadFirebaseData()
-                        break
+                        index -= 1
                     }
                     index += 1
                 }
+                overviewVC.loadFirebaseData()
                 strongSelf.sortedFoodCopy.remove(at: indexPath.row)
                 strongSelf.tableView.deleteRows(at: [indexPath], with: .automatic)
                 
-            }))
+            })
             present(ac, animated: true)
+        }
+    }
+    
+    func deleteFirestoreFoodDocument(withName name: String, uuid: String) {
+        guard let user = Auth.auth().currentUser?.email else { return }
+        
+        db.collection("users").document(user).collection("foods").document("\(name) \(uuid)").delete() { err in
+            if let err = err {
+                print("Error removing document: \(err)")
+            } else {
+                print("Document: \(name) successfully removed!")
+            }
         }
     }
     
