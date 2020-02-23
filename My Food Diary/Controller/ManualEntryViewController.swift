@@ -17,20 +17,19 @@ protocol NewEntryDelegate: class {
 
 class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
     
-    let db = Firestore.firestore()
+
+    //MARK: - Properties and Objects
     
+    let db = Firestore.firestore()
     let defaults = UserDefaults()
     
     weak var delegate: NewEntryDelegate?
     weak var mealDelegate: NewEntryDelegate?
     var date: Date?
     var selectedSegmentIndex = 0
-    //private var activeField: UITextField?
     private let formatter = DateFormatter()
 
     private var workingCopy: Food = Food()
-
-    //MARK: - Properties and Objects
     
     @IBOutlet weak var mealPicker: UISegmentedControl!
     @IBOutlet weak var foodNameTextField: UITextField!
@@ -63,24 +62,17 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
         
         navigationController?.setNavigationBarHidden(false, animated: true)
 
+        setUpTextFields()
+        
         mealPicker.tintColor = Color.skyBlue
         mealPicker.selectedSegmentIndex = selectedSegmentIndex
         checkDeviceAndUpdateConstraints()
-        
-        foodNameTextField.delegate = self
-        caloriesTextField.delegate = self
-        proteinTextField.delegate = self
-        carbsTextField.delegate = self
-        fatTextField.delegate = self
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tableViewTapped))
         tableView.addGestureRecognizer(tapGesture)
         tableView.tableFooterView = UIView()
         tableView.keyboardDismissMode = .interactive
-        
-        addInputAccessoryForTextFields(textFields: [foodNameTextField,servingSizeTextField,servingTextField,caloriesTextField,proteinTextField,carbsTextField,fatTextField], dismissable: true, previousNextable: true)
-        
-        
+         
     }
     
     
@@ -108,6 +100,15 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
         }
     }
 
+    func setUpTextFields() {
+        foodNameTextField.delegate = self
+        caloriesTextField.delegate = self
+        proteinTextField.delegate = self
+        carbsTextField.delegate = self
+        fatTextField.delegate = self
+        
+        addInputAccessoryForTextFields(textFields: [foodNameTextField,servingSizeTextField,servingTextField,caloriesTextField,proteinTextField,carbsTextField,fatTextField], dismissable: true, previousNextable: true)
+    }
     
 
     //MARK: - Nav Bar Button Methods

@@ -83,6 +83,8 @@ class MutationResult {
   friend std::ostream& operator<<(std::ostream& os,
                                   const MutationResult& result);
 
+  friend bool operator==(const MutationResult& lhs, const MutationResult& rhs);
+
  private:
   SnapshotVersion version_;
   absl::optional<const std::vector<FieldValue>> transform_results_;
@@ -149,7 +151,7 @@ class Mutation {
   /**
    * Represents the mutation type. This is used in place of dynamic_cast.
    */
-  enum class Type { Set, Patch, Transform, Delete };
+  enum class Type { Set, Patch, Transform, Delete, Verify };
 
   /** Creates an invalid mutation. */
   Mutation() = default;

@@ -14,7 +14,8 @@ import UIKit
 
 class StatsViewController: UIViewController {
     
-
+    //MARK:- Properties
+    
     var allFood: [Food]?
     
     @IBOutlet weak var numberOneFoodLabel: UILabel!
@@ -26,6 +27,7 @@ class StatsViewController: UIViewController {
     
     @IBOutlet weak var number3BottomConstraint: NSLayoutConstraint!
     
+    //MARK:- View Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -17,10 +17,6 @@
 #ifndef FIRESTORE_CORE_SRC_FIREBASE_FIRESTORE_CORE_SYNC_ENGINE_H_
 #define FIRESTORE_CORE_SRC_FIREBASE_FIRESTORE_CORE_SYNC_ENGINE_H_
 
-#if !defined(__OBJC__)
-#error "This header only supports Objective-C++"
-#endif  // !defined(__OBJC__)
-
 #include <map>
 #include <memory>
 #include <string>
@@ -28,14 +24,13 @@
 #include <utility>
 #include <vector>
 
-#import "Firestore/Source/Local/FSTLocalStore.h"
-
 #include "Firestore/core/src/firebase/firestore/core/query.h"
 #include "Firestore/core/src/firebase/firestore/core/target_id_generator.h"
 #include "Firestore/core/src/firebase/firestore/core/view.h"
 #include "Firestore/core/src/firebase/firestore/core/view_snapshot.h"
-#include "Firestore/core/src/firebase/firestore/local/query_data.h"
+#include "Firestore/core/src/firebase/firestore/local/local_store.h"
 #include "Firestore/core/src/firebase/firestore/local/reference_set.h"
+#include "Firestore/core/src/firebase/firestore/local/target_data.h"
 #include "Firestore/core/src/firebase/firestore/model/document_key_set.h"
 #include "Firestore/core/src/firebase/firestore/model/maybe_document.h"
 #include "Firestore/core/src/firebase/firestore/remote/remote_store.h"
@@ -104,7 +99,7 @@ class QueryEventSource {
  */
 class SyncEngine : public remote::RemoteStoreCallback, public QueryEventSource {
  public:
-  SyncEngine(FSTLocalStore* local_store,
+  SyncEngine(local::LocalStore* local_store,
              remote::RemoteStore* remote_store,
              const auth::User& initial_user);
 
@@ -174,13 +169,9 @@ class SyncEngine : public remote::RemoteStoreCallback, public QueryEventSource {
    */
   class QueryView {
    public:
-    QueryView(Query query,
-              model::TargetId target_id,
-              nanopb::ByteString resume_token,
-              View view)
+    QueryView(Query query, model::TargetId target_id, View view)
         : query_(std::move(query)),
           target_id_(target_id),
-          resume_token_(std::move(resume_token)),
           view_(std::move(view)) {
     }
 
@@ -197,15 +188,6 @@ class SyncEngine : public remote::RemoteStoreCallback, public QueryEventSource {
     }
 
     /**
-     * An identifier from the datastore backend that indicates the last state of
-     * the results that was received. This can be used to indicate where to
-     * continue receiving new doc changes for the query.
-     */
-    const nanopb::ByteString& resume_token() const {
-      return resume_token_;
-    }
-
-    /**
      * The view is responsible for computing the final merged truth of what docs
      * are in the query. It gets notified of local and remote changes, and
      * applies the query filters and limits to determine the most correct
@@ -218,7 +200,6 @@ class SyncEngine : public remote::RemoteStoreCallback, public QueryEventSource {
    private:
     Query query_;
     model::TargetId target_id_;
-    nanopb::ByteString resume_token_;
     View view_;
   };
 
@@ -234,7 +215,7 @@ class SyncEngine : public remote::RemoteStoreCallback, public QueryEventSource {
 
     /**
      * Set to true once we've received a document. This is used in
-     * remoteKeysForTarget and ultimately used by `WatchChangeAggregator` to
+     * RemoteKeysForTarget and ultimately used by `WatchChangeAggregator` to
      * decide whether it needs to manufacture a delete event for the target once
      * the target is CURRENT.
      */
@@ -243,10 +224,10 @@ class SyncEngine : public remote::RemoteStoreCallback, public QueryEventSource {
 
   void AssertCallbackExists(absl::string_view source);
 
-  ViewSnapshot InitializeViewAndComputeSnapshot(
-      const local::QueryData& query_data);
+  ViewSnapshot InitializeViewAndComputeSnapshot(const Query& query,
+                                                model::TargetId target_id);
 
-  void RemoveAndCleanupQuery(const std::shared_ptr<QueryView>& query_view);
+  void RemoveAndCleanupTarget(model::TargetId target_id, util::Status status);
 
   void RemoveLimboTarget(const model::DocumentKey& key);
 
@@ -268,10 +249,10 @@ class SyncEngine : public remote::RemoteStoreCallback, public QueryEventSource {
    * server, if there are any.
    */
   void TriggerPendingWriteCallbacks(model::BatchId batch_id);
-  void FailOutstandingPendingWriteCallbacks(absl::string_view message);
+  void FailOutstandingPendingWriteCallbacks(const std::string& message);
 
   /** The local store, used to persist mutations and cached documents. */
-  FSTLocalStore* local_store_;
+  local::LocalStore* local_store_ = nullptr;
 
   /** The remote store for sending writes, watches, etc. to the backend. */
   remote::RemoteStore* remote_store_ = nullptr;
@@ -300,9 +281,8 @@ class SyncEngine : public remote::RemoteStoreCallback, public QueryEventSource {
   /** QueryViews for all active queries, indexed by query. */
   std::unordered_map<Query, std::shared_ptr<QueryView>> query_views_by_query_;
 
-  /** QueryViews for all active queries, indexed by target ID. */
-  std::unordered_map<model::TargetId, std::shared_ptr<QueryView>>
-      query_views_by_target_;
+  /** Queries mapped to Targets, indexed by target ID. */
+  std::unordered_map<model::TargetId, std::vector<Query>> queries_by_target_;
 
   /**
    * When a document is in limbo, we create a special listen to resolve it. This

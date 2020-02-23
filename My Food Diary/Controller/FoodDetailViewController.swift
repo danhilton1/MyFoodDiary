@@ -222,6 +222,8 @@ class FoodDetailViewController: UITableViewController {
         }
     }
     
+    //MARK:- Button Methods
+    
     @objc func textFieldDidChange(_ textField: UITextField) {
         
         let servingSizeNumber = Double((food?.servingSize ?? "100").filter("01234567890.".contains)) ?? 100
@@ -378,6 +380,8 @@ class FoodDetailViewController: UITableViewController {
         }))
         
     }
+    
+    //MARK:- Tableview Method
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 && indexPath.section == 0 {

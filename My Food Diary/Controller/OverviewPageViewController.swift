@@ -11,9 +11,6 @@ import Firebase
 
 class OverviewPageViewController: UIPageViewController, UIPageViewControllerDataSource {
     
-//    private let db = Firestore.firestore()
-//    let userEmail = Auth.auth().currentUser?.email
-    
     let calendar = Calendar.current
     
     var dateEnteredFromPicker = false
@@ -21,7 +18,6 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
     let formatter = DateFormatter()
     
     var allFood = [Food]()
-    var testFoodArray = [Food]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,8 +39,6 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         presentingViewController?.tabBarController?.tabBar.isHidden = false
-//        let VC = viewControllers![0] as! OverviewViewController
-//        VC.allFood = allFood
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -72,8 +66,6 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
             
             // Yesterday's date at time: 00:00
             guard let yesterday = calendar.date(byAdding: .day, value: -1, to: today) else { return nil }
-            //yesterday = calendar.startOfDay(for: yesterday)
-    //        yesterday = calendar.date(byAdding: .hour, value: 1, to: yesterday) ?? yesterday
             
             return overviewViewController(for: yesterday)
         }
@@ -95,8 +87,6 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
             
             // Tomorrow's date at time: 00:00
             guard let tomorrow = calendar.date(byAdding: .day, value: 1, to: today) else { return nil }
-            //tomorrow = calendar.startOfDay(for: tomorrow)
-    //        tomorrow = calendar.date(byAdding: .hour, value: 1, to: tomorrow) ?? tomorrow
             
             return overviewViewController(for: tomorrow)
         }

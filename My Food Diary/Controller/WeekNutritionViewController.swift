@@ -11,9 +11,8 @@ import Charts
 
 class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    //MARK:- Properties
     
-//    var foodList: Results<Food>?
-//    var foodListCopy: Results<Food>?
     let calendar = Calendar.current
     var startOfWeekDate: Date?
     
@@ -95,6 +94,8 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
     
     @IBOutlet weak var tableView: UITableView!
     
+    //MARK:- View Methods
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -108,11 +109,24 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
         
     }
     
+    func configureCalorieLabelColour(calories: Int, goalCalories: Int, cell: LineChartCell) {
+        
+        if calories < (goalCalories - 500) || calories > (goalCalories + 500) || goalCalories == 0 {
+            cell.caloriesLabel.textColor = Color.salmon
+        }
+        else if calories >= (goalCalories - 500) && calories <= (goalCalories + 500) && calories != goalCalories {
+            cell.caloriesLabel.textColor = .systemOrange
+        }
+        else {
+            cell.caloriesLabel.textColor = Color.mint
+        }
+    }
     
     func reloadFood() {
         tableView.reloadData()
     }
 
+    
     
     func getTotalValueOfNutrient(_ nutrient: macroNutrient, foodList: [Food]?) -> Double {
         var nutrientArray = [Double]()
@@ -150,20 +164,6 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
             return average / numberOfEntries
         }
     }
-    
-    func configureCalorieLabelColour(calories: Int, goalCalories: Int, cell: LineChartCell) {
-        
-        if calories < (goalCalories - 500) || calories > (goalCalories + 500) || goalCalories == 0 {
-            cell.caloriesLabel.textColor = Color.salmon
-        }
-        else if calories >= (goalCalories - 500) && calories <= (goalCalories + 500) && calories != goalCalories {
-            cell.caloriesLabel.textColor = .systemOrange
-        }
-        else {
-            cell.caloriesLabel.textColor = Color.mint
-        }
-    }
-    
     
     enum macroNutrient {
         case protein

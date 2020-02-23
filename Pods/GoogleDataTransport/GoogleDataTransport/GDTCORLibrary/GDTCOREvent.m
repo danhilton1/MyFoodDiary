@@ -17,13 +17,14 @@
 #import <GoogleDataTransport/GDTCOREvent.h>
 
 #import <GoogleDataTransport/GDTCORAssert.h>
+#import <GoogleDataTransport/GDTCORConsoleLogger.h>
 #import <GoogleDataTransport/GDTCORStoredEvent.h>
 
 #import "GDTCORLibrary/Private/GDTCOREvent_Private.h"
 
 @implementation GDTCOREvent
 
-- (instancetype)initWithMappingID:(NSString *)mappingID target:(NSInteger)target {
+- (nullable instancetype)initWithMappingID:(NSString *)mappingID target:(NSInteger)target {
   GDTCORAssert(mappingID.length > 0, @"Please give a valid mapping ID");
   GDTCORAssert(target > 0, @"A target cannot be negative or 0");
   if (mappingID == nil || mappingID.length == 0 || target <= 0) {
@@ -35,6 +36,8 @@
     _target = target;
     _qosTier = GDTCOREventQosDefault;
   }
+  GDTCORLogDebug("Event %@ created. mappingID: %@ target:%ld qos:%ld", self, _mappingID,
+                 (long)_target, (long)_qosTier);
   return self;
 }
 
@@ -45,6 +48,7 @@
   copy.qosTier = _qosTier;
   copy.clockSnapshot = _clockSnapshot;
   copy.customPrioritizationParams = _customPrioritizationParams;
+  GDTCORLogDebug("Copying event %@ to event %@", self, copy);
   return copy;
 }
 

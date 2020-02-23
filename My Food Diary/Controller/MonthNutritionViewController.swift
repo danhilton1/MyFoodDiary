@@ -12,32 +12,32 @@ import Charts
 
 class MonthNutritionViewController: WeekNutritionViewController {
     
-    
-    //@IBOutlet weak var tableView: UITableView!
-    
-    
     var monthAverageProtein: Double?
     var monthAverageCarbs: Double?
     var monthAverageFat: Double?
     var monthAverageCalories: Double?
     var direction: Calendar.SearchDirection = .backward
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-//        tableView.dataSource = self
-//        tableView.delegate = self
-//        tableView.register(UINib(nibName: "BarChartNutritionCell", bundle: nil), forCellReuseIdentifier: "BarNutritionCell")
-//        tableView.register(UINib(nibName: "LineChartCell", bundle: nil), forCellReuseIdentifier: "LineChartCell")
-//        tableView.allowsSelection = false
+    
+    func getAverageValueOfNutrient(entries: [ChartDataEntry], nutrient: Double) -> Double {
+        var numberOfEntries = 0.0
+        var nutrient = nutrient
+        for value in entries {
+            if value.y > 0 {
+                nutrient += value.y
+                numberOfEntries += 1
+            }
+        }
+        nutrient = nutrient / numberOfEntries
         
+        if nutrient.isNaN {
+            nutrient = 0
+        }
+        
+        return nutrient
     }
     
-
-    
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return 2
-//    }
+    //MARK:- Tableview Data Source/Delegate Methods
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
@@ -161,23 +161,4 @@ class MonthNutritionViewController: WeekNutritionViewController {
         return UITableViewCell()
     }
     
-    func getAverageValueOfNutrient(entries: [ChartDataEntry], nutrient: Double) -> Double {
-        var numberOfEntries = 0.0
-        var nutrient = nutrient
-        for value in entries {
-            if value.y > 0 {
-                nutrient += value.y
-                numberOfEntries += 1
-            }
-        }
-        nutrient = nutrient / numberOfEntries
-        
-        if nutrient.isNaN {
-            nutrient = 0
-        }
-        
-        return nutrient
-    }
-    
-
 }

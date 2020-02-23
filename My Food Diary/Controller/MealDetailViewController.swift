@@ -11,6 +11,8 @@ import Firebase
 
 class MealDetailViewController: UITableViewController, NewEntryDelegate {
     
+    //MARK:- Properties
+    
     let db = Firestore.firestore()
     
     var calories = 0
@@ -33,7 +35,7 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
     @IBOutlet weak var caloriesLabel: UILabel!
     
     
-    //MARK: View Methods
+    //MARK:- View Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -125,7 +127,6 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
     }
     
 }
-    
     
     
     // MARK: - Table view data source and delegate methods
@@ -264,8 +265,6 @@ extension MealDetailViewController {
                 }
             }
             
-            
-            
             let nav = parent as! UINavigationController
             let PVC = nav.viewControllers.first as! OverviewPageViewController
             let overviewVC = PVC.viewControllers?.first as! OverviewViewController
@@ -275,19 +274,11 @@ extension MealDetailViewController {
                     if entry.name == food.name {
                         selectedFoodList?.remove(at: indexPath.section)
                         overviewVC.allFood?[index].isDeleted = true
-                        overviewVC.loadFirebaseData()
+                        overviewVC.loadFoodData()
                         break
                    }
                    index += 1
                }
-//            do {
-//                try realm.write {
-//                    selectedMeal?[indexPath.section].isDeleted = true
-//                }
-//            }
-//            catch {
-//                print(error)
-//            }
             
             let indexSet = IndexSet(arrayLiteral: indexPath.section)
             

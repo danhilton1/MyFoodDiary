@@ -19,6 +19,7 @@
 
 #import <GoogleDataTransport/GDTCORAssert.h>
 #import <GoogleDataTransport/GDTCORConsoleLogger.h>
+#import <GoogleDataTransport/GDTCOREvent.h>
 #import <GoogleDataTransport/GDTCOREventTransformer.h>
 #import <GoogleDataTransport/GDTCORLifecycle.h>
 
@@ -46,63 +47,47 @@
 }
 
 - (void)transformEvent:(GDTCOREvent *)event
-      withTransformers:(NSArray<id<GDTCOREventTransformer>> *)transformers {
+      withTransformers:(NSArray<id<GDTCOREventTransformer>> *)transformers
+            onComplete:(nonnull void (^)(BOOL wasWritten, NSError *error))completion {
   GDTCORAssert(event, @"You can't write a nil event");
+  if (!completion) {
+    completion = ^(BOOL wasWritten, NSError *_Nullable error) {
+    };
+  }
 
   __block GDTCORBackgroundIdentifier bgID = GDTCORBackgroundIdentifierInvalid;
-  if (_runningInBackground) {
-    bgID = [[GDTCORApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-      if (bgID != GDTCORBackgroundIdentifierInvalid) {
-        [[GDTCORApplication sharedApplication] endBackgroundTask:bgID];
-        bgID = GDTCORBackgroundIdentifierInvalid;
-      }
-    }];
-  }
+  bgID = [[GDTCORApplication sharedApplication]
+      beginBackgroundTaskWithName:@"GDTTransformer"
+                expirationHandler:^{
+                  [[GDTCORApplication sharedApplication] endBackgroundTask:bgID];
+                  bgID = GDTCORBackgroundIdentifierInvalid;
+                }];
   dispatch_async(_eventWritingQueue, ^{
     GDTCOREvent *transformedEvent = event;
     for (id<GDTCOREventTransformer> transformer in transformers) {
       if ([transformer respondsToSelector:@selector(transform:)]) {
+        GDTCORLogDebug("Applying a transformer to event %@", event);
         transformedEvent = [transformer transform:transformedEvent];
         if (!transformedEvent) {
+          completion(NO, nil);
           return;
         }
       } else {
         GDTCORLogError(GDTCORMCETransformerDoesntImplementTransform,
                        @"Transformer doesn't implement transform: %@", transformer);
+        completion(NO, nil);
         return;
       }
     }
-    [self.storageInstance storeEvent:transformedEvent];
-    if (self->_runningInBackground) {
-      [[GDTCORApplication sharedApplication] endBackgroundTask:bgID];
-      bgID = GDTCORBackgroundIdentifierInvalid;
-    }
+    [self.storageInstance storeEvent:transformedEvent onComplete:completion];
+
+    // The work is done, cancel the background task if it's valid.
+    [[GDTCORApplication sharedApplication] endBackgroundTask:bgID];
+    bgID = GDTCORBackgroundIdentifierInvalid;
   });
 }
 
 #pragma mark - GDTCORLifecycleProtocol
-
-- (void)appWillForeground:(GDTCORApplication *)app {
-  dispatch_async(_eventWritingQueue, ^{
-    self->_runningInBackground = NO;
-  });
-}
-
-- (void)appWillBackground:(GDTCORApplication *)app {
-  // Create an immediate background task to run until the end of the current queue of work.
-  __block GDTCORBackgroundIdentifier bgID = [app beginBackgroundTaskWithExpirationHandler:^{
-    if (bgID != GDTCORBackgroundIdentifierInvalid) {
-      [app endBackgroundTask:bgID];
-      bgID = GDTCORBackgroundIdentifierInvalid;
-    }
-  }];
-  dispatch_async(_eventWritingQueue, ^{
-    if (bgID != GDTCORBackgroundIdentifierInvalid) {
-      [app endBackgroundTask:bgID];
-      bgID = GDTCORBackgroundIdentifierInvalid;
-    }
-  });
-}
 
 - (void)appWillTerminate:(GDTCORApplication *)application {
   // Flush the queue immediately.

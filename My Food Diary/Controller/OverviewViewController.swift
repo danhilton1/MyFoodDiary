@@ -5,11 +5,8 @@
 //  Created by Daniel Hilton on 19/05/2019.
 //  Copyright © 2019 Daniel Hilton. All rights reserved.
 
-// TODO: -
-
 
 import UIKit
-//import RealmSwift
 import Charts
 import Firebase
 
@@ -19,8 +16,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     //MARK: - Properties
     
     var date: Date?   //  Required to be set before VC presented
-    var foodArray = [Food]()
-    var testFoodArray: [Food]?
+    var foodEntries: [Food]?
     var allFood: [Food]?
     private var totalCalsArray = [Int]()
     private var refreshControl = UIRefreshControl()
@@ -37,8 +33,6 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     private var protein = 0.0
     private var carbs = 0.0
     private var fat = 0.0
-    
-    
     
     override var canBecomeFirstResponder: Bool {
         return true
@@ -75,8 +69,6 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let barButtonItem = navigationController?.navigationItem.rightBarButtonItem
-        
         setUpTableView()
         checkDeviceAndUpdateConstraints()
         
@@ -84,8 +76,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         eatMeTableView.addSubview(refreshControl)
         
         configureDateView()
-        //loadAllFood()
-        loadFirebaseData()
+        loadFoodData()
         
         setUpToolBar()
         datePicker.datePickerMode = .date
@@ -96,8 +87,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        //loadAllFood()
-        loadFirebaseData()
+        loadFoodData()
         configureTotalCaloriesLabel()
         presentingViewController?.tabBarController?.tabBar.isHidden = false
         tabBarController?.tabBar.isHidden = false
@@ -171,21 +161,21 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     
     //MARK:- Data methods
     
-    func loadFirebaseData() {
+    func loadFoodData() {
         
         formatter.dateFormat = "E, d MMM"
         
-        testFoodArray = [Food]()
+        foodEntries = [Food]()
         
         if let allFoodEntries = allFood {
             for food in allFoodEntries {
                 if food.date == formatter.string(from: date ?? Date()) && !food.isDeleted {
-                    testFoodArray!.append(food)
+                    foodEntries!.append(food)
                 }
             }
         }
 
-        for food in testFoodArray! {
+        for food in foodEntries! {
             totalCalsArray.append(food.calories)
         }
         var tempTotalCalories = 0
@@ -204,8 +194,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     @objc func refresh() {
-        //loadAllFood()
-        loadFirebaseData()
+        loadFoodData()
         refreshControl.endRefreshing()
     }
     
@@ -335,7 +324,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2 ) {
             self.dimView.removeFromSuperview()
-            self.loadFirebaseData()
+            self.loadFoodData()
             self.configureDateView()
         }
     }
@@ -363,7 +352,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         ac.addAction(UIAlertAction(title: "Set", style: .default, handler: { (UIAlertAction) in
             self.defaults.setValue(Int(ac.textFields![0].text ?? "0"), forKey: "GoalCalories")
             self.goalCaloriesLabel.text = "\(self.defaults.value(forKey: "GoalCalories") ?? 0)"
-            self.loadFirebaseData()
+            self.loadFoodData()
             self.configureTotalCaloriesLabel()
             let parentVC = self.parent as? OverviewPageViewController
             parentVC?.setViewControllers([self], direction: .forward, animated: false, completion: nil)
@@ -397,15 +386,13 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
                         foodEntry.carbs = food.carbs
                         foodEntry.fat = food.fat
                         foodEntry.isDeleted = food.isDeleted
-//                        foodEntry.numberOfTimesAdded = food.numberOfTimesAdded
                     }
                 }
             }
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5 ) {
-            //self.loadAllFood()
-            self.loadFirebaseData()
+            self.loadFoodData()
         }
         if dayLabel.text == "Today" {  // Keeps the date property up to date when navigating from other VC's
             date = Date()
@@ -468,7 +455,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         var sortedFood = [Food]()
 
         var foodDictionary = [String: Food]()
-        for food in testFoodArray! {
+        for food in foodEntries! {
             if food.meal == meal.stringValue && !food.isDeleted {
                 foodDictionary[food.name!] = food
             }
@@ -487,12 +474,9 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         
     }
     
-
-
-
 }
 
-//MARK: - Tableview Data Source Methods
+//MARK: - Tableview Data Source/Delegate Methods
 
 extension OverviewViewController {
     
@@ -565,13 +549,13 @@ extension OverviewViewController {
         switch indexPath.section {
             
         case 0:
-            getTotalValueOfMealData(food: testFoodArray, meal: .breakfast, cell: cell)
+            getTotalValueOfMealData(food: foodEntries, meal: .breakfast, cell: cell)
         case 1:
-            getTotalValueOfMealData(food: testFoodArray, meal: .lunch, cell: cell)
+            getTotalValueOfMealData(food: foodEntries, meal: .lunch, cell: cell)
         case 2:
-            getTotalValueOfMealData(food: testFoodArray, meal: .dinner, cell: cell)
+            getTotalValueOfMealData(food: foodEntries, meal: .dinner, cell: cell)
         case 3:
-            getTotalValueOfMealData(food: testFoodArray, meal: .other, cell: cell)
+            getTotalValueOfMealData(food: foodEntries, meal: .other, cell: cell)
         default:
             cell.calorieLabel.text = "0"
             cell.proteinLabel.text = "0"
@@ -591,7 +575,7 @@ extension OverviewViewController {
     }
 }
 
-//MARK:- Double Extensions
+//MARK:- Extension for type Double to add formatting/rounding functions
 
 extension Double {
     

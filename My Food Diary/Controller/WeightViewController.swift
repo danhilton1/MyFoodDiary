@@ -21,8 +21,8 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     @IBOutlet weak var currentWeightTextLabel: UILabel!
     @IBOutlet weak var goalWeightTextLabel: UILabel!
+    //IBOutlets
     @IBOutlet weak var dateLabelWidthConstraint: NSLayoutConstraint!
-    
     @IBOutlet weak var settingsButtonWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var settingsButtonHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var settingsButtonTrailingConstraint: NSLayoutConstraint!
@@ -52,7 +52,7 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     
-    //MARK:- viewDidLoad
+    //MARK:- View Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,25 +90,8 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
-    //MARK:- Data methods
-    
-    func loadWeightEntries(date: Date?) {
-        
-        formatter.dateFormat = "E, dd MMM YYYY"
-        
-        weightEntries = [Weight]()
-        if let allWeight = allWeightEntries {
-            for weightEntry in allWeight {
-                if weightEntry.dateString == formatter.string(from: date ?? Date()) {
-                    weightEntries!.append(weightEntry)
-                }
-            }
-        }
-        
-    }
-    
     func setUpLabels() {
-        
+            
         dateLabelFormatter.dateFormat = "E, d MMM"
         dateLabel.text = "Week Starting: \(dateLabelFormatter.string(from: startOfWeekDate ?? Date()))"
         let weightUnit = defaults.value(forKey: UserDefaultsKeys.weightUnit) as? String
@@ -131,6 +114,23 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         
         goalWeightLabel.text = "\(defaults.value(forKey: UserDefaultsKeys.goalWeight) ?? "0") \(weightUnit ?? "kg")"
+        
+    }
+    
+    //MARK:- Data methods
+    
+    func loadWeightEntries(date: Date?) {
+        
+        formatter.dateFormat = "E, dd MMM YYYY"
+        
+        weightEntries = [Weight]()
+        if let allWeight = allWeightEntries {
+            for weightEntry in allWeight {
+                if weightEntry.dateString == formatter.string(from: date ?? Date()) {
+                    weightEntries!.append(weightEntry)
+                }
+            }
+        }
         
     }
     
@@ -188,9 +188,6 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     
     //MARK:- Button Methods
-
-    @IBAction func addButtonTapped(_ sender: UIBarButtonItem) {
-    }
     
     @IBAction func leftArrowTapped(_ sender: UIButton) {
         weightEntriesDates = [Date]()

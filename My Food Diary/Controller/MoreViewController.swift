@@ -13,12 +13,15 @@ import SwiftKeychainWrapper
 
 class MoreViewController: UITableViewController {
     
+    //MARK:- Properties
+    
     private let defaults = UserDefaults()
     
     var allFood: [Food]?
 
     @IBOutlet weak var logOutButton: UIButton!
     
+    //MARK:- View Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +40,8 @@ class MoreViewController: UITableViewController {
         tabBarController?.tabBar.isHidden = false
     }
 
+    //MARK:- Button Method
+    
     @IBAction func logOutButtonTapped(_ sender: UIButton) {
         
         let ac = UIAlertController(title: "Log Out?", message: "Are you sure you wish to sign out of your account?", preferredStyle: .alert)
@@ -69,6 +74,7 @@ class MoreViewController: UITableViewController {
         
     }
     
+    //MARK:- Prepare for segue
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "GoToNutrition" {
@@ -84,6 +90,7 @@ class MoreViewController: UITableViewController {
         
     }
     
+    //MARK:- Tableview Methods
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {

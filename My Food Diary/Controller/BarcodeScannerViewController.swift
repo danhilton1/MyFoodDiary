@@ -137,8 +137,15 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         torchButton.translatesAutoresizingMaskIntoConstraints = false
         torchButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
         torchButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30).isActive = true
-        torchButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        torchButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        if UIScreen.main.bounds.height < 600 {
+            torchButton.heightAnchor.constraint(equalToConstant: 25).isActive = true
+            torchButton.widthAnchor.constraint(equalToConstant: 25).isActive = true
+        }
+        else {
+            torchButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+            torchButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        }
+        
         torchButton.alpha = 0.7
         
         let viewfinderImage = UIImage(named: "view finder")
@@ -153,7 +160,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
 //        viewfinderImageView.topAnchor.constraint(equalTo: cameraView.topAnchor, constant: 220).isActive = true
 //        viewfinderImageView.bottomAnchor.constraint(equalTo: enterBarcodeButton.topAnchor, constant: 220).isActive = true
         viewfinderImageView.heightAnchor.constraint(equalToConstant: 190).isActive = true
-        viewfinderImageView.widthAnchor.constraint(equalToConstant: 320).isActive = true
+        viewfinderImageView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 1.5).isActive = true
         
         session.startRunning()
         

@@ -36,9 +36,6 @@ class GoalsViewController: UITableViewController, UITextFieldDelegate {
     //MARK:- Properties
     let defaults = UserDefaults()
     
-    
-    
-    
     //MARK:- View Methods
     
     override func viewDidLoad() {

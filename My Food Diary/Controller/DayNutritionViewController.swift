@@ -11,6 +11,7 @@ import Charts
 
 class DayNutritionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    //MARK:- Properties
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -45,6 +46,8 @@ class DayNutritionViewController: UIViewController, UITableViewDataSource, UITab
         set { }
     }
 
+    //MARK:- View Methods
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -62,6 +65,44 @@ class DayNutritionViewController: UIViewController, UITableViewDataSource, UITab
         tableView.reloadData()
     }
 
+    func getTotalValueOfNutrient(_ nutrient: macroNutrient) -> Double {
+        var nutrientArray = [Double]()
+        for food in foodList! {
+            switch nutrient {
+            case .protein:
+                nutrientArray.append(food.protein)
+            case .carbs:
+                nutrientArray.append(food.carbs)
+            default:
+                nutrientArray.append(food.fat)
+            }
+//            nutrientArray.append(food.value(forKey: nutrient.stringValue) as! Double)
+        }
+        
+        //let nutrientArray = (foodList?.value(forKey: nutrient.stringValue)) as! [Double]
+        return nutrientArray.reduce(0, +)
+    }
+    
+    
+    enum macroNutrient {
+        case protein
+        case carbs
+        case fat
+        
+        var stringValue: String {
+            switch self {
+            case .protein:
+                return "protein"
+            case .carbs:
+                return "carbs"
+            case .fat:
+                return "fat"
+            }
+        }
+    }
+
+    //MARK:- Tableview Data Source/Delegate Methods
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
@@ -90,8 +131,6 @@ class DayNutritionViewController: UIViewController, UITableViewDataSource, UITab
         }
         return nil
     }
-    
-
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 && indexPath.section == 0 {
@@ -240,41 +279,5 @@ class DayNutritionViewController: UIViewController, UITableViewDataSource, UITab
         }
     }
     
-    
-    func getTotalValueOfNutrient(_ nutrient: macroNutrient) -> Double {
-        var nutrientArray = [Double]()
-        for food in foodList! {
-            switch nutrient {
-            case .protein:
-                nutrientArray.append(food.protein)
-            case .carbs:
-                nutrientArray.append(food.carbs)
-            default:
-                nutrientArray.append(food.fat)
-            }
-//            nutrientArray.append(food.value(forKey: nutrient.stringValue) as! Double)
-        }
-        
-        //let nutrientArray = (foodList?.value(forKey: nutrient.stringValue)) as! [Double]
-        return nutrientArray.reduce(0, +)
-    }
-    
-    
-    enum macroNutrient {
-        case protein
-        case carbs
-        case fat
-        
-        var stringValue: String {
-            switch self {
-            case .protein:
-                return "protein"
-            case .carbs:
-                return "carbs"
-            case .fat:
-                return "fat"
-            }
-        }
-    }
 
 }

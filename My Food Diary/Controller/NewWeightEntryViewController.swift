@@ -20,7 +20,6 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var unitLabel: UILabel!
     
     @IBOutlet weak var weightTextLabelLeadingConstraint: NSLayoutConstraint!
-    
     @IBOutlet weak var dateTextLabelLeadingConstraint: NSLayoutConstraint!
     
     let db = Firestore.firestore()
@@ -46,7 +45,6 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
         setUpToolBar()
         setUpViews()
         checkDeviceAndUpdateLayoutIfNeeded()
-        tableView.tableFooterView = UIView()
     
     }
     
@@ -70,6 +68,16 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
             dateButton.titleLabel?.font = dateButton.titleLabel?.font.withSize(16)
             weightTextField.font = weightTextField.font?.withSize(16)
         }
+    }
+    
+    func dismissViewWithAnimation() {
+        let transition: CATransition = CATransition()
+        transition.duration = 0.4
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        transition.type = CATransitionType.reveal
+        transition.subtype = CATransitionSubtype.fromBottom
+        self.view.window!.layer.add(transition, forKey: nil)
+        self.dismiss(animated: false, completion: nil)
     }
     
     //MARK:- Set Up Methods
@@ -107,6 +115,9 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
     }
     
     func setUpViews() {
+        
+        tableView.tableFooterView = UIView()
+        tableView.allowsSelection = false
         
         if let weight = weightEntry?.weight {
             weightTextField.text = "\(weight)"
@@ -221,16 +232,6 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
     }
     
 
-    
-    func dismissViewWithAnimation() {
-        let transition: CATransition = CATransition()
-        transition.duration = 0.4
-        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-        transition.type = CATransitionType.reveal
-        transition.subtype = CATransitionSubtype.fromBottom
-        self.view.window!.layer.add(transition, forKey: nil)
-        self.dismiss(animated: false, completion: nil)
-    }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if UIScreen.main.bounds.height < 600 {

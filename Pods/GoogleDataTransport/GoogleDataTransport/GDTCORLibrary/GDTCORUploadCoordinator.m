@@ -51,6 +51,7 @@
 
 - (void)forceUploadForTarget:(GDTCORTarget)target {
   dispatch_async(_coordinationQueue, ^{
+    GDTCORLogDebug("Forcing an upload of target %ld", (long)target);
     GDTCORUploadConditions conditions = [self uploadConditions];
     conditions |= GDTCORUploadConditionHighPriority;
     [self uploadTargets:@[ @(target) ] conditions:conditions];
@@ -80,11 +81,13 @@
     dispatch_source_set_timer(self->_timer, DISPATCH_TIME_NOW, self->_timerInterval,
                               self->_timerLeeway);
     dispatch_source_set_event_handler(self->_timer, ^{
-      if (!self->_runningInBackground) {
+      if (![[GDTCORApplication sharedApplication] isRunningInBackground]) {
         GDTCORUploadConditions conditions = [self uploadConditions];
+        GDTCORLogDebug("%@", @"Upload timer fired");
         [self uploadTargets:[self.registrar.targetToUploader allKeys] conditions:conditions];
       }
     });
+    GDTCORLogDebug("%@", @"Upload timer started");
     dispatch_resume(self->_timer);
   });
 }
@@ -109,20 +112,25 @@
     for (NSNumber *target in targets) {
       // Don't trigger uploads for targets that have an in-flight package already.
       if (self->_targetToInFlightPackages[target]) {
+        GDTCORLogDebug("Target %@ will not upload, there's an upload in flight", target);
         continue;
       }
       // Ask the uploader if they can upload and do so, if it can.
       id<GDTCORUploader> uploader = self.registrar.targetToUploader[target];
-      if ([uploader readyToUploadWithConditions:conditions]) {
+      if ([uploader readyToUploadTarget:target.intValue conditions:conditions]) {
         id<GDTCORPrioritizer> prioritizer = self.registrar.targetToPrioritizer[target];
-        GDTCORUploadPackage *package = [prioritizer uploadPackageWithConditions:conditions];
+        GDTCORUploadPackage *package = [prioritizer uploadPackageWithTarget:target.intValue
+                                                                 conditions:conditions];
         if (package.events.count) {
           self->_targetToInFlightPackages[target] = package;
+          GDTCORLogDebug("Package of %ld events is being handed over to an uploader",
+                         (long)package.events.count);
           [uploader uploadPackage:package];
         } else {
           [package completeDelivery];
         }
       }
+      GDTCORLogDebug("Target %@ is not ready to upload", target);
     }
   });
 }
@@ -132,6 +140,9 @@
  * @return The current upload conditions.
  */
 - (GDTCORUploadConditions)uploadConditions {
+#if TARGET_OS_WATCH
+  return GDTCORUploadConditionNoNetwork;
+#else
   SCNetworkReachabilityFlags currentFlags = [GDTCORReachability currentFlags];
   BOOL reachable =
       (currentFlags & kSCNetworkReachabilityFlagsReachable) == kSCNetworkReachabilityFlagsReachable;
@@ -149,6 +160,7 @@
   } else {
     return GDTCORUploadConditionWifiData;
   }
+#endif
 }
 
 #pragma mark - NSSecureCoding support
@@ -163,53 +175,39 @@ static NSString *const ktargetToInFlightPackagesKey =
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
   GDTCORUploadCoordinator *sharedCoordinator = [GDTCORUploadCoordinator sharedInstance];
-  @try {
-    sharedCoordinator->_targetToInFlightPackages =
-        [aDecoder decodeObjectOfClass:[NSMutableDictionary class]
-                               forKey:ktargetToInFlightPackagesKey];
+  dispatch_sync(sharedCoordinator->_coordinationQueue, ^{
+    @try {
+      sharedCoordinator->_targetToInFlightPackages =
+          [aDecoder decodeObjectOfClass:[NSMutableDictionary class]
+                                 forKey:ktargetToInFlightPackagesKey];
 
-  } @catch (NSException *exception) {
-    sharedCoordinator->_targetToInFlightPackages = [NSMutableDictionary dictionary];
-  }
+    } @catch (NSException *exception) {
+      sharedCoordinator->_targetToInFlightPackages = [NSMutableDictionary dictionary];
+    }
+  });
   return sharedCoordinator;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
-  // All packages that have been given to uploaders need to be tracked so that their expiration
-  // timers can be called.
-  if (_targetToInFlightPackages.count > 0) {
-    [aCoder encodeObject:_targetToInFlightPackages forKey:ktargetToInFlightPackagesKey];
-  }
+  dispatch_sync(_coordinationQueue, ^{
+    // All packages that have been given to uploaders need to be tracked so that their expiration
+    // timers can be called.
+    if (self->_targetToInFlightPackages.count > 0) {
+      [aCoder encodeObject:self->_targetToInFlightPackages forKey:ktargetToInFlightPackagesKey];
+    }
+  });
 }
 
 #pragma mark - GDTCORLifecycleProtocol
 
 - (void)appWillForeground:(GDTCORApplication *)app {
   // Not entirely thread-safe, but it should be fine.
-  self->_runningInBackground = NO;
   [self startTimer];
 }
 
 - (void)appWillBackground:(GDTCORApplication *)app {
-  // Not entirely thread-safe, but it should be fine.
-  self->_runningInBackground = YES;
-
   // Should be thread-safe. If it ends up not being, put this in a dispatch_sync.
   [self stopTimer];
-
-  // Create an immediate background task to run until the end of the current queue of work.
-  __block GDTCORBackgroundIdentifier bgID = [app beginBackgroundTaskWithExpirationHandler:^{
-    if (bgID != GDTCORBackgroundIdentifierInvalid) {
-      [app endBackgroundTask:bgID];
-      bgID = GDTCORBackgroundIdentifierInvalid;
-    }
-  }];
-  dispatch_async(_coordinationQueue, ^{
-    if (bgID != GDTCORBackgroundIdentifierInvalid) {
-      [app endBackgroundTask:bgID];
-      bgID = GDTCORBackgroundIdentifierInvalid;
-    }
-  });
 }
 
 - (void)appWillTerminate:(GDTCORApplication *)application {
@@ -242,7 +240,9 @@ static NSString *const ktargetToInFlightPackagesKey =
         [prioritizer packageDelivered:package successful:successful];
       }
     }
-    [self.storage removeEvents:package.events];
+    if (package.events != nil) {
+      [self.storage removeEvents:package.events];
+    }
   });
 }
 

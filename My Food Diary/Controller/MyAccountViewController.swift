@@ -13,6 +13,8 @@ import SwiftKeychainWrapper
 
 class MyAccountViewController: UITableViewController {
 
+    //MARK:- Properties
+    
     let popUpView = UIView()
     let dimmedView = UIView()
     var detailToChange = detailsToChange.password
@@ -45,18 +47,14 @@ class MyAccountViewController: UITableViewController {
         static let password = "password"
     }
     
+    //MARK:- View Methods
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        emailLabel.text = Auth.auth().currentUser?.email
-        
-        tableView.tableFooterView = UIView()
+        setUpViews()
         
         checkIfUserIsAnonymous()
-        
-        if UIScreen.main.bounds.height < 700 {
-            emailLabel.frame.size.height = 70
-        }
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
         dimmedView.addGestureRecognizer(tapGesture)
@@ -74,6 +72,14 @@ class MyAccountViewController: UITableViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
 
+    }
+    
+    func setUpViews() {
+        tableView.tableFooterView = UIView()
+        emailLabel.text = Auth.auth().currentUser?.email
+        if UIScreen.main.bounds.height < 700 {
+            emailLabel.frame.size.height = 70
+        }
     }
     
     func checkIfUserIsAnonymous() {

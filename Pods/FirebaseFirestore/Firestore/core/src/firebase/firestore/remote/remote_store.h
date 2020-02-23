@@ -17,13 +17,12 @@
 #ifndef FIRESTORE_CORE_SRC_FIREBASE_FIRESTORE_REMOTE_REMOTE_STORE_H_
 #define FIRESTORE_CORE_SRC_FIREBASE_FIRESTORE_REMOTE_REMOTE_STORE_H_
 
-#import <Foundation/Foundation.h>
-
 #include <memory>
 #include <unordered_map>
 #include <vector>
 
 #include "Firestore/core/src/firebase/firestore/core/transaction.h"
+#include "Firestore/core/src/firebase/firestore/local/local_store.h"
 #include "Firestore/core/src/firebase/firestore/model/document_key_set.h"
 #include "Firestore/core/src/firebase/firestore/model/mutation_batch.h"
 #include "Firestore/core/src/firebase/firestore/model/mutation_batch_result.h"
@@ -36,10 +35,7 @@
 #include "Firestore/core/src/firebase/firestore/remote/watch_stream.h"
 #include "Firestore/core/src/firebase/firestore/remote/write_stream.h"
 #include "Firestore/core/src/firebase/firestore/util/async_queue.h"
-#include "Firestore/core/src/firebase/firestore/util/status.h"
-
-@class FSTLocalStore;
-@class FSTTransaction;
+#include "Firestore/core/src/firebase/firestore/util/status_fwd.h"
 
 namespace firebase {
 namespace firestore {
@@ -50,6 +46,8 @@ namespace remote {
  */
 class RemoteStoreCallback {
  public:
+  virtual ~RemoteStoreCallback() = default;
+
   /**
    * Applies a remote event to the sync engine, notifying any views of the
    * changes, and releasing any pending mutation batches that would become
@@ -105,7 +103,7 @@ class RemoteStore : public TargetMetadataProvider,
                     public WatchStreamCallback,
                     public WriteStreamCallback {
  public:
-  RemoteStore(FSTLocalStore* local_store,
+  RemoteStore(local::LocalStore* local_store,
               std::shared_ptr<Datastore> datastore,
               const std::shared_ptr<util::AsyncQueue>& worker_queue,
               std::function<void(model::OnlineState)> online_state_handler);
@@ -116,7 +114,7 @@ class RemoteStore : public TargetMetadataProvider,
 
   /**
    * Starts up the remote store, creating streams, restoring state from
-   * `FSTLocalStore`, etc.
+   * `LocalStore`, etc.
    */
   void Start();
 
@@ -149,17 +147,26 @@ class RemoteStore : public TargetMetadataProvider,
    */
   void HandleCredentialChange();
 
-  /** Listens to the target identified by the given `QueryData`. */
-  void Listen(const local::QueryData& query_data);
+  /**
+   * Listens to the target identified by the given `TargetData`.
+   *
+   * It is a no-op if the target of the given target data is already being
+   * listened to.
+   */
+  void Listen(const local::TargetData& target_data);
 
-  /** Stops listening to the target with the given target ID. */
+  /**
+   * Stops listening to the target with the given target ID.
+   *
+   * It is an error if the given target id is not being listened to.
+   */
   void StopListening(model::TargetId target_id);
 
   /**
-   * Attempts to fill our write pipeline with writes from the `FSTLocalStore`.
+   * Attempts to fill our write pipeline with writes from the `LocalStore`.
    *
    * Called internally to bootstrap or refill the write pipeline and by
-   * `FSTSyncEngine` whenever there are new mutations to process.
+   * `SyncEngine` whenever there are new mutations to process.
    *
    * Starts the write stream if necessary.
    */
@@ -178,7 +185,7 @@ class RemoteStore : public TargetMetadataProvider,
 
   model::DocumentKeySet GetRemoteKeysForTarget(
       model::TargetId target_id) const override;
-  absl::optional<local::QueryData> GetQueryDataForTarget(
+  absl::optional<local::TargetData> GetTargetDataForTarget(
       model::TargetId target_id) const override;
 
   void OnWatchStreamOpen() override;
@@ -197,7 +204,7 @@ class RemoteStore : public TargetMetadataProvider,
  private:
   void DisableNetworkInternal();
 
-  void SendWatchRequest(const local::QueryData& query_data);
+  void SendWatchRequest(const local::TargetData& target_data);
   void SendUnwatchRequest(model::TargetId target_id);
 
   /**
@@ -242,7 +249,7 @@ class RemoteStore : public TargetMetadataProvider,
    * The local store, used to fill the write pipeline with outbound mutations
    * and resolve existence filter mismatches.
    */
-  FSTLocalStore* local_store_ = nil;
+  local::LocalStore* local_store_ = nullptr;
 
   /** The client-side proxy for interacting with the backend. */
   std::shared_ptr<Datastore> datastore_;
@@ -256,7 +263,7 @@ class RemoteStore : public TargetMetadataProvider,
    * to the server. The targets removed with unlistens are removed eagerly
    * without waiting for confirmation from the listen stream.
    */
-  std::unordered_map<model::TargetId, local::QueryData> listen_targets_;
+  std::unordered_map<model::TargetId, local::TargetData> listen_targets_;
 
   OnlineStateTracker online_state_tracker_;
 

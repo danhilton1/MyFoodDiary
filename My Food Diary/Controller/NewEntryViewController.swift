@@ -215,7 +215,7 @@ extension NewEntryViewController: UISearchBarDelegate {
                     }
                     index += 1
                 }
-                overviewVC.loadFirebaseData()
+                overviewVC.loadFoodData()
                 strongSelf.sortedFoodCopy.remove(at: indexPath.row)
                 strongSelf.tableView.deleteRows(at: [indexPath], with: .automatic)
                 
