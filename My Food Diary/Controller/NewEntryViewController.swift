@@ -193,7 +193,7 @@ extension NewEntryViewController: UISearchBarDelegate {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
-            let ac = UIAlertController(title: "Delete Food", message: "Are you sure you want to delete this item from your database?", preferredStyle: .alert)
+            let ac = UIAlertController(title: "Delete Food", message: "Are you sure you want to permanently delete this item and all entries of it?", preferredStyle: .alert)
             
             ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
             ac.addAction(UIAlertAction(title: "Delete", style: .destructive) { [weak self] (action) in

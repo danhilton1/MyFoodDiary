@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import SVProgressHUD
 import SwiftKeychainWrapper
+import SafariServices
 
 class RegisterViewController: UIViewController, UITextFieldDelegate {
     
@@ -24,6 +25,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var confirmPasswordTextField: LogInTextField!
     @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var checkBoxButton: UIButton!
+    
     
     @IBOutlet weak var emailLabelTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var emailTextFieldHeightConstraint: NSLayoutConstraint!
@@ -63,7 +66,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     
     func setUpViews() {
         view.backgroundColor = Color.skyBlue
-        registerButton.setTitleColor(Color.skyBlue, for: .normal)
+        registerButton.setTitleColor(.lightGray, for: .normal)
+        registerButton.isEnabled = false
         registerButton.layer.cornerRadius = registerButton.frame.size.height / 2
         emailTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
         passwordTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
@@ -112,6 +116,18 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             registerButtonTopConstraint.constant = 35
             registerButtonBottomConstraint.constant = 80
             registerButton.layer.cornerRadius = 20
+        }
+        else if UIScreen.main.bounds.height < 700 {
+            emailLabelTopConstraint.constant = 125
+            emailTextFieldTopConstraint.constant = 10
+            emailTextFieldHeightConstraint.constant = 40
+            passwordTextFieldHeightConstraint.constant = 40
+            passwordTextFieldTopConstraint.constant = 10
+            passwordTextFieldBottomConstraint.constant = 15
+            confirmTextFieldHeightConstraint.constant = 40
+            emailTextField.layer.cornerRadius = 19
+            passwordTextField.layer.cornerRadius = 19
+            confirmPasswordTextField.layer.cornerRadius = 19
         }
     }
     
@@ -168,9 +184,42 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    @IBAction func checkBoxTapped(_ sender: UIButton) {
+        checkBoxButton.isSelected = !checkBoxButton.isSelected
+        if checkBoxButton.isSelected {
+            registerButton.setTitleColor(Color.skyBlue, for: .normal)
+            registerButton.isEnabled = true
+        }
+        else {
+            registerButton.setTitleColor(.lightGray, for: .normal)
+            registerButton.isEnabled = false
+        }
+    }
+    
+    
+    @IBAction func termsButtonTapped(_ sender: UIButton) {
+        showSafariVC(for: "https://50521ae6-b75c-4fbf-bb4b-853d879bccbc.filesusr.com/ugd/be5978_c908815fcf4d43738556dca47e7ddfaf.pdf")
+    }
+    
+    @IBAction func privacyButtonTapped(_ sender: Any) {
+        showSafariVC(for: "https://50521ae6-b75c-4fbf-bb4b-853d879bccbc.filesusr.com/ugd/be5978_67017eae2cb0426c9983a3bd7c8bae92.pdf")
+    }
+    
+    
     
     @IBAction func backButtonTapped(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
+    }
+    
+    func showSafariVC(for url: String) {
+        if let url = URL(string: url) {
+            let safariVC = SFSafariViewController(url: url)
+            safariVC.modalPresentationStyle = .currentContext
+            present(safariVC, animated: true)
+        }
+        else {
+            print("Error - invalid URL")
+        }
     }
     
     //MARK:- Keyboard View Methods

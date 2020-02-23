@@ -75,6 +75,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let barButtonItem = navigationController?.navigationItem.rightBarButtonItem
         
         setUpTableView()
         checkDeviceAndUpdateConstraints()

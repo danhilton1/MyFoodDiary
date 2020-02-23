@@ -47,6 +47,10 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
 //        VC.allFood = allFood
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     
     
     

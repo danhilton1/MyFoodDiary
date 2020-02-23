@@ -27,6 +27,8 @@ class LogInTextField: UITextField {
         textColor             = .darkGray
         font                  = UIFont(name: "Montserrat-Regular", size: 17)
         backgroundColor       = .white
+        layer.borderColor     = UIColor.white.cgColor
+        layer.borderWidth     = 1.0
         autocorrectionType    = .no
         layer.cornerRadius    = 25.0
         clipsToBounds         = true

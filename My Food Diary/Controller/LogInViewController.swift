@@ -108,6 +108,8 @@ class LogInViewController: UIViewController {
             iconImageView.heightAnchor.constraint(equalToConstant: 140).isActive = true
             iconImageView.widthAnchor.constraint(equalToConstant: 140).isActive = true
             emailTextField.topAnchor.constraint(equalTo: iconImageView.bottomAnchor, constant: 40).isActive = true
+            emailTextField.layer.cornerRadius = 23
+            passwordTextField.layer.cornerRadius = 23
         }
     }
     
