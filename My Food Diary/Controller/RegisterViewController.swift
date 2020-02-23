@@ -26,6 +26,10 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var confirmPasswordTextField: LogInTextField!
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var checkBoxButton: UIButton!
+    @IBOutlet weak var byUsingLabel: UILabel!
+    @IBOutlet weak var andLabel: UILabel!
+    @IBOutlet weak var termsButton: UIButton!
+    @IBOutlet weak var privacyButton: UIButton!
     
     
     @IBOutlet weak var emailLabelTopConstraint: NSLayoutConstraint!
@@ -102,6 +106,10 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             emailTextField.font = emailTextField.font?.withSize(14)
             passwordTextField.font = passwordTextField.font?.withSize(14)
             confirmPasswordTextField.font = confirmPasswordTextField.font?.withSize(14)
+            byUsingLabel.font = byUsingLabel.font.withSize(12)
+            termsButton.titleLabel?.font = termsButton.titleLabel?.font.withSize(12)
+            andLabel.font = andLabel.font.withSize(12)
+            privacyButton.titleLabel?.font = privacyButton.titleLabel?.font.withSize(12)
             emailLabelTopConstraint.constant = 105
             emailTextFieldHeightConstraint.constant = 35
             emailTextFieldTopConstraint.constant = 10
@@ -109,11 +117,11 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             passwordTextFieldTopConstraint.constant = 10
             passwordTextFieldBottomConstraint.constant = 10
             confirmTextFieldHeightConstraint.constant = 35
-            emailTextField.layer.cornerRadius = 19
-            passwordTextField.layer.cornerRadius = 19
-            confirmPasswordTextField.layer.cornerRadius = 19
+            emailTextField.layer.cornerRadius = 18
+            passwordTextField.layer.cornerRadius = 18
+            confirmPasswordTextField.layer.cornerRadius = 18
             registerButtonHeightConstraint.constant = 38
-            registerButtonTopConstraint.constant = 35
+            registerButtonTopConstraint.constant = 25
             registerButtonBottomConstraint.constant = 80
             registerButton.layer.cornerRadius = 20
         }
@@ -253,6 +261,19 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         if self.view.frame.origin.y != 0 {
             UIView.animate(withDuration: 0.5) {
                 self.view.frame.origin.y = 0
+            }
+        }
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if self.view.frame.origin.y == -110 {
+            if textField == passwordTextField {
+                if UIScreen.main.bounds.height < 600 {
+                    UIView.animate(withDuration: 0.5) {
+                        self.view.frame.origin.y -= 40
+                    }
+                    
+                }
             }
         }
     }

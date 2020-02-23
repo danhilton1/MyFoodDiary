@@ -420,7 +420,9 @@
                     </view>
                     <navigationItem key="navigationItem" title="Register" id="Fdm-DX-nyz"/>
                     <connections>
+                        <outlet property="andLabel" destination="hoy-LH-Kmy" id="fBK-Zr-q4P"/>
                         <outlet property="backButton" destination="hb4-Ba-1Rs" id="nvy-Xf-Bzt"/>
+                        <outlet property="byUsingLabel" destination="sqo-i1-yLP" id="Le7-lI-Zf3"/>
                         <outlet property="checkBoxButton" destination="cun-Mw-Mf1" id="gzW-uG-dII"/>
                         <outlet property="confirmPasswordTextField" destination="uEg-Vi-4Zc" id="Mza-jP-si2"/>
                         <outlet property="confirmTextFieldHeightConstraint" destination="Xdl-7T-ltP" id="uNx-wa-iIU"/>
@@ -434,9 +436,12 @@
                         <outlet property="passwordTextFieldBottomConstraint" destination="If5-qk-f44" id="bJi-np-r9d"/>
                         <outlet property="passwordTextFieldHeightConstraint" destination="wej-pG-VDu" id="8iQ-dn-dXQ"/>
                         <outlet property="passwordTextFieldTopConstraint" destination="LXx-s4-rsO" id="fqS-9Q-t14"/>
+                        <outlet property="privacyButton" destination="Erh-I0-JGl" id="Gxf-r6-Mqi"/>
                         <outlet property="registerButton" destination="JG4-Xx-9kv" id="5d7-gf-bqT"/>
                         <outlet property="registerButtonBottomConstraint" destination="aqF-3b-3sk" id="cGZ-Cy-WEt"/>
                         <outlet property="registerButtonHeightConstraint" destination="3gU-Kg-0Ma" id="2gk-de-dao"/>
+                        <outlet property="registerButtonTopConstraint" destination="zeX-BX-KwA" id="64V-UB-FdM"/>
+                        <outlet property="termsButton" destination="0Le-1r-dEB" id="DKh-ce-Gvk"/>
                         <outlet property="titleLabel" destination="Ohg-MU-5ai" id="oIH-7i-vvO"/>
                         <segue destination="TrC-wf-omx" kind="show" identifier="GoToTabBar" id="gK3-K4-laE"/>
                     </connections>
