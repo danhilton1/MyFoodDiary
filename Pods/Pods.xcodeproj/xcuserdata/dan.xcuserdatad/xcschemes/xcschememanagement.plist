@@ -89,12 +89,12 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-My Food Diary.xcscheme</key>
+		<key>Pods-MyFoodJournal.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-MyFoodDiaryTests.xcscheme</key>
+		<key>Pods-MyFoodJournalTests.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>

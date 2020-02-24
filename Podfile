@@ -1,10 +1,10 @@
 platform :ios, '9.0'
 
-target 'My Food Diary' do
+target 'MyFoodJournal' do
 
   use_frameworks!
 
-  # Pods for Eat Me
+  # Pods for MyFoodJournal
 
 pod 'Charts'
 pod 'Firebase/Analytics'
@@ -15,7 +15,7 @@ pod 'SwiftKeychainWrapper'
 
 end
 
-target 'MyFoodDiaryTests' do
+target 'MyFoodJournalTests' do
 
   use_frameworks!
 
