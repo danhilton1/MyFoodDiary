@@ -10,8 +10,9 @@ import UIKit
 import Firebase
 import SVProgressHUD
 
-class ForgotPasswordViewController: UIViewController {
+class ForgotPasswordViewController: UIViewController, UITextFieldDelegate {
 
+    private let toolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var textLabel: UILabel!
@@ -25,6 +26,15 @@ class ForgotPasswordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setUpViews()
+        checkDeviceAndUpdateConstraints()
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
+        view.addGestureRecognizer(tapGesture)
+        
+    }
+    
+    func setUpViews() {
         view.backgroundColor = Color.skyBlue
         emailTextField.placeholder = "Email address"
         emailTextField.layer.cornerRadius = 20
@@ -32,8 +42,13 @@ class ForgotPasswordViewController: UIViewController {
         emailTextField.keyboardType = .emailAddress
         submitButton.layer.cornerRadius = 22
         submitButton.setTitleColor(Color.skyBlue, for: .normal)
-        checkDeviceAndUpdateConstraints()
         
+        self.toolbar.items = [
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil),
+            UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(viewTapped))
+        ]
+        self.toolbar.sizeToFit()
+        emailTextField.inputAccessoryView = toolbar
     }
     
     func checkDeviceAndUpdateConstraints() {
@@ -83,6 +98,11 @@ class ForgotPasswordViewController: UIViewController {
     
     @IBAction func backButtonTapped(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
+    }
+    
+    
+    @objc func viewTapped() {
+        emailTextField.resignFirstResponder()
     }
     
 }

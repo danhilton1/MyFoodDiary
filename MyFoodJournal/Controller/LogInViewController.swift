@@ -70,12 +70,16 @@ class LogInViewController: UIViewController {
         super.viewWillDisappear(true)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: self.view.window)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: self.view.window)
+        emailTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
     }
     
     func setUpViews() {
         view.backgroundColor = Color.skyBlue
         logInButton.setTitleColor(Color.skyBlue, for: .normal)
         logInButton.layer.cornerRadius = logInButton.frame.size.height / 2
+        emailTextField.layer.cornerRadius = 22
+        passwordTextField.layer.cornerRadius = 22
         checkDeviceAndUpdateConstraints()
     }
     

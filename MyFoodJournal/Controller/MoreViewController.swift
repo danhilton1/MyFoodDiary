@@ -31,7 +31,7 @@ class MoreViewController: UITableViewController {
         
         tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
-        logOutButton.layer.cornerRadius = 20
+        logOutButton.layer.cornerRadius = 24
         logOutButton.backgroundColor = Color.skyBlue
     }
 
