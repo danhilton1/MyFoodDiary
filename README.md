@@ -1,6 +1,9 @@
-# My Food Diary
+# My Food Journal
 
-This is the GitHub repository for 'My Food Diary' - an iOS app that lets you track what you eat and how many calories and macronutrients you have consumed. Input what you eat through scanning food barcodes, searching the food database or entering details manually and then let the app do the rest. You will get an overview for each day of what food you have eaten, how many calories, protein, carbs, fat etc.. 
+MyFoodJournal is an app that allows you to track everything you eat and log all calorific and nutritional information as well logging and tracking your weight.
+User's can add food entries by scanning the barcode of a product, searching the food database or by entering the information manually.
+The UI is designed to display all entries and information for each day in an easy-to-read but elegant manner and will also calculate average values for each week and month.
+The user can set nutritional and weight goals to stay motivated to be healthy and continue using the application.
 
 This project is built using Xcode 11 and Swift 5.
 
@@ -11,6 +14,9 @@ This project is built using Xcode 11 and Swift 5.
 
 The following third-party frameworks are used in this project:
 
-* [Realm](https://github.com/realm/realm-cocoa)
+* [Firebase/Auth](https://firebase.google.com/docs/auth)
+* [Firebase/Firestore](https://firebase.google.com/docs/firestore)
+* [Firebase/Analytics](https://firebase.google.com/docs/analytics)
 * [Charts](https://github.com/danielgindi/Charts)
-
+* [SwiftKeychainWrapper](https://github.com/jrendel/SwiftKeychainWrapper)
+* [SVProgressHUD](https://github.com/SVProgressHUD/SVProgressHUD)
