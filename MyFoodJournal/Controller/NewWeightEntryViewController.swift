@@ -200,7 +200,7 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
         entry.dateLastEdited = datePicker.date
         entry.dateString = formatter.string(from: datePicker.date)
         
-        let user = Auth.auth().currentUser?.email ?? Auth.auth().currentUser!.uid
+        guard let user = Auth.auth().currentUser?.uid else { return }
         
         if isEditingExistingEntry {
             print(entry.date)
