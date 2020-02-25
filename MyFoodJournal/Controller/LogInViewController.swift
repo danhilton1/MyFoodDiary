@@ -151,11 +151,11 @@ class LogInViewController: UIViewController {
             else {
                 print("Log In Successful")
                 strongSelf.foodDispatchGroup.enter()  // enter dispatchGroup to allow data to finish downloading before segue
-                strongSelf.loadAllFoodData(user: authResult?.user.email)
+                strongSelf.loadAllFoodData(user: authResult?.user.uid)
                 
                 strongSelf.foodDispatchGroup.notify(queue: .main) {
                     strongSelf.weightDispatchGroup.enter()  // using two dispatch groups as Food and Weight data size will differ
-                    strongSelf.loadAllWeightData(user: authResult?.user.email, completed: { () in
+                    strongSelf.loadAllWeightData(user: authResult?.user.uid, completed: { () in
                 
                         strongSelf.weightDispatchGroup.notify(queue: .main) {
                             strongSelf.defaults.set(authResult!.user.email, forKey: "userEmail")

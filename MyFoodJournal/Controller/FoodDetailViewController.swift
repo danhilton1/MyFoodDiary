@@ -186,7 +186,7 @@ class FoodDetailViewController: UITableViewController {
     
     private func save(_ food: Food) {
         
-        let user = Auth.auth().currentUser?.email ?? Auth.auth().currentUser!.uid
+        guard let user = Auth.auth().currentUser?.uid else { return }
         
         if isEditingExistingEntry {
             

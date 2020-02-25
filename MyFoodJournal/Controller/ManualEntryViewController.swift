@@ -229,7 +229,7 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
         workingCopy.fat = Double(fatTextField.text ?? "0") ?? 0
 //        workingCopy.numberOfTimesAdded += 1
         print(date!)
-        let user = Auth.auth().currentUser?.email ?? (defaults.value(forKey: UserDefaultsKeys.userEmail) as? String ?? "")
+        guard let user = Auth.auth().currentUser?.uid else { return }
         workingCopy.saveFood(user: user)
         
     }

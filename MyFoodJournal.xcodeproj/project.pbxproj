@@ -40,7 +40,6 @@
 		3779430623F9AE4500D6CF7D /* Nutrition.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3779430523F9AE4500D6CF7D /* Nutrition.storyboard */; };
 		3779430823F9AEEB00D6CF7D /* Overview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3779430723F9AEEB00D6CF7D /* Overview.storyboard */; };
 		3779430A23F9AF4900D6CF7D /* NewEntry.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3779430923F9AF4900D6CF7D /* NewEntry.storyboard */; };
-		3779E8AD238C7222004EC080 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3779E8AC238C7222004EC080 /* GoogleService-Info.plist */; };
 		377A57D2233F896100D816DD /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377A57D1233F896100D816DD /* Color.swift */; };
 		377C9BFA236DBA6A008165DA /* WeightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377C9BF9236DBA6A008165DA /* WeightViewController.swift */; };
 		378917C022C8DC3B00571181 /* BarcodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378917BF22C8DC3B00571181 /* BarcodeScannerViewController.swift */; };
@@ -60,6 +59,8 @@
 		37BEA92523DF2C80003983B9 /* Minya-Nouvelle-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 37BEA92323DF2C80003983B9 /* Minya-Nouvelle-Bold.ttf */; };
 		37C2E37C2387365B006A4C51 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C2E37B2387365B006A4C51 /* WelcomeViewController.swift */; };
 		37CA772D22A1BB4F00C03A06 /* ManualEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CA772C22A1BB4F00C03A06 /* ManualEntryViewController.swift */; };
+		37CB4B9E2405C19C0004FD71 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 37CB4B9D2405C19C0004FD71 /* GoogleService-Info.plist */; };
+		37CB4B9F2405C19C0004FD71 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 37CB4B9D2405C19C0004FD71 /* GoogleService-Info.plist */; };
 		37D5136F23D4A8AF00780CD1 /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D5136E23D4A8AF00780CD1 /* StatsViewController.swift */; };
 		37D5137123D4BA1800780CD1 /* GoalsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D5137023D4BA1800780CD1 /* GoalsViewController.swift */; };
 		37D5137323D4BC0D00780CD1 /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D5137223D4BC0D00780CD1 /* UserDefaultsKeys.swift */; };
@@ -126,7 +127,6 @@
 		3779430523F9AE4500D6CF7D /* Nutrition.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Nutrition.storyboard; sourceTree = "<group>"; };
 		3779430723F9AEEB00D6CF7D /* Overview.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Overview.storyboard; sourceTree = "<group>"; };
 		3779430923F9AF4900D6CF7D /* NewEntry.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NewEntry.storyboard; sourceTree = "<group>"; };
-		3779E8AC238C7222004EC080 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		377A57D1233F896100D816DD /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		377C9BF9236DBA6A008165DA /* WeightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightViewController.swift; sourceTree = "<group>"; };
 		378917BF22C8DC3B00571181 /* BarcodeScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeScannerViewController.swift; sourceTree = "<group>"; };
@@ -146,6 +146,7 @@
 		37BEA92323DF2C80003983B9 /* Minya-Nouvelle-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Minya-Nouvelle-Bold.ttf"; sourceTree = "<group>"; };
 		37C2E37B2387365B006A4C51 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		37CA772C22A1BB4F00C03A06 /* ManualEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualEntryViewController.swift; sourceTree = "<group>"; };
+		37CB4B9D2405C19C0004FD71 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		37D5136E23D4A8AF00780CD1 /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
 		37D5137023D4BA1800780CD1 /* GoalsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsViewController.swift; sourceTree = "<group>"; };
 		37D5137223D4BC0D00780CD1 /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
@@ -230,7 +231,7 @@
 				377208CB2291A223002DDA29 /* Controller */,
 				377208BE2291A1FA002DDA29 /* Assets.xcassets */,
 				377208C32291A1FA002DDA29 /* Info.plist */,
-				3779E8AC238C7222004EC080 /* GoogleService-Info.plist */,
+				37CB4B9D2405C19C0004FD71 /* GoogleService-Info.plist */,
 			);
 			path = MyFoodJournal;
 			sourceTree = "<group>";
@@ -433,6 +434,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37CB4B9F2405C19C0004FD71 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -442,13 +444,13 @@
 			files = (
 				3779430223F9A80900D6CF7D /* More.storyboard in Resources */,
 				37360AFD2352150700AA02A2 /* BarChartNutritionCell.xib in Resources */,
+				37CB4B9E2405C19C0004FD71 /* GoogleService-Info.plist in Resources */,
 				378A01122323FD250035C803 /* Montserrat-Medium.otf in Resources */,
 				3779430A23F9AF4900D6CF7D /* NewEntry.storyboard in Resources */,
 				37BEA92423DF2C80003983B9 /* Minya-Nouvelle-Regular.ttf in Resources */,
 				377208C22291A1FA002DDA29 /* LaunchScreen.storyboard in Resources */,
 				37A07E3F22DD02CA00E4A351 /* Montserrat-Thin.otf in Resources */,
 				37360AF32351D62E00AA02A2 /* DayNutritionCell.xib in Resources */,
-				3779E8AD238C7222004EC080 /* GoogleService-Info.plist in Resources */,
 				37BEA92523DF2C80003983B9 /* Minya-Nouvelle-Bold.ttf in Resources */,
 				3779430823F9AEEB00D6CF7D /* Overview.storyboard in Resources */,
 				377208BF2291A1FA002DDA29 /* Assets.xcassets in Resources */,

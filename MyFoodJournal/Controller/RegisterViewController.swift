@@ -143,6 +143,10 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func registerButtonTapped(_ sender: UIButton) {
         
+        emailTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
+        confirmPasswordTextField.resignFirstResponder()
+        
         if passwordTextField.text == confirmPasswordTextField.text {
         
             SVProgressHUD.show()
@@ -155,7 +159,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                 }
                 else {
                     print("Registration Successful")
-                    strongSelf.db.collection("users").document((authResult?.user.email)!).setData([
+                    strongSelf.db.collection("users").document((authResult?.user.uid)!).setData([
                         "email": (authResult?.user.email)!,
                         "uid": authResult!.user.uid
                     ]) { error in
@@ -169,7 +173,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                             KeychainWrapper.standard.set(strongSelf.passwordTextField.text!, forKey: "userPassword")
                             strongSelf.defaults.set(true, forKey: "userSignedIn")
                             SVProgressHUD.dismiss()
-                            strongSelf.performSegue(withIdentifier: "GoToOverview", sender: self)
+                            strongSelf.performSegue(withIdentifier: "GoToTabBar", sender: self)
                         }
                     }
                 }

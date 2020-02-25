@@ -126,11 +126,11 @@ class WelcomeViewController: UIViewController {
                     print("Log In Successful")
 
                     strongSelf.foodDispatchGroup.enter()  // enter dispatchGroup to allow data to finish downloading before segue
-                    strongSelf.loadAllFoodData(user: email, anonymous: false)
+                    strongSelf.loadAllFoodData(user: authResult!.user.uid, anonymous: false)
                     
                     strongSelf.foodDispatchGroup.notify(queue: .main) {
                         strongSelf.weightDispatchGroup.enter()  // using two dispatch groups as Food and Weight data size will differ
-                        strongSelf.loadAllWeightData(user: email, anonymous: false, completed: { () in
+                        strongSelf.loadAllWeightData(user: authResult!.user.uid, anonymous: false, completed: { () in
                     
                             strongSelf.weightDispatchGroup.notify(queue: .main) {
                                 strongSelf.performSegue(withIdentifier: "GoToTabBar", sender: self)
@@ -167,14 +167,14 @@ class WelcomeViewController: UIViewController {
                     }
                     else {
                         strongSelf.foodDispatchGroup.enter()  // enter dispatchGroup to allow data to finish downloading before segue
-                        strongSelf.loadAllFoodData(user: user.email!, anonymous: true)
+                        strongSelf.loadAllFoodData(user: user.uid, anonymous: true)
                         
                         strongSelf.foodDispatchGroup.notify(queue: .main) {
                             strongSelf.weightDispatchGroup.enter()
-                            strongSelf.loadAllWeightData(user: user.email!, anonymous: true, completed: { () in
+                            strongSelf.loadAllWeightData(user: user.uid, anonymous: true, completed: { () in
                         
                                 strongSelf.weightDispatchGroup.notify(queue: .main) {
-                                    print("Anonymous User: \(user.email!) Successfully Logged In.")
+                                    print("Anonymous User: \(user.uid) Successfully Logged In.")
                                     strongSelf.performSegue(withIdentifier: "GoToTabBar", sender: self)
                                     SVProgressHUD.dismiss()
                                 }
@@ -203,7 +203,7 @@ class WelcomeViewController: UIViewController {
                                 print(error)
                             }
                             else {
-                                db.collection("users").document(email).setData([
+                                db.collection("users").document(user.uid).setData([
                                     "email": email,
                                     "uid": user.uid
                                 ]) { error in
