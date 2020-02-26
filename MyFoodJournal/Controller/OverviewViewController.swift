@@ -48,6 +48,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     private let toolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
        
     private let dimView = UIView()
+    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissResponder))
     
     //IBOutlets
     @IBOutlet weak var dayLabel: UILabel!
@@ -302,6 +303,11 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     
     //MARK:- Button Methods
     
+    @IBAction func dateButtonTapped(_ sender: UIButton) {
+        datePickerArrowTapped(sender)
+    }
+    
+    
     @IBAction func datePickerArrowTapped(_ sender: UIButton) {
         
         dimView.frame = self.view.frame
@@ -313,6 +319,8 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             
         }
         self.becomeFirstResponder()
+        
+        dimView.addGestureRecognizer(tapGesture)
         
     }
     
@@ -366,6 +374,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         UIView.animate(withDuration: 0.2) {
             self.dimView.alpha = 0
         }
+        dimView.removeGestureRecognizer(tapGesture)
     }
     
     @IBAction func goalButtonTapped(_ sender: UIButton) {

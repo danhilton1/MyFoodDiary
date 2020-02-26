@@ -642,7 +642,7 @@ extension WeightViewController {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
-            guard let user = Auth.auth().currentUser?.email else { return }
+            guard let user = Auth.auth().currentUser?.uid else { return }
             let date = weightEntriesDates![indexPath.row]
             let dateString = formatter.string(from: date)
             
