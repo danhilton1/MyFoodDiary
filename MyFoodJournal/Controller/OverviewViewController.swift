@@ -155,6 +155,11 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             goalCalsTextLabelHeightConstraint.constant = 30
             remainingCalsTextLabelHeightConstraint.constant = 60
         }
+        else if UIScreen.main.bounds.height < 700 {
+            let adjustForTabbarInsets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: self.tabBarController!.tabBar.frame.height / 2, right: 0)
+            self.eatMeTableView.contentInset = adjustForTabbarInsets
+            self.eatMeTableView.scrollIndicatorInsets = adjustForTabbarInsets
+        }
     }
     
     

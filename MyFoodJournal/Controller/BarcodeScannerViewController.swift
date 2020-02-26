@@ -177,19 +177,19 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                     // Dim the view while loading
                     let dimmedView = UIView()
                     dimViewAndShowLoading()
-                    
+
                     dispatchGroup.enter()
-                    
+
                     retrieveDataFromBarcodeEntry(object: object, textFieldText: nil)
                     session.stopRunning()
-                    
+
                     dispatchGroup.notify(queue: .main) {
                         self.session.stopRunning()
-                        
+
                         self.activityIndicator.stopAnimating()
                         dimmedView.removeFromSuperview()
                         self.performSegue(withIdentifier: "goToFoodDetail", sender: nil)
-                        
+
                     }
                     
                 } else {
@@ -199,7 +199,8 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                     
                 }
             }
-        } else {
+        }
+        else {
             displayErrorAlert(message: "Information for this barcode could not be found. Please try again or enter details manually.")
             session.stopRunning()
             

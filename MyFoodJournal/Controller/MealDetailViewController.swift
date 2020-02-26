@@ -226,6 +226,7 @@ extension MealDetailViewController {
     
     private func setMealDetailCell(indexPath: IndexPath, nutrient: Double, nutrientType: String) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "mealDetailCell", for: indexPath) as! MealDetailCell
+        cell.isUserInteractionEnabled = false
         var nutrient = nutrient
         let roundedNutrientValue = nutrient.removePointZeroEndingAndConvertToString()
         cell.typeLabel.text = nutrientType + ":"
@@ -250,9 +251,9 @@ extension MealDetailViewController {
         
         if editingStyle == .delete {
             let fc = FoodsCollection.self
-            guard let user = Auth.auth().currentUser?.email else { return }
+            guard let user = Auth.auth().currentUser?.uid else { return }
             guard let food = selectedFoodList?[indexPath.section] else { return }
-            let foodRef = db.collection("users").document(user).collection(FoodsCollection.collection).document(food.name!)
+            let foodRef = db.collection("users").document(user).collection(FoodsCollection.collection).document("\(food.name!) \(food.uuid)")
             
             foodRef.updateData([
                 fc.isDeleted: true,

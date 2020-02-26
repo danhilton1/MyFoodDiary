@@ -225,7 +225,7 @@ extension NewEntryViewController: UISearchBarDelegate {
     }
     
     func deleteFirestoreFoodDocument(withName name: String, uuid: String) {
-        guard let user = Auth.auth().currentUser?.email else { return }
+        guard let user = Auth.auth().currentUser?.uid else { return }
         
         db.collection("users").document(user).collection("foods").document("\(name) \(uuid)").delete() { err in
             if let err = err {
@@ -277,7 +277,7 @@ extension NewEntryViewController: UISearchBarDelegate {
                 countryIdentifier = "us"
             }
             
-            let urlString = "https://\(countryIdentifier).openfoodfacts.org/cgi/search.pl?action=process&search_terms=\(searchWords)&sort_by=product_name&page_size=50&action=display&json=1"
+            let urlString = "https://\(countryIdentifier).openfoodfacts.org/cgi/search.pl?action=process&search_terms=\(searchWords)&sort_by=product_name&page_size=100&action=display&json=1"
             
             guard let url = URL(string: urlString) else { return }
             

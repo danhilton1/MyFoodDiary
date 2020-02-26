@@ -25,7 +25,7 @@
         <!--Overview-->
         <scene sceneID="aL9-vE-lX3">
             <objects>
-                <viewController storyboardIdentifier="OverviewVC" modalPresentationStyle="fullScreen" id="ENK-wZ-7IN" customClass="OverviewViewController" customModule="My_Food_Diary" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OverviewVC" modalPresentationStyle="fullScreen" id="ENK-wZ-7IN" customClass="OverviewViewController" customModule="MyFoodJournal" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EgE-br-kvG">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -205,7 +205,7 @@
         <!--Food Detail View Controller-->
         <scene sceneID="B9S-7l-5Vi">
             <objects>
-                <tableViewController id="vDg-93-jQl" customClass="FoodDetailViewController" customModule="My_Food_Diary" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="vDg-93-jQl" customClass="FoodDetailViewController" customModule="MyFoodJournal" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="sEq-jt-tt9">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -524,7 +524,7 @@
         <!--Meal Detail View Controller-->
         <scene sceneID="R0X-9W-D23">
             <objects>
-                <tableViewController id="7NR-Gd-cya" customClass="MealDetailViewController" customModule="My_Food_Diary" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="7NR-Gd-cya" customClass="MealDetailViewController" customModule="MyFoodJournal" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="c8e-Tw-3Jk">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -537,7 +537,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="mealDetailCell" rowHeight="35" id="SfN-RY-8XM" customClass="MealDetailCell" customModule="My_Food_Diary" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="mealDetailCell" rowHeight="35" id="SfN-RY-8XM" customClass="MealDetailCell" customModule="MyFoodJournal" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="88" width="414" height="35"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SfN-RY-8XM" id="Hkl-wv-i5a">
@@ -574,7 +574,7 @@
                                     <outlet property="typeLabel" destination="mzq-C5-4Fy" id="ZQn-ja-DVT"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="foodHistoryCell" rowHeight="52" id="3bh-2z-E5b" customClass="FoodHistoryCell" customModule="My_Food_Diary" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="foodHistoryCell" rowHeight="52" id="3bh-2z-E5b" customClass="FoodHistoryCell" customModule="MyFoodJournal" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="123" width="414" height="52"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3bh-2z-E5b" id="h0W-mS-50V">
@@ -656,7 +656,7 @@
         <!--Overview-->
         <scene sceneID="7fO-6M-e9i">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" modalPresentationStyle="fullScreen" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="nkg-3y-G6f" customClass="OverviewPageViewController" customModule="My_Food_Diary" customModuleProvider="target" sceneMemberID="viewController">
+                <pageViewController autoresizesArchivedViewToFullSize="NO" modalPresentationStyle="fullScreen" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="nkg-3y-G6f" customClass="OverviewPageViewController" customModule="MyFoodJournal" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" title="Overview" largeTitleDisplayMode="never" id="lB3-l6-29P">
                         <barButtonItem key="rightBarButtonItem" image="plus-icon" id="WH5-Za-qLV">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
