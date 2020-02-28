@@ -11,6 +11,9 @@
         <array key="Montserrat-Light.otf">
             <string>Montserrat-Light</string>
         </array>
+        <array key="Montserrat-Medium.otf">
+            <string>Montserrat-Medium</string>
+        </array>
         <array key="Montserrat-Regular.otf">
             <string>Montserrat-Regular</string>
         </array>
@@ -22,7 +25,7 @@
         <!--New Entry-->
         <scene sceneID="SIL-u4-7jc">
             <objects>
-                <tableViewController title="New Entry" id="g4c-VQ-jMC" customClass="ManualEntryViewController" customModule="My_Food_Diary" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="New Entry" id="g4c-VQ-jMC" customClass="ManualEntryViewController" customModule="MyFoodJournal" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="50" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="4pr-hL-4lX">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -260,8 +263,38 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ProteinCell" id="tOV-OL-xGH">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ProteinCell" id="0D5-Oj-ezv">
                                         <rect key="frame" x="0.0" y="434" width="414" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0D5-Oj-ezv" id="hRz-98-XDq">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  - Sugar (g):" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xgY-Cd-hSu">
+                                                    <rect key="frame" x="20" y="13" width="95.5" height="24"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Optional" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vuj-OI-bnO">
+                                                    <rect key="frame" x="123.5" y="9" width="275.5" height="32"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="next"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="xgY-Cd-hSu" firstAttribute="leading" secondItem="hRz-98-XDq" secondAttribute="leadingMargin" id="7LR-6F-bTT"/>
+                                                <constraint firstItem="xgY-Cd-hSu" firstAttribute="top" secondItem="hRz-98-XDq" secondAttribute="topMargin" constant="2" id="DeV-gd-LZB"/>
+                                                <constraint firstAttribute="bottom" secondItem="vuj-OI-bnO" secondAttribute="bottom" constant="9" id="RIw-0i-CGg"/>
+                                                <constraint firstItem="vuj-OI-bnO" firstAttribute="leading" secondItem="xgY-Cd-hSu" secondAttribute="trailing" constant="8" id="VRp-NH-vja"/>
+                                                <constraint firstAttribute="trailing" secondItem="vuj-OI-bnO" secondAttribute="trailing" constant="15" id="Ve4-Ds-vk4"/>
+                                                <constraint firstItem="vuj-OI-bnO" firstAttribute="top" secondItem="hRz-98-XDq" secondAttribute="top" constant="9" id="sp0-AW-WWT"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="xgY-Cd-hSu" secondAttribute="bottom" constant="2" id="vw3-qb-cYN"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ProteinCell" id="tOV-OL-xGH">
+                                        <rect key="frame" x="0.0" y="484" width="414" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tOV-OL-xGH" id="Bbn-iL-XUi">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
@@ -287,6 +320,66 @@
                                                 <constraint firstItem="jfb-hB-obp" firstAttribute="leading" secondItem="Bbn-iL-XUi" secondAttribute="leadingMargin" id="sA5-HH-3dd"/>
                                                 <constraint firstAttribute="bottom" secondItem="YD9-mD-1Bg" secondAttribute="bottom" constant="9" id="sek-3f-TQb"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="jfb-hB-obp" secondAttribute="bottom" constant="2" id="tXR-sH-w06"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ProteinCell" id="S1Q-CO-imb">
+                                        <rect key="frame" x="0.0" y="534" width="414" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="S1Q-CO-imb" id="2vx-Q9-926">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  - Saturated Fat (g):" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jfL-2v-554">
+                                                    <rect key="frame" x="20" y="13" width="157" height="24"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Optional" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SUt-a0-nb7">
+                                                    <rect key="frame" x="185" y="9" width="214" height="32"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="next"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="jfL-2v-554" firstAttribute="top" secondItem="2vx-Q9-926" secondAttribute="topMargin" constant="2" id="0CQ-TQ-wTG"/>
+                                                <constraint firstItem="SUt-a0-nb7" firstAttribute="top" secondItem="2vx-Q9-926" secondAttribute="top" constant="9" id="D1m-0e-fNs"/>
+                                                <constraint firstAttribute="trailing" secondItem="SUt-a0-nb7" secondAttribute="trailing" constant="15" id="GbM-vD-EUq"/>
+                                                <constraint firstItem="jfL-2v-554" firstAttribute="leading" secondItem="2vx-Q9-926" secondAttribute="leadingMargin" id="SJg-UX-EUJ"/>
+                                                <constraint firstItem="SUt-a0-nb7" firstAttribute="leading" secondItem="jfL-2v-554" secondAttribute="trailing" constant="8" id="ah4-bo-rDK"/>
+                                                <constraint firstAttribute="bottom" secondItem="SUt-a0-nb7" secondAttribute="bottom" constant="9" id="ioy-y5-S8I"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="jfL-2v-554" secondAttribute="bottom" constant="2" id="qgU-86-OH5"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ProteinCell" id="K87-77-k8r">
+                                        <rect key="frame" x="0.0" y="584" width="414" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="K87-77-k8r" id="RAu-SK-ze6">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fibre (g):" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="laB-i9-U3C">
+                                                    <rect key="frame" x="20" y="13" width="79" height="24"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="18"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Optional" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jdU-yu-ixA">
+                                                    <rect key="frame" x="107" y="9" width="292" height="32"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="next"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="laB-i9-U3C" firstAttribute="leading" secondItem="RAu-SK-ze6" secondAttribute="leadingMargin" id="3v7-FT-xIb"/>
+                                                <constraint firstItem="jdU-yu-ixA" firstAttribute="top" secondItem="RAu-SK-ze6" secondAttribute="top" constant="9" id="Gfz-dk-jt2"/>
+                                                <constraint firstItem="jdU-yu-ixA" firstAttribute="leading" secondItem="laB-i9-U3C" secondAttribute="trailing" constant="8" id="JJZ-ZU-nPm"/>
+                                                <constraint firstAttribute="bottom" secondItem="jdU-yu-ixA" secondAttribute="bottom" constant="9" id="LFq-Ff-enc"/>
+                                                <constraint firstAttribute="trailing" secondItem="jdU-yu-ixA" secondAttribute="trailing" constant="15" id="Mom-Yh-4vC"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="laB-i9-U3C" secondAttribute="bottom" constant="2" id="Si4-Ux-EBU"/>
+                                                <constraint firstItem="laB-i9-U3C" firstAttribute="top" secondItem="RAu-SK-ze6" secondAttribute="topMargin" constant="2" id="zsk-uc-agB"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -319,17 +412,23 @@
                         <outlet property="carbsTextField" destination="GSj-dP-E5a" id="0zA-2Z-zpF"/>
                         <outlet property="fatLabel" destination="jfb-hB-obp" id="yB1-on-1oA"/>
                         <outlet property="fatTextField" destination="YD9-mD-1Bg" id="6iB-4S-weh"/>
+                        <outlet property="fibreLabel" destination="laB-i9-U3C" id="5CX-Hw-kHk"/>
+                        <outlet property="fibreTextField" destination="jdU-yu-ixA" id="Zee-FJ-Nb3"/>
                         <outlet property="foodNameTextField" destination="Qdk-ma-xd3" id="UMG-Kg-eOW"/>
                         <outlet property="mealLabel" destination="5DC-HU-cbd" id="d2b-eG-a01"/>
                         <outlet property="mealPicker" destination="Qrl-iq-QfK" id="nC9-fs-xa1"/>
                         <outlet property="nameLabel" destination="82V-5Y-NUh" id="N1p-7N-g2A"/>
                         <outlet property="proteinLabel" destination="NfJ-Tt-vuK" id="5V0-eC-JcA"/>
                         <outlet property="proteinTextField" destination="Luv-Zf-ZMY" id="USF-Ka-CQz"/>
+                        <outlet property="saturatedFatLabel" destination="jfL-2v-554" id="910-Cf-EnT"/>
+                        <outlet property="saturatedFatTextField" destination="SUt-a0-nb7" id="bCv-uM-uea"/>
                         <outlet property="servingLabel" destination="2oS-95-0Ia" id="leT-aY-e5w"/>
                         <outlet property="servingSizeLabel" destination="fXw-l7-arc" id="tgg-Od-I9C"/>
                         <outlet property="servingSizeTextField" destination="Mgx-P6-yYT" id="t7e-kk-fAe"/>
                         <outlet property="servingSizeUnitButton" destination="1EQ-hs-pMs" id="KD4-Vn-1ED"/>
                         <outlet property="servingTextField" destination="jNy-rj-FbO" id="h17-E2-2m2"/>
+                        <outlet property="sugarLabel" destination="xgY-Cd-hSu" id="Y7y-Zk-MzT"/>
+                        <outlet property="sugarTextField" destination="vuj-OI-bnO" id="6wc-Hl-51T"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oq2-v6-Kip" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -339,7 +438,7 @@
         <!--New Entry-->
         <scene sceneID="ghP-Ra-Nyj">
             <objects>
-                <viewController title="New Entry" modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="Gmh-tg-Ppn" customClass="NewEntryViewController" customModule="My_Food_Diary" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="New Entry" modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="Gmh-tg-Ppn" customClass="NewEntryViewController" customModule="MyFoodJournal" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8QI-rj-est">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -369,7 +468,7 @@
                                 <rect key="frame" x="0.0" y="176.5" width="414" height="597.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="foodHistoryCell" rowHeight="50" id="2vn-1T-fzb" customClass="FoodHistoryCell" customModule="My_Food_Diary" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="foodHistoryCell" rowHeight="50" id="2vn-1T-fzb" customClass="FoodHistoryCell" customModule="MyFoodJournal" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2vn-1T-fzb" id="8ID-mK-xFS">
@@ -506,7 +605,7 @@
                         <outlet property="historyLabel" destination="4Zb-Z4-GDP" id="zdE-ik-WZi"/>
                         <outlet property="searchBar" destination="iOt-c8-lv9" id="sKM-i6-FsS"/>
                         <outlet property="tableView" destination="SqE-jc-cxJ" id="HIY-9e-RhM"/>
-                        <segue destination="qzC-Dx-V7S" kind="show" identifier="GoToFoodDetail" id="iWQ-te-NVG"/>
+                        <segue destination="3Rt-cw-mAA" kind="show" identifier="GoToFoodDetail" id="3Q2-w7-r42"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xrt-Fi-CtK" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -516,7 +615,7 @@
         <!--Scan Barcode-->
         <scene sceneID="rbm-TE-5KH">
             <objects>
-                <viewController title="Scan Barcode" id="Lxw-TG-Lot" customClass="BarcodeScannerViewController" customModule="My_Food_Diary" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Scan Barcode" id="Lxw-TG-Lot" customClass="BarcodeScannerViewController" customModule="MyFoodJournal" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="TAJ-AX-LvF">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -586,10 +685,20 @@
             </objects>
             <point key="canvasLocation" x="3108.6956521739135" y="221.65178571428569"/>
         </scene>
+        <!--FoodDetail-->
+        <scene sceneID="FWO-1m-zwA">
+            <objects>
+                <viewControllerPlaceholder storyboardName="FoodDetail" id="3Rt-cw-mAA" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="1hP-M9-1aT"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0L0-Us-fsP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3901" y="-193"/>
+        </scene>
         <!--Food Detail View Controller-->
         <scene sceneID="ueS-iM-NUD">
             <objects>
-                <tableViewController id="qzC-Dx-V7S" customClass="FoodDetailViewController" customModule="My_Food_Diary" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="qzC-Dx-V7S" customClass="FoodDetailViewController" customModule="MyFoodJournal" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="7Qu-r0-oYe">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -748,7 +857,7 @@
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="500" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lo9-Je-Ohz">
                                                     <rect key="frame" x="207" y="11" width="187" height="22"/>
-                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="20"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -781,7 +890,7 @@
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="500" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KVd-vb-iOe">
                                                     <rect key="frame" x="207" y="11" width="187" height="22"/>
-                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="20"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -814,7 +923,7 @@
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="500" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="coz-la-bhz">
                                                     <rect key="frame" x="257" y="11" width="137" height="22"/>
-                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="20"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -832,8 +941,41 @@
                                         </tableViewCellContentView>
                                         <viewLayoutGuide key="safeArea" id="eha-GE-BXm"/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FatCell" id="LiV-M3-GrZ">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SugarCell" id="iiL-wx-shn">
                                         <rect key="frame" x="0.0" y="414" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iiL-wx-shn" id="EIb-tw-2yj">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  - Sugar (g):" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HEw-ly-ctD">
+                                                    <rect key="frame" x="20" y="11" width="187" height="22"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="500" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aka-Im-Jqq">
+                                                    <rect key="frame" x="207" y="11" width="187" height="22"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Aka-Im-Jqq" secondAttribute="bottom" id="GNl-gO-Mi7"/>
+                                                <constraint firstItem="HEw-ly-ctD" firstAttribute="leading" secondItem="EIb-tw-2yj" secondAttribute="leadingMargin" id="V0H-aP-fRU"/>
+                                                <constraint firstItem="Aka-Im-Jqq" firstAttribute="top" secondItem="EIb-tw-2yj" secondAttribute="topMargin" id="W42-cX-g5g"/>
+                                                <constraint firstItem="Aka-Im-Jqq" firstAttribute="trailing" secondItem="EIb-tw-2yj" secondAttribute="trailingMargin" id="bmS-wc-cLf"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="HEw-ly-ctD" secondAttribute="bottom" id="h45-kR-mtK"/>
+                                                <constraint firstItem="HEw-ly-ctD" firstAttribute="top" secondItem="EIb-tw-2yj" secondAttribute="topMargin" id="lPK-yk-njf"/>
+                                                <constraint firstItem="Aka-Im-Jqq" firstAttribute="leading" secondItem="HEw-ly-ctD" secondAttribute="trailing" id="ofp-mv-wmJ"/>
+                                                <constraint firstItem="Aka-Im-Jqq" firstAttribute="width" secondItem="HEw-ly-ctD" secondAttribute="width" id="tFY-pg-Jyy"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <viewLayoutGuide key="safeArea" id="78b-4Q-Osc"/>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FatCell" id="LiV-M3-GrZ">
+                                        <rect key="frame" x="0.0" y="458" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LiV-M3-GrZ" id="h7y-Ad-Qat">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -847,7 +989,7 @@
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="500" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jxu-fo-9Cg">
                                                     <rect key="frame" x="207" y="11" width="187" height="22"/>
-                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="20"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -864,6 +1006,72 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <viewLayoutGuide key="safeArea" id="poc-04-Nkw"/>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SatFatCell" id="2Sz-me-Igs">
+                                        <rect key="frame" x="0.0" y="502" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2Sz-me-Igs" id="NNO-Tj-QRa">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  - Saturated Fat (g):" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RCb-Ju-VPJ">
+                                                    <rect key="frame" x="20" y="11" width="187" height="22"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="500" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7GO-oX-gNw">
+                                                    <rect key="frame" x="207" y="11" width="187" height="22"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="RCb-Ju-VPJ" firstAttribute="top" secondItem="NNO-Tj-QRa" secondAttribute="topMargin" id="7Z7-aU-rZg"/>
+                                                <constraint firstItem="7GO-oX-gNw" firstAttribute="trailing" secondItem="NNO-Tj-QRa" secondAttribute="trailingMargin" id="P5e-Qg-sTG"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="RCb-Ju-VPJ" secondAttribute="bottom" id="RG9-QW-544"/>
+                                                <constraint firstItem="RCb-Ju-VPJ" firstAttribute="leading" secondItem="NNO-Tj-QRa" secondAttribute="leadingMargin" id="U7p-BN-SqS"/>
+                                                <constraint firstItem="7GO-oX-gNw" firstAttribute="top" secondItem="NNO-Tj-QRa" secondAttribute="topMargin" id="adR-0J-FJA"/>
+                                                <constraint firstItem="7GO-oX-gNw" firstAttribute="leading" secondItem="RCb-Ju-VPJ" secondAttribute="trailing" id="fu3-Pp-yAb"/>
+                                                <constraint firstItem="7GO-oX-gNw" firstAttribute="width" secondItem="RCb-Ju-VPJ" secondAttribute="width" id="wIE-mH-F9R"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="7GO-oX-gNw" secondAttribute="bottom" id="x5u-tp-59c"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <viewLayoutGuide key="safeArea" id="iFR-c5-TpN"/>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FibreCell" id="Bpy-qI-zZk">
+                                        <rect key="frame" x="0.0" y="546" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Bpy-qI-zZk" id="nks-dY-QER">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fibre (g):" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y5X-RG-J9x">
+                                                    <rect key="frame" x="20" y="11" width="187" height="22"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="500" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6wT-5w-5Tq">
+                                                    <rect key="frame" x="207" y="11" width="187" height="22"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Y5X-RG-J9x" firstAttribute="leading" secondItem="nks-dY-QER" secondAttribute="leadingMargin" id="0f3-CQ-SW3"/>
+                                                <constraint firstItem="6wT-5w-5Tq" firstAttribute="top" secondItem="nks-dY-QER" secondAttribute="topMargin" id="1DH-qm-IcW"/>
+                                                <constraint firstItem="6wT-5w-5Tq" firstAttribute="trailing" secondItem="nks-dY-QER" secondAttribute="trailingMargin" id="NYq-WP-tzo"/>
+                                                <constraint firstItem="Y5X-RG-J9x" firstAttribute="top" secondItem="nks-dY-QER" secondAttribute="topMargin" id="XoJ-4T-4Wp"/>
+                                                <constraint firstItem="6wT-5w-5Tq" firstAttribute="width" secondItem="Y5X-RG-J9x" secondAttribute="width" id="hTM-6U-zPZ"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="6wT-5w-5Tq" secondAttribute="bottom" id="nIf-ve-eZk"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Y5X-RG-J9x" secondAttribute="bottom" id="nYI-SP-m5J"/>
+                                                <constraint firstItem="6wT-5w-5Tq" firstAttribute="leading" secondItem="Y5X-RG-J9x" secondAttribute="trailing" id="tbq-f7-xL5"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <viewLayoutGuide key="safeArea" id="EK6-7q-bZk"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -886,12 +1094,18 @@
                         <outlet property="caloriesLabel" destination="lo9-Je-Ohz" id="IaH-7p-ig5"/>
                         <outlet property="carbsLabel" destination="coz-la-bhz" id="7tl-YG-pZ5"/>
                         <outlet property="fatLabel" destination="Jxu-fo-9Cg" id="dZs-hK-xDP"/>
+                        <outlet property="fibreLabel" destination="6wT-5w-5Tq" id="MMH-xc-lQM"/>
+                        <outlet property="fibreTextLabel" destination="Y5X-RG-J9x" id="Jyj-Ix-2uJ"/>
                         <outlet property="foodNameLabel" destination="P2K-Th-7pn" id="rPk-Uv-442"/>
                         <outlet property="mealPicker" destination="blA-Xp-ctz" id="SD8-cy-PCb"/>
                         <outlet property="proteinLabel" destination="KVd-vb-iOe" id="qdz-Cy-HIK"/>
+                        <outlet property="saturatedFatLabel" destination="7GO-oX-gNw" id="tnh-7k-aBa"/>
+                        <outlet property="saturatedFatTextLabel" destination="RCb-Ju-VPJ" id="5kb-Rk-2c7"/>
                         <outlet property="servingSizeButton" destination="lkX-7h-8ye" id="2je-7t-hbn"/>
                         <outlet property="servingSizeUnitButton" destination="ZEv-i2-8vK" id="d7P-fw-LNN"/>
                         <outlet property="servingTextField" destination="cri-C6-nxX" id="A21-Gt-Pmb"/>
+                        <outlet property="sugarLabel" destination="Aka-Im-Jqq" id="fFI-aH-RBu"/>
+                        <outlet property="sugarTextLabel" destination="HEw-ly-ctD" id="8Fx-v8-NxL"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e54-dN-OTz" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -929,7 +1143,4 @@
         <image name="BarcodeScannerIcon" width="33" height="33"/>
         <image name="tick-icon" width="37.5" height="37.5"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="iWQ-te-NVG"/>
-    </inferredMetricsTieBreakers>
 </document>

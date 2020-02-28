@@ -28,6 +28,9 @@ class Food {
     var protein: Double = 0
     var carbs: Double = 0
     var fat: Double = 0
+    var sugar: Double = 0
+    var saturatedFat: Double = 0
+    var fibre: Double = 0
     var isDeleted = false
 //    var numberOfTimesAdded = 0
     
@@ -82,6 +85,9 @@ class Food {
         copy.protein = self.protein
         copy.carbs = self.carbs
         copy.fat = self.fat
+        copy.sugar = self.sugar
+        copy.saturatedFat = self.saturatedFat
+        copy.fibre = self.fibre
         copy.isDeleted = self.isDeleted
 //        copy.numberOfTimesAdded = self.numberOfTimesAdded
         return copy
@@ -126,6 +132,9 @@ struct Nutriments: Codable {
     let protein100g: Double
     let carbs100g: Double
     let fat100g: Double
+    let sugars100g: Double
+    let saturatedFat100g: Double
+    let fibre100g: Double
     
     
     enum CodingKeys: String, CodingKey {
@@ -134,6 +143,9 @@ struct Nutriments: Codable {
         case protein100g = "proteins_100g"
         case carbs100g = "carbohydrates_100g"
         case fat100g = "fat_100g"
+        case sugars100g = "sugars_100g"
+        case saturatedFat100g = "saturated-fat_100g"
+        case fibre100g = "fiber_100g"
 
     }
     

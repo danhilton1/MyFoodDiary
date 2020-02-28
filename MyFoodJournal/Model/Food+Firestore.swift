@@ -24,6 +24,9 @@ enum FoodsCollection {
     static let protein = "protein"
     static let carbs = "carbs"
     static let fat = "fat"
+    static let sugar = "sugar"
+    static let saturatedFat = "saturatedFat"
+    static let fibre = "fibre"
     static let isDeleted = "isDeleted"
 //    static let numberOfTimesAdded = "numberOfTimesAdded"
 }
@@ -51,6 +54,9 @@ extension Food {
         self.protein = foodDictionary["protein"] as! Double
         self.carbs = foodDictionary["carbs"] as! Double
         self.fat = foodDictionary["fat"] as! Double
+        self.sugar = foodDictionary["sugar"] as? Double ?? 0
+        self.saturatedFat = foodDictionary["saturatedFat"] as? Double ?? 0
+        self.fibre = foodDictionary["fibre"] as? Double ?? 0
         self.isDeleted = foodDictionary["isDeleted"] as! Bool
 //        self.numberOfTimesAdded = foodDictionary["numberOfTimesAdded"] as! Int
     }
@@ -72,6 +78,9 @@ extension Food {
             fc.protein: self.protein,
             fc.carbs: self.carbs,
             fc.fat: self.fat,
+            fc.sugar: self.sugar,
+            fc.saturatedFat: self.saturatedFat,
+            fc.fibre: self.fibre,
             fc.isDeleted: false,
 //            fc.numberOfTimesAdded: self.numberOfTimesAdded
         ]) { error in
@@ -149,6 +158,9 @@ extension Food {
                                                     food.protein = foodToAdd.protein
                                                     food.carbs = foodToAdd.carbs
                                                     food.fat = foodToAdd.fat
+                                                    food.sugar = foodToAdd.sugar
+                                                    food.saturatedFat = foodToAdd.saturatedFat
+                                                    food.fibre = foodToAdd.fibre
                                                     food.isDeleted = foodToAdd.isDeleted
 //                                                    food.numberOfTimesAdded = foodToAdd.numberOfTimesAdded
                                                     print("\(foodToAdd.name!) updated.")

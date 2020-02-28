@@ -32,7 +32,10 @@ class FoodDetailViewController: UITableViewController {
     @IBOutlet weak var caloriesLabel: UILabel!
     @IBOutlet weak var proteinLabel: UILabel!
     @IBOutlet weak var carbsLabel: UILabel!
+    @IBOutlet weak var sugarLabel: UILabel!
     @IBOutlet weak var fatLabel: UILabel!
+    @IBOutlet weak var saturatedFatLabel: UILabel!
+    @IBOutlet weak var fibreLabel: UILabel!
     
     @IBOutlet weak var mealLabel: UILabel!
     @IBOutlet weak var servingSizeLabel: UILabel!
@@ -40,7 +43,10 @@ class FoodDetailViewController: UITableViewController {
     @IBOutlet weak var caloriesTextLabel: UILabel!
     @IBOutlet weak var proteinTextLabel: UILabel!
     @IBOutlet weak var carbsTextLabel: UILabel!
+    @IBOutlet weak var sugarTextLabel: UILabel!
     @IBOutlet weak var fatTextLabel: UILabel!
+    @IBOutlet weak var saturatedFatTextLabel: UILabel!
+    @IBOutlet weak var fibreTextLabel: UILabel!
     
     
     weak var delegate: NewEntryDelegate?
@@ -61,7 +67,7 @@ class FoodDetailViewController: UITableViewController {
         if let food = food {
             workingCopy = food.copy()
         }
-
+//        print(workingCopy.sugar)
         setUpCells()
         checkDeviceAndUpdateLayout()
         
@@ -107,7 +113,10 @@ class FoodDetailViewController: UITableViewController {
         caloriesLabel.text = "\(workingCopy.calories)"
         proteinLabel.text = workingCopy.protein.removePointZeroEndingAndConvertToString()
         carbsLabel.text = workingCopy.carbs.removePointZeroEndingAndConvertToString()
+        sugarLabel.text = workingCopy.sugar.removePointZeroEndingAndConvertToString()
         fatLabel.text = workingCopy.fat.removePointZeroEndingAndConvertToString()
+        saturatedFatLabel.text = workingCopy.saturatedFat.removePointZeroEndingAndConvertToString()
+        fibreLabel.text = workingCopy.fibre.removePointZeroEndingAndConvertToString()
         var roundedServingString = "\(workingCopy.serving.roundToXDecimalPoints(decimalPoints: 2))"
         if roundedServingString.hasSuffix(".0") {
             roundedServingString.removeLast(2)
@@ -128,8 +137,14 @@ class FoodDetailViewController: UITableViewController {
             proteinLabel.font = proteinLabel.font.withSize(17)
             carbsTextLabel.font = carbsTextLabel.font.withSize(17)
             carbsLabel.font = carbsLabel.font.withSize(17)
+            sugarTextLabel.font = sugarTextLabel.font.withSize(13)
+            sugarLabel.font = sugarLabel.font.withSize(14)
             fatTextLabel.font = fatTextLabel.font.withSize(17)
             fatLabel.font = fatLabel.font.withSize(17)
+            saturatedFatTextLabel.font = saturatedFatTextLabel.font.withSize(13)
+            saturatedFatLabel.font = saturatedFatLabel.font.withSize(14)
+            fibreTextLabel.font = fibreTextLabel.font.withSize(17)
+            fibreLabel.font = fibreLabel.font.withSize(17)
             
             mealPicker.setTitle("Bfast", forSegmentAt: 0)
         }
@@ -207,6 +222,9 @@ class FoodDetailViewController: UITableViewController {
                 fc.protein: food.protein,
                 fc.carbs: food.carbs,
                 fc.fat: food.fat,
+                fc.sugar: food.sugar,
+                fc.saturatedFat: food.saturatedFat,
+                fc.fibre: food.fibre,
                 fc.isDeleted: false
             ]) { error in
                 if let error = error {
@@ -236,12 +254,18 @@ class FoodDetailViewController: UITableViewController {
         let protein1g = (food?.protein ?? 0) / (servingSizeNumber * (food?.serving ?? 0))
         let carbs1g = (food?.carbs ?? 0) / (servingSizeNumber * (food?.serving ?? 0))
         let fat1g = (food?.fat ?? 0) / (servingSizeNumber * (food?.serving ?? 0))
+        let sugar1g = (food?.sugar ?? 0) / (servingSizeNumber * (food?.serving ?? 0))
+        let saturatedFat1g = (food?.saturatedFat ?? 0) / (servingSizeNumber * (food?.serving ?? 0))
+        let fibre1g = (food?.fibre ?? 0) / (servingSizeNumber * (food?.serving ?? 0))
 
         if textField.text == "" || textField.text == "0" || textField.text == "0." {
             caloriesLabel.text = "0"
             proteinLabel.text = "0.0"
             carbsLabel.text = "0.0"
             fatLabel.text = "0.0"
+            sugarLabel.text = "0.0"
+            saturatedFatLabel.text = "0.0"
+            fibreLabel.text = "0.0"
 
         }
         else {
@@ -257,10 +281,16 @@ class FoodDetailViewController: UITableViewController {
             workingCopy.protein = protein1g * totalServing
             workingCopy.carbs = carbs1g * totalServing
             workingCopy.fat = fat1g * totalServing
+            workingCopy.sugar = sugar1g * totalServing
+            workingCopy.saturatedFat = saturatedFat1g * totalServing
+            workingCopy.fibre = fibre1g * totalServing
             
             proteinLabel.text = workingCopy.protein.removePointZeroEndingAndConvertToString()
             carbsLabel.text = workingCopy.carbs.removePointZeroEndingAndConvertToString()
             fatLabel.text = workingCopy.fat.removePointZeroEndingAndConvertToString()
+            sugarLabel.text = workingCopy.sugar.removePointZeroEndingAndConvertToString()
+            saturatedFatLabel.text = workingCopy.saturatedFat.removePointZeroEndingAndConvertToString()
+            fibreLabel.text = workingCopy.fibre.removePointZeroEndingAndConvertToString()
         }
     }
     
@@ -312,6 +342,9 @@ class FoodDetailViewController: UITableViewController {
             let protein1g = food.protein / (servingSizeNumber * (food.serving))
             let carbs1g = food.carbs / (servingSizeNumber * (food.serving))
             let fat1g = food.fat / (servingSizeNumber * (food.serving))
+            let sugar1g = food.sugar / (servingSizeNumber * (food.serving))
+            let saturatedFat1g = food.saturatedFat / (servingSizeNumber * (food.serving))
+            let fibre1g = food.fibre / (servingSizeNumber * (food.serving))
             
             if servingSizeNumber != 100 {
                 
@@ -319,32 +352,47 @@ class FoodDetailViewController: UITableViewController {
                           calories: calories1g,
                           protein: protein1g,
                           carbs: carbs1g,
-                          fat: fat1g)
+                          fat: fat1g,
+                          sugar: sugar1g,
+                          saturatedFat: saturatedFat1g,
+                          fibre: fibre1g)
                 
                 addAction(for: alertController, title: food.servingSize,
                           calories: (calories1g * servingSizeNumber),
                           protein: protein1g * servingSizeNumber,
                           carbs: carbs1g * servingSizeNumber,
-                          fat: fat1g * servingSizeNumber)
+                          fat: fat1g * servingSizeNumber,
+                          sugar: sugar1g * servingSizeNumber,
+                          saturatedFat: saturatedFat1g * servingSizeNumber,
+                          fibre: fibre1g * servingSizeNumber)
 
                 addAction(for: alertController, title: "100",
                           calories: calories1g * 100,
                           protein: protein1g * 100,
                           carbs: carbs1g * 100,
-                          fat: fat1g * 100)
+                          fat: fat1g * 100,
+                          sugar: sugar1g * 100,
+                          saturatedFat: saturatedFat1g * 100,
+                          fibre: fibre1g * 100)
 
             } else {
                 addAction(for: alertController, title: "1",
                           calories: calories1g,
                           protein: protein1g,
                           carbs: carbs1g,
-                          fat: fat1g)
+                          fat: fat1g,
+                          sugar: sugar1g,
+                          saturatedFat: saturatedFat1g,
+                          fibre: fibre1g)
 
                 addAction(for: alertController, title: "100",
                           calories: calories1g * 100,
                           protein: protein1g * 100,
                           carbs: carbs1g * 100,
-                          fat: fat1g * 100)
+                          fat: fat1g * 100,
+                          sugar: sugar1g * 100,
+                          saturatedFat: saturatedFat1g * 100,
+                          fibre: fibre1g * 100)
 
             }
         }
@@ -353,11 +401,14 @@ class FoodDetailViewController: UITableViewController {
     }
     
     
-    func addAction(for alertController: UIAlertController, title: String, calories: Double, protein: Double, carbs: Double, fat: Double) {
+    func addAction(for alertController: UIAlertController, title: String, calories: Double, protein: Double, carbs: Double, fat: Double, sugar: Double, saturatedFat: Double, fibre: Double) {
         var calories = calories
         var protein = protein
         var carbs = carbs
         var fat = fat
+        var sugar = sugar
+        var saturatedFat = saturatedFat
+        var fibre = fibre
         
         alertController.addAction(UIAlertAction(title: title, style: .default, handler: { (UIAlertAction) in
             self.servingSizeButton.setTitle(title, for: .normal)
@@ -377,6 +428,9 @@ class FoodDetailViewController: UITableViewController {
             self.workingCopy.protein = protein.roundToXDecimalPoints(decimalPoints: 1)
             self.workingCopy.carbs = carbs.roundToXDecimalPoints(decimalPoints: 1)
             self.workingCopy.fat = fat.roundToXDecimalPoints(decimalPoints: 1)
+            self.workingCopy.sugar = sugar.roundToXDecimalPoints(decimalPoints: 1)
+            self.workingCopy.saturatedFat = saturatedFat.roundToXDecimalPoints(decimalPoints: 1)
+            self.workingCopy.fibre = fibre.roundToXDecimalPoints(decimalPoints: 1)
         }))
         
     }

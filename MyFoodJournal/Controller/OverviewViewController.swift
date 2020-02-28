@@ -422,6 +422,9 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
                         foodEntry.protein = food.protein
                         foodEntry.carbs = food.carbs
                         foodEntry.fat = food.fat
+                        foodEntry.sugar = food.sugar
+                        foodEntry.saturatedFat = food.saturatedFat
+                        foodEntry.fibre = food.fibre
                         foodEntry.isDeleted = food.isDeleted
                     }
                 }

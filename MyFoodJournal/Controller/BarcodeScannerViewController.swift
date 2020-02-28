@@ -264,6 +264,9 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                     self.workingCopy.protein = scannedFood.product.nutriments.protein100g
                     self.workingCopy.carbs = scannedFood.product.nutriments.carbs100g
                     self.workingCopy.fat = scannedFood.product.nutriments.fat100g
+                    self.workingCopy.sugar = scannedFood.product.nutriments.sugars100g
+                    self.workingCopy.saturatedFat = scannedFood.product.nutriments.saturatedFat100g
+                    self.workingCopy.fibre = scannedFood.product.nutriments.fibre100g
                     
                 } else {
                     let servingSize = scannedFood.product.servingSize ?? "100"
@@ -275,6 +278,9 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                     self.workingCopy.protein = ((scannedFood.product.nutriments.protein100g) / 100) * servingSizeNumber
                     self.workingCopy.carbs = ((scannedFood.product.nutriments.carbs100g) / 100) * servingSizeNumber
                     self.workingCopy.fat = ((scannedFood.product.nutriments.fat100g) / 100) * servingSizeNumber
+                    self.workingCopy.sugar = ((scannedFood.product.nutriments.sugars100g) / 100) * servingSizeNumber
+                    self.workingCopy.saturatedFat = ((scannedFood.product.nutriments.saturatedFat100g) / 100) * servingSizeNumber
+                    self.workingCopy.fibre = ((scannedFood.product.nutriments.fibre100g) / 100) * servingSizeNumber
                     
                 }
 

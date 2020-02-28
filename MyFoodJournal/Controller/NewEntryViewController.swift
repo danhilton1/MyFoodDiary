@@ -300,7 +300,11 @@ extension NewEntryViewController: UISearchBarDelegate {
                                    let energy = nutrients["energy_100g"],  //Unable to cast nutrients to type as JSON data can vary
                                    let protein = nutrients["proteins_100g"],
                                    let carbs = nutrients["carbohydrates_100g"],
-                                   let fat = nutrients["fat_100g"] {
+                                   let fat = nutrients["fat_100g"],
+                                   let sugar = nutrients["sugars_100g"],
+                                   let saturatedFat = nutrients["saturated-fat_100g"],
+                                   let fibre = nutrients["fiber_100g"]
+                                {
                                     
                                     // Make sure item has name, calories, protein, carbs and fat values
                                     if !productName.isEmpty && !"\(energy)".isEmpty && !"\(protein)".isEmpty && !"\(carbs)".isEmpty && !"\(fat)".isEmpty {
@@ -311,12 +315,15 @@ extension NewEntryViewController: UISearchBarDelegate {
                                         let proteinString = "\(protein)"
                                         let carbsString = "\(carbs)"
                                         let fatString = "\(fat)"
+                                        let sugarString = "\(sugar)"
+                                        let saturatedFatString = "\(saturatedFat)"
+                                        let fibreString = "\(fibre)"
                                         var trimmedServingSize = ""
                                         
                                         let food = Food()
                                         
                                         if let servingSize = product["serving_size"] as? String {
-                                            print(servingSize)
+//                                            print(servingSize)
                                             // Only use the first set of numbers in servingSize
                                             for character in servingSize {
                                                 if character == "g" || character == " " {
@@ -339,6 +346,9 @@ extension NewEntryViewController: UISearchBarDelegate {
                                             food.protein = (Double(proteinString)! / 100.0) * servingSizeNumber
                                             food.carbs = (Double(carbsString)! / 100.0) * servingSizeNumber
                                             food.fat = (Double(fatString)! / 100.0) * servingSizeNumber
+                                            food.sugar = ((Double(sugarString) ?? 0) / 100.0) * servingSizeNumber
+                                            food.saturatedFat = ((Double(saturatedFatString) ?? 0) / 100.0) * servingSizeNumber
+                                            food.fibre = ((Double(fibreString) ?? 0) / 100.0) * servingSizeNumber
                                             
                                             searchFoodList.append(food)
                                         }
@@ -349,6 +359,9 @@ extension NewEntryViewController: UISearchBarDelegate {
                                             food.protein = Double(proteinString)!
                                             food.carbs = Double(carbsString)!
                                             food.fat = Double(fatString)!
+                                            food.sugar = Double(sugarString) ?? 0
+                                            food.saturatedFat = Double(saturatedFatString) ?? 0
+                                            food.fibre = Double(fibreString) ?? 0
                                             
                                             searchFoodList.append(food)
                                         }

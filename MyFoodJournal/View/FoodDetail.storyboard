@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Uhs-fD-usf">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Montserrat-Medium.otf">
+            <string>Montserrat-Medium</string>
+        </array>
+        <array key="Montserrat-Regular.otf">
+            <string>Montserrat-Regular</string>
+        </array>
+        <array key="Montserrat-SemiBold.otf">
+            <string>Montserrat-SemiBold</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Food Detail View Controller-->
+        <scene sceneID="lKx-1o-Xir">
+            <objects>
+                <tableViewController id="Uhs-fD-usf" customClass="FoodDetailViewController" customModule="MyFoodJournal" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="oq8-DZ-x07">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <sections>
+                            <tableViewSection id="zUL-MM-QtK">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FoodName" rowHeight="60" id="Ge7-bW-scv">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ge7-bW-scv" id="Mf4-Pd-kQh">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="XRn-dW-ok5">
+                                                    <rect key="frame" x="20" y="10" width="374" height="40"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="22"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="XRn-dW-ok5" firstAttribute="leading" secondItem="Mf4-Pd-kQh" secondAttribute="leadingMargin" id="KiE-E7-8f6"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="XRn-dW-ok5" secondAttribute="trailing" id="coZ-oe-RWw"/>
+                                                <constraint firstAttribute="bottom" secondItem="XRn-dW-ok5" secondAttribute="bottom" constant="10" id="dCZ-dI-W9w"/>
+                                                <constraint firstItem="XRn-dW-ok5" firstAttribute="top" secondItem="Mf4-Pd-kQh" secondAttribute="top" constant="10" id="wAM-Vv-fW0"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <viewLayoutGuide key="safeArea" id="NZA-US-BOR"/>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MealPicker" rowHeight="46" id="zhX-5e-M7C">
+                                        <rect key="frame" x="0.0" y="88" width="414" height="46"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zhX-5e-M7C" id="jHs-uR-iEs">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="46"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Meal:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dpG-6q-5Fw">
+                                                    <rect key="frame" x="20" y="11" width="52.5" height="24"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="bed-rF-Bhv">
+                                                    <rect key="frame" x="77.5" y="7" width="320.5" height="33"/>
+                                                    <segments>
+                                                        <segment title="Breakfast"/>
+                                                        <segment title="Lunch"/>
+                                                        <segment title="Dinner"/>
+                                                        <segment title="Other"/>
+                                                    </segments>
+                                                </segmentedControl>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="dpG-6q-5Fw" secondAttribute="bottom" id="1Pn-5t-0CN"/>
+                                                <constraint firstItem="dpG-6q-5Fw" firstAttribute="top" secondItem="jHs-uR-iEs" secondAttribute="topMargin" id="67K-B9-htI"/>
+                                                <constraint firstAttribute="bottom" secondItem="bed-rF-Bhv" secondAttribute="bottom" constant="7" id="Mc4-Ir-grv"/>
+                                                <constraint firstItem="bed-rF-Bhv" firstAttribute="top" secondItem="jHs-uR-iEs" secondAttribute="top" constant="7" id="V5A-Bk-lxK"/>
+                                                <constraint firstAttribute="trailing" secondItem="bed-rF-Bhv" secondAttribute="trailing" constant="16" id="YcT-5I-jWQ"/>
+                                                <constraint firstItem="dpG-6q-5Fw" firstAttribute="leading" secondItem="jHs-uR-iEs" secondAttribute="leadingMargin" id="aBZ-CF-l78"/>
+                                                <constraint firstItem="bed-rF-Bhv" firstAttribute="leading" secondItem="dpG-6q-5Fw" secondAttribute="trailing" constant="5" id="nu9-SW-BrT"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <viewLayoutGuide key="safeArea" id="Uey-AH-y1B"/>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ServingSize" rowHeight="46" id="Krc-ZA-FFw">
+                                        <rect key="frame" x="0.0" y="134" width="414" height="46"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Krc-ZA-FFw" id="BFH-h3-fXB">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="46"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Serving Size:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zpc-Gv-8hD">
+                                                    <rect key="frame" x="20" y="11" width="125.5" height="24"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u9e-KC-hPq">
+                                                    <rect key="frame" x="215.5" y="11" width="34" height="24"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="20"/>
+                                                    <state key="normal" title="100"/>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fEE-B2-Cal">
+                                                    <rect key="frame" x="279.5" y="10" width="30" height="26"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="20"/>
+                                                    <state key="normal" title="g"/>
+                                                    <connections>
+                                                        <action selector="unitButtonTapped:" destination="Uhs-fD-usf" eventType="touchUpInside" id="IcH-w3-wvK"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Zpc-Gv-8hD" firstAttribute="top" secondItem="BFH-h3-fXB" secondAttribute="topMargin" id="26b-0o-Q5K"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="u9e-KC-hPq" secondAttribute="bottom" id="7Id-cE-EQ7"/>
+                                                <constraint firstAttribute="bottom" secondItem="fEE-B2-Cal" secondAttribute="bottom" constant="10" id="9t2-Cz-qkw"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="fEE-B2-Cal" secondAttribute="trailing" constant="20" id="GTS-L2-7gd"/>
+                                                <constraint firstItem="fEE-B2-Cal" firstAttribute="leading" secondItem="u9e-KC-hPq" secondAttribute="trailing" constant="30" id="Hh3-dN-iK7"/>
+                                                <constraint firstItem="u9e-KC-hPq" firstAttribute="leading" secondItem="Zpc-Gv-8hD" secondAttribute="trailing" constant="70" id="I35-vM-3Tq"/>
+                                                <constraint firstItem="fEE-B2-Cal" firstAttribute="top" secondItem="BFH-h3-fXB" secondAttribute="top" constant="10" id="Uba-eO-eV3"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Zpc-Gv-8hD" secondAttribute="bottom" id="ttl-d2-grO"/>
+                                                <constraint firstItem="Zpc-Gv-8hD" firstAttribute="leading" secondItem="BFH-h3-fXB" secondAttribute="leadingMargin" id="x0i-ck-oth"/>
+                                                <constraint firstItem="u9e-KC-hPq" firstAttribute="top" secondItem="BFH-h3-fXB" secondAttribute="topMargin" id="zUX-uB-xts"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <viewLayoutGuide key="safeArea" id="7fR-83-a1r"/>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ServingCell" rowHeight="46" id="cGT-0F-4mS">
+                                        <rect key="frame" x="0.0" y="180" width="414" height="46"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cGT-0F-4mS" id="cdR-Ud-3aX">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="46"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Serving:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wWN-pW-e2H">
+                                                    <rect key="frame" x="20" y="11" width="80.5" height="24"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1" textAlignment="center" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="1wI-c2-SGw">
+                                                    <rect key="frame" x="140.5" y="11" width="253.5" height="24"/>
+                                                    <color key="textColor" red="0.25443011519999997" green="0.47597199680000002" blue="0.87062877419999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="20"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="1wI-c2-SGw" secondAttribute="bottom" id="Ds5-Wt-FTE"/>
+                                                <constraint firstItem="wWN-pW-e2H" firstAttribute="leading" secondItem="cdR-Ud-3aX" secondAttribute="leadingMargin" id="EZI-1i-ZuW"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="wWN-pW-e2H" secondAttribute="bottom" id="QdD-jc-KL0"/>
+                                                <constraint firstItem="1wI-c2-SGw" firstAttribute="leading" secondItem="wWN-pW-e2H" secondAttribute="trailing" constant="40" id="XgZ-mJ-ne1"/>
+                                                <constraint firstItem="1wI-c2-SGw" firstAttribute="top" secondItem="cdR-Ud-3aX" secondAttribute="topMargin" id="tbL-Ds-MrY"/>
+                                                <constraint firstItem="wWN-pW-e2H" firstAttribute="top" secondItem="cdR-Ud-3aX" secondAttribute="topMargin" id="u6D-v2-Aws"/>
+                                                <constraint firstItem="1wI-c2-SGw" firstAttribute="trailing" secondItem="cdR-Ud-3aX" secondAttribute="trailingMargin" id="wLb-e0-QBU"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <viewLayoutGuide key="safeArea" id="4dU-ra-SEB"/>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle=" " id="XfT-ld-bUJ">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CaloriesCell" id="Ir4-78-bLL">
+                                        <rect key="frame" x="0.0" y="282" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ir4-78-bLL" id="okc-IA-kU9">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calories:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fnm-cI-hpH">
+                                                    <rect key="frame" x="20" y="11" width="187" height="22"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="500" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="npQ-ie-kOl">
+                                                    <rect key="frame" x="207" y="11" width="187" height="22"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="npQ-ie-kOl" firstAttribute="width" secondItem="Fnm-cI-hpH" secondAttribute="width" id="2MM-bq-RcE"/>
+                                                <constraint firstItem="npQ-ie-kOl" firstAttribute="trailing" secondItem="okc-IA-kU9" secondAttribute="trailingMargin" id="EZe-uf-ulo"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="npQ-ie-kOl" secondAttribute="bottom" id="GnF-t5-jDP"/>
+                                                <constraint firstItem="Fnm-cI-hpH" firstAttribute="top" secondItem="okc-IA-kU9" secondAttribute="topMargin" id="MYC-5E-4wk"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Fnm-cI-hpH" secondAttribute="bottom" id="Neq-1b-0SP"/>
+                                                <constraint firstItem="npQ-ie-kOl" firstAttribute="top" secondItem="okc-IA-kU9" secondAttribute="topMargin" id="dGN-DH-BYs"/>
+                                                <constraint firstItem="npQ-ie-kOl" firstAttribute="leading" secondItem="Fnm-cI-hpH" secondAttribute="trailing" id="jC2-Pq-MqQ"/>
+                                                <constraint firstItem="Fnm-cI-hpH" firstAttribute="leading" secondItem="okc-IA-kU9" secondAttribute="leadingMargin" id="kU4-Dd-6zQ"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <viewLayoutGuide key="safeArea" id="818-T3-E7s"/>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProteinCell" id="T8B-jz-tTG">
+                                        <rect key="frame" x="0.0" y="326" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="T8B-jz-tTG" id="iEP-cA-uOr">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Protein (g):" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fGw-b6-uxz">
+                                                    <rect key="frame" x="20" y="11" width="187" height="22"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="500" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ywH-b6-QsY">
+                                                    <rect key="frame" x="207" y="11" width="187" height="22"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="fGw-b6-uxz" firstAttribute="leading" secondItem="iEP-cA-uOr" secondAttribute="leadingMargin" id="7yx-Bc-avG"/>
+                                                <constraint firstItem="fGw-b6-uxz" firstAttribute="top" secondItem="iEP-cA-uOr" secondAttribute="topMargin" id="QKT-bj-Nry"/>
+                                                <constraint firstItem="ywH-b6-QsY" firstAttribute="width" secondItem="fGw-b6-uxz" secondAttribute="width" id="Y6R-HW-12h"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="ywH-b6-QsY" secondAttribute="bottom" id="ZoO-xh-czC"/>
+                                                <constraint firstItem="ywH-b6-QsY" firstAttribute="trailing" secondItem="iEP-cA-uOr" secondAttribute="trailingMargin" id="bwS-Pe-54U"/>
+                                                <constraint firstItem="ywH-b6-QsY" firstAttribute="top" secondItem="iEP-cA-uOr" secondAttribute="topMargin" id="klW-He-Ipj"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="fGw-b6-uxz" secondAttribute="bottom" id="rhQ-B8-YR2"/>
+                                                <constraint firstItem="ywH-b6-QsY" firstAttribute="leading" secondItem="fGw-b6-uxz" secondAttribute="trailing" id="s8Q-WC-naw"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <viewLayoutGuide key="safeArea" id="0ji-jP-okE"/>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CarbsCell" id="Sg4-bj-0nq">
+                                        <rect key="frame" x="0.0" y="370" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Sg4-bj-0nq" id="yD3-JI-oF3">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Carbohydrates (g):" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Ga-6A-sGi">
+                                                    <rect key="frame" x="20" y="11" width="237" height="22"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="500" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ebe-hu-mnw">
+                                                    <rect key="frame" x="257" y="11" width="137" height="22"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="6Ga-6A-sGi" secondAttribute="bottom" id="AP7-us-rfl"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Ebe-hu-mnw" secondAttribute="bottom" id="W8n-6J-auh"/>
+                                                <constraint firstItem="Ebe-hu-mnw" firstAttribute="width" secondItem="6Ga-6A-sGi" secondAttribute="width" constant="-100" id="YIZ-0w-pf8"/>
+                                                <constraint firstItem="Ebe-hu-mnw" firstAttribute="trailing" secondItem="yD3-JI-oF3" secondAttribute="trailingMargin" id="edw-gV-76Y"/>
+                                                <constraint firstItem="6Ga-6A-sGi" firstAttribute="top" secondItem="yD3-JI-oF3" secondAttribute="topMargin" id="fOI-DG-Qfj"/>
+                                                <constraint firstItem="Ebe-hu-mnw" firstAttribute="top" secondItem="yD3-JI-oF3" secondAttribute="topMargin" id="ktg-yC-m9O"/>
+                                                <constraint firstItem="Ebe-hu-mnw" firstAttribute="leading" secondItem="6Ga-6A-sGi" secondAttribute="trailing" id="pQw-Nt-YBq"/>
+                                                <constraint firstItem="6Ga-6A-sGi" firstAttribute="leading" secondItem="yD3-JI-oF3" secondAttribute="leadingMargin" id="qBl-AQ-02t"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <viewLayoutGuide key="safeArea" id="b4X-2N-bjN"/>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SugarCell" id="vT2-yX-r1s">
+                                        <rect key="frame" x="0.0" y="414" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vT2-yX-r1s" id="Wdi-5Q-BCy">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  - Sugar (g):" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JVH-1V-mex">
+                                                    <rect key="frame" x="20" y="11" width="187" height="22"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="500" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a1V-9G-NR2">
+                                                    <rect key="frame" x="207" y="11" width="187" height="22"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="a1V-9G-NR2" secondAttribute="bottom" id="14s-tn-pFx"/>
+                                                <constraint firstItem="JVH-1V-mex" firstAttribute="top" secondItem="Wdi-5Q-BCy" secondAttribute="topMargin" id="6fb-uU-ptN"/>
+                                                <constraint firstItem="a1V-9G-NR2" firstAttribute="top" secondItem="Wdi-5Q-BCy" secondAttribute="topMargin" id="Gf4-W6-xgS"/>
+                                                <constraint firstItem="a1V-9G-NR2" firstAttribute="width" secondItem="JVH-1V-mex" secondAttribute="width" id="I78-Lh-8Yx"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="JVH-1V-mex" secondAttribute="bottom" id="XVS-Ov-57D"/>
+                                                <constraint firstItem="JVH-1V-mex" firstAttribute="leading" secondItem="Wdi-5Q-BCy" secondAttribute="leadingMargin" id="ohp-i7-C6I"/>
+                                                <constraint firstItem="a1V-9G-NR2" firstAttribute="trailing" secondItem="Wdi-5Q-BCy" secondAttribute="trailingMargin" id="vKY-e1-tCU"/>
+                                                <constraint firstItem="a1V-9G-NR2" firstAttribute="leading" secondItem="JVH-1V-mex" secondAttribute="trailing" id="y3s-Wf-32v"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <viewLayoutGuide key="safeArea" id="f7c-KS-sPd"/>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FatCell" id="Jaj-nv-tb4">
+                                        <rect key="frame" x="0.0" y="458" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Jaj-nv-tb4" id="Cue-yM-JwQ">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fat (g):" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vX7-K7-HSm">
+                                                    <rect key="frame" x="20" y="11" width="187" height="22"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="500" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZW6-rQ-uJR">
+                                                    <rect key="frame" x="207" y="11" width="187" height="22"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="vX7-K7-HSm" firstAttribute="leading" secondItem="Cue-yM-JwQ" secondAttribute="leadingMargin" id="8HX-Lp-z7S"/>
+                                                <constraint firstItem="vX7-K7-HSm" firstAttribute="top" secondItem="Cue-yM-JwQ" secondAttribute="topMargin" id="9nT-i4-aeI"/>
+                                                <constraint firstItem="ZW6-rQ-uJR" firstAttribute="width" secondItem="vX7-K7-HSm" secondAttribute="width" id="DTM-fm-JOJ"/>
+                                                <constraint firstItem="ZW6-rQ-uJR" firstAttribute="leading" secondItem="vX7-K7-HSm" secondAttribute="trailing" id="M8q-NJ-3U4"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="ZW6-rQ-uJR" secondAttribute="bottom" id="N89-m1-mGH"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="vX7-K7-HSm" secondAttribute="bottom" id="NT9-XV-OSp"/>
+                                                <constraint firstItem="ZW6-rQ-uJR" firstAttribute="trailing" secondItem="Cue-yM-JwQ" secondAttribute="trailingMargin" id="cqg-MH-8Nu"/>
+                                                <constraint firstItem="ZW6-rQ-uJR" firstAttribute="top" secondItem="Cue-yM-JwQ" secondAttribute="topMargin" id="rJx-hJ-VPK"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <viewLayoutGuide key="safeArea" id="eZh-3V-RbT"/>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SatFatCell" id="Muh-Gm-Zwh">
+                                        <rect key="frame" x="0.0" y="502" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Muh-Gm-Zwh" id="bHv-sZ-jXI">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  - Saturated Fat (g):" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HKy-Nf-Usn">
+                                                    <rect key="frame" x="20" y="11" width="187" height="22"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="500" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HU3-gK-Pze">
+                                                    <rect key="frame" x="207" y="11" width="187" height="22"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="HU3-gK-Pze" firstAttribute="trailing" secondItem="bHv-sZ-jXI" secondAttribute="trailingMargin" id="3XP-hn-59v"/>
+                                                <constraint firstItem="HU3-gK-Pze" firstAttribute="top" secondItem="bHv-sZ-jXI" secondAttribute="topMargin" id="6sO-yA-Gwb"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="HU3-gK-Pze" secondAttribute="bottom" id="G6C-0h-JbI"/>
+                                                <constraint firstItem="HU3-gK-Pze" firstAttribute="width" secondItem="HKy-Nf-Usn" secondAttribute="width" id="ReU-dY-aH4"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="HKy-Nf-Usn" secondAttribute="bottom" id="bJU-NF-A21"/>
+                                                <constraint firstItem="HKy-Nf-Usn" firstAttribute="leading" secondItem="bHv-sZ-jXI" secondAttribute="leadingMargin" id="err-aQ-uH8"/>
+                                                <constraint firstItem="HKy-Nf-Usn" firstAttribute="top" secondItem="bHv-sZ-jXI" secondAttribute="topMargin" id="kle-0I-DNC"/>
+                                                <constraint firstItem="HU3-gK-Pze" firstAttribute="leading" secondItem="HKy-Nf-Usn" secondAttribute="trailing" id="pLX-PK-LGO"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <viewLayoutGuide key="safeArea" id="QH4-fJ-u0Z"/>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FibreCell" id="M08-eX-lUO">
+                                        <rect key="frame" x="0.0" y="546" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="M08-eX-lUO" id="JVL-18-43G">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fibre (g):" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eny-kb-R8R">
+                                                    <rect key="frame" x="20" y="11" width="187" height="22"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="500" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gxE-Gv-F10">
+                                                    <rect key="frame" x="207" y="11" width="187" height="22"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="gxE-Gv-F10" firstAttribute="width" secondItem="eny-kb-R8R" secondAttribute="width" id="6Zs-yK-PYh"/>
+                                                <constraint firstItem="gxE-Gv-F10" firstAttribute="leading" secondItem="eny-kb-R8R" secondAttribute="trailing" id="9Mm-yC-Tbc"/>
+                                                <constraint firstItem="eny-kb-R8R" firstAttribute="top" secondItem="JVL-18-43G" secondAttribute="topMargin" id="AdR-oG-rzL"/>
+                                                <constraint firstItem="gxE-Gv-F10" firstAttribute="trailing" secondItem="JVL-18-43G" secondAttribute="trailingMargin" id="Ddb-6D-Ure"/>
+                                                <constraint firstItem="eny-kb-R8R" firstAttribute="leading" secondItem="JVL-18-43G" secondAttribute="leadingMargin" id="HCx-P6-8Dg"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="eny-kb-R8R" secondAttribute="bottom" id="Nfx-ia-PZs"/>
+                                                <constraint firstItem="gxE-Gv-F10" firstAttribute="top" secondItem="JVL-18-43G" secondAttribute="topMargin" id="wqv-tA-BMj"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="gxE-Gv-F10" secondAttribute="bottom" id="xOG-KA-pJh"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <viewLayoutGuide key="safeArea" id="OU7-SM-tKZ"/>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="Uhs-fD-usf" id="bCL-Tk-Ifi"/>
+                            <outlet property="delegate" destination="Uhs-fD-usf" id="VCt-MD-L3W"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="HHQ-9v-7Dg">
+                        <barButtonItem key="rightBarButtonItem" image="tick-icon" id="hbC-9E-peg">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="addButtonTapped:" destination="Uhs-fD-usf" id="yyR-b7-JiV"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="caloriesLabel" destination="npQ-ie-kOl" id="HfQ-FZ-auT"/>
+                        <outlet property="carbsLabel" destination="Ebe-hu-mnw" id="uxA-V4-Gi2"/>
+                        <outlet property="fatLabel" destination="ZW6-rQ-uJR" id="lpa-FZ-XsT"/>
+                        <outlet property="fibreLabel" destination="gxE-Gv-F10" id="wpx-Of-XmV"/>
+                        <outlet property="fibreTextLabel" destination="eny-kb-R8R" id="7kk-v9-LLG"/>
+                        <outlet property="foodNameLabel" destination="XRn-dW-ok5" id="4gu-rY-uwy"/>
+                        <outlet property="mealPicker" destination="bed-rF-Bhv" id="f1S-uc-PxS"/>
+                        <outlet property="proteinLabel" destination="ywH-b6-QsY" id="ZY7-et-WB8"/>
+                        <outlet property="saturatedFatLabel" destination="HU3-gK-Pze" id="NPU-nn-A2h"/>
+                        <outlet property="saturatedFatTextLabel" destination="HKy-Nf-Usn" id="Brg-aP-Vf7"/>
+                        <outlet property="servingSizeButton" destination="u9e-KC-hPq" id="6gv-Ee-fbg"/>
+                        <outlet property="servingSizeUnitButton" destination="fEE-B2-Cal" id="E94-ds-t9W"/>
+                        <outlet property="servingTextField" destination="1wI-c2-SGw" id="aq9-ed-giB"/>
+                        <outlet property="sugarLabel" destination="a1V-9G-NR2" id="leb-Jy-LEL"/>
+                        <outlet property="sugarTextLabel" destination="JVH-1V-mex" id="lb0-z5-EeY"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="i9u-pe-fvo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4031.884057971015" y="221.65178571428569"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="tick-icon" width="37.5" height="37.5"/>
+    </resources>
+</document>

@@ -40,7 +40,10 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var caloriesTextField: UITextField!
     @IBOutlet weak var proteinTextField: UITextField!
     @IBOutlet weak var carbsTextField: UITextField!
+    @IBOutlet weak var sugarTextField: UITextField!
     @IBOutlet weak var fatTextField: UITextField!
+    @IBOutlet weak var saturatedFatTextField: UITextField!
+    @IBOutlet weak var fibreTextField: UITextField!
     
     @IBOutlet weak var mealLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
@@ -49,7 +52,10 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var caloriesLabel: UILabel!
     @IBOutlet weak var proteinLabel: UILabel!
     @IBOutlet weak var carbsLabel: UILabel!
+    @IBOutlet weak var sugarLabel: UILabel!
     @IBOutlet weak var fatLabel: UILabel!
+    @IBOutlet weak var saturatedFatLabel: UILabel!
+    @IBOutlet weak var fibreLabel: UILabel!
     
     
     var activeTextField = UITextField()
@@ -95,6 +101,9 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
             proteinLabel.font = proteinLabel.font.withSize(16)
             carbsLabel.font = carbsLabel.font.withSize(16)
             fatLabel.font = fatLabel.font.withSize(16)
+            sugarLabel.font = sugarLabel.font.withSize(12)
+            saturatedFatLabel.font = saturatedFatLabel.font.withSize(12)
+            fibreLabel.font = fibreLabel.font.withSize(16)
             
             mealPicker.setTitle("Bfast", forSegmentAt: 0)
         }
@@ -106,8 +115,11 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
         proteinTextField.delegate = self
         carbsTextField.delegate = self
         fatTextField.delegate = self
+        sugarTextField.delegate = self
+        saturatedFatTextField.delegate = self
+        fibreTextField.delegate = self
         
-        addInputAccessoryForTextFields(textFields: [foodNameTextField,servingSizeTextField,servingTextField,caloriesTextField,proteinTextField,carbsTextField,fatTextField], dismissable: true, previousNextable: true)
+        addInputAccessoryForTextFields(textFields: [foodNameTextField, servingSizeTextField, servingTextField, caloriesTextField, proteinTextField, carbsTextField, sugarTextField, fatTextField, saturatedFatTextField, fibreTextField], dismissable: true, previousNextable: true)
     }
     
 
@@ -227,6 +239,9 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
         workingCopy.protein = Double(proteinTextField.text ?? "0") ?? 0
         workingCopy.carbs = Double(carbsTextField.text ?? "0") ?? 0
         workingCopy.fat = Double(fatTextField.text ?? "0") ?? 0
+        workingCopy.sugar = Double(sugarTextField.text ?? "0") ?? 0
+        workingCopy.saturatedFat = Double(saturatedFatTextField.text ?? "0") ?? 0
+        workingCopy.fibre = Double(fibreTextField.text ?? "0") ?? 0
 //        workingCopy.numberOfTimesAdded += 1
         print(date!)
         guard let user = Auth.auth().currentUser?.uid else { return }
@@ -275,7 +290,16 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
             carbsTextField.becomeFirstResponder()
         }
         else if textField == carbsTextField {
+            sugarTextField.becomeFirstResponder()
+        }
+        else if textField == sugarTextField {
             fatTextField.becomeFirstResponder()
+        }
+        else if textField == fatTextField {
+            saturatedFatTextField.becomeFirstResponder()
+        }
+        else if textField == saturatedFatTextField {
+            fibreTextField.becomeFirstResponder()
         }
         return true
     }
@@ -307,6 +331,9 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
         proteinTextField.endEditing(true)
         carbsTextField.endEditing(true)
         fatTextField.endEditing(true)
+        sugarTextField.endEditing(true)
+        saturatedFatTextField.endEditing(true)
+        fibreTextField.endEditing(true)
         
     }
     
