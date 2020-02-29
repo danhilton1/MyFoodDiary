@@ -671,11 +671,3 @@ extension WeightViewController {
         }
     }
 }
-
-//MARK:- WeightDelegate Protocol
-
-protocol WeightDelegate: class {
-    func reloadData(weightEntry: Weight, date: Date?)
-}
-
-

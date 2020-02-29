@@ -230,9 +230,7 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
         }
         
     }
-    
 
-    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if UIScreen.main.bounds.height < 600 {
             return 50

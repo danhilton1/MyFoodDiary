@@ -70,22 +70,12 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setUpTableView()
-        checkDeviceAndUpdateConstraints()
-        
-        refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
-        eatMeTableView.addSubview(refreshControl)
-        
+        setUpViews()
         configureDateView()
-        loadFoodData()
-        
         setUpToolBar()
-        datePicker.datePickerMode = .date
-        datePicker.locale = Locale.current
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissResponder))
-        dimView.addGestureRecognizer(tapGesture)
-        
+        checkDeviceAndUpdateConstraints()
+
+        loadFoodData()
     }
     
 
@@ -103,6 +93,16 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         dimView.removeFromSuperview()
     }
 
+    private func setUpViews() {
+        setUpTableView()
+        refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
+        eatMeTableView.addSubview(refreshControl)
+        datePicker.datePickerMode = .date
+        datePicker.locale = Locale.current
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissResponder))
+        dimView.addGestureRecognizer(tapGesture)
+    }
     
     private func setUpTableView() {
         eatMeTableView.delegate = self
@@ -172,8 +172,6 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-    
-    
     //MARK:- Data methods
     
     func loadFoodData() {
@@ -212,9 +210,6 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         loadFoodData()
         refreshControl.endRefreshing()
     }
-    
-    
-    
     
     //MARK: - Methods to Update UI with user's entry data
     
@@ -270,9 +265,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             carbs += carbsArray[i]
             fat += fatArray[i]
         }
-        
     }
-    
     
     func setUpPieChart(cell: MealOverviewCell, section1 protein: Double, section2 carbs: Double, section3 fat: Double) {
         
@@ -624,59 +617,3 @@ extension OverviewViewController {
         
     }
 }
-
-//MARK:- Extension for type Double to add formatting/rounding functions
-
-extension Double {
-    
-    mutating func roundToXDecimalPoints(decimalPoints: Int?) -> Double {
-        switch decimalPoints {
-        case 1:
-            return Darwin.round(10 * self) / 10
-        case 2:
-            return Darwin.round(100 * self) / 100
-        case 3:
-            return Darwin.round(1000 * self) / 1000
-        case 4:
-            return Darwin.round(10000 * self) / 10000
-        case 5:
-            return Darwin.round(100000 * self) / 100000
-        case 6:
-            return Darwin.round(1000000 * self) / 1000000
-        case 7:
-            return Darwin.round(10000000 * self) / 10000000
-        case 8:
-            return Darwin.round(100000000 * self) / 100000000
-        case 9:
-            return Darwin.round(1000000000 * self) / 1000000000
-        case 10:
-            return Darwin.round(10000000000 * self) / 10000000000
-        default:
-            return Darwin.round(self)
-            
-        }
-    }
-    
-    mutating func removePointZeroEndingAndConvertToString() -> String {
-        var numberString = String(self.roundToXDecimalPoints(decimalPoints: 1))
-
-        if numberString.hasSuffix(".0") {
-            numberString.removeLast(2)
-        }
-        return numberString
-    }
-    
-    mutating func roundWholeAndRemovePointZero() -> String {
-        let value = Darwin.round(self)
-        var valueString = String(value)
-        
-        if valueString.hasSuffix(".0") {
-            valueString.removeLast(2)
-        }
-        return valueString
-    }
-}
-
-
-
-

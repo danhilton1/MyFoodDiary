@@ -201,11 +201,9 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
             }
         }
         else {
-            displayErrorAlert(message: "Information for this barcode could not be found. Please try again or enter details manually.")
+            displayErrorAlert(message: "Information for this barcode could not be found. Please try searching for the item or enter details manually.")
             session.stopRunning()
-            
-        }
-        
+        } 
     }
     
     
@@ -291,7 +289,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                     print("Error parsing JSON - \(error)")
                     
                     self.activityIndicator.stopAnimating()
-                    self.displayErrorAlert(message: "Information for this barcode could not be found. Please try again or enter details manually.")
+                    self.displayErrorAlert(message: "Try searching for the item or entering the details manually.")
                 }
                 
             }
@@ -314,7 +312,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
     
     
     private func displayErrorAlert(message: String) {
-        let alertController = UIAlertController(title: "Error!", message: message, preferredStyle: .alert)
+        let alertController = UIAlertController(title: "No matching items found", message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
             self.dimmedView.removeFromSuperview()
             self.session.startRunning()

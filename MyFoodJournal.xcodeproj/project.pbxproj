@@ -43,6 +43,11 @@
 		377A57D2233F896100D816DD /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377A57D1233F896100D816DD /* Color.swift */; };
 		377C1C782409B361004BEF8B /* FoodDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 377C1C772409B361004BEF8B /* FoodDetail.storyboard */; };
 		377C9BFA236DBA6A008165DA /* WeightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377C9BF9236DBA6A008165DA /* WeightViewController.swift */; };
+		3787558C240ABBD7000CA3C8 /* DoubleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787558B240ABBD7000CA3C8 /* DoubleExtension.swift */; };
+		3787558E240ABC20000CA3C8 /* NewEntryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787558D240ABC20000CA3C8 /* NewEntryProtocol.swift */; };
+		37875590240ABC50000CA3C8 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787558F240ABC50000CA3C8 /* UIViewControllerExtension.swift */; };
+		37875592240ABCB4000CA3C8 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37875591240ABCB4000CA3C8 /* DateExtension.swift */; };
+		37875594240ABD4A000CA3C8 /* WeightProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37875593240ABD4A000CA3C8 /* WeightProtocol.swift */; };
 		378917C022C8DC3B00571181 /* BarcodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378917BF22C8DC3B00571181 /* BarcodeScannerViewController.swift */; };
 		378A01122323FD250035C803 /* Montserrat-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 378A01112323FD250035C803 /* Montserrat-Medium.otf */; };
 		378F9199231AC204007142AA /* FoodHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378F9198231AC204007142AA /* FoodHistoryCell.swift */; };
@@ -131,6 +136,11 @@
 		377A57D1233F896100D816DD /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		377C1C772409B361004BEF8B /* FoodDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FoodDetail.storyboard; sourceTree = "<group>"; };
 		377C9BF9236DBA6A008165DA /* WeightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightViewController.swift; sourceTree = "<group>"; };
+		3787558B240ABBD7000CA3C8 /* DoubleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleExtension.swift; sourceTree = "<group>"; };
+		3787558D240ABC20000CA3C8 /* NewEntryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEntryProtocol.swift; sourceTree = "<group>"; };
+		3787558F240ABC50000CA3C8 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
+		37875591240ABCB4000CA3C8 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
+		37875593240ABD4A000CA3C8 /* WeightProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightProtocol.swift; sourceTree = "<group>"; };
 		378917BF22C8DC3B00571181 /* BarcodeScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeScannerViewController.swift; sourceTree = "<group>"; };
 		378A01112323FD250035C803 /* Montserrat-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.otf"; sourceTree = "<group>"; };
 		378F9198231AC204007142AA /* FoodHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodHistoryCell.swift; sourceTree = "<group>"; };
@@ -228,9 +238,11 @@
 		377208B32291A1F8002DDA29 /* MyFoodJournal */ = {
 			isa = PBXGroup;
 			children = (
+				37875588240ABB1E000CA3C8 /* Utilities */,
 				377208C92291A218002DDA29 /* Model */,
 				377208CA2291A21E002DDA29 /* View */,
-				377208CB2291A223002DDA29 /* Controller */,
+				377208CB2291A223002DDA29 /* View Controllers */,
+				377208B42291A1F8002DDA29 /* AppDelegate.swift */,
 				377208BE2291A1FA002DDA29 /* Assets.xcassets */,
 				377208C32291A1FA002DDA29 /* Info.plist */,
 				37CB4B9D2405C19C0004FD71 /* GoogleService-Info.plist */,
@@ -245,7 +257,6 @@
 				3713FFE4237F433C000D1E50 /* Weight.swift */,
 				37A8AEB423A2DDFE002DCA43 /* Food+Firestore.swift */,
 				3723E68B23B4CFF3003C1EB0 /* Weight+Firestore.swift */,
-				37D5137223D4BC0D00780CD1 /* UserDefaultsKeys.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -253,53 +264,27 @@
 		377208CA2291A21E002DDA29 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				377208B82291A1F8002DDA29 /* Main.storyboard */,
-				3779430723F9AEEB00D6CF7D /* Overview.storyboard */,
-				3779430123F9A80900D6CF7D /* More.storyboard */,
-				3779430323F9AB7C00D6CF7D /* Weight.storyboard */,
-				3779430523F9AE4500D6CF7D /* Nutrition.storyboard */,
-				3779430923F9AF4900D6CF7D /* NewEntry.storyboard */,
-				377C1C772409B361004BEF8B /* FoodDetail.storyboard */,
-				37F6DD4D23F8709200B2D9A5 /* LaunchScreenController.storyboard */,
-				37F6DD4F23F8713400B2D9A5 /* LaunchScreenController.swift */,
-				377208C02291A1FA002DDA29 /* LaunchScreen.storyboard */,
-				377A57D1233F896100D816DD /* Color.swift */,
+				37875587240ABAD4000CA3C8 /* Storyboards */,
 				37A07E3B22DD028300E4A351 /* Custom Fonts */,
 				377208D42291E012002DDA29 /* Custom Cell */,
+				377A57D1233F896100D816DD /* Color.swift */,
 				3704184223832D7100F3B296 /* DateButton.swift */,
 				376CD1D7238F095000257076 /* LogInTextField.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
 		};
-		377208CB2291A223002DDA29 /* Controller */ = {
+		377208CB2291A223002DDA29 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				37C2E37B2387365B006A4C51 /* WelcomeViewController.swift */,
-				376CD1D3238F045F00257076 /* RegisterViewController.swift */,
-				376CD1D5238F046900257076 /* LogInViewController.swift */,
-				37BEA92023DE1E5F003983B9 /* ForgotPasswordViewController.swift */,
-				37DE59D622D1055D00079A6A /* OverviewPageViewController.swift */,
-				377208B62291A1F8002DDA29 /* OverviewViewController.swift */,
-				37563BD722C69E8F0032D94E /* NewEntryViewController.swift */,
-				37CA772C22A1BB4F00C03A06 /* ManualEntryViewController.swift */,
-				379DB00522B2EBB300F3DC5B /* MealDetailViewController.swift */,
-				378917BF22C8DC3B00571181 /* BarcodeScannerViewController.swift */,
-				372F5A602301C374006A8665 /* FoodDetailViewController.swift */,
-				37DE71062351097900B1C4AC /* NutritionViewController.swift */,
-				37360AF423520BC000AA02A2 /* DayNutritionViewController.swift */,
-				37360AF623520BCC00AA02A2 /* WeekNutritionViewController.swift */,
-				37360AF823520BE300AA02A2 /* MonthNutritionViewController.swift */,
-				377C9BF9236DBA6A008165DA /* WeightViewController.swift */,
-				37E0C03223800020005FEB29 /* NewWeightEntryViewController.swift */,
-				372E70DC2381A783001DCB06 /* MoreViewController.swift */,
-				37B9BD3E23CB9F3000864540 /* MyAccountViewController.swift */,
-				37D5136E23D4A8AF00780CD1 /* StatsViewController.swift */,
-				37D5137023D4BA1800780CD1 /* GoalsViewController.swift */,
-				37F46B5323EB53BF00DA2140 /* AboutViewController.swift */,
-				377208B42291A1F8002DDA29 /* AppDelegate.swift */,
+				37875595240ABEFC000CA3C8 /* Welcome */,
+				37875596240ABF01000CA3C8 /* Overview */,
+				37875597240ABF0A000CA3C8 /* New Entry */,
+				37875598240ABF0F000CA3C8 /* Nutrition */,
+				3787559A240ABF2D000CA3C8 /* More */,
+				37875599240ABF27000CA3C8 /* Weight */,
 			);
-			path = Controller;
+			path = "View Controllers";
 			sourceTree = "<group>";
 		};
 		377208D42291E012002DDA29 /* Custom Cell */ = {
@@ -317,6 +302,116 @@
 				37BBEBF9235659F600D390E5 /* LineChartCell.xib */,
 			);
 			path = "Custom Cell";
+			sourceTree = "<group>";
+		};
+		37875587240ABAD4000CA3C8 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				37F6DD4D23F8709200B2D9A5 /* LaunchScreenController.storyboard */,
+				37F6DD4F23F8713400B2D9A5 /* LaunchScreenController.swift */,
+				377208C02291A1FA002DDA29 /* LaunchScreen.storyboard */,
+				377208B82291A1F8002DDA29 /* Main.storyboard */,
+				3779430723F9AEEB00D6CF7D /* Overview.storyboard */,
+				3779430123F9A80900D6CF7D /* More.storyboard */,
+				3779430323F9AB7C00D6CF7D /* Weight.storyboard */,
+				3779430523F9AE4500D6CF7D /* Nutrition.storyboard */,
+				3779430923F9AF4900D6CF7D /* NewEntry.storyboard */,
+				377C1C772409B361004BEF8B /* FoodDetail.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		37875588240ABB1E000CA3C8 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				3787558A240ABB7F000CA3C8 /* Extensions */,
+				37875589240ABB78000CA3C8 /* Protocols */,
+				37D5137223D4BC0D00780CD1 /* UserDefaultsKeys.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		37875589240ABB78000CA3C8 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				3787558D240ABC20000CA3C8 /* NewEntryProtocol.swift */,
+				37875593240ABD4A000CA3C8 /* WeightProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		3787558A240ABB7F000CA3C8 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				3787558B240ABBD7000CA3C8 /* DoubleExtension.swift */,
+				3787558F240ABC50000CA3C8 /* UIViewControllerExtension.swift */,
+				37875591240ABCB4000CA3C8 /* DateExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		37875595240ABEFC000CA3C8 /* Welcome */ = {
+			isa = PBXGroup;
+			children = (
+				37C2E37B2387365B006A4C51 /* WelcomeViewController.swift */,
+				376CD1D3238F045F00257076 /* RegisterViewController.swift */,
+				376CD1D5238F046900257076 /* LogInViewController.swift */,
+				37BEA92023DE1E5F003983B9 /* ForgotPasswordViewController.swift */,
+			);
+			path = Welcome;
+			sourceTree = "<group>";
+		};
+		37875596240ABF01000CA3C8 /* Overview */ = {
+			isa = PBXGroup;
+			children = (
+				37DE59D622D1055D00079A6A /* OverviewPageViewController.swift */,
+				377208B62291A1F8002DDA29 /* OverviewViewController.swift */,
+				379DB00522B2EBB300F3DC5B /* MealDetailViewController.swift */,
+				372F5A602301C374006A8665 /* FoodDetailViewController.swift */,
+			);
+			path = Overview;
+			sourceTree = "<group>";
+		};
+		37875597240ABF0A000CA3C8 /* New Entry */ = {
+			isa = PBXGroup;
+			children = (
+				37563BD722C69E8F0032D94E /* NewEntryViewController.swift */,
+				37CA772C22A1BB4F00C03A06 /* ManualEntryViewController.swift */,
+				378917BF22C8DC3B00571181 /* BarcodeScannerViewController.swift */,
+			);
+			path = "New Entry";
+			sourceTree = "<group>";
+		};
+		37875598240ABF0F000CA3C8 /* Nutrition */ = {
+			isa = PBXGroup;
+			children = (
+				37DE71062351097900B1C4AC /* NutritionViewController.swift */,
+				37360AF423520BC000AA02A2 /* DayNutritionViewController.swift */,
+				37360AF623520BCC00AA02A2 /* WeekNutritionViewController.swift */,
+				37360AF823520BE300AA02A2 /* MonthNutritionViewController.swift */,
+			);
+			path = Nutrition;
+			sourceTree = "<group>";
+		};
+		37875599240ABF27000CA3C8 /* Weight */ = {
+			isa = PBXGroup;
+			children = (
+				377C9BF9236DBA6A008165DA /* WeightViewController.swift */,
+				37E0C03223800020005FEB29 /* NewWeightEntryViewController.swift */,
+			);
+			path = Weight;
+			sourceTree = "<group>";
+		};
+		3787559A240ABF2D000CA3C8 /* More */ = {
+			isa = PBXGroup;
+			children = (
+				372E70DC2381A783001DCB06 /* MoreViewController.swift */,
+				37B9BD3E23CB9F3000864540 /* MyAccountViewController.swift */,
+				37D5136E23D4A8AF00780CD1 /* StatsViewController.swift */,
+				37D5137023D4BA1800780CD1 /* GoalsViewController.swift */,
+				37F46B5323EB53BF00DA2140 /* AboutViewController.swift */,
+			);
+			path = More;
 			sourceTree = "<group>";
 		};
 		37A07E3B22DD028300E4A351 /* Custom Fonts */ = {
@@ -569,9 +664,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				37C2E37C2387365B006A4C51 /* WelcomeViewController.swift in Sources */,
+				37875592240ABCB4000CA3C8 /* DateExtension.swift in Sources */,
 				37D5136F23D4A8AF00780CD1 /* StatsViewController.swift in Sources */,
 				37CA772D22A1BB4F00C03A06 /* ManualEntryViewController.swift in Sources */,
 				37D5137123D4BA1800780CD1 /* GoalsViewController.swift in Sources */,
+				37875594240ABD4A000CA3C8 /* WeightProtocol.swift in Sources */,
+				37875590240ABC50000CA3C8 /* UIViewControllerExtension.swift in Sources */,
 				377A57D2233F896100D816DD /* Color.swift in Sources */,
 				37360AF723520BCC00AA02A2 /* WeekNutritionViewController.swift in Sources */,
 				37DE59D722D1055D00079A6A /* OverviewPageViewController.swift in Sources */,
@@ -583,12 +681,14 @@
 				37B9BD3F23CB9F3000864540 /* MyAccountViewController.swift in Sources */,
 				37360AF523520BC000AA02A2 /* DayNutritionViewController.swift in Sources */,
 				3704184323832D7100F3B296 /* DateButton.swift in Sources */,
+				3787558E240ABC20000CA3C8 /* NewEntryProtocol.swift in Sources */,
 				37DE71072351097900B1C4AC /* NutritionViewController.swift in Sources */,
 				37360AFC2352150700AA02A2 /* BarChartNutritionCell.swift in Sources */,
 				377208D22291B002002DDA29 /* MealOverviewCell.swift in Sources */,
 				37241ABD22CD127800AF85AB /* MealDetailCell.swift in Sources */,
 				376CD1D8238F095000257076 /* LogInTextField.swift in Sources */,
 				3713FFE5237F433C000D1E50 /* Weight.swift in Sources */,
+				3787558C240ABBD7000CA3C8 /* DoubleExtension.swift in Sources */,
 				378F9199231AC204007142AA /* FoodHistoryCell.swift in Sources */,
 				37D5137323D4BC0D00780CD1 /* UserDefaultsKeys.swift in Sources */,
 				37BBEBFA235659F600D390E5 /* LineChartCell.swift in Sources */,

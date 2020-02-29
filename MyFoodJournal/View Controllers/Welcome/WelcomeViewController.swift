@@ -34,7 +34,6 @@ class WelcomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(UIScreen.main.bounds.height)
         setUpViews()
         checkIfUserIsSignedIn()
         if defaults.value(forKey: UserDefaultsKeys.weightUnit) as? String == nil {
@@ -48,10 +47,6 @@ class WelcomeViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewDidDisappear(true)
-        //navigationController?.navigationBar.isHidden = false
-    }
     
     func setUpViews() {
         view.backgroundColor = Color.skyBlue
