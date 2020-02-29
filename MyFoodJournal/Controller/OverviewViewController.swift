@@ -48,7 +48,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     private let toolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
        
     private let dimView = UIView()
-    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissResponder))
+    
     
     //IBOutlets
     @IBOutlet weak var dayLabel: UILabel!
@@ -83,6 +83,9 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         datePicker.datePickerMode = .date
         datePicker.locale = Locale.current
         
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissResponder))
+        dimView.addGestureRecognizer(tapGesture)
+        
     }
     
 
@@ -93,6 +96,11 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         configureTotalCaloriesLabel()
         presentingViewController?.tabBarController?.tabBar.isHidden = false
         tabBarController?.tabBar.isHidden = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        dimView.removeFromSuperview()
     }
 
     
@@ -105,7 +113,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     
     private func setUpToolBar() {
         self.toolbar.items = [
-            UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: #selector(dismissResponder)),
+            UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissResponder)),
             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
             UIBarButtonItem(title: "Today", style: .plain, target: self, action: #selector(todayTapped)),
             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
@@ -320,29 +328,30 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             
         }
         self.becomeFirstResponder()
-        
-        dimView.addGestureRecognizer(tapGesture)
-        
     }
+
     
     @objc func dateEntered() {
         self.resignFirstResponder()
+        
         UIView.animate(withDuration: 0.2) {
             self.dimView.alpha = 0
         }
+        
         let previousDate = date
         date = datePicker.date
         let parentVC = parent as? OverviewPageViewController
         parentVC?.dateEnteredFromPicker = true
         parentVC?.dateFromDatePicker = datePicker.date
         
-        if self.date! > previousDate! {
-            self.eatMeTableView.frame = self.eatMeTableView.frame.offsetBy(dx: -self.eatMeTableView.frame.width, dy: 0)
-        }
-        else if self.date! < previousDate! {
-            self.eatMeTableView.frame = self.eatMeTableView.frame.offsetBy(dx: self.eatMeTableView.frame.width, dy: 0)
-        }
+        
         UIView.animate(withDuration: 0.35, delay: 0, options: .curveEaseInOut, animations: {
+            if self.date! > previousDate! {
+                self.eatMeTableView.frame = self.eatMeTableView.frame.offsetBy(dx: -self.eatMeTableView.frame.width, dy: 0)
+            }
+            else if self.date! < previousDate! {
+                self.eatMeTableView.frame = self.eatMeTableView.frame.offsetBy(dx: self.eatMeTableView.frame.width, dy: 0)
+            }
             var viewRightFrame = self.eatMeTableView.frame
             viewRightFrame.origin.x += viewRightFrame.size.width
             var viewLeftFrame = self.eatMeTableView.frame
@@ -375,8 +384,8 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         UIView.animate(withDuration: 0.2) {
             self.dimView.alpha = 0
         }
-        dimView.removeGestureRecognizer(tapGesture)
     }
+
     
     @IBAction func goalButtonTapped(_ sender: UIButton) {
         let ac = UIAlertController(title: "Goal Calories", message: "Please set your goal calories", preferredStyle: .alert)
