@@ -272,8 +272,9 @@ extension MealDetailViewController {
             
             var index = 0
                for entry in allFood! {
-                    if entry.name == food.name {
+                if entry.name == food.name && entry.uuid == food.uuid {
                         selectedFoodList?.remove(at: indexPath.section)
+                        PVC.allFood[index].isDeleted = true
                         overviewVC.allFood?[index].isDeleted = true
                         overviewVC.loadFoodData()
                         break

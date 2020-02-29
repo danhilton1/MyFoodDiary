@@ -88,6 +88,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        
         loadFoodData()
         configureTotalCaloriesLabel()
         presentingViewController?.tabBarController?.tabBar.isHidden = false

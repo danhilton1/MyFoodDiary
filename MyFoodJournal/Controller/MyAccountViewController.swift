@@ -155,6 +155,11 @@ class MyAccountViewController: UITableViewController {
                                     Auth.auth().currentUser?.updateEmail(to: anonymousEmail)
                                 }
                                 else {
+                                    let db = Firestore.firestore()
+                                    db.collection("users").document(Auth.auth().currentUser!.uid).setData([
+                                        "email": email,
+                                        "uid": Auth.auth().currentUser!.uid
+                                    ])
                                     
                                     self.defaults.removeObject(forKey: UserDefaultsKeys.anonymousUserEmail)
                                     KeychainWrapper.standard.removeObject(forKey: "anonymousUserPassword")
@@ -167,7 +172,7 @@ class MyAccountViewController: UITableViewController {
                                     self.dismissPopUp()
                                     self.emailLabel.text = email
                                     self.changeEmailButton.setTitle("Change Email", for: .normal)
-                                    self.changePasswordButton.setTitleColor(Color.skyBlue, for: .normal)
+                                    self.changePasswordButton.setTitleColor(self.changeEmailButton.titleColor(for: .normal), for: .normal)
                                     self.passwordCell.isUserInteractionEnabled = true
       
                                 }
