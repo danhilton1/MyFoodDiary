@@ -12,8 +12,11 @@ import SVProgressHUD
 
 class ForgotPasswordViewController: UIViewController, UITextFieldDelegate {
 
+    //MARK:- Properties
+    
     private let toolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
     
+    // IBOutlets
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var textLabel: UILabel!
     @IBOutlet weak var emailTextField: LogInTextField!
@@ -22,6 +25,8 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var emailTextFieldHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var submitButtonHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var submitButtonTopConstraint: NSLayoutConstraint!
+    
+    //MARK:- View Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,6 +69,8 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate {
             submitButton.layer.cornerRadius = 18
         }
     }
+    
+    //MARK:- Button Methods
     
     @IBAction func submitButtonTapped(_ sender: UIButton) {
         if let email = emailTextField.text {

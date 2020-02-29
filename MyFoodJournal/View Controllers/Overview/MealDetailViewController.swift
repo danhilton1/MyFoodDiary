@@ -40,19 +40,7 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.tintColor = .white
-        
-        if UIScreen.main.bounds.height < 600 {
-            caloriesLabel.font = caloriesLabel.font.withSize(20)
-        }
-        
-        caloriesLabel.text = "   Calories: \(calories)"
-        
-        tableView.tableFooterView = UIView()
-        
-        if selectedFoodList?.count == 0 {
-            tableView.separatorStyle = .none
-        }
+        setUpViews()
         
     }
     
@@ -66,11 +54,25 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
         noEntriesToDisplay = false
     }
     
+    func setUpViews() {
+        self.navigationController?.navigationBar.tintColor = .white
+        
+        if UIScreen.main.bounds.height < 600 {
+            caloriesLabel.font = caloriesLabel.font.withSize(20)
+        }
+        caloriesLabel.text = "   Calories: \(calories)"
+        
+        tableView.tableFooterView = UIView()
+        if selectedFoodList?.count == 0 {
+            tableView.separatorStyle = .none
+        }
+    }
+    
     //MARK:- Delegate Methods
     
     func reloadFood(entry: Food?, new: Bool) {
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5 ) {
-            
             if new {
                 self.selectedFoodList?.append(entry!)
             }
@@ -129,7 +131,7 @@ class MealDetailViewController: UITableViewController, NewEntryDelegate {
 }
     
     
-    // MARK: - Table view data source and delegate methods
+// MARK: - Table view data source and delegate methods
 
 extension MealDetailViewController {
 

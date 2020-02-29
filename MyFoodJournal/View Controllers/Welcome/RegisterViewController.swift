@@ -17,6 +17,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     let db = Firestore.firestore()
     let defaults = UserDefaults()
     
+    // IBOutlet Views
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var passwordLabel: UILabel!
@@ -31,7 +32,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var termsButton: UIButton!
     @IBOutlet weak var privacyButton: UIButton!
     
-    
+    // Constraints
     @IBOutlet weak var emailLabelTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var emailTextFieldHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var emailTextFieldTopConstraint: NSLayoutConstraint!
@@ -218,7 +219,6 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     }
     
     
-    
     @IBAction func backButtonTapped(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
     }
@@ -290,16 +290,4 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-}
-
-
-
-//MARK:- UITextField Extension for padding
-
-extension UITextField {
-    func setLeftPaddingPoints(_ amount: CGFloat){
-        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: amount, height: self.frame.size.height))
-        self.leftView = paddingView
-        self.leftViewMode = .always
-    }
 }

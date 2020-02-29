@@ -51,15 +51,19 @@ class DayNutritionViewController: UIViewController, UITableViewDataSource, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        foodList = realm.objects(Food.self)
+        setUpTableView()
+        
+    }
+    
+    func setUpTableView() {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UINib(nibName: "DayNutritionCell", bundle: nil), forCellReuseIdentifier: "DayNutritionCell")
         tableView.allowsSelection = false
         tableView.tableFooterView = UIView()
-        
     }
     
+    //MARK:- Data Methods
     
     func reloadFood() {
         tableView.reloadData()
@@ -76,10 +80,7 @@ class DayNutritionViewController: UIViewController, UITableViewDataSource, UITab
             default:
                 nutrientArray.append(food.fat)
             }
-//            nutrientArray.append(food.value(forKey: nutrient.stringValue) as! Double)
         }
-        
-        //let nutrientArray = (foodList?.value(forKey: nutrient.stringValue)) as! [Double]
         return nutrientArray.reduce(0, +)
     }
     
@@ -205,7 +206,6 @@ class DayNutritionViewController: UIViewController, UITableViewDataSource, UITab
                 cell.proteinKeyWidthConstraint.constant = 15
                 cell.proteinKeyHeightConstraint.constant = 15
                 cell.goalProteinLabelCenterXConstraint.isActive = false
-//                cell.proteinValueLabelLeadingConstraint.constant = 10
                 
                 cell.proteinTextLabel.font = cell.proteinTextLabel.font.withSize(14)
                 cell.carbsTextLabel.font = cell.carbsTextLabel.font.withSize(14)

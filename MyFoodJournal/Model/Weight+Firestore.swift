@@ -9,6 +9,14 @@
 import Foundation
 import Firebase
 
+enum WeightCollection {
+    static let weight = "weight"
+    static let unit = "unit"
+    static let date = "date"
+    static let dateString = "dateString"
+    static let dateLastEdited = "dateLastEdited"
+}
+
 private let db = Firestore.firestore()
 
 extension Weight {
@@ -27,12 +35,13 @@ extension Weight {
     
     func saveWeight(user: String) {
         
-        db.collection("users").document(user).collection("weight").document("\(self.dateString!)").setData([
-            "weight": self.weight,
-            "unit": self.unit,
-            "date": self.date,
-            "dateString": self.dateString!,
-            "dateLastEdited": self.dateLastEdited!
+        let wc = WeightCollection.self
+        db.collection("users").document(user).collection(wc.weight).document("\(self.dateString!)").setData([
+            wc.weight: self.weight,
+            wc.unit: self.unit,
+            wc.date: self.date,
+            wc.dateString: self.dateString!,
+            wc.dateLastEdited: self.dateLastEdited!
         ]) { error in
             if let error = error {
                 print("Error adding document: \(error)")
@@ -114,9 +123,5 @@ extension Weight {
                 }
             }
         }
-        
-        
-        
     }
-    
 }

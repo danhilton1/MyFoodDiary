@@ -15,14 +15,17 @@ class FoodDetailViewController: UITableViewController {
     
     //MARK:- Properties
     
+    weak var delegate: NewEntryDelegate?
+    weak var mealDelegate: NewEntryDelegate?
+    
     var food: Food?
     var date: Date?
     var selectedSegmentIndex = 0
     var isEditingExistingEntry = false
-//    var isAddingFromExistingEntry = false
     var workingCopy: Food = Food()
     private let formatter = DateFormatter()
     
+    // IBOutlets
     @IBOutlet weak var foodNameLabel: UILabel!
     @IBOutlet weak var mealPicker: UISegmentedControl!
     @IBOutlet weak var servingSizeButton: UIButton!
@@ -49,26 +52,18 @@ class FoodDetailViewController: UITableViewController {
     @IBOutlet weak var fibreTextLabel: UILabel!
     
     
-    weak var delegate: NewEntryDelegate?
-    weak var mealDelegate: NewEntryDelegate?
-    
     //MARK:- View methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.tintColor = .white
-        //tabBarController?.tabBar.isHidden = true
-        tableView.keyboardDismissMode = .interactive
-        tableView.allowsSelection = false
-        
-        formatter.dateFormat = "E, d MMM"
-        
         if let food = food {
             workingCopy = food.copy()
         }
-//        print(workingCopy.sugar)
         setUpCells()
+        
+        formatter.dateFormat = "E, d MMM"
+        
         checkDeviceAndUpdateLayout()
         
     }
@@ -103,6 +98,8 @@ class FoodDetailViewController: UITableViewController {
     private func setUpCells() {
         
         tableView.tableFooterView = UIView()
+        tableView.keyboardDismissMode = .interactive
+        tableView.allowsSelection = false
         servingTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         servingSizeButton.addTarget(self, action: #selector(servingButtonTapped), for: .touchUpInside)
         foodNameLabel.text = workingCopy.name
@@ -235,7 +232,6 @@ class FoodDetailViewController: UITableViewController {
             }
         }
         else {
-//            food.numberOfTimesAdded += 1
             food.saveFood(user: user)
         }
     }
@@ -332,7 +328,7 @@ class FoodDetailViewController: UITableViewController {
     }
     
     
-    @objc func servingButtonTapped(_ sender: UIButton) {   // NEEDS CLEANING UP
+    @objc func servingButtonTapped(_ sender: UIButton) {
 
         let alertController = UIAlertController(title: "Choose Serving Size", message: nil, preferredStyle: .actionSheet)
         

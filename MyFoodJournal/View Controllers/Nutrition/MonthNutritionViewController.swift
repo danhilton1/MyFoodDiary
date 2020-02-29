@@ -56,7 +56,7 @@ class MonthNutritionViewController: WeekNutritionViewController {
                 let reversedCarbsDataSet = BarChartDataSet(entries: carbsChartDataSet.reversed(), label: "Av. Carbs / Day")
                 let reversedFatDataSet = BarChartDataSet(entries: fatChartDataSet.reversed(), label: "Av. Fat / Day")
                 let chartDataSets = [reversedProteinDataSet, reversedCarbsDataSet, reversedFatDataSet]
-                //let chartDataSets = [proteinChartDataSet, carbsChartDataSet, fatChartDataSet]//.reversed()
+                
                 reversedProteinDataSet.colors = [Color.mint]
                 reversedCarbsDataSet.colors = [Color.skyBlue]
                 reversedFatDataSet.colors = [Color.salmon]

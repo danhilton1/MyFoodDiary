@@ -11,6 +11,8 @@ import Firebase
 
 class OverviewPageViewController: UIPageViewController, UIPageViewControllerDataSource {
     
+    //MARK:- Properties
+    
     let calendar = Calendar.current
     
     var dateEnteredFromPicker = false
@@ -18,6 +20,8 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
     let formatter = DateFormatter()
     
     var allFood = [Food]()
+    
+    //MARK:- View Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,8 +48,6 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-    
-    
     
     
     //MARK:- PageViewController Datasource Methods

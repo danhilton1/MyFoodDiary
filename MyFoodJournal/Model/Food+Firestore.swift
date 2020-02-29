@@ -28,7 +28,6 @@ enum FoodsCollection {
     static let saturatedFat = "saturatedFat"
     static let fibre = "fibre"
     static let isDeleted = "isDeleted"
-//    static let numberOfTimesAdded = "numberOfTimesAdded"
 }
 
 private let db = Firestore.firestore()
@@ -58,7 +57,6 @@ extension Food {
         self.saturatedFat = foodDictionary["saturatedFat"] as? Double ?? 0
         self.fibre = foodDictionary["fibre"] as? Double ?? 0
         self.isDeleted = foodDictionary["isDeleted"] as! Bool
-//        self.numberOfTimesAdded = foodDictionary["numberOfTimesAdded"] as! Int
     }
     
     func saveFood(user: String) {
@@ -81,8 +79,7 @@ extension Food {
             fc.sugar: self.sugar,
             fc.saturatedFat: self.saturatedFat,
             fc.fibre: self.fibre,
-            fc.isDeleted: false,
-//            fc.numberOfTimesAdded: self.numberOfTimesAdded
+            fc.isDeleted: false
         ]) { error in
             if let error = error {
                 print("Error adding document: \(error)")
@@ -109,7 +106,6 @@ extension Food {
             else {
                 for foodDocument in foods!.documents {
                     allFood.append(Food(snapshot: foodDocument))
-//                    print(Food(snapshot: foodDocument).name)
                 }
                 dispatchGroup.enter()
                 
@@ -117,9 +113,8 @@ extension Food {
                     dispatchGroup.leave()
                 }
                 else {
-                    //print(allFood.count)
+                    
                     dateOfMostRecentEntry = allFood.last?.dateLastEdited
-//                    print(dateOfMostRecentEntry)
                     
                     db.collection("users").document(user).collection("foods")
                         .whereField("dateLastEdited", isGreaterThan: dateOfMostRecentEntry?.addingTimeInterval(1) ?? calendar.date(from: defaultDateComponents)!)
@@ -149,7 +144,6 @@ extension Food {
                                                 
                                                 if foodToAdd.uuid == food.uuid {
                                                     food.dateLastEdited = foodToAdd.dateLastEdited
-//                                                    food.date = foodToAdd.date
                                                     food.meal = foodToAdd.meal
                                                     food.servingSize = foodToAdd.servingSize
                                                     food.servingSizeUnit = foodToAdd.servingSizeUnit
@@ -162,7 +156,7 @@ extension Food {
                                                     food.saturatedFat = foodToAdd.saturatedFat
                                                     food.fibre = foodToAdd.fibre
                                                     food.isDeleted = foodToAdd.isDeleted
-//                                                    food.numberOfTimesAdded = foodToAdd.numberOfTimesAdded
+
                                                     print("\(foodToAdd.name!) updated.")
                                                     
                                                 }
@@ -187,10 +181,6 @@ extension Food {
                     completion(allFood)
                 }
             }
-            
         }
-        
     }
-    
-    
 }

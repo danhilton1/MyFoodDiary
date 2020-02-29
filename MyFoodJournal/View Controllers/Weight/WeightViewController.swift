@@ -97,7 +97,7 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         var closestInterval: TimeInterval = .greatestFiniteMagnitude
         var mostCurrentEntry: Weight?
-//        print(allWeightEntries)
+
         for entry in allWeightEntries! {
             let interval: TimeInterval = abs(entry.date.timeIntervalSinceNow)
             if interval < closestInterval {
@@ -130,7 +130,6 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 }
             }
         }
-        
     }
     
     func setUpWeekData(direction: Calendar.SearchDirection, date: Date?, considerToday: Bool) {
@@ -159,7 +158,6 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
             var entry = weightEntries?.last?.weight ?? 0
             lineChartDataSet.append(ChartDataEntry(x: Double(i), y: entry.roundToXDecimalPoints(decimalPoints: 1)))
         }
-        
     }
     
     func reloadData(weightEntry: Weight, date: Date?) {
@@ -477,7 +475,6 @@ extension WeightViewController {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let weightUnit = defaults.value(forKey: UserDefaultsKeys.weightUnit) as? String
-//        let lastEntryUnit = allWeightEntries?.last?.unit ?? "kg"
         
         switch indexPath.section {
         case 0:

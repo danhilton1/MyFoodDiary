@@ -38,7 +38,6 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
         set { }
     }
     
-    
     var proteinChartDataSet = BarChartDataSet(entries: [BarChartDataEntry(x: 0, y: 0)], label: "Protein") {
         didSet {
             proteinChartDataSetCopy = proteinChartDataSet
@@ -98,15 +97,17 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        //foodList = realm.objects(Food.self)
         
+        setUpTableView()
+        
+    }
+    
+    func setUpTableView() {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UINib(nibName: "BarChartNutritionCell", bundle: nil), forCellReuseIdentifier: "BarNutritionCell")
         tableView.register(UINib(nibName: "LineChartCell", bundle: nil), forCellReuseIdentifier: "LineChartCell")
         tableView.allowsSelection = false
-        
     }
     
     func configureCalorieLabelColour(calories: Int, goalCalories: Int, cell: LineChartCell) {
@@ -122,12 +123,12 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
         }
     }
     
+    //MARK:- Data Methods
+    
     func reloadFood() {
         tableView.reloadData()
     }
 
-    
-    
     func getTotalValueOfNutrient(_ nutrient: macroNutrient, foodList: [Food]?) -> Double {
         var nutrientArray = [Double]()
         
@@ -143,7 +144,6 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
                 nutrientArray.append(Double(food.calories))
             }
         }
-        
         return nutrientArray.reduce(0, +)
     }
     
@@ -185,6 +185,7 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
         }
     }
     
+    
     func setXaxisDateValues(date: Date, lineChartCell: LineChartCell?, barChartCell: BarChartNutritionCell?) {
         var date = date
         let axisDateFormatter = DateFormatter()
@@ -206,6 +207,7 @@ class WeekNutritionViewController: UIViewController, UITableViewDataSource, UITa
 //MARK:- Extensions for tableView methods
 
 extension WeekNutritionViewController {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
     }

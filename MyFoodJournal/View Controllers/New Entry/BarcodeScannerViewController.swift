@@ -185,18 +185,15 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
 
                     dispatchGroup.notify(queue: .main) {
                         self.session.stopRunning()
-
                         self.activityIndicator.stopAnimating()
                         dimmedView.removeFromSuperview()
                         self.performSegue(withIdentifier: "goToFoodDetail", sender: nil)
-
                     }
-                    
-                } else {
-                    print("Invaled barcode type")
+                }
+                else {
+                    print("Invalid barcode type")
                     displayErrorAlert(message: "This barcode type is not valid.")
                     session.stopRunning()
-                    
                 }
             }
         }
@@ -228,7 +225,6 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                 self.performSegue(withIdentifier: "goToFoodDetail", sender: nil)
                 self.dimmedView.removeFromSuperview()
             })
-
         }))
     
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
@@ -255,6 +251,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
             do {
                 let scannedFood = try JSONDecoder().decode(FoodDatabase.self, from: data)
                 self.workingCopy.name = scannedFood.product.productName
+                
                 if scannedFood.product.servingSize == nil {
                     // If no serving size information is available, use a default value of 100g
                     self.workingCopy.servingSizeUnit = "g"
@@ -262,11 +259,11 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                     self.workingCopy.protein = scannedFood.product.nutriments.protein100g
                     self.workingCopy.carbs = scannedFood.product.nutriments.carbs100g
                     self.workingCopy.fat = scannedFood.product.nutriments.fat100g
-                    self.workingCopy.sugar = scannedFood.product.nutriments.sugars100g
-                    self.workingCopy.saturatedFat = scannedFood.product.nutriments.saturatedFat100g
-                    self.workingCopy.fibre = scannedFood.product.nutriments.fibre100g
-                    
-                } else {
+                    self.workingCopy.sugar = scannedFood.product.nutriments.sugars100g ?? 0
+                    self.workingCopy.saturatedFat = scannedFood.product.nutriments.saturatedFat100g ?? 0
+                    self.workingCopy.fibre = scannedFood.product.nutriments.fibre100g ?? 0
+                }
+                else {
                     let servingSize = scannedFood.product.servingSize ?? "100"
                     let servingSizeNumber = Double(servingSize.filter("01234567890.".contains)) ?? 100
                     let servingUnit = servingSize.filter("abcdefghijklmnopqrstuvwxyz".contains)
@@ -276,26 +273,23 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                     self.workingCopy.protein = ((scannedFood.product.nutriments.protein100g) / 100) * servingSizeNumber
                     self.workingCopy.carbs = ((scannedFood.product.nutriments.carbs100g) / 100) * servingSizeNumber
                     self.workingCopy.fat = ((scannedFood.product.nutriments.fat100g) / 100) * servingSizeNumber
-                    self.workingCopy.sugar = ((scannedFood.product.nutriments.sugars100g) / 100) * servingSizeNumber
-                    self.workingCopy.saturatedFat = ((scannedFood.product.nutriments.saturatedFat100g) / 100) * servingSizeNumber
-                    self.workingCopy.fibre = ((scannedFood.product.nutriments.fibre100g) / 100) * servingSizeNumber
-                    
+                    self.workingCopy.sugar = ((scannedFood.product.nutriments.sugars100g ?? 0) / 100) * servingSizeNumber
+                    self.workingCopy.saturatedFat = ((scannedFood.product.nutriments.saturatedFat100g ?? 0) / 100) * servingSizeNumber
+                    self.workingCopy.fibre = ((scannedFood.product.nutriments.fibre100g ?? 0) / 100) * servingSizeNumber
                 }
 
                 self.dispatchGroup.leave()
                 
-            } catch {
+            }
+            catch {
                 DispatchQueue.main.async {  // This needs to be exectued on main thread
                     print("Error parsing JSON - \(error)")
                     
                     self.activityIndicator.stopAnimating()
                     self.displayErrorAlert(message: "Try searching for the item or entering the details manually.")
                 }
-                
             }
-            
-            }.resume()
-        
+        }.resume()
     }
     
     

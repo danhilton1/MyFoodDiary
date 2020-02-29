@@ -26,10 +26,10 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
 
     private var workingCopy: Food = Food()
     
+    // IBOutlets
     @IBOutlet weak var mealPicker: UISegmentedControl!
     @IBOutlet weak var foodNameTextField: UITextField!
     @IBOutlet weak var servingSizeTextField: UITextField!
-    
     @IBOutlet weak var servingSizeUnitButton: UIButton!
     @IBOutlet weak var servingTextField: UITextField!
     @IBOutlet weak var caloriesTextField: UITextField!
@@ -51,7 +51,6 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var fatLabel: UILabel!
     @IBOutlet weak var saturatedFatLabel: UILabel!
     @IBOutlet weak var fibreLabel: UILabel!
-    
     
     var activeTextField = UITextField()
 
@@ -215,7 +214,6 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
     }
     
     
-    
     //MARK: - New Entry Add and Save methods
     
     
@@ -237,8 +235,7 @@ class ManualEntryViewController: UITableViewController, UITextFieldDelegate {
         workingCopy.sugar = Double(sugarTextField.text ?? "0") ?? 0
         workingCopy.saturatedFat = Double(saturatedFatTextField.text ?? "0") ?? 0
         workingCopy.fibre = Double(fibreTextField.text ?? "0") ?? 0
-//        workingCopy.numberOfTimesAdded += 1
-        print(date!)
+        
         guard let user = Auth.auth().currentUser?.uid else { return }
         workingCopy.saveFood(user: user)
         

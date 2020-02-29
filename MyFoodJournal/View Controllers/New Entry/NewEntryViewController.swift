@@ -42,15 +42,14 @@ class NewEntryViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.delegate = self
-        tableView.dataSource = self
-        searchBar.delegate = self
-        
         setUpNavBar()
         
         setUpSortedFoodList()
         sortedFoodCopy = sortedFood
         
+        tableView.delegate = self
+        tableView.dataSource = self
+        searchBar.delegate = self
         tableView.tableFooterView = UIView()
         
     }
@@ -128,7 +127,6 @@ class NewEntryViewController: UIViewController, UITableViewDelegate, UITableView
             let destVC = segue.destination as! FoodDetailViewController
             guard let indexPath = tableView.indexPathForSelectedRow else { return }
             destVC.food = sortedFoodCopy[indexPath.row]
-//            destVC.isAddingFromExistingEntry = true
             destVC.delegate = delegate
             destVC.mealDelegate = mealDelegate
             destVC.date = date
@@ -269,123 +267,23 @@ extension NewEntryViewController: UISearchBarDelegate {
         if let searchText = searchBar.text {
             let searchWords = searchText.replacingOccurrences(of: " ", with: "+")
             
-            var countryIdentifier = Locale.current.identifier
-            if countryIdentifier == "en_GB" {
-                countryIdentifier = "uk"
-            }
-            else if countryIdentifier == "en_US" {
-                countryIdentifier = "us"
-            }
-            
-            let urlString = "https://\(countryIdentifier).openfoodfacts.org/cgi/search.pl?action=process&search_terms=\(searchWords)&sort_by=product_name&page_size=100&action=display&json=1"
-            
-            guard let url = URL(string: urlString) else { return }
-            
+            SVProgressHUD.setBackgroundColor(.darkGray)
+            SVProgressHUD.setForegroundColor(.white)
             SVProgressHUD.show()
             
-            URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
-                guard let strongSelf = self else { return }
-                guard let data = data else { return }
-//                let food = Food()
-                
-                do {
-                    if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-                        if let products = json["products"] as? [[String: Any]] {
-                            
-                            var searchFoodList = [Food]()
-                            for product in products {
- 
-                                if let nutrients = product["nutriments"] as? [String: Any],
-                                   let productName = product["product_name"] as? String,
-                                   let energy = nutrients["energy_100g"],  //Unable to cast nutrients to type as JSON data can vary
-                                   let protein = nutrients["proteins_100g"],
-                                   let carbs = nutrients["carbohydrates_100g"],
-                                   let fat = nutrients["fat_100g"],
-                                   let sugar = nutrients["sugars_100g"],
-                                   let saturatedFat = nutrients["saturated-fat_100g"],
-                                   let fibre = nutrients["fiber_100g"]
-                                {
-                                    
-                                    // Make sure item has name, calories, protein, carbs and fat values
-                                    if !productName.isEmpty && !"\(energy)".isEmpty && !"\(protein)".isEmpty && !"\(carbs)".isEmpty && !"\(fat)".isEmpty {
-                                        
-                                        // Store JSON values in a string in order to access and convert to Int or Double
-                                        let energyString = "\(energy)"
-                                        let calories = Int(round(Double(energyString)! / 4.184))
-                                        let proteinString = "\(protein)"
-                                        let carbsString = "\(carbs)"
-                                        let fatString = "\(fat)"
-                                        let sugarString = "\(sugar)"
-                                        let saturatedFatString = "\(saturatedFat)"
-                                        let fibreString = "\(fibre)"
-                                        var trimmedServingSize = ""
-                                        
-                                        let food = Food()
-                                        
-                                        if let servingSize = product["serving_size"] as? String {
-//                                            print(servingSize)
-                                            // Only use the first set of numbers in servingSize
-                                            for character in servingSize {
-                                                if character == "g" || character == " " {
-                                                    break
-                                                }
-                                                else {
-                                                    trimmedServingSize.append(character)
-                                                }
-                                            }
-                                            if trimmedServingSize.filter("01234567890.".contains) == "" {
-                                                trimmedServingSize = servingSize
-                                            }
-                                            let servingSizeNumber = Double(trimmedServingSize.filter("01234567890.".contains)) ?? 100
-                                            if servingSize.contains("ml") {
-                                                food.servingSizeUnit = "ml"
-                                            }
-                                            food.servingSize = trimmedServingSize.filter("01234567890.".contains)
-                                            food.name = productName
-                                            food.calories = Int((Double(calories) / 100) * servingSizeNumber)
-                                            food.protein = (Double(proteinString)! / 100.0) * servingSizeNumber
-                                            food.carbs = (Double(carbsString)! / 100.0) * servingSizeNumber
-                                            food.fat = (Double(fatString)! / 100.0) * servingSizeNumber
-                                            food.sugar = ((Double(sugarString) ?? 0) / 100.0) * servingSizeNumber
-                                            food.saturatedFat = ((Double(saturatedFatString) ?? 0) / 100.0) * servingSizeNumber
-                                            food.fibre = ((Double(fibreString) ?? 0) / 100.0) * servingSizeNumber
-                                            
-                                            searchFoodList.append(food)
-                                        }
-                                        else {
-  
-                                            food.name = productName
-                                            food.calories = calories
-                                            food.protein = Double(proteinString)!
-                                            food.carbs = Double(carbsString)!
-                                            food.fat = Double(fatString)!
-                                            food.sugar = Double(sugarString) ?? 0
-                                            food.saturatedFat = Double(saturatedFatString) ?? 0
-                                            food.fibre = Double(fibreString) ?? 0
-                                            
-                                            searchFoodList.append(food)
-                                        }
-                                    }
-                                }
-                            }
-                            strongSelf.sortedFoodCopy = searchFoodList
-                            DispatchQueue.main.async {
-                                strongSelf.tableView.reloadData()
-                                strongSelf.historyLabel.text = "Results"
-                                searchBar.resignFirstResponder()
-                            }
-                            
-                            SVProgressHUD.dismiss()
-                            
-                        }     
-                    }
-                }
-                catch {
-                   print(error)
+            DatabaseServices.getItems(withKeywords: searchWords) { (success, items) in
+                if success {
+                    self.sortedFoodCopy = items
+                    self.tableView.reloadData()
+                    self.historyLabel.text = "Results"
+                    searchBar.resignFirstResponder()
                     SVProgressHUD.dismiss()
                 }
-            }.resume()
-            
+                else {
+                    print("Error retrieving data")
+                    SVProgressHUD.showError(withStatus: "Error retrieving items - please check your internet connection.")
+                }
+            }
         }
     }
     

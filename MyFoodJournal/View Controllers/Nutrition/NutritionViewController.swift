@@ -15,22 +15,6 @@ class NutritionViewController: UIViewController {
     
     let calendar = Calendar.current
     
-    @IBOutlet weak var segmentedControl: UISegmentedControl!
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var dayView: UIView!
-    @IBOutlet weak var weekView: UIView!
-    @IBOutlet weak var monthView: UIView!
-    @IBOutlet weak var dateLabel: UILabel!
-    
-    @IBOutlet weak var dateLabelWidthConstraint: NSLayoutConstraint!
-    
-    
-    var weekVC: WeekNutritionViewController?
-    var monthVC: MonthNutritionViewController?
-    
-    private let formatter = DateFormatter()
-//    var foodList: Results<Food>?
-//    var foodListCopy: Results<Food>?
     var allFood: [Food]?
     var foodList: [Food]?
     var foodListCopy: [Food]?
@@ -55,17 +39,29 @@ class NutritionViewController: UIViewController {
     var monthChartLabels = [String]()
     var calories = 0
     
+    private let formatter = DateFormatter()
+    
+    var weekVC: WeekNutritionViewController?
+    var monthVC: MonthNutritionViewController?
+    
+    // IBOutlets
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var dayView: UIView!
+    @IBOutlet weak var weekView: UIView!
+    @IBOutlet weak var monthView: UIView!
+    @IBOutlet weak var dateLabel: UILabel!
+    
+    @IBOutlet weak var dateLabelWidthConstraint: NSLayoutConstraint!
+    
+
     //MARK: - viewDidLoad Method
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tabBarController?.tabBar.isHidden = true
-        
         setUpNavBar()
-        weekVC = children[1] as? WeekNutritionViewController
-        monthVC = children.last as? MonthNutritionViewController
-        dateLabel.text = dateAsString
+        setUpViews()
         setFoodList(date: date)
         setDataForInitalChildVC()
         
@@ -73,11 +69,18 @@ class NutritionViewController: UIViewController {
         setUpMonthView(direction: .backward, date: date, considerToday: true)
         setUpWeekView(direction: .backward, date: date, considerToday: true)
         
+    }
+    
+    func setUpViews() {
+        tabBarController?.tabBar.isHidden = true
+        weekVC = children[1] as? WeekNutritionViewController
+        monthVC = children.last as? MonthNutritionViewController
+        dateLabel.text = dateAsString
+        
         if UIScreen.main.bounds.height < 600 {
             dateLabelWidthConstraint.constant = 200
             dateLabel.font = dateLabel.font.withSize(16)
         }
-        
     }
     
     func setUpNavBar() {
@@ -236,7 +239,7 @@ class NutritionViewController: UIViewController {
             monthVC?.monthAverageCarbs = weekVC?.averageCarbsCopy.roundToXDecimalPoints(decimalPoints: 1)
             monthVC?.monthAverageFat = weekVC?.averageFatCopy.roundToXDecimalPoints(decimalPoints: 1)
             monthVC?.monthAverageCalories = weekVC?.getAverageOfValue(dataSet: weekVC!.lineChartDataSetCopy)
-            //print(monthVC?.monthAverageProtein)
+            
             setFoodListCopy(date: dateCopy)
             monthVC?.foodListCopy = foodListCopy
             monthVC?.proteinChartDataSet.append(BarChartDataEntry(x: Double(i), y: monthVC?.monthAverageProtein?.roundToXDecimalPoints(decimalPoints: 1) ?? 0))
@@ -317,7 +320,6 @@ class NutritionViewController: UIViewController {
             UIView.animate(withDuration: 0.25) {
                 self.dayView.alpha = 0
                 self.dateLabel.alpha = 0
-                //self.dateLabel.text = "This Week"
                 self.dateLabel.alpha = 1
                 self.weekView.alpha = 1
                 self.monthView.alpha = 0
@@ -331,7 +333,6 @@ class NutritionViewController: UIViewController {
                 self.dayView.alpha = 0
                 self.weekView.alpha = 0
                 self.dateLabel.alpha = 0
-                //self.dateLabel.text = "This Month"
                 self.dateLabel.alpha = 1
                 self.monthView.alpha = 1
             }

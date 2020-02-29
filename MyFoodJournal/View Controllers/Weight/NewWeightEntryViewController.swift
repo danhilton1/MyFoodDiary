@@ -175,10 +175,9 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
     @IBAction func addButtonTapped(_ sender: UIBarButtonItem) {
         
         let entry: Weight
-//        var originalWeight = 0.0
+
         if weightEntry != nil {
             entry = weightEntry!
-//            originalWeight = weightEntry!.weight
         }
         else {
             entry = Weight()

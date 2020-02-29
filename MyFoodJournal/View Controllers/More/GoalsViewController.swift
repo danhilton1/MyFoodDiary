@@ -78,8 +78,6 @@ class GoalsViewController: UITableViewController, UITextFieldDelegate {
         if UIScreen.main.bounds.height < 600 {
             updateGoalsButton.layer.cornerRadius = 20
         }
-        
-//        view.backgroundColor = tableView.separatorColor
         tableView.tableFooterView = UIView()
     }
     

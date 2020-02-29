@@ -43,6 +43,9 @@
 		377A57D2233F896100D816DD /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377A57D1233F896100D816DD /* Color.swift */; };
 		377C1C782409B361004BEF8B /* FoodDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 377C1C772409B361004BEF8B /* FoodDetail.storyboard */; };
 		377C9BFA236DBA6A008165DA /* WeightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377C9BF9236DBA6A008165DA /* WeightViewController.swift */; };
+		3786E4E4240ACC5B00A62FB0 /* CodableStructsFood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3786E4E3240ACC5B00A62FB0 /* CodableStructsFood.swift */; };
+		3786E4E6240ACFC000A62FB0 /* TextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3786E4E5240ACFC000A62FB0 /* TextFieldExtension.swift */; };
+		3786E4E9240ADA4300A62FB0 /* DatabaseServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3786E4E8240ADA4300A62FB0 /* DatabaseServices.swift */; };
 		3787558C240ABBD7000CA3C8 /* DoubleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787558B240ABBD7000CA3C8 /* DoubleExtension.swift */; };
 		3787558E240ABC20000CA3C8 /* NewEntryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787558D240ABC20000CA3C8 /* NewEntryProtocol.swift */; };
 		37875590240ABC50000CA3C8 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787558F240ABC50000CA3C8 /* UIViewControllerExtension.swift */; };
@@ -136,6 +139,9 @@
 		377A57D1233F896100D816DD /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		377C1C772409B361004BEF8B /* FoodDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FoodDetail.storyboard; sourceTree = "<group>"; };
 		377C9BF9236DBA6A008165DA /* WeightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightViewController.swift; sourceTree = "<group>"; };
+		3786E4E3240ACC5B00A62FB0 /* CodableStructsFood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableStructsFood.swift; sourceTree = "<group>"; };
+		3786E4E5240ACFC000A62FB0 /* TextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldExtension.swift; sourceTree = "<group>"; };
+		3786E4E8240ADA4300A62FB0 /* DatabaseServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseServices.swift; sourceTree = "<group>"; };
 		3787558B240ABBD7000CA3C8 /* DoubleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleExtension.swift; sourceTree = "<group>"; };
 		3787558D240ABC20000CA3C8 /* NewEntryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEntryProtocol.swift; sourceTree = "<group>"; };
 		3787558F240ABC50000CA3C8 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
@@ -239,6 +245,7 @@
 			isa = PBXGroup;
 			children = (
 				37875588240ABB1E000CA3C8 /* Utilities */,
+				3786E4E7240AD8B500A62FB0 /* Networking */,
 				377208C92291A218002DDA29 /* Model */,
 				377208CA2291A21E002DDA29 /* View */,
 				377208CB2291A223002DDA29 /* View Controllers */,
@@ -257,6 +264,7 @@
 				3713FFE4237F433C000D1E50 /* Weight.swift */,
 				37A8AEB423A2DDFE002DCA43 /* Food+Firestore.swift */,
 				3723E68B23B4CFF3003C1EB0 /* Weight+Firestore.swift */,
+				3786E4E3240ACC5B00A62FB0 /* CodableStructsFood.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -304,6 +312,14 @@
 			path = "Custom Cell";
 			sourceTree = "<group>";
 		};
+		3786E4E7240AD8B500A62FB0 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				3786E4E8240ADA4300A62FB0 /* DatabaseServices.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
 		37875587240ABAD4000CA3C8 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
@@ -346,6 +362,7 @@
 				3787558B240ABBD7000CA3C8 /* DoubleExtension.swift */,
 				3787558F240ABC50000CA3C8 /* UIViewControllerExtension.swift */,
 				37875591240ABCB4000CA3C8 /* DateExtension.swift */,
+				3786E4E5240ACFC000A62FB0 /* TextFieldExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -672,6 +689,7 @@
 				37875590240ABC50000CA3C8 /* UIViewControllerExtension.swift in Sources */,
 				377A57D2233F896100D816DD /* Color.swift in Sources */,
 				37360AF723520BCC00AA02A2 /* WeekNutritionViewController.swift in Sources */,
+				3786E4E4240ACC5B00A62FB0 /* CodableStructsFood.swift in Sources */,
 				37DE59D722D1055D00079A6A /* OverviewPageViewController.swift in Sources */,
 				372E70DD2381A783001DCB06 /* MoreViewController.swift in Sources */,
 				37563BD822C69E8F0032D94E /* NewEntryViewController.swift in Sources */,
@@ -680,6 +698,7 @@
 				37E0C03323800020005FEB29 /* NewWeightEntryViewController.swift in Sources */,
 				37B9BD3F23CB9F3000864540 /* MyAccountViewController.swift in Sources */,
 				37360AF523520BC000AA02A2 /* DayNutritionViewController.swift in Sources */,
+				3786E4E6240ACFC000A62FB0 /* TextFieldExtension.swift in Sources */,
 				3704184323832D7100F3B296 /* DateButton.swift in Sources */,
 				3787558E240ABC20000CA3C8 /* NewEntryProtocol.swift in Sources */,
 				37DE71072351097900B1C4AC /* NutritionViewController.swift in Sources */,
@@ -687,6 +706,7 @@
 				377208D22291B002002DDA29 /* MealOverviewCell.swift in Sources */,
 				37241ABD22CD127800AF85AB /* MealDetailCell.swift in Sources */,
 				376CD1D8238F095000257076 /* LogInTextField.swift in Sources */,
+				3786E4E9240ADA4300A62FB0 /* DatabaseServices.swift in Sources */,
 				3713FFE5237F433C000D1E50 /* Weight.swift in Sources */,
 				3787558C240ABBD7000CA3C8 /* DoubleExtension.swift in Sources */,
 				378F9199231AC204007142AA /* FoodHistoryCell.swift in Sources */,

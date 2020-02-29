@@ -13,6 +13,8 @@ import SwiftKeychainWrapper
 
 class WelcomeViewController: UIViewController {
     
+    //MARK:- Properties
+    
     typealias FinishedDownload = () -> ()
     
     let defaults = UserDefaults()
@@ -21,7 +23,7 @@ class WelcomeViewController: UIViewController {
     let foodDispatchGroup = DispatchGroup()
     let weightDispatchGroup = DispatchGroup()
     
-    
+    // IBOutlets
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var registerButton: UIButton!
@@ -31,7 +33,8 @@ class WelcomeViewController: UIViewController {
     @IBOutlet weak var titleTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var titleBottomConstraint: NSLayoutConstraint!
     
-
+    //MARK:- View Methods
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpViews()
@@ -93,6 +96,8 @@ class WelcomeViewController: UIViewController {
             logInButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
         }
     }
+    
+    //MARK: - SignIn Methods
 
     func checkIfUserIsSignedIn() {
         if defaults.bool(forKey: UserDefaultsKeys.isUserSignedIn) {
@@ -220,6 +225,8 @@ class WelcomeViewController: UIViewController {
         present(ac, animated: true)
     }
     
+    //MARK:- Load Data Methods
+    
     func loadAllFoodData(user: String, anonymous: Bool) {
         Food.downloadAllFood(user: user, anonymous: anonymous) { (allFood) in
             self.allFood = allFood
@@ -234,6 +241,8 @@ class WelcomeViewController: UIViewController {
             completed()
         }
     }
+    
+    //MARK:- Prepare for segue
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "GoToTabBar" {
