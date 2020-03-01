@@ -32,6 +32,18 @@ class DayNutritionViewController: UIViewController, UITableViewDataSource, UITab
         get { getTotalValueOfNutrient(.fat) }
         set { }
     }
+    var sugar: Double {
+        get { getTotalValueOfNutrient(.sugar) }
+        set { }
+    }
+    var saturatedFat: Double {
+        get { getTotalValueOfNutrient(.saturatedFat) }
+        set { }
+    }
+    var fibre: Double {
+        get { getTotalValueOfNutrient(.fibre) }
+        set { }
+    }
 
     var proteinPercentage: Double {
         get { (protein / (protein + carbs + fat)) * 100 }
@@ -77,8 +89,14 @@ class DayNutritionViewController: UIViewController, UITableViewDataSource, UITab
                 nutrientArray.append(food.protein)
             case .carbs:
                 nutrientArray.append(food.carbs)
-            default:
+            case .sugar:
+                nutrientArray.append(food.sugar)
+            case .fat:
                 nutrientArray.append(food.fat)
+            case .saturatedFat:
+                nutrientArray.append(food.saturatedFat)
+            default:
+                nutrientArray.append(food.fibre)
             }
         }
         return nutrientArray.reduce(0, +)
@@ -89,6 +107,9 @@ class DayNutritionViewController: UIViewController, UITableViewDataSource, UITab
         case protein
         case carbs
         case fat
+        case sugar
+        case saturatedFat
+        case fibre
         
         var stringValue: String {
             switch self {
@@ -98,6 +119,12 @@ class DayNutritionViewController: UIViewController, UITableViewDataSource, UITab
                 return "carbs"
             case .fat:
                 return "fat"
+            case .sugar:
+                return "sugar"
+            case .saturatedFat:
+                return "saturatedFat"
+            case .fibre:
+                return "fibre"
             }
         }
     }
@@ -112,7 +139,7 @@ class DayNutritionViewController: UIViewController, UITableViewDataSource, UITab
         if section == 0 {
             return 1
         } else {
-            return 3
+            return 6
         }
         
     }
@@ -234,8 +261,21 @@ class DayNutritionViewController: UIViewController, UITableViewDataSource, UITab
                 cell.typeLabel.text = "Carbs:"
                 cell.numberLabel.text = "\(carbs.removePointZeroEndingAndConvertToString()) g"
             case 2:
+                cell.typeLabel.text = "  - Sugar:"
+                cell.numberLabel.text = "\(sugar.removePointZeroEndingAndConvertToString()) g"
+                cell.typeLabel.font = UIFont(name: "Montserrat-Light", size: 15)
+                cell.numberLabel.font = UIFont(name: "Montserrat-Light", size: 15)
+            case 3:
                 cell.typeLabel.text = "Fat:"
                 cell.numberLabel.text = "\(fat.removePointZeroEndingAndConvertToString()) g"
+            case 4:
+                cell.typeLabel.text = "  - Saturated Fat:"
+                cell.numberLabel.text = "\(saturatedFat.removePointZeroEndingAndConvertToString()) g"
+                cell.typeLabel.font = UIFont(name: "Montserrat-Light", size: 15)
+                cell.numberLabel.font = UIFont(name: "Montserrat-Light", size: 15)
+            case 5:
+                cell.typeLabel.text = "Fibre:"
+                cell.numberLabel.text = "\(fibre.removePointZeroEndingAndConvertToString()) g"
             default:
                 return cell
             }

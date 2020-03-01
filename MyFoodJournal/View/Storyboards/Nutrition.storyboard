@@ -8,9 +8,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Montserrat-ExtraLight.otf">
-            <string>Montserrat-ExtraLight</string>
-        </array>
         <array key="Montserrat-Light.otf">
             <string>Montserrat-Light</string>
         </array>
@@ -42,7 +39,7 @@
         <!--Nutrition-->
         <scene sceneID="xWu-kb-TJx">
             <objects>
-                <viewController title="Nutrition" modalPresentationStyle="fullScreen" id="F2R-CJ-NIv" customClass="NutritionViewController" customModule="My_Food_Diary" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Nutrition" modalPresentationStyle="fullScreen" id="F2R-CJ-NIv" customClass="NutritionViewController" customModule="MyFoodJournal" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cDG-1R-hmV">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -159,7 +156,7 @@
         <!--Day Nutrition View Controller-->
         <scene sceneID="8fW-Mi-Xc6">
             <objects>
-                <viewController id="mTy-hY-cns" customClass="DayNutritionViewController" customModule="My_Food_Diary" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="mTy-hY-cns" customClass="DayNutritionViewController" customModule="MyFoodJournal" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jUY-p3-oSP">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="699"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -168,7 +165,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="699"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="mealDetailCell" rowHeight="35" id="gGL-j1-dq2" customClass="MealDetailCell" customModule="My_Food_Diary" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="mealDetailCell" rowHeight="35" id="gGL-j1-dq2" customClass="MealDetailCell" customModule="MyFoodJournal" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="35"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gGL-j1-dq2" id="uV5-bv-UgU">
@@ -180,13 +177,13 @@
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Protein:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U4g-tJ-PxK" userLabel="typeLabel">
                                                             <rect key="frame" x="0.0" y="0.0" width="187" height="25"/>
-                                                            <fontDescription key="fontDescription" name="Montserrat-ExtraLight" family="Montserrat" pointSize="18"/>
+                                                            <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="18"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="28.4 g" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FPF-6i-vyK" userLabel="numberLabel">
                                                             <rect key="frame" x="187" y="0.0" width="187" height="25"/>
-                                                            <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="18"/>
+                                                            <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="18"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -229,7 +226,7 @@
         <!--Week Nutrition View Controller-->
         <scene sceneID="9Fd-w9-gXk">
             <objects>
-                <viewController id="4jl-Dh-eyI" customClass="WeekNutritionViewController" customModule="My_Food_Diary" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="4jl-Dh-eyI" customClass="WeekNutritionViewController" customModule="MyFoodJournal" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ql9-Il-z8E">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="699"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -260,7 +257,7 @@
         <!--Month Nutrition View Controller-->
         <scene sceneID="7yt-BK-ryq">
             <objects>
-                <viewController id="vXq-0g-fdj" customClass="MonthNutritionViewController" customModule="My_Food_Diary" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="vXq-0g-fdj" customClass="MonthNutritionViewController" customModule="MyFoodJournal" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="SF8-He-YoS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="699"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

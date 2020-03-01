@@ -21,7 +21,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DayNutritionCell" rowHeight="400" id="KGk-i7-Jjw" customClass="DayNutritionCell" customModule="My_Food_Diary" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DayNutritionCell" rowHeight="400" id="KGk-i7-Jjw" customClass="DayNutritionCell" customModule="MyFoodJournal" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="350"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -218,7 +218,7 @@
                     <constraint firstItem="67a-06-Ozg" firstAttribute="width" secondItem="x5L-Vu-7UY" secondAttribute="width" id="pNV-W7-oiT"/>
                     <constraint firstItem="cs8-OR-QXe" firstAttribute="leading" secondItem="lQX-6w-JCq" secondAttribute="leading" id="pS5-WT-vrp"/>
                     <constraint firstItem="67a-06-Ozg" firstAttribute="height" secondItem="x5L-Vu-7UY" secondAttribute="height" id="q9j-dR-GYp"/>
-                    <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="LJG-2V-Fcb" secondAttribute="trailing" constant="10" id="qJS-lL-0ty"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="LJG-2V-Fcb" secondAttribute="trailing" constant="10" id="qJS-lL-0ty"/>
                     <constraint firstItem="LJG-2V-Fcb" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="lQX-6w-JCq" secondAttribute="trailing" constant="20" id="rpF-Aa-qaF"/>
                     <constraint firstItem="lkP-Rf-71N" firstAttribute="top" secondItem="zJ9-l9-aSC" secondAttribute="bottom" constant="12" id="v2Y-SC-Bob"/>
                     <constraint firstItem="cs8-OR-QXe" firstAttribute="centerY" secondItem="ndZ-Gj-OVJ" secondAttribute="centerY" id="vQd-aN-AaZ"/>
