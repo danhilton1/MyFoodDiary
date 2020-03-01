@@ -170,6 +170,7 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     weight.date = weightEntry.date
                     weight.dateLastEdited = weightEntry.dateLastEdited
                     isUpdatingDayEntry = true
+                    break
                 }
             }
             if !isUpdatingDayEntry {

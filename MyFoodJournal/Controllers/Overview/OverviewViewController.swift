@@ -429,6 +429,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
                         foodEntry.saturatedFat = food.saturatedFat
                         foodEntry.fibre = food.fibre
                         foodEntry.isDeleted = food.isDeleted
+                        break
                     }
                 }
             }
