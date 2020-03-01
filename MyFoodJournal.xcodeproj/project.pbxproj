@@ -248,7 +248,7 @@
 				3786E4E7240AD8B500A62FB0 /* Networking */,
 				377208C92291A218002DDA29 /* Model */,
 				377208CA2291A21E002DDA29 /* View */,
-				377208CB2291A223002DDA29 /* View Controllers */,
+				377208CB2291A223002DDA29 /* Controllers */,
 				377208B42291A1F8002DDA29 /* AppDelegate.swift */,
 				377208BE2291A1FA002DDA29 /* Assets.xcassets */,
 				377208C32291A1FA002DDA29 /* Info.plist */,
@@ -282,7 +282,7 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		377208CB2291A223002DDA29 /* View Controllers */ = {
+		377208CB2291A223002DDA29 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				37875595240ABEFC000CA3C8 /* Welcome */,
@@ -292,7 +292,7 @@
 				3787559A240ABF2D000CA3C8 /* More */,
 				37875599240ABF27000CA3C8 /* Weight */,
 			);
-			path = "View Controllers";
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		377208D42291E012002DDA29 /* Custom Cell */ = {

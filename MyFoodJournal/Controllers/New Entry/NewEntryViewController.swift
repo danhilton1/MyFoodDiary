@@ -249,7 +249,7 @@ extension NewEntryViewController: UISearchBarDelegate {
         if searchText != "" {
             sortedFoodCopy = []
             for food in sortedFood {
-                if (food.name?.contains(searchBar.text!))! {
+                if (food.name?.lowercased().contains(searchBar.text!.lowercased()))! {
                     sortedFoodCopy.append(food)
                 }
             }
@@ -265,7 +265,9 @@ extension NewEntryViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
         if let searchText = searchBar.text {
-            let searchWords = searchText.replacingOccurrences(of: " ", with: "+")
+            var searchWords = searchText.replacingOccurrences(of: "’", with: "%27")
+            searchWords = searchWords.replacingOccurrences(of: " ", with: "+")
+            searchWords = searchWords.filter("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789&/-+%".contains)
             
             SVProgressHUD.setBackgroundColor(.darkGray)
             SVProgressHUD.setForegroundColor(.white)
