@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3702B557240D6B7700C77002 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3702B556240D6B7700C77002 /* Person.swift */; };
+		3702B55B240DA38300C77002 /* UserSetupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3702B55A240DA38300C77002 /* UserSetupController.swift */; };
 		3704184323832D7100F3B296 /* DateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3704184223832D7100F3B296 /* DateButton.swift */; };
 		3713FFE5237F433C000D1E50 /* Weight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3713FFE4237F433C000D1E50 /* Weight.swift */; };
 		3723E68C23B4CFF3003C1EB0 /* Weight+Firestore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3723E68B23B4CFF3003C1EB0 /* Weight+Firestore.swift */; };
@@ -99,6 +101,8 @@
 		1F59D4FF47363F0171069D40 /* Pods-MyFoodJournal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyFoodJournal.debug.xcconfig"; path = "Target Support Files/Pods-MyFoodJournal/Pods-MyFoodJournal.debug.xcconfig"; sourceTree = "<group>"; };
 		2C593C770C04CCCE21F115B0 /* Pods-Eat Me.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Eat Me.debug.xcconfig"; path = "Target Support Files/Pods-Eat Me/Pods-Eat Me.debug.xcconfig"; sourceTree = "<group>"; };
 		2CB50708952077951C0E61E5 /* Pods-MyFoodJournalTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyFoodJournalTests.release.xcconfig"; path = "Target Support Files/Pods-MyFoodJournalTests/Pods-MyFoodJournalTests.release.xcconfig"; sourceTree = "<group>"; };
+		3702B556240D6B7700C77002 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		3702B55A240DA38300C77002 /* UserSetupController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSetupController.swift; sourceTree = "<group>"; };
 		3704184223832D7100F3B296 /* DateButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateButton.swift; sourceTree = "<group>"; };
 		3713FFE4237F433C000D1E50 /* Weight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weight.swift; sourceTree = "<group>"; };
 		3723E68B23B4CFF3003C1EB0 /* Weight+Firestore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Weight+Firestore.swift"; sourceTree = "<group>"; };
@@ -265,6 +269,7 @@
 				37A8AEB423A2DDFE002DCA43 /* Food+Firestore.swift */,
 				3723E68B23B4CFF3003C1EB0 /* Weight+Firestore.swift */,
 				3786E4E3240ACC5B00A62FB0 /* CodableStructsFood.swift */,
+				3702B556240D6B7700C77002 /* Person.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -374,6 +379,7 @@
 				376CD1D3238F045F00257076 /* RegisterViewController.swift */,
 				376CD1D5238F046900257076 /* LogInViewController.swift */,
 				37BEA92023DE1E5F003983B9 /* ForgotPasswordViewController.swift */,
+				3702B55A240DA38300C77002 /* UserSetupController.swift */,
 			);
 			path = Welcome;
 			sourceTree = "<group>";
@@ -702,8 +708,10 @@
 				3704184323832D7100F3B296 /* DateButton.swift in Sources */,
 				3787558E240ABC20000CA3C8 /* NewEntryProtocol.swift in Sources */,
 				37DE71072351097900B1C4AC /* NutritionViewController.swift in Sources */,
+				3702B55B240DA38300C77002 /* UserSetupController.swift in Sources */,
 				37360AFC2352150700AA02A2 /* BarChartNutritionCell.swift in Sources */,
 				377208D22291B002002DDA29 /* MealOverviewCell.swift in Sources */,
+				3702B557240D6B7700C77002 /* Person.swift in Sources */,
 				37241ABD22CD127800AF85AB /* MealDetailCell.swift in Sources */,
 				376CD1D8238F095000257076 /* LogInTextField.swift in Sources */,
 				3786E4E9240ADA4300A62FB0 /* DatabaseServices.swift in Sources */,
