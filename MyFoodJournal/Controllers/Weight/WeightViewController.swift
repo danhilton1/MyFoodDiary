@@ -98,11 +98,13 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
         var closestInterval: TimeInterval = .greatestFiniteMagnitude
         var mostCurrentEntry: Weight?
 
-        for entry in allWeightEntries! {
-            let interval: TimeInterval = abs(entry.date.timeIntervalSinceNow)
-            if interval < closestInterval {
-                closestInterval = interval
-                mostCurrentEntry = entry
+        if let allWeight = allWeightEntries {
+            for entry in allWeight {
+                let interval: TimeInterval = abs(entry.date.timeIntervalSinceNow)
+                if interval < closestInterval {
+                    closestInterval = interval
+                    mostCurrentEntry = entry
+                }
             }
         }
         if var currentWeight = mostCurrentEntry?.weight {

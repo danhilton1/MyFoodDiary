@@ -13,6 +13,8 @@ class UserSetupController: UITableViewController, UITextFieldDelegate {
     
     private let toolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
     
+    var activeTextField: UITextField!
+    
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var genderLabel: UILabel!
     @IBOutlet weak var genderSegments: UISegmentedControl!
@@ -31,6 +33,7 @@ class UserSetupController: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var weightUnitSegments: UISegmentedControl!
     @IBOutlet weak var weightTextField: UITextField!
     @IBOutlet weak var activityLabel: UILabel!
+    @IBOutlet weak var activityInfoButton: UIButton!
     @IBOutlet weak var activitySegment: UISegmentedControl!
     @IBOutlet weak var calculateButton: UIButton!
     
@@ -68,11 +71,12 @@ class UserSetupController: UITableViewController, UITextFieldDelegate {
         agetextField.inputAccessoryView = toolbar
         inchesTextField.inputAccessoryView = toolbar
         cmTextField.inputAccessoryView = toolbar
+        weightTextField.inputAccessoryView = toolbar
         
         for segment in activitySegment.subviews{
             for label in segment.subviews{
                 if let labels = label as? UILabel{
-                    labels.numberOfLines = 4
+                    labels.numberOfLines = 5
                     labels.font = UIFont(name: "Montserrat-Regular", size: 14)!
                 }
             }
@@ -96,6 +100,7 @@ class UserSetupController: UITableViewController, UITextFieldDelegate {
         weightUnitSegments.alpha = 0
         weightTextField.alpha = 0
         activityLabel.alpha = 0
+        activityInfoButton.alpha = 0
         activitySegment.alpha = 0
         calculateButton.alpha = 0
         
@@ -108,6 +113,8 @@ class UserSetupController: UITableViewController, UITextFieldDelegate {
         inchesTextField.delegate = self
         cmTextField.delegate = self
         weightTextField.delegate = self
+        
+        ftTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
     }
     
     func presentAlert() {
@@ -166,6 +173,19 @@ class UserSetupController: UITableViewController, UITextFieldDelegate {
         }
     }
     
+    @IBAction func activityInfoButtonTapped(_ sender: UIButton) {
+        let ac = UIAlertController(title: "Activity Levels", message: "", preferredStyle: .alert)
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .left
+        let messageFont = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14), NSAttributedString.Key.paragraphStyle: paragraphStyle]
+        let messageAttrString = NSMutableAttributedString(string: "\n1: Sedentary - little to no exercise + spend most of day sitting.\n\n2: Lightly Active - light exercise 1-3 days / week.\n\n3: Moderately Active - moderate exercise 3-5 days / week. \n\n4: Very Active - heavy exercise 6-7 days / week.\n\n5: Extremely Active - very heavy exercise + hard labor job", attributes: messageFont)
+
+        ac.setValue(messageAttrString, forKey: "attributedMessage")
+        ac.addAction(UIAlertAction(title: "OK", style: .cancel))
+        
+        present(ac, animated: true)
+    }
     
     
     @IBAction func calculateButtonTapped(_ sender: UIButton) {
@@ -174,12 +194,31 @@ class UserSetupController: UITableViewController, UITextFieldDelegate {
     }
     
     @objc func revealNextView() {
-        agetextField.resignFirstResponder()
-        UIView.animate(withDuration: 0.5) {
-            self.heightLabel.alpha = 1
-            self.heighUnitSegments.alpha = 1
-            self.ftAndInchesStackView.alpha = 1
+        switch activeTextField {
+        case agetextField:
+            agetextField.resignFirstResponder()
+            UIView.animate(withDuration: 0.5) {
+                self.heightLabel.alpha = 1
+                self.heighUnitSegments.alpha = 1
+                self.ftAndInchesStackView.alpha = 1
+            }
+        case inchesTextField:
+            inchesTextField.resignFirstResponder()
+            UIView.animate(withDuration: 0.5) {
+                self.weightLabel.alpha = 1
+                self.weightUnitSegments.alpha = 1
+                self.weightTextField.alpha = 0.5
+            }
+        default:
+            weightTextField.resignFirstResponder()
+            UIView.animate(withDuration: 0.5) {
+                self.activityLabel.alpha = 1
+                self.activityInfoButton.alpha = 1
+                self.activitySegment.alpha = 1
+                self.calculateButton.alpha = 1
+            }
         }
+        
     }
 
 
@@ -194,6 +233,19 @@ extension UserSetupController {
     func textFieldDidEndEditing(_ textField: UITextField) {
         
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        activeTextField = textField
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        if let text = textField.text {
+            if text.count > 0 {
+                inchesTextField.becomeFirstResponder()
+            }
+        }
+    }
+    
     
     
     

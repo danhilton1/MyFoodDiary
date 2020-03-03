@@ -15,6 +15,7 @@
 		37241ABD22CD127800AF85AB /* MealDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37241ABC22CD127800AF85AB /* MealDetailCell.swift */; };
 		372E70DD2381A783001DCB06 /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E70DC2381A783001DCB06 /* MoreViewController.swift */; };
 		372F5A612301C375006A8665 /* FoodDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372F5A602301C374006A8665 /* FoodDetailViewController.swift */; };
+		37346846240F010A00CDB454 /* CalculatedGoalsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37346845240F010900CDB454 /* CalculatedGoalsViewController.swift */; };
 		37360AF22351D62E00AA02A2 /* DayNutritionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37360AF02351D62E00AA02A2 /* DayNutritionCell.swift */; };
 		37360AF32351D62E00AA02A2 /* DayNutritionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37360AF12351D62E00AA02A2 /* DayNutritionCell.xib */; };
 		37360AF523520BC000AA02A2 /* DayNutritionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37360AF423520BC000AA02A2 /* DayNutritionViewController.swift */; };
@@ -109,6 +110,7 @@
 		37241ABC22CD127800AF85AB /* MealDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDetailCell.swift; sourceTree = "<group>"; };
 		372E70DC2381A783001DCB06 /* MoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
 		372F5A602301C374006A8665 /* FoodDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodDetailViewController.swift; sourceTree = "<group>"; };
+		37346845240F010900CDB454 /* CalculatedGoalsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatedGoalsViewController.swift; sourceTree = "<group>"; };
 		37360AF02351D62E00AA02A2 /* DayNutritionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayNutritionCell.swift; sourceTree = "<group>"; };
 		37360AF12351D62E00AA02A2 /* DayNutritionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DayNutritionCell.xib; sourceTree = "<group>"; };
 		37360AF423520BC000AA02A2 /* DayNutritionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayNutritionViewController.swift; sourceTree = "<group>"; };
@@ -380,6 +382,7 @@
 				376CD1D5238F046900257076 /* LogInViewController.swift */,
 				37BEA92023DE1E5F003983B9 /* ForgotPasswordViewController.swift */,
 				3702B55A240DA38300C77002 /* UserSetupController.swift */,
+				37346845240F010900CDB454 /* CalculatedGoalsViewController.swift */,
 			);
 			path = Welcome;
 			sourceTree = "<group>";
@@ -716,6 +719,7 @@
 				376CD1D8238F095000257076 /* LogInTextField.swift in Sources */,
 				3786E4E9240ADA4300A62FB0 /* DatabaseServices.swift in Sources */,
 				3713FFE5237F433C000D1E50 /* Weight.swift in Sources */,
+				37346846240F010A00CDB454 /* CalculatedGoalsViewController.swift in Sources */,
 				3787558C240ABBD7000CA3C8 /* DoubleExtension.swift in Sources */,
 				378F9199231AC204007142AA /* FoodHistoryCell.swift in Sources */,
 				37D5137323D4BC0D00780CD1 /* UserDefaultsKeys.swift in Sources */,
