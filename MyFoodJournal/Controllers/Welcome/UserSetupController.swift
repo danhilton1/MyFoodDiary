@@ -7,9 +7,13 @@
 //
 import Foundation
 import UIKit
+import SVProgressHUD
 
 
 class UserSetupController: UITableViewController, UITextFieldDelegate {
+    
+    var user = Person(gender: "Male", age: 0, height: 0, weight: 0, goalWeight: 0, activityLevel: 0)
+    var TDEE = 0.0
     
     private let toolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
     
@@ -190,35 +194,119 @@ class UserSetupController: UITableViewController, UITextFieldDelegate {
     
     @IBAction func calculateButtonTapped(_ sender: UIButton) {
         
-//        let user = Person(gender: <#T##String#>, age: <#T##Int#>, weight: <#T##Double#>, goalWeight: <#T##Double#>, activityLevel: <#T##String#>)
+        SVProgressHUD.show()
+        
+        guard let gender = genderSegments.titleForSegment(at: genderSegments.selectedSegmentIndex) else { return }
+        
+        switch activitySegment.selectedSegmentIndex {
+        case 0:
+            user.activityLevel = 1.2
+        case 1:
+            user.activityLevel = 1.375
+        case 2:
+            user.activityLevel = 1.55
+        case 3:
+            user.activityLevel = 1.725
+        default:
+            user.activityLevel = 1.9
+        }
+        
+        user.gender = gender
+        
+        if user.gender == "Male" {
+            let a = 66 + (13.7 * user.weight)
+            let b = 5 * user.height
+            let c = 6.8 * Double(user.age)
+            TDEE = ((a + b) - c) * user.activityLevel
+        }
+        else {
+            let a = 655 + (9.6 * user.weight)
+            let b = 1.8 * user.height
+            let c = 4.7 * Double(user.age)
+            TDEE = ((a + b) - c) * user.activityLevel
+        }
+        
+        performSegue(withIdentifier: "GoToCalculatedGoals", sender: nil)
+        
+        SVProgressHUD.dismiss()
     }
     
     @objc func revealNextView() {
         switch activeTextField {
         case agetextField:
-            agetextField.resignFirstResponder()
-            UIView.animate(withDuration: 0.5) {
-                self.heightLabel.alpha = 1
-                self.heighUnitSegments.alpha = 1
-                self.ftAndInchesStackView.alpha = 1
+            
+            if agetextField.text == "" {
+                agetextField.attributedPlaceholder = NSAttributedString(string: "Required", attributes: [NSAttributedString.Key.foregroundColor: Color.salmon])
+            }
+            else {
+                guard let age = Int(agetextField.text!) else { return }
+                user.age = age
+                agetextField.resignFirstResponder()
+                UIView.animate(withDuration: 0.5) {
+                    self.heightLabel.alpha = 1
+                    self.heighUnitSegments.alpha = 1
+                    self.ftAndInchesStackView.alpha = 1
+                }
             }
         case inchesTextField:
-            inchesTextField.resignFirstResponder()
-            UIView.animate(withDuration: 0.5) {
-                self.weightLabel.alpha = 1
-                self.weightUnitSegments.alpha = 1
-                self.weightTextField.alpha = 0.5
+            
+            if ftTextField.text == "" {
+                ftTextField.attributedPlaceholder = NSAttributedString(string: "Required", attributes: [NSAttributedString.Key.foregroundColor: Color.salmon])
+            }
+            else {
+                guard let feet = Double(ftTextField.text!) else { return }
+                let inches = Double(inchesTextField.text ?? "0") ?? 0.0
+                let heightInInches = (feet * 12) + inches
+                let height = heightInInches * 2.54
+                user.height = height
+                inchesTextField.resignFirstResponder()
+                UIView.animate(withDuration: 0.5) {
+                    self.weightLabel.alpha = 1
+                    self.weightUnitSegments.alpha = 1
+                    self.weightTextField.alpha = 0.5
+                }
+            }
+        case cmTextField:
+            
+            if cmTextField.text == "" {
+                cmTextField.attributedPlaceholder = NSAttributedString(string: "Required", attributes: [NSAttributedString.Key.foregroundColor: Color.salmon])
+            }
+            else {
+                guard let height = Double(cmTextField.text!) else { return }
+                user.height = height
+                cmTextField.resignFirstResponder()
+                UIView.animate(withDuration: 0.5) {
+                    self.weightLabel.alpha = 1
+                    self.weightUnitSegments.alpha = 1
+                    self.weightTextField.alpha = 0.5
+                }
             }
         default:
-            weightTextField.resignFirstResponder()
-            UIView.animate(withDuration: 0.5) {
-                self.activityLabel.alpha = 1
-                self.activityInfoButton.alpha = 1
-                self.activitySegment.alpha = 1
-                self.calculateButton.alpha = 1
+            
+            if weightTextField.text == "" {
+                weightTextField.attributedPlaceholder = NSAttributedString(string: "Required", attributes: [NSAttributedString.Key.foregroundColor: Color.salmon])
+            }
+            else {
+                guard let weight = Double(weightTextField.text!) else { return }
+                user.weight = weight
+                weightTextField.resignFirstResponder()
+                UIView.animate(withDuration: 0.5) {
+                    self.activityLabel.alpha = 1
+                    self.activityInfoButton.alpha = 1
+                    self.activitySegment.alpha = 1
+                    self.calculateButton.alpha = 1
+                }
             }
         }
         
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "GoToCalculatedGoals" {
+            let destVC = segue.destination as! CalculatedGoalsViewController
+            destVC.user = user
+            destVC.TDEE = TDEE
+        }
     }
 
 

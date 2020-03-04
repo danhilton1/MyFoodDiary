@@ -12,8 +12,9 @@ struct Person {
     
     var gender: String
     var age: Int
+    var height: Double
     var weight: Double
     var goalWeight: Double
-    var activityLevel: String
+    var activityLevel: Double
     
 }
