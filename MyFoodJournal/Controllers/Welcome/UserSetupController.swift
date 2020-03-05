@@ -12,7 +12,7 @@ import SVProgressHUD
 
 class UserSetupController: UITableViewController, UITextFieldDelegate {
     
-    var user = Person(gender: "Male", age: 0, height: 0, weight: 0, goalWeight: 0, activityLevel: 0)
+    var user = Person(gender: "Male", age: 0, height: 0, weight: 0, goalWeight: 0, weightUnit: .kg, activityLevel: 0)
     var TDEE = 0.0
     
     private let toolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
@@ -86,7 +86,7 @@ class UserSetupController: UITableViewController, UITextFieldDelegate {
             }
         }
         
-        cancelButton.alpha = 0
+//        cancelButton.alpha = 0
         genderLabel.alpha = 0
         genderSegments.alpha = 0
         tickButton.alpha = 0
@@ -156,6 +156,7 @@ class UserSetupController: UITableViewController, UITextFieldDelegate {
             self.agetextField.alpha = 0.5
             self.yearsOldLabel.alpha = 1
         }
+        agetextField.becomeFirstResponder()
     }
     
     @IBAction func heightSegmentChanged(_ sender: UISegmentedControl) {
@@ -226,13 +227,18 @@ class UserSetupController: UITableViewController, UITextFieldDelegate {
             TDEE = ((a + b) - c) * user.activityLevel
         }
         
-        performSegue(withIdentifier: "GoToCalculatedGoals", sender: nil)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.performSegue(withIdentifier: "GoToCalculatedGoals", sender: nil)
+            SVProgressHUD.dismiss()
+        }
         
-        SVProgressHUD.dismiss()
+        
     }
     
     @objc func revealNextView() {
+        
         switch activeTextField {
+            
         case agetextField:
             
             if agetextField.text == "" {
@@ -247,6 +253,7 @@ class UserSetupController: UITableViewController, UITextFieldDelegate {
                     self.heighUnitSegments.alpha = 1
                     self.ftAndInchesStackView.alpha = 1
                 }
+                ftTextField.becomeFirstResponder()
             }
         case inchesTextField:
             
@@ -265,6 +272,7 @@ class UserSetupController: UITableViewController, UITextFieldDelegate {
                     self.weightUnitSegments.alpha = 1
                     self.weightTextField.alpha = 0.5
                 }
+                weightTextField.becomeFirstResponder()
             }
         case cmTextField:
             
@@ -288,7 +296,16 @@ class UserSetupController: UITableViewController, UITextFieldDelegate {
             }
             else {
                 guard let weight = Double(weightTextField.text!) else { return }
-                user.weight = weight
+                if weightUnitSegments.selectedSegmentIndex == 0 {
+                    user.weight = weight
+                }
+                else if weightUnitSegments.selectedSegmentIndex == 1 {
+                    user.weight = weight / 2.205
+                }
+                else {
+                    user.weight = weight * 6.35
+                }
+                
                 weightTextField.resignFirstResponder()
                 UIView.animate(withDuration: 0.5) {
                     self.activityLabel.alpha = 1

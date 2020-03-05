@@ -15,6 +15,25 @@ struct Person {
     var height: Double
     var weight: Double
     var goalWeight: Double
+    var weightUnit: WeightUnit
     var activityLevel: Double
+    
+    
+    enum WeightUnit {
+        case kg
+        case lbs
+        case st
+        
+        var stringValue: String {
+            switch self {
+            case .kg:
+                return "kg"
+            case .lbs:
+                return "lbs"
+            case .st:
+                return "st"
+            }
+        }
+    }
     
 }
