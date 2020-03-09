@@ -163,6 +163,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                 }
                 else {
                     print("Registration Successful")
+                    SVProgressHUD.setMinimumDismissTimeInterval(2)
+                    SVProgressHUD.showSuccess(withStatus: "Account successfully created!")
                     strongSelf.db.collection("users").document((authResult?.user.uid)!).setData([
                         "email": (authResult?.user.email)!,
                         "uid": authResult!.user.uid
@@ -172,12 +174,13 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                             SVProgressHUD.setMinimumDismissTimeInterval(3)
                             SVProgressHUD.showError(withStatus: error.localizedDescription)
                         } else {
+                            
                             print("User added with ID: \(authResult!.user.email!)")
                             strongSelf.defaults.set(authResult!.user.email, forKey: "userEmail")
                             KeychainWrapper.standard.set(strongSelf.passwordTextField.text!, forKey: "userPassword")
                             strongSelf.defaults.set(true, forKey: "userSignedIn")
                             SVProgressHUD.dismiss()
-                            strongSelf.performSegue(withIdentifier: "GoToTabBar", sender: self)
+                            strongSelf.performSegue(withIdentifier: "GoToUserSetup", sender: self)
                         }
                     }
                 }
@@ -289,6 +292,9 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "GoToTabBar" {
+            navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        }
+        else if segue.identifier == "GoToUserSetup" {
             navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         }
     }

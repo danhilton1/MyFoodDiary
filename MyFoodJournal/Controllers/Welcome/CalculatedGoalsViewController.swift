@@ -6,6 +6,7 @@
 //  Copyright © 2020 Daniel Hilton. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
 class CalculatedGoalsViewController: UIViewController {
@@ -27,7 +28,7 @@ class CalculatedGoalsViewController: UIViewController {
     @IBOutlet weak var continueWithoutButton: UIButton!
     
     enum WeightChangeMessages {
-        static let maintain = "+/- 0 per week"
+        static let maintain = "+/- 0 lbs/kg per week"
         static let lose = "- ~1 lbs (~0.45 kg) per week"
         static let gain = "+ 0.3-0.7 lbs (0.14-0.32 kg) per week"
     }
@@ -74,7 +75,7 @@ class CalculatedGoalsViewController: UIViewController {
         
         let messageFont = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)]
 
-        let messageAttrString = NSMutableAttributedString(string: "\nThese values are only estimates based upon the information you gave us and will vary depending on your activity level. If you find these targets are not working for you then please adjust the values accordingly.", attributes: messageFont)
+        let messageAttrString = NSMutableAttributedString(string: "\nThese values are only estimates based upon the information you provided and will vary depending on your daily activity level. If you find these targets are not working for you then please adjust the values accordingly.", attributes: messageFont)
 
         ac.setValue(messageAttrString, forKey: "attributedMessage")
         ac.addAction(UIAlertAction(title: "OK", style: .cancel))
@@ -115,7 +116,14 @@ class CalculatedGoalsViewController: UIViewController {
     }
     
     @IBAction func continueButtonTapped(_ sender: UIButton) {
-        performSegue(withIdentifier: "GoToTabBar", sender: nil)
+        let ac = UIAlertController(title: "Continue", message: "You can set your own custom goals in the 'Goals' section under the 'More' tab.", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .default) { (action) in
+            self.performSegue(withIdentifier: "ContinueWithoutGoals", sender: nil)
+        })
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        
+        present(ac, animated: true)
+        
     }
     
     func animateNumbersInLabels(completed: @escaping () -> ()) {
@@ -134,6 +142,7 @@ class CalculatedGoalsViewController: UIViewController {
     }
     
     func updateNutritionLabels(calories: Double, proteinWeightMultiplier: Double) {
+        
         DispatchQueue.main.async {
             var calories = calories
             self.caloriesLabel.text = calories.roundWholeAndRemovePointZero()
@@ -151,6 +160,25 @@ class CalculatedGoalsViewController: UIViewController {
         }
     }
     
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "GoToTabBar" {
+            
+            navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+            
+            let defaults = UserDefaults()
+            
+            defaults.set(Int(calories), forKey: UserDefaultsKeys.goalCalories)
+            defaults.set(protein, forKey: UserDefaultsKeys.goalProtein)
+            defaults.set(carbs, forKey: UserDefaultsKeys.goalCarbs)
+            defaults.set(fat, forKey: UserDefaultsKeys.goalFat)
+            defaults.set(user.weightUnit.stringValue, forKey: UserDefaultsKeys.weightUnit)
+            
+        }
+        else if segue.identifier == "ContinueWithoutGoals" {
+            navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        }
+    }
     
     
 }

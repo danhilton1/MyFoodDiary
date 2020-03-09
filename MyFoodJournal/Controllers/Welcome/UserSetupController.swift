@@ -119,10 +119,11 @@ class UserSetupController: UITableViewController, UITextFieldDelegate {
         weightTextField.delegate = self
         
         ftTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
+        inchesTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
     }
     
     func presentAlert() {
-        let ac = UIAlertController(title: "Account Setup", message: "To help you achieve your goals we can offer you our recommended targets for nutrition. We just need a few pieces of basic information about you.", preferredStyle: .alert)
+        let ac = UIAlertController(title: "User Setup", message: "To help you achieve your goals we can offer you our personalised recommended targets for nutrition. We just need a few pieces of basic information about you.", preferredStyle: .alert)
         
         ac.addAction(UIAlertAction(title: "OK", style: .cancel) { (action) in
             UIView.animate(withDuration: 0.5) {
@@ -132,7 +133,7 @@ class UserSetupController: UITableViewController, UITextFieldDelegate {
                 self.cancelButton.alpha = 1
             }
         })
-        ac.addAction(UIAlertAction(title: "No thanks", style: .default) { [weak self] (action) in
+        ac.addAction(UIAlertAction(title: "No thanks", style: .destructive) { [weak self] (action) in
             guard let strongSelf = self else { return }
             strongSelf.performSegue(withIdentifier: "GoToTabBar", sender: nil)
         })
@@ -242,7 +243,7 @@ class UserSetupController: UITableViewController, UITextFieldDelegate {
         case agetextField:
             
             if agetextField.text == "" {
-                agetextField.attributedPlaceholder = NSAttributedString(string: "Required", attributes: [NSAttributedString.Key.foregroundColor: Color.salmon])
+                agetextField.attributedPlaceholder = NSAttributedString(string: "Req.", attributes: [NSAttributedString.Key.foregroundColor: Color.salmon])
             }
             else {
                 guard let age = Int(agetextField.text!) else { return }
@@ -258,7 +259,7 @@ class UserSetupController: UITableViewController, UITextFieldDelegate {
         case inchesTextField:
             
             if ftTextField.text == "" {
-                ftTextField.attributedPlaceholder = NSAttributedString(string: "Required", attributes: [NSAttributedString.Key.foregroundColor: Color.salmon])
+                ftTextField.attributedPlaceholder = NSAttributedString(string: "Req.", attributes: [NSAttributedString.Key.foregroundColor: Color.salmon])
             }
             else {
                 guard let feet = Double(ftTextField.text!) else { return }
@@ -277,7 +278,7 @@ class UserSetupController: UITableViewController, UITextFieldDelegate {
         case cmTextField:
             
             if cmTextField.text == "" {
-                cmTextField.attributedPlaceholder = NSAttributedString(string: "Required", attributes: [NSAttributedString.Key.foregroundColor: Color.salmon])
+                cmTextField.attributedPlaceholder = NSAttributedString(string: "Req.", attributes: [NSAttributedString.Key.foregroundColor: Color.salmon])
             }
             else {
                 guard let height = Double(cmTextField.text!) else { return }
@@ -292,18 +293,21 @@ class UserSetupController: UITableViewController, UITextFieldDelegate {
         default:
             
             if weightTextField.text == "" {
-                weightTextField.attributedPlaceholder = NSAttributedString(string: "Required", attributes: [NSAttributedString.Key.foregroundColor: Color.salmon])
+                weightTextField.attributedPlaceholder = NSAttributedString(string: "Req.", attributes: [NSAttributedString.Key.foregroundColor: Color.salmon])
             }
             else {
                 guard let weight = Double(weightTextField.text!) else { return }
                 if weightUnitSegments.selectedSegmentIndex == 0 {
                     user.weight = weight
+                    user.weightUnit = .kg
                 }
                 else if weightUnitSegments.selectedSegmentIndex == 1 {
                     user.weight = weight / 2.205
+                    user.weightUnit = .lbs
                 }
                 else {
                     user.weight = weight * 6.35
+                    user.weightUnit = .st
                 }
                 
                 weightTextField.resignFirstResponder()
@@ -344,9 +348,18 @@ extension UserSetupController {
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
-        if let text = textField.text {
-            if text.count > 0 {
-                inchesTextField.becomeFirstResponder()
+        if textField == ftTextField {
+            if let text = textField.text {
+                if text.count > 0 {
+                    inchesTextField.becomeFirstResponder()
+                }
+            }
+        }
+        else if textField == inchesTextField {
+            if let text = textField.text {
+                if text.count > 1 {
+                    revealNextView()
+                }
             }
         }
     }

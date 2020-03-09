@@ -42,17 +42,8 @@ class GoalsViewController: UITableViewController, UITextFieldDelegate {
         super.viewDidLoad()
 
         setUpViews()
+        setUpTextFields()
         checkDeviceAndUpdateLayoutIfNeeded()
-        
-        tableView.allowsSelection = false
-        
-        caloriesGoalTextField.delegate = self
-        proteinGoalTextField.delegate = self
-        carbsGoalTextField.delegate = self
-        fatGoalTextField.delegate = self
-        weightGoalTextField.delegate = self
-        
-        addInputAccessoryForTextFields(textFields: [caloriesGoalTextField, proteinGoalTextField, carbsGoalTextField, fatGoalTextField, weightGoalTextField], dismissable: true, previousNextable: true)
         
     }
     
@@ -65,9 +56,12 @@ class GoalsViewController: UITableViewController, UITextFieldDelegate {
     func setUpViews() {
         
         caloriesGoalTextField.text = "\(defaults.value(forKey: UserDefaultsKeys.goalCalories) as? Int ?? 0)"
-        proteinGoalTextField.text = defaults.value(forKey: UserDefaultsKeys.goalProtein) as? String
-        carbsGoalTextField.text = defaults.value(forKey: UserDefaultsKeys.goalCarbs) as? String
-        fatGoalTextField.text = defaults.value(forKey: UserDefaultsKeys.goalFat) as? String
+        var goalProtein = defaults.value(forKey: UserDefaultsKeys.goalProtein) as? Double ?? 0
+        proteinGoalTextField.text = goalProtein.removePointZeroEndingAndConvertToString()
+        var goalCarbs = defaults.value(forKey: UserDefaultsKeys.goalCarbs) as? Double ?? 0
+        carbsGoalTextField.text = goalCarbs.removePointZeroEndingAndConvertToString()
+        var goalFat = defaults.value(forKey: UserDefaultsKeys.goalFat) as? Double ?? 0
+        fatGoalTextField.text = goalFat.removePointZeroEndingAndConvertToString()
         var goalWeight = defaults.value(forKey: UserDefaultsKeys.goalWeight) as? Double ?? 0
         weightGoalTextField.text = goalWeight.removePointZeroEndingAndConvertToString()
         let weightUnit = defaults.value(forKey: UserDefaultsKeys.weightUnit) as? String
@@ -79,6 +73,17 @@ class GoalsViewController: UITableViewController, UITextFieldDelegate {
             updateGoalsButton.layer.cornerRadius = 20
         }
         tableView.tableFooterView = UIView()
+        tableView.allowsSelection = false
+    }
+    
+    func setUpTextFields() {
+        caloriesGoalTextField.delegate = self
+        proteinGoalTextField.delegate = self
+        carbsGoalTextField.delegate = self
+        fatGoalTextField.delegate = self
+        weightGoalTextField.delegate = self
+        
+        addInputAccessoryForTextFields(textFields: [caloriesGoalTextField, proteinGoalTextField, carbsGoalTextField, fatGoalTextField, weightGoalTextField], dismissable: true, previousNextable: true)
     }
     
     func checkDeviceAndUpdateLayoutIfNeeded() {
