@@ -364,6 +364,15 @@ extension UserSetupController {
         }
     }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if (textField.text?.contains("."))! && string.contains(".") {
+            return false
+        }
+        else {
+            return true
+        }
+    }
+    
     
     
     
