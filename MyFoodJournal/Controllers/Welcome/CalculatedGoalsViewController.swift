@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Firebase
 
 class CalculatedGoalsViewController: UIViewController {
 
@@ -160,19 +161,38 @@ class CalculatedGoalsViewController: UIViewController {
         }
     }
     
+    func setGoalsAndInitalWeight(segue: UIStoryboardSegue) {
+        let defaults = UserDefaults()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "E, dd MMM YYYY"
+        
+        defaults.set(Int(calories), forKey: UserDefaultsKeys.goalCalories)
+        defaults.set(protein, forKey: UserDefaultsKeys.goalProtein)
+        defaults.set(carbs, forKey: UserDefaultsKeys.goalCarbs)
+        defaults.set(fat, forKey: UserDefaultsKeys.goalFat)
+        defaults.set(user.weightUnit.stringValue, forKey: UserDefaultsKeys.weightUnit)
+        
+        let initalWeight = Weight()
+        initalWeight.weight = user.weight
+        initalWeight.unit = user.weightUnit.stringValue
+        initalWeight.date = Date()
+        initalWeight.dateLastEdited = Date()
+        initalWeight.dateString = formatter.string(from: Date())
+        guard let user = Auth.auth().currentUser?.uid else { return }
+        initalWeight.saveWeight(user: user)
+        
+        let tabController = segue.destination as! UITabBarController
+        let weightNavController = tabController.viewControllers?[1] as! UINavigationController
+        let weightVC = weightNavController.viewControllers.first as! WeightViewController
+        weightVC.allWeightEntries = [initalWeight]
+    }
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "GoToTabBar" {
             
             navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-            
-            let defaults = UserDefaults()
-            
-            defaults.set(Int(calories), forKey: UserDefaultsKeys.goalCalories)
-            defaults.set(protein, forKey: UserDefaultsKeys.goalProtein)
-            defaults.set(carbs, forKey: UserDefaultsKeys.goalCarbs)
-            defaults.set(fat, forKey: UserDefaultsKeys.goalFat)
-            defaults.set(user.weightUnit.stringValue, forKey: UserDefaultsKeys.weightUnit)
+            setGoalsAndInitalWeight(segue: segue)
             
         }
         else if segue.identifier == "ContinueWithoutGoals" {

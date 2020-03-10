@@ -55,6 +55,9 @@ class GoalsViewController: UITableViewController, UITextFieldDelegate {
     
     func setUpViews() {
         
+        proteinGoalTextField.textColor = Color.mint
+        carbsGoalTextField.textColor = Color.skyBlue
+        fatGoalTextField.textColor = Color.salmon
         caloriesGoalTextField.text = "\(defaults.value(forKey: UserDefaultsKeys.goalCalories) as? Int ?? 0)"
         var goalProtein = defaults.value(forKey: UserDefaultsKeys.goalProtein) as? Double ?? 0
         proteinGoalTextField.text = goalProtein.removePointZeroEndingAndConvertToString()
@@ -74,6 +77,7 @@ class GoalsViewController: UITableViewController, UITextFieldDelegate {
         }
         tableView.tableFooterView = UIView()
         tableView.allowsSelection = false
+
     }
     
     func setUpTextFields() {
@@ -176,10 +180,10 @@ extension GoalsViewController {
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let header = view as! UITableViewHeaderFooterView
         if UIScreen.main.bounds.height < 600 {
-            header.textLabel?.font = UIFont(name: "Montserrat-SemiBold", size: 15)!
+            header.textLabel?.font = UIFont(name: "Montserrat-SemiBold", size: 13)!
         }
         else {
-            header.textLabel?.font = UIFont(name: "Montserrat-SemiBold", size: 17)!
+            header.textLabel?.font = UIFont(name: "Montserrat-SemiBold", size: 15)!
         }
     }
     
