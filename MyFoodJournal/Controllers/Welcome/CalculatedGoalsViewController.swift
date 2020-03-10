@@ -12,6 +12,7 @@ import Firebase
 
 class CalculatedGoalsViewController: UIViewController {
 
+    //MARK:- Properties
     var user: Person!
     var TDEE = 0.0
     var calories = 0.0
@@ -19,14 +20,39 @@ class CalculatedGoalsViewController: UIViewController {
     var carbs = 0.0
     var fat = 0.0
     
+    //MARK:- IBOutlets
+    @IBOutlet weak var TDEETextLabel: UILabel!
     @IBOutlet weak var TDEELabel: UILabel!
+    @IBOutlet weak var totalDailyTextLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var goalTextLabel: UILabel!
+    @IBOutlet weak var caloriesTextLabel: UILabel!
     @IBOutlet weak var caloriesLabel: UILabel!
+    @IBOutlet weak var proteinTextLabel: UILabel!
     @IBOutlet weak var proteinLabel: UILabel!
+    @IBOutlet weak var carbsTextLabel: UILabel!
     @IBOutlet weak var carbsLabel: UILabel!
+    @IBOutlet weak var fatTextLabel: UILabel!
     @IBOutlet weak var fatLabel: UILabel!
     @IBOutlet weak var weightChangeLabel: UILabel!
     @IBOutlet weak var acceptButton: UIButton!
     @IBOutlet weak var continueWithoutButton: UIButton!
+    // Constraints
+    @IBOutlet weak var TDEETextLabelTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var descriptionLabelTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var goalLabelTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var goalLabelBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var segmentedControlHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var segmentedBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var caloriesLabelBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var proteinLabelBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var carbsLabelBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var fatLabelBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var acceptButtonHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var continueButtonHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var acceptButtonBottomConstraint: NSLayoutConstraint!
+    
+    
     
     enum WeightChangeMessages {
         static let maintain = "+/- 0 lbs/kg per week"
@@ -34,11 +60,13 @@ class CalculatedGoalsViewController: UIViewController {
         static let gain = "+ 0.3-0.7 lbs (0.14-0.32 kg) per week"
     }
     
+    //MARK:- View Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setUpViews()
+        checkDeviceAndUpdateLayoutIfNeeded()
         
     }
     
@@ -64,6 +92,56 @@ class CalculatedGoalsViewController: UIViewController {
         carbsLabel.text = carbs.roundWholeAndRemovePointZero()
         
     }
+    
+    func checkDeviceAndUpdateLayoutIfNeeded() {
+        
+        if UIScreen.main.bounds.height < 700 {
+            totalDailyTextLabel.font = totalDailyTextLabel.font.withSize(12)
+            descriptionLabel.font = descriptionLabel.font.withSize(14)
+            descriptionLabelTopConstraint.constant = 15
+            goalLabelTopConstraint.constant = 20
+            goalLabelBottomConstraint.constant = 10
+            segmentedControlHeightConstraint.constant = 45
+            segmentedBottomConstraint.constant = 25
+            caloriesLabelBottomConstraint.constant = 10
+            proteinLabelBottomConstraint.constant = 10
+            carbsLabelBottomConstraint.constant = 10
+            fatLabelBottomConstraint.constant = 15
+            if UIScreen.main.bounds.height < 600 {
+                TDEETextLabelTopConstraint.constant = 10
+                TDEETextLabel.font = TDEETextLabel.font.withSize(24)
+                TDEELabel.font = TDEELabel.font.withSize(24)
+                descriptionLabel.font = descriptionLabel.font.withSize(12)
+                goalTextLabel.font = goalTextLabel.font.withSize(20)
+                caloriesTextLabel.font = caloriesTextLabel.font.withSize(18)
+                caloriesLabel.font = caloriesLabel.font.withSize(18)
+                proteinTextLabel.font = proteinTextLabel.font.withSize(18)
+                proteinLabel.font = proteinLabel.font.withSize(18)
+                carbsTextLabel.font = carbsTextLabel.font.withSize(18)
+                carbsLabel.font = carbsLabel.font.withSize(18)
+                fatTextLabel.font = fatTextLabel.font.withSize(18)
+                fatLabel.font = fatLabel.font.withSize(18)
+                weightChangeLabel.font = weightChangeLabel.font.withSize(13)
+                acceptButton.titleLabel?.font = acceptButton.titleLabel?.font.withSize(16)
+                continueWithoutButton.titleLabel?.font = continueWithoutButton.titleLabel?.font.withSize(13)
+                acceptButtonHeightConstraint.constant = 34
+                continueButtonHeightConstraint.constant = 27
+                segmentedBottomConstraint.constant = 15
+                acceptButtonBottomConstraint.constant = 15
+                acceptButton.layer.cornerRadius = 18
+                continueWithoutButton.layer.cornerRadius = 14
+            }
+        }
+        else if UIScreen.main.bounds.height < 820 {
+            descriptionLabelTopConstraint.constant = 15
+            goalLabelTopConstraint.constant = 25
+            caloriesLabelBottomConstraint.constant = 15
+            proteinLabelBottomConstraint.constant = 15
+            carbsLabelBottomConstraint.constant = 15
+        }
+    }
+    
+    //MARK:- Button Methods
     
     @IBAction func backButtonTapped(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
@@ -118,14 +196,17 @@ class CalculatedGoalsViewController: UIViewController {
     
     @IBAction func continueButtonTapped(_ sender: UIButton) {
         let ac = UIAlertController(title: "Continue", message: "You can set your own custom goals in the 'Goals' section under the 'More' tab.", preferredStyle: .alert)
+        
         ac.addAction(UIAlertAction(title: "OK", style: .default) { (action) in
             self.performSegue(withIdentifier: "ContinueWithoutGoals", sender: nil)
         })
-        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        ac.addAction(UIAlertAction(title: "Cancel", style: .destructive))
         
         present(ac, animated: true)
         
     }
+    
+    //MARK:- Logic methods
     
     func animateNumbersInLabels(completed: @escaping () -> ()) {
         DispatchQueue.global(qos: .background).async {

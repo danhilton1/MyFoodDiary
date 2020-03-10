@@ -279,7 +279,7 @@
                                                     </segments>
                                                 </segmentedControl>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dPg-57-Lsu">
-                                                    <rect key="frame" x="319" y="5" width="75" height="75"/>
+                                                    <rect key="frame" x="356.5" y="5" width="37.5" height="37.5"/>
                                                     <state key="normal" image="plus-icon"/>
                                                     <connections>
                                                         <action selector="cancelButtonTapped:" destination="MnX-pn-YL3" eventType="touchUpInside" id="s2J-yO-cyy"/>
@@ -730,7 +730,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qYz-Q2-5uZ">
-                                <rect key="frame" x="72" y="701.5" width="270" height="42"/>
+                                <rect key="frame" x="72" y="735" width="270" height="42"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="42" id="CAG-IQ-I1z"/>
@@ -743,22 +743,23 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MJ5-g2-clk">
-                                <rect key="frame" x="99.5" y="773.5" width="215" height="32"/>
+                                <rect key="frame" x="99.5" y="807" width="215" height="35"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="FiI-9h-i0F"/>
                                     <constraint firstAttribute="width" constant="215" id="Vob-HL-UGd"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
                                 <state key="normal" title="Continue Without Goals"/>
                                 <connections>
                                     <action selector="continueButtonTapped:" destination="HeP-I8-Peg" eventType="touchUpInside" id="nTS-7x-pfd"/>
-                                    <segue destination="TrC-wf-omx" kind="show" identifier="ContinueWithoutGoals" id="FcU-6R-npy"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.32102057340000001" green="0.58673346039999996" blue="0.83532440659999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="fO8-4K-6HU" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="MJ5-g2-clk" secondAttribute="bottom" constant="20" id="7zR-03-L9C"/>
+                            <constraint firstItem="5VG-wi-0nU" firstAttribute="centerY" secondItem="M6J-Kd-myK" secondAttribute="centerY" id="557-8f-vOl"/>
+                            <constraint firstItem="fO8-4K-6HU" firstAttribute="bottom" secondItem="MJ5-g2-clk" secondAttribute="bottom" constant="20" id="7zR-03-L9C"/>
                             <constraint firstItem="fO8-4K-6HU" firstAttribute="trailing" secondItem="36E-wW-hGl" secondAttribute="trailing" constant="20" id="8HF-1F-o2e"/>
                             <constraint firstItem="yGt-eU-x5X" firstAttribute="trailing" secondItem="36E-wW-hGl" secondAttribute="trailing" id="8kI-Ff-uNa"/>
                             <constraint firstItem="aGE-Dd-g2i" firstAttribute="leading" secondItem="fO8-4K-6HU" secondAttribute="leading" constant="20" id="8m3-nd-jpM"/>
@@ -767,7 +768,6 @@
                             <constraint firstItem="3Uu-Lg-aSb" firstAttribute="leading" secondItem="36E-wW-hGl" secondAttribute="leading" id="B3e-ET-aCV"/>
                             <constraint firstItem="du1-QK-ufH" firstAttribute="centerX" secondItem="xxD-EO-fQT" secondAttribute="centerX" id="BXo-zu-VkU"/>
                             <constraint firstItem="nnY-CF-kel" firstAttribute="leading" secondItem="fO8-4K-6HU" secondAttribute="leading" constant="20" id="Cbh-SS-ahD"/>
-                            <constraint firstItem="yGt-eU-x5X" firstAttribute="top" secondItem="3Uu-Lg-aSb" secondAttribute="bottom" constant="20" id="DTs-df-G96"/>
                             <constraint firstItem="nnY-CF-kel" firstAttribute="top" secondItem="EhA-FH-1CH" secondAttribute="bottom" constant="25" id="E5b-gi-8ug"/>
                             <constraint firstItem="eEH-bG-dW4" firstAttribute="leading" secondItem="fO8-4K-6HU" secondAttribute="leading" constant="20" id="FpS-WM-KSK"/>
                             <constraint firstItem="EhA-FH-1CH" firstAttribute="top" secondItem="eEH-bG-dW4" secondAttribute="bottom" constant="5" id="G0A-dR-3aL"/>
@@ -783,20 +783,20 @@
                             <constraint firstItem="MJ5-g2-clk" firstAttribute="centerX" secondItem="xxD-EO-fQT" secondAttribute="centerX" id="YXV-id-RIe"/>
                             <constraint firstItem="3Uu-Lg-aSb" firstAttribute="trailing" secondItem="36E-wW-hGl" secondAttribute="trailing" id="ZLz-gO-DOR"/>
                             <constraint firstItem="uUq-Ph-JrX" firstAttribute="top" secondItem="jhp-Op-tF5" secondAttribute="bottom" constant="20" id="ZMd-fw-Ib3"/>
+                            <constraint firstItem="3Uu-Lg-aSb" firstAttribute="centerY" secondItem="jhp-Op-tF5" secondAttribute="centerY" id="ahN-QD-D8P"/>
                             <constraint firstItem="aGE-Dd-g2i" firstAttribute="top" secondItem="fO8-4K-6HU" secondAttribute="top" id="bVl-Fd-ILG"/>
+                            <constraint firstItem="yGt-eU-x5X" firstAttribute="centerY" secondItem="uUq-Ph-JrX" secondAttribute="centerY" id="cDv-Xw-KuI"/>
                             <constraint firstItem="fO8-4K-6HU" firstAttribute="trailing" secondItem="uoi-pv-Wbn" secondAttribute="trailing" constant="30" id="cLg-E9-bVw"/>
                             <constraint firstItem="EhA-FH-1CH" firstAttribute="leading" secondItem="eEH-bG-dW4" secondAttribute="leading" id="cNn-oh-rNJ"/>
                             <constraint firstItem="uoi-pv-Wbn" firstAttribute="leading" secondItem="fO8-4K-6HU" secondAttribute="leading" constant="30" id="dK0-Af-aq9"/>
                             <constraint firstItem="61C-Av-A19" firstAttribute="leading" secondItem="du1-QK-ufH" secondAttribute="trailing" constant="15" id="eTc-0r-KiK"/>
+                            <constraint firstItem="eEH-bG-dW4" firstAttribute="top" secondItem="aGE-Dd-g2i" secondAttribute="bottom" constant="17" id="esn-K0-beq"/>
                             <constraint firstItem="36E-wW-hGl" firstAttribute="centerY" secondItem="vi4-wf-5lU" secondAttribute="centerY" id="fSL-no-ryv"/>
                             <constraint firstItem="5VG-wi-0nU" firstAttribute="leading" secondItem="36E-wW-hGl" secondAttribute="leading" id="gI6-I8-eQP"/>
-                            <constraint firstItem="eEH-bG-dW4" firstAttribute="top" secondItem="fO8-4K-6HU" secondAttribute="top" constant="50" id="gaQ-hj-wgd"/>
                             <constraint firstItem="qYz-Q2-5uZ" firstAttribute="centerX" secondItem="xxD-EO-fQT" secondAttribute="centerX" id="iwM-Rv-RKi"/>
                             <constraint firstItem="MJ5-g2-clk" firstAttribute="top" secondItem="qYz-Q2-5uZ" secondAttribute="bottom" constant="30" id="jry-XW-VJI"/>
                             <constraint firstItem="uUq-Ph-JrX" firstAttribute="leading" secondItem="vi4-wf-5lU" secondAttribute="leading" id="kJF-on-xm2"/>
-                            <constraint firstItem="5VG-wi-0nU" firstAttribute="top" secondItem="36E-wW-hGl" secondAttribute="bottom" constant="20" id="oC8-xV-4eg"/>
-                            <constraint firstItem="qYz-Q2-5uZ" firstAttribute="top" secondItem="IiC-Ft-pRq" secondAttribute="bottom" constant="50" id="pvj-Nx-BGy"/>
-                            <constraint firstItem="3Uu-Lg-aSb" firstAttribute="top" secondItem="5VG-wi-0nU" secondAttribute="bottom" constant="20" id="reW-1x-JhC"/>
+                            <constraint firstItem="qYz-Q2-5uZ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="IiC-Ft-pRq" secondAttribute="bottom" constant="20" id="pvj-Nx-BGy"/>
                             <constraint firstItem="IiC-Ft-pRq" firstAttribute="top" secondItem="uUq-Ph-JrX" secondAttribute="bottom" constant="20" id="ubt-dm-K6v"/>
                             <constraint firstAttribute="trailing" secondItem="nnY-CF-kel" secondAttribute="trailing" constant="20" id="wEj-Z0-75A"/>
                             <constraint firstItem="jhp-Op-tF5" firstAttribute="leading" secondItem="vi4-wf-5lU" secondAttribute="leading" id="wIQ-h7-qe4"/>
@@ -810,14 +810,36 @@
                     <navigationItem key="navigationItem" id="x1G-j2-5ME"/>
                     <connections>
                         <outlet property="TDEELabel" destination="g8m-BG-Byx" id="qOR-8d-AyT"/>
+                        <outlet property="TDEETextLabel" destination="eEH-bG-dW4" id="CYN-b4-0Qf"/>
+                        <outlet property="TDEETextLabelTopConstraint" destination="esn-K0-beq" id="h1d-Oi-s9B"/>
                         <outlet property="acceptButton" destination="qYz-Q2-5uZ" id="tkp-rh-poz"/>
+                        <outlet property="acceptButtonBottomConstraint" destination="jry-XW-VJI" id="aJW-bR-Dnd"/>
+                        <outlet property="acceptButtonHeightConstraint" destination="CAG-IQ-I1z" id="5M1-Eq-oLN"/>
                         <outlet property="caloriesLabel" destination="36E-wW-hGl" id="UZd-si-CAk"/>
+                        <outlet property="caloriesLabelBottomConstraint" destination="94p-If-OCc" id="OhR-dX-Lam"/>
+                        <outlet property="caloriesTextLabel" destination="vi4-wf-5lU" id="kn9-kW-esR"/>
                         <outlet property="carbsLabel" destination="3Uu-Lg-aSb" id="LDX-kI-Ua2"/>
+                        <outlet property="carbsLabelBottomConstraint" destination="ZMd-fw-Ib3" id="7mK-sr-y3D"/>
+                        <outlet property="carbsTextLabel" destination="jhp-Op-tF5" id="mSZ-rt-LhA"/>
+                        <outlet property="continueButtonHeightConstraint" destination="FiI-9h-i0F" id="mvb-np-EzW"/>
                         <outlet property="continueWithoutButton" destination="MJ5-g2-clk" id="Fhh-tH-XWM"/>
+                        <outlet property="descriptionLabel" destination="nnY-CF-kel" id="Tdp-lu-s3f"/>
+                        <outlet property="descriptionLabelTopConstraint" destination="E5b-gi-8ug" id="d7p-bq-nmc"/>
                         <outlet property="fatLabel" destination="yGt-eU-x5X" id="aDc-AF-dwN"/>
+                        <outlet property="fatLabelBottomConstraint" destination="ubt-dm-K6v" id="vHG-dq-lXv"/>
+                        <outlet property="fatTextLabel" destination="uUq-Ph-JrX" id="PVD-Rn-jHa"/>
+                        <outlet property="goalLabelBottomConstraint" destination="X7D-cd-2zK" id="ugN-a9-lgk"/>
+                        <outlet property="goalLabelTopConstraint" destination="yKa-rp-y33" id="OSP-oO-gqO"/>
+                        <outlet property="goalTextLabel" destination="du1-QK-ufH" id="SC4-M2-Nbc"/>
                         <outlet property="proteinLabel" destination="5VG-wi-0nU" id="DLo-UX-1mt"/>
+                        <outlet property="proteinLabelBottomConstraint" destination="Jhj-U7-Cx8" id="eJx-fO-pVH"/>
+                        <outlet property="proteinTextLabel" destination="M6J-Kd-myK" id="QS4-3b-cWL"/>
+                        <outlet property="segmentedBottomConstraint" destination="YXM-OI-bBB" id="c9f-k0-Wfn"/>
+                        <outlet property="segmentedControlHeightConstraint" destination="1Nz-8h-J3E" id="y3L-C8-I9U"/>
+                        <outlet property="totalDailyTextLabel" destination="EhA-FH-1CH" id="IBE-Zy-rPF"/>
                         <outlet property="weightChangeLabel" destination="IiC-Ft-pRq" id="Km8-Ss-tMG"/>
                         <segue destination="TrC-wf-omx" kind="show" identifier="GoToTabBar" id="fr1-yu-N1y"/>
+                        <segue destination="TrC-wf-omx" kind="show" identifier="ContinueWithoutGoals" id="e5m-q4-FGD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c57-Yz-yZb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -833,19 +855,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rwg-6J-ZOJ">
-                                <rect key="frame" x="20" y="154" width="374" height="29.5"/>
+                                <rect key="frame" x="20" y="154" width="374" height="30.5"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="25"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iqe-Aa-cNn">
-                                <rect key="frame" x="20" y="283.5" width="374" height="29.5"/>
+                                <rect key="frame" x="20" y="284.5" width="374" height="30.5"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="25"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter your email address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KiP-My-j7D" customClass="LogInTextField" customModule="MyFoodJournal" customModuleProvider="target">
-                                <rect key="frame" x="20" y="203.5" width="374" height="45"/>
+                                <rect key="frame" x="20" y="204.5" width="374" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="hyA-bo-ss3"/>
                                 </constraints>
@@ -853,7 +875,7 @@
                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter your password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3iL-Ir-f7m" customClass="LogInTextField" customModule="MyFoodJournal" customModuleProvider="target">
-                                <rect key="frame" x="20" y="333" width="374" height="45"/>
+                                <rect key="frame" x="20" y="335" width="374" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="wej-pG-VDu"/>
                                 </constraints>
@@ -861,7 +883,7 @@
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JG4-Xx-9kv">
-                                <rect key="frame" x="80" y="520.5" width="254" height="50"/>
+                                <rect key="frame" x="80" y="524" width="254" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="3gU-Kg-0Ma"/>
@@ -882,20 +904,20 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Register Account" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ohg-MU-5ai">
-                                <rect key="frame" x="107" y="55.5" width="200.5" height="30.5"/>
+                                <rect key="frame" x="89" y="54.5" width="236" height="32"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="26"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AddUserIcon" translatesAutoresizingMaskIntoConstraints="NO" id="n8e-HX-VeZ">
-                                <rect key="frame" x="187" y="96" width="40" height="40"/>
+                                <rect key="frame" x="187" y="96.5" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="gl7-3w-coP"/>
                                     <constraint firstAttribute="height" constant="40" id="orN-VW-F86"/>
                                 </constraints>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Re-enter your password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uEg-Vi-4Zc" customClass="LogInTextField" customModule="MyFoodJournal" customModuleProvider="target">
-                                <rect key="frame" x="20" y="398" width="374" height="45"/>
+                                <rect key="frame" x="20" y="400" width="374" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="Xdl-7T-ltP"/>
                                 </constraints>
@@ -903,10 +925,10 @@
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="HfN-gk-DFz">
-                                <rect key="frame" x="50" y="455" width="214" height="16.5"/>
+                                <rect key="frame" x="50" y="456.5" width="240" height="17.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By using this app you agree to the" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sqo-i1-yLP">
-                                        <rect key="frame" x="0.0" y="0.0" width="214" height="16.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="240" height="17.5"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -914,7 +936,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cun-Mw-Mf1">
-                                <rect key="frame" x="20" y="453" width="20" height="20"/>
+                                <rect key="frame" x="20" y="455" width="20" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="0t4-H0-yFf"/>
                                     <constraint firstAttribute="height" constant="20" id="jjO-3Y-rho"/>
@@ -926,10 +948,10 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="ndF-bv-doe">
-                                <rect key="frame" x="50" y="466.5" width="241" height="29"/>
+                                <rect key="frame" x="50" y="469" width="265.5" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Le-1r-dEB">
-                                        <rect key="frame" x="0.0" y="0.0" width="122" height="29"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="136" height="30"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="14"/>
                                         <state key="normal" title="Terms &amp; Conditions">
                                             <color key="titleColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -939,13 +961,13 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="and" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hoy-LH-Kmy">
-                                        <rect key="frame" x="125" y="0.0" width="22" height="29"/>
+                                        <rect key="frame" x="139" y="0.0" width="25.5" height="30"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="13"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Erh-I0-JGl">
-                                        <rect key="frame" x="150" y="0.0" width="91" height="29"/>
+                                        <rect key="frame" x="167.5" y="0.0" width="98" height="30"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="14"/>
                                         <state key="normal" title="Privacy Policy.">
                                             <color key="titleColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -956,7 +978,7 @@
                                     </button>
                                 </subviews>
                             </stackView>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hsr-JD-mpE">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hsr-JD-mpE">
                                 <rect key="frame" x="344" y="128" width="50" height="30"/>
                                 <state key="normal" title="Testing">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1081,7 +1103,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4gd-SN-brr">
-                                <rect key="frame" x="20" y="44" width="66" height="66"/>
+                                <rect key="frame" x="20" y="44" width="33" height="33"/>
                                 <state key="normal" image="BackIcon">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -1203,6 +1225,6 @@
         <image name="tick-icon" width="37.5" height="37.5"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="gK3-K4-laE"/>
+        <segue reference="e5m-q4-FGD"/>
     </inferredMetricsTieBreakers>
 </document>
