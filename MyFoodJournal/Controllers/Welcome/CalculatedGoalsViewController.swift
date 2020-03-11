@@ -19,6 +19,7 @@ class CalculatedGoalsViewController: UIViewController {
     var protein = 0.0
     var carbs = 0.0
     var fat = 0.0
+    var isEditingExistingInfo = false
     
     //MARK:- IBOutlets
     @IBOutlet weak var TDEETextLabel: UILabel!
@@ -191,14 +192,25 @@ class CalculatedGoalsViewController: UIViewController {
     }
     
     @IBAction func acceptButtonTapped(_ sender: UIButton) {
-        performSegue(withIdentifier: "GoToTabBar", sender: nil)
+        if self.isEditingExistingInfo {
+            setUserDefaultsValues()
+            self.navigationController?.dismiss(animated: true, completion: nil)
+        }
+        else {
+            performSegue(withIdentifier: "GoToTabBar", sender: nil)
+        }
     }
     
     @IBAction func continueButtonTapped(_ sender: UIButton) {
         let ac = UIAlertController(title: "Continue", message: "You can set your own custom goals in the 'Goals' section under the 'More' tab.", preferredStyle: .alert)
         
         ac.addAction(UIAlertAction(title: "OK", style: .default) { (action) in
-            self.performSegue(withIdentifier: "ContinueWithoutGoals", sender: nil)
+            if self.isEditingExistingInfo {
+                self.navigationController?.dismiss(animated: true, completion: nil)
+            }
+            else {
+                self.performSegue(withIdentifier: "ContinueWithoutGoals", sender: nil)
+            }
         })
         ac.addAction(UIAlertAction(title: "Cancel", style: .destructive))
         
@@ -243,15 +255,11 @@ class CalculatedGoalsViewController: UIViewController {
     }
     
     func setGoalsAndInitalWeight(segue: UIStoryboardSegue) {
-        let defaults = UserDefaults()
+        
+        setUserDefaultsValues()
+        
         let formatter = DateFormatter()
         formatter.dateFormat = "E, dd MMM YYYY"
-        
-        defaults.set(Int(calories), forKey: UserDefaultsKeys.goalCalories)
-        defaults.set(protein, forKey: UserDefaultsKeys.goalProtein)
-        defaults.set(carbs, forKey: UserDefaultsKeys.goalCarbs)
-        defaults.set(fat, forKey: UserDefaultsKeys.goalFat)
-        defaults.set(user.weightUnit.stringValue, forKey: UserDefaultsKeys.weightUnit)
         
         let initalWeight = Weight()
         initalWeight.weight = user.weight
@@ -266,6 +274,25 @@ class CalculatedGoalsViewController: UIViewController {
         let weightNavController = tabController.viewControllers?[1] as! UINavigationController
         let weightVC = weightNavController.viewControllers.first as! WeightViewController
         weightVC.allWeightEntries = [initalWeight]
+    }
+    
+    func setUserDefaultsValues() {
+        let defaults = UserDefaults()
+        
+        defaults.set(Int(calories), forKey: UserDefaultsKeys.goalCalories)
+        defaults.set(protein, forKey: UserDefaultsKeys.goalProtein)
+        defaults.set(carbs, forKey: UserDefaultsKeys.goalCarbs)
+        defaults.set(fat, forKey: UserDefaultsKeys.goalFat)
+        defaults.set(user.weightUnit.stringValue, forKey: UserDefaultsKeys.weightUnit)
+        defaults.set(user.gender, forKey: UserDefaultsKeys.gender)
+        defaults.set(user.age, forKey: UserDefaultsKeys.age)
+        defaults.set(user.heightUnit.stringValue, forKey: UserDefaultsKeys.heightUnit)
+        defaults.set(user.height, forKey: UserDefaultsKeys.height)
+        defaults.set(user.heightFeet, forKey: UserDefaultsKeys.heightFeet)
+        defaults.set(user.heightInches, forKey: UserDefaultsKeys.heightInches)
+        defaults.set(user.weight, forKey: UserDefaultsKeys.weight)
+        defaults.set(user.activityLevel, forKey: UserDefaultsKeys.activityLevel)
+        defaults.set(user.activityMultiplier, forKey: UserDefaultsKeys.activityMultiplier)
     }
     
     

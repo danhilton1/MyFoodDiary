@@ -657,7 +657,13 @@
                             <outlet property="delegate" destination="KMH-LP-tze" id="xqr-N8-wIl"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Goals" id="iWN-DJ-gMK"/>
+                    <navigationItem key="navigationItem" title="Goals" id="iWN-DJ-gMK">
+                        <barButtonItem key="rightBarButtonItem" image="UserIcon" id="r4b-fM-q7c">
+                            <connections>
+                                <action selector="userButtonTapped:" destination="KMH-LP-tze" id="Qxd-W9-TGZ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="caloriesGoalTextField" destination="eqb-fB-uRs" id="WB2-BA-4pK"/>
                         <outlet property="caloriesTextLabel" destination="4IU-kT-2Ny" id="XA2-6t-SZb"/>
@@ -788,6 +794,7 @@
     </scenes>
     <resources>
         <image name="AppLogoBlueBackground" width="341" height="341"/>
+        <image name="UserIcon" width="33" height="33"/>
         <image name="envelope" catalog="system" width="64" height="46"/>
     </resources>
 </document>

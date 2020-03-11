@@ -13,10 +13,14 @@ struct Person {
     var gender: String
     var age: Int
     var height: Double
+    var heightFeet: Int?
+    var heightInches: Int?
+    var heightUnit: HeightUnit
     var weight: Double
     var goalWeight: Double
     var weightUnit: WeightUnit
-    var activityLevel: Double
+    var activityLevel: Int
+    var activityMultiplier: Double
     
     
     enum WeightUnit {
@@ -32,6 +36,20 @@ struct Person {
                 return "lbs"
             case .st:
                 return "st"
+            }
+        }
+    }
+    
+    enum HeightUnit {
+        case ft
+        case cm
+        
+        var stringValue: String {
+            switch self {
+            case .ft:
+                return "ft"
+            case .cm:
+                return "cm"
             }
         }
     }

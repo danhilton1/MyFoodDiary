@@ -250,7 +250,7 @@
         <!--User Setup Controller-->
         <scene sceneID="yJR-Ad-Gcs">
             <objects>
-                <tableViewController id="MnX-pn-YL3" customClass="UserSetupController" customModule="MyFoodJournal" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="UserSetup" modalPresentationStyle="fullScreen" id="MnX-pn-YL3" customClass="UserSetupController" customModule="MyFoodJournal" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="120" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Qk6-26-IU8">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -586,6 +586,7 @@
                         <outlet property="ftAndInchesStackView" destination="tfD-9t-myn" id="FUQ-3Y-ciH"/>
                         <outlet property="ftTextField" destination="EDg-z4-ytR" id="Uc7-jL-CRC"/>
                         <outlet property="genderLabel" destination="mvL-Lg-KYv" id="A8D-Cm-QQx"/>
+                        <outlet property="genderLabelTopConstraint" destination="69I-6k-PUZ" id="GZh-f5-tYA"/>
                         <outlet property="genderSegments" destination="46M-57-bTF" id="6Ce-LF-lhY"/>
                         <outlet property="heighUnitSegments" destination="eIa-vY-1zv" id="1Vc-h1-2p4"/>
                         <outlet property="heightLabel" destination="UnB-tR-jaY" id="tGw-6B-fkU"/>
@@ -606,7 +607,7 @@
         <!--Calculated Goals View Controller-->
         <scene sceneID="kTm-rW-aue">
             <objects>
-                <viewController id="HeP-I8-Peg" customClass="CalculatedGoalsViewController" customModule="MyFoodJournal" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="HeP-I8-Peg" customClass="CalculatedGoalsViewController" customModule="MyFoodJournal" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xxD-EO-fQT">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -978,25 +979,14 @@
                                     </button>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hsr-JD-mpE">
-                                <rect key="frame" x="344" y="128" width="50" height="30"/>
-                                <state key="normal" title="Testing">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="testingButtonTapped:" destination="I4G-MR-uy6" eventType="touchUpInside" id="DTk-Sl-IKD"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.20392156859999999" green="0.59607843140000005" blue="0.85882352939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="hb4-Ba-1Rs" firstAttribute="leading" secondItem="qUz-zr-dyE" secondAttribute="leading" constant="20" id="1y5-eH-h1i"/>
                             <constraint firstItem="Rwg-6J-ZOJ" firstAttribute="leading" secondItem="qUz-zr-dyE" secondAttribute="leading" constant="20" id="2Ef-LA-cQK"/>
-                            <constraint firstItem="qUz-zr-dyE" firstAttribute="trailing" secondItem="hsr-JD-mpE" secondAttribute="trailing" constant="20" id="2vv-9B-2Yh"/>
                             <constraint firstItem="Rwg-6J-ZOJ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="n8e-HX-VeZ" secondAttribute="bottom" constant="10" id="6U0-97-7hN"/>
                             <constraint firstItem="iqe-Aa-cNn" firstAttribute="top" secondItem="KiP-My-j7D" secondAttribute="bottom" constant="35" id="Aze-wQ-fU1"/>
                             <constraint firstItem="qUz-zr-dyE" firstAttribute="trailing" secondItem="KiP-My-j7D" secondAttribute="trailing" constant="20" id="CYt-Nu-3Xq"/>
-                            <constraint firstItem="hsr-JD-mpE" firstAttribute="top" secondItem="qUz-zr-dyE" secondAttribute="top" constant="84" id="Cxr-ha-kr5"/>
                             <constraint firstItem="Ohg-MU-5ai" firstAttribute="centerX" secondItem="1Ca-If-32L" secondAttribute="centerX" id="FlO-vP-OgL"/>
                             <constraint firstItem="uEg-Vi-4Zc" firstAttribute="top" secondItem="3iL-Ir-f7m" secondAttribute="bottom" constant="20" id="If5-qk-f44"/>
                             <constraint firstItem="HfN-gk-DFz" firstAttribute="leading" secondItem="cun-Mw-Mf1" secondAttribute="trailing" constant="10" id="Im1-RY-Zs5"/>
@@ -1225,6 +1215,6 @@
         <image name="tick-icon" width="37.5" height="37.5"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="e5m-q4-FGD"/>
+        <segue reference="gK3-K4-laE"/>
     </inferredMetricsTieBreakers>
 </document>

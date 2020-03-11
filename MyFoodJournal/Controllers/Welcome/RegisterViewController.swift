@@ -142,9 +142,6 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     
     //MARK:- Button Methods
     
-    @IBAction func testingButtonTapped(_ sender: UIButton) {
-        performSegue(withIdentifier: "GoToUserSetup", sender: nil)
-    }
     @IBAction func registerButtonTapped(_ sender: UIButton) {
         
         emailTextField.resignFirstResponder()

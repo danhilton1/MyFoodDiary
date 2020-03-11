@@ -114,6 +114,24 @@ class GoalsViewController: UITableViewController, UITextFieldDelegate {
 
     //MARK:- Button Methods
     
+    @IBAction func userButtonTapped(_ sender: UIBarButtonItem) {
+        
+        
+        let sb = UIStoryboard(name: "Main", bundle: nil)
+        let userSetupVC = sb.instantiateViewController(withIdentifier: "UserSetup") as! UserSetupController
+        userSetupVC.isEditingExistingInfo = true
+        
+        let navController = UINavigationController(rootViewController: userSetupVC)
+        navController.modalTransitionStyle = .coverVertical
+        navController.modalPresentationStyle = .fullScreen
+        navController.setNavigationBarHidden(true, animated: true)
+        
+        present(navController, animated: true)
+        
+    }
+    
+    
+    
     @IBAction func weightUnitButtonTapped(_ sender: UIButton) {
         let ac = UIAlertController(title: "Please select your unit of weight.", message: nil, preferredStyle: .actionSheet)
         ac.addAction(UIAlertAction(title: "kg", style: .default) { [weak self] (action) in

@@ -18,4 +18,13 @@ enum UserDefaultsKeys {
     static let goalFat = "goalFat"
     static let goalWeight = "GoalWeight"
     static let weightUnit = "weightUnit"
+    static let gender = "gender"
+    static let age = "age"
+    static let height = "height"
+    static let heightFeet = "heightFeet"
+    static let heightInches = "heightInches"
+    static let heightUnit = "heightUnit"
+    static let weight = "weight"
+    static let activityLevel = "activityLevel"
+    static let activityMultiplier = "activityMultiplier"
 }
