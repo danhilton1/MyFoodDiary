@@ -214,11 +214,11 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     
     
     @IBAction func termsButtonTapped(_ sender: UIButton) {
-        showSafariVC(for: "https://50521ae6-b75c-4fbf-bb4b-853d879bccbc.filesusr.com/ugd/be5978_b8269b1118264d5395a632d5ebae3e55.pdf")
+        showSafariVC(for: "https://50521ae6-b75c-4fbf-bb4b-853d879bccbc.filesusr.com/ugd/be5978_7ca00fed38ec4b3abc3c308d3f3f1ca7.pdf")
     }
     
     @IBAction func privacyButtonTapped(_ sender: Any) {
-        showSafariVC(for: "https://50521ae6-b75c-4fbf-bb4b-853d879bccbc.filesusr.com/ugd/be5978_4188fe79a65c448f8a94b3cace998ded.pdf")
+        showSafariVC(for: "https://50521ae6-b75c-4fbf-bb4b-853d879bccbc.filesusr.com/ugd/be5978_cdf67c6dc0c84f788b98706f4fa2ab1d.pdf")
     }
     
     
