@@ -58,9 +58,6 @@ class UserSetupController: UITableViewController, UITextFieldDelegate {
         
         setUpViews()
         setUpTextFields()
-        if !isEditingExistingInfo {
-            presentAlert()
-        }
         
     }
 
@@ -81,7 +78,6 @@ class UserSetupController: UITableViewController, UITextFieldDelegate {
         
         if isEditingExistingInfo {
             genderLabelTopConstraint.constant = 20
-            tickButton.isHidden = true
         }
         
         self.toolbar.items = [
@@ -120,7 +116,8 @@ class UserSetupController: UITableViewController, UITextFieldDelegate {
             let weight = defaults.value(forKey: UserDefaultsKeys.weight) as? Double,
             let activityLevel = defaults.value(forKey: UserDefaultsKeys.activityLevel) as? Int
             {
-            
+            tickButton.isHidden = true
+                
             if gender == "Male" {
                 genderSegments.selectedSegmentIndex = 0
             }
@@ -175,6 +172,8 @@ class UserSetupController: UITableViewController, UITextFieldDelegate {
             activityInfoButton.alpha = 0
             activitySegment.alpha = 0
             calculateButton.alpha = 0
+            
+            presentAlert()
         }
     }
     
