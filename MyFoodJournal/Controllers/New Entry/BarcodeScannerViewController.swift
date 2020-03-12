@@ -212,6 +212,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         
         alertController.addTextField { (textField) in
             textField.placeholder = "Enter barcode here"
+            textField.keyboardType = .numberPad
         }
         
         alertController.addAction(UIAlertAction(title: "Submit", style: .default, handler: { (action) in
