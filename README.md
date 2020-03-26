@@ -1,5 +1,6 @@
 # My Food Journal
 
+
 MyFoodJournal is an app that allows you to track everything you eat and log all calorific and nutritional information as well logging and tracking your weight.
 User's can add food entries by scanning the barcode of a product, searching the food database or by entering the information manually.
 The UI is designed to display all entries and information for each day in an easy-to-read but elegant manner and will also calculate average values for each week and month.
@@ -16,7 +17,6 @@ The following third-party frameworks are used in this project:
 
 * [Firebase/Auth](https://firebase.google.com/docs/auth)
 * [Firebase/Firestore](https://firebase.google.com/docs/firestore)
-* [Firebase/Analytics](https://firebase.google.com/docs/analytics)
 * [Charts](https://github.com/danielgindi/Charts)
 * [SwiftKeychainWrapper](https://github.com/jrendel/SwiftKeychainWrapper)
 * [SVProgressHUD](https://github.com/SVProgressHUD/SVProgressHUD)
