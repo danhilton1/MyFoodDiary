@@ -124,7 +124,8 @@ class WelcomeViewController: UIViewController {
                 }
                 else {
                     print("Log In Successful")
-
+                    SVProgressHUD.dismiss(withDelay: 12)
+                    
                     strongSelf.foodDispatchGroup.enter()  // enter dispatchGroup to allow data to finish downloading before segue
                     strongSelf.loadAllFoodData(user: authResult!.user.uid, anonymous: false)
                     
