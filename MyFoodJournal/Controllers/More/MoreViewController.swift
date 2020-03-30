@@ -26,18 +26,27 @@ class MoreViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tabBarController?.tabBar.isHidden = false
-        navigationController?.navigationBar.barTintColor = Color.skyBlue
-        
-        tableView.separatorStyle = .none
-        tableView.tableFooterView = UIView()
-        logOutButton.layer.cornerRadius = 24
-        logOutButton.backgroundColor = Color.skyBlue
+        setUpViews()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         tabBarController?.tabBar.isHidden = false
+    }
+    
+    func setUpViews() {
+        tabBarController?.tabBar.isHidden = false
+        navigationController?.navigationBar.barTintColor = Color.skyBlue
+        if #available(iOS 13.0, *) {
+            navigationController?.navigationBar.standardAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        } else {
+            navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        }
+        
+        tableView.separatorStyle = .none
+        tableView.tableFooterView = UIView()
+        logOutButton.layer.cornerRadius = 24
+        logOutButton.backgroundColor = Color.skyBlue
     }
 
     //MARK:- Button Method

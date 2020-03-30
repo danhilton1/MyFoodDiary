@@ -12,6 +12,7 @@ import Charts
 class MealOverviewCell: UITableViewCell {
 
     
+    @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var calorieLabel: UILabel!
     @IBOutlet weak var proteinLabel: UILabel!
     @IBOutlet weak var carbsLabel: UILabel!
@@ -34,6 +35,12 @@ class MealOverviewCell: UITableViewCell {
         proteinTextLabel.textColor = Color.mint
         carbsTextLabel.textColor = Color.skyBlue
         fatTextLabel.textColor = Color.salmon
+        
+        mainView.layer.cornerRadius = 18
+        mainView.layer.shadowColor = UIColor.lightGray.cgColor
+        mainView.layer.shadowOpacity = 0.2
+        mainView.layer.shadowOffset = .zero
+        mainView.layer.shadowRadius = 3
         
         checkDeviceAndUpdateConstraints()
         
@@ -60,6 +67,11 @@ class MealOverviewCell: UITableViewCell {
             fatTextLabel.font = UIFont(name: "Montserrat-Medium", size: 14)
             
             calorieLabel.font = calorieLabel.font.withSize(20)
+        }
+        else if UIScreen.main.bounds.height < 850 {
+            proteinTextLabel.font = proteinTextLabel.font.withSize(15)
+            carbsTextLabel.font = carbsTextLabel.font.withSize(15)
+            fatTextLabel.font = fatTextLabel.font.withSize(15)
         }
     }
     

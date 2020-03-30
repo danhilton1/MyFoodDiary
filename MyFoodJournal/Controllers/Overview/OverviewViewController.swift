@@ -92,8 +92,15 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         super.viewWillDisappear(true)
         dimView.removeFromSuperview()
     }
+    
 
     private func setUpViews() {
+        
+        if #available(iOS 13.0, *) {
+            navigationController?.navigationBar.standardAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        } else {
+            navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        }
         setUpTableView()
         refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
         eatMeTableView.addSubview(refreshControl)
@@ -528,13 +535,16 @@ extension OverviewViewController {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let label = UILabel()
-        label.backgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
+        label.backgroundColor = .groupTableViewBackground//UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
         label.textColor = UIColor.black
         if UIScreen.main.bounds.height < 600 {
-            label.font = UIFont(name: "Montserrat-SemiBold", size: 14)
+            label.font = UIFont(name: "Montserrat-SemiBold", size: 13.5)
+        }
+        else if UIScreen.main.bounds.height < 850 {
+            label.font = UIFont(name: "Montserrat-SemiBold", size: 14.5)
         }
         else {
-            label.font = UIFont(name: "Montserrat-SemiBold", size: 16)
+            label.font = UIFont(name: "Montserrat-SemiBold", size: 15.5)
         }
         
         switch section {
@@ -567,23 +577,27 @@ extension OverviewViewController {
             return 110
         }
         else if UIScreen.main.bounds.height < 800 {
-            return 114
+            return 121
         }
         else if UIScreen.main.bounds.height < 850 {
-            return 108
+            return 112
         }
         else {
-          return 120
+          return 130
         }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if UIScreen.main.bounds.height < 850 {
-            return 22
+        if UIScreen.main.bounds.height < 600 {
+            return 14
+        }
+        else if UIScreen.main.bounds.height < 850 {
+            return 17
         }
         else {
-          return 25
+            return 20
         }
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

@@ -27,6 +27,7 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
         super.viewDidLoad()
         
         navigationController?.navigationBar.barTintColor = Color.skyBlue
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         navigationItem.leftBarButtonItems = nil
         dataSource = self
         formatter.dateFormat = "E, d MMM"

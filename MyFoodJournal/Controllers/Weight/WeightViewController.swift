@@ -57,7 +57,8 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.navigationBar.barTintColor = Color.skyBlue
+        
+        setUpNavBar()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.allowsSelection = true
@@ -87,6 +88,15 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
             currentWeightLabel.font = currentWeightLabel.font.withSize(16)
             goalWeightLabel.font = goalWeightLabel.font.withSize(16)
         }
+    }
+    
+    func setUpNavBar() {
+        if #available(iOS 13.0, *) {
+            navigationController?.navigationBar.standardAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        } else {
+            navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        }
+        navigationController?.navigationBar.barTintColor = Color.skyBlue
     }
     
     func setUpLabels() {
