@@ -577,10 +577,10 @@ extension OverviewViewController {
             return 110
         }
         else if UIScreen.main.bounds.height < 800 {
-            return 121
+            return 122
         }
         else if UIScreen.main.bounds.height < 850 {
-            return 112
+            return 115
         }
         else {
           return 130
@@ -591,8 +591,11 @@ extension OverviewViewController {
         if UIScreen.main.bounds.height < 600 {
             return 14
         }
+        else if UIScreen.main.bounds.height < 800 {
+            return 16
+        }
         else if UIScreen.main.bounds.height < 850 {
-            return 17
+            return 14
         }
         else {
             return 20

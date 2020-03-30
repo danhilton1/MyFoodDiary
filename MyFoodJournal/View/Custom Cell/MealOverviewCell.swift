@@ -69,6 +69,9 @@ class MealOverviewCell: UITableViewCell {
             calorieLabel.font = calorieLabel.font.withSize(20)
         }
         else if UIScreen.main.bounds.height < 850 {
+            proteinLabel.font = proteinLabel.font.withSize(15)
+            carbsLabel.font = carbsLabel.font.withSize(15)
+            fatLabel.font = fatLabel.font.withSize(15)
             proteinTextLabel.font = proteinTextLabel.font.withSize(15)
             carbsTextLabel.font = carbsTextLabel.font.withSize(15)
             fatTextLabel.font = fatTextLabel.font.withSize(15)

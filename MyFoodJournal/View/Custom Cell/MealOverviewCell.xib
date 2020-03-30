@@ -30,7 +30,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <view contentMode="scaleToFill" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="FTk-hj-aFc" customClass="PieChartView" customModule="Charts">
-                        <rect key="frame" x="143.5" y="12" width="127" height="96"/>
+                        <rect key="frame" x="143.5" y="14" width="127" height="92"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="width" priority="999" constant="127" id="Edk-sk-4en"/>
@@ -97,8 +97,8 @@
                     <constraint firstAttribute="bottom" secondItem="EVg-of-Gmq" secondAttribute="bottom" constant="6" id="8st-zt-rsK"/>
                     <constraint firstItem="BL3-ke-CAD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="18" id="Dpq-oO-tMx"/>
                     <constraint firstItem="IaT-aK-k6i" firstAttribute="leading" secondItem="FTk-hj-aFc" secondAttribute="trailing" constant="-3" id="Fqt-C7-x0Q"/>
-                    <constraint firstAttribute="bottom" secondItem="FTk-hj-aFc" secondAttribute="bottom" constant="12" id="J6q-to-pe7"/>
-                    <constraint firstItem="FTk-hj-aFc" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="L7z-hX-e2o"/>
+                    <constraint firstAttribute="bottom" secondItem="FTk-hj-aFc" secondAttribute="bottom" constant="14" id="J6q-to-pe7"/>
+                    <constraint firstItem="FTk-hj-aFc" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="14" id="L7z-hX-e2o"/>
                     <constraint firstItem="FTk-hj-aFc" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Q23-gX-Vto"/>
                     <constraint firstItem="EVg-of-Gmq" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="TfQ-Sk-bsh"/>
                     <constraint firstItem="4N0-iF-bfk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="Yf2-dl-Hc1"/>
