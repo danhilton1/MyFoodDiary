@@ -91,11 +91,12 @@ class WeightViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func setUpNavBar() {
-        navigationController?.navigationBar.barTintColor = Color.skyBlue
         
         if #available(iOS 13.0, *) {
+            navigationController?.navigationBar.standardAppearance.backgroundColor = Color.skyBlue
             navigationController?.navigationBar.standardAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         } else {
+            navigationController?.navigationBar.barTintColor = Color.skyBlue
             navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         }
         
