@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="f9g-9w-y1y">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="f9g-9w-y1y">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -462,7 +462,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SqE-jc-cxJ">
-                                <rect key="frame" x="0.0" y="176.5" width="414" height="597.5"/>
+                                <rect key="frame" x="0.0" y="180" width="414" height="628"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="foodHistoryCell" rowHeight="50" id="2vn-1T-fzb" customClass="FoodHistoryCell" customModule="MyFoodJournal" customModuleProvider="target">
@@ -525,13 +525,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="History" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Zb-Z4-GDP">
-                                <rect key="frame" x="20" y="142" width="374" height="24.5"/>
+                                <rect key="frame" x="20" y="142" width="294" height="28"/>
                                 <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="heq-S3-OA4">
-                                <rect key="frame" x="20" y="169.5" width="394" height="1"/>
+                                <rect key="frame" x="20" y="173" width="394" height="1"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.80000000000000004" id="942-9B-9ne"/>
@@ -559,6 +559,14 @@
                                     <segue destination="g4c-VQ-jMC" kind="show" identifier="GoToManualEntry" id="Vxa-aB-gls"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tqy-cY-mNc">
+                                <rect key="frame" x="314" y="140" width="80" height="30"/>
+                                <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="14"/>
+                                <state key="normal" title="Multi-add"/>
+                                <connections>
+                                    <action selector="multiAddButton:" destination="Gmh-tg-Ppn" eventType="touchUpInside" id="D0f-qs-m0K"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -573,24 +581,28 @@
                             <constraint firstItem="coi-hk-HP6" firstAttribute="top" secondItem="sxU-Vy-82A" secondAttribute="top" constant="15" id="Kcj-Lv-iP3"/>
                             <constraint firstItem="sxU-Vy-82A" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="pqP-V7-nsj" secondAttribute="trailing" constant="10" id="LEN-SO-W8N"/>
                             <constraint firstItem="pqP-V7-nsj" firstAttribute="top" secondItem="sxU-Vy-82A" secondAttribute="top" constant="21.5" id="La5-SE-ckl"/>
-                            <constraint firstItem="sxU-Vy-82A" firstAttribute="trailing" secondItem="4Zb-Z4-GDP" secondAttribute="trailing" constant="20" id="LeZ-DW-vmB"/>
+                            <constraint firstItem="sxU-Vy-82A" firstAttribute="trailing" secondItem="4Zb-Z4-GDP" secondAttribute="trailing" constant="100" id="LeZ-DW-vmB"/>
                             <constraint firstItem="GtF-k0-N9T" firstAttribute="leading" secondItem="coi-hk-HP6" secondAttribute="trailing" id="QCt-lv-zGS"/>
                             <constraint firstItem="heq-S3-OA4" firstAttribute="leading" secondItem="sxU-Vy-82A" secondAttribute="leading" constant="20" id="R9G-C9-XtS"/>
                             <constraint firstItem="aIz-Vs-Can" firstAttribute="leading" secondItem="GtF-k0-N9T" secondAttribute="trailing" constant="20" id="UmV-Ve-aO8"/>
                             <constraint firstItem="x07-cV-B07" firstAttribute="top" secondItem="sxU-Vy-82A" secondAttribute="top" constant="15" id="XTH-UF-PYN"/>
                             <constraint firstItem="iOt-c8-lv9" firstAttribute="top" secondItem="x07-cV-B07" secondAttribute="bottom" constant="15" id="YJU-L5-f9J"/>
-                            <constraint firstItem="sxU-Vy-82A" firstAttribute="bottom" secondItem="SqE-jc-cxJ" secondAttribute="bottom" id="Zh4-Ae-lyB"/>
+                            <constraint firstItem="sxU-Vy-82A" firstAttribute="trailing" secondItem="Tqy-cY-mNc" secondAttribute="trailing" constant="20" id="ZHs-K7-9Ss"/>
                             <constraint firstItem="pqP-V7-nsj" firstAttribute="leading" secondItem="aIz-Vs-Can" secondAttribute="trailing" constant="8" id="bAB-1Q-C7C"/>
                             <constraint firstItem="4Zb-Z4-GDP" firstAttribute="leading" secondItem="sxU-Vy-82A" secondAttribute="leading" constant="20" id="dki-v3-YKc"/>
+                            <constraint firstItem="heq-S3-OA4" firstAttribute="top" secondItem="Tqy-cY-mNc" secondAttribute="bottom" constant="3" id="eeW-LO-MWJ"/>
                             <constraint firstItem="aIz-Vs-Can" firstAttribute="top" secondItem="sxU-Vy-82A" secondAttribute="top" constant="27" id="huN-WW-9Kx"/>
                             <constraint firstItem="SqE-jc-cxJ" firstAttribute="leading" secondItem="sxU-Vy-82A" secondAttribute="leading" id="ihw-B1-65A"/>
                             <constraint firstItem="iOt-c8-lv9" firstAttribute="top" secondItem="coi-hk-HP6" secondAttribute="bottom" constant="15" id="jhh-ug-V6w"/>
+                            <constraint firstItem="Tqy-cY-mNc" firstAttribute="leading" secondItem="4Zb-Z4-GDP" secondAttribute="trailing" id="mUE-mc-eM9"/>
                             <constraint firstItem="iOt-c8-lv9" firstAttribute="trailing" secondItem="sxU-Vy-82A" secondAttribute="trailing" id="nra-wj-gj5"/>
                             <constraint firstItem="GtF-k0-N9T" firstAttribute="centerX" secondItem="8QI-rj-est" secondAttribute="centerX" id="oNT-WK-ROK"/>
+                            <constraint firstItem="Tqy-cY-mNc" firstAttribute="top" secondItem="iOt-c8-lv9" secondAttribute="bottom" constant="8" id="qVM-et-1r8"/>
                             <constraint firstItem="coi-hk-HP6" firstAttribute="leading" secondItem="sxU-Vy-82A" secondAttribute="leading" id="tVk-7J-6of"/>
                             <constraint firstAttribute="trailing" secondItem="x07-cV-B07" secondAttribute="trailing" id="tWg-gb-dSK"/>
                             <constraint firstItem="iOt-c8-lv9" firstAttribute="top" secondItem="aIz-Vs-Can" secondAttribute="bottom" constant="28" id="vGP-Hz-Hq7"/>
                             <constraint firstItem="4Zb-Z4-GDP" firstAttribute="top" secondItem="iOt-c8-lv9" secondAttribute="bottom" constant="10" id="vaA-JK-h7x"/>
+                            <constraint firstAttribute="bottom" secondItem="SqE-jc-cxJ" secondAttribute="bottom" id="xKH-gJ-WrA"/>
                             <constraint firstItem="iOt-c8-lv9" firstAttribute="top" secondItem="pqP-V7-nsj" secondAttribute="bottom" constant="21.5" id="xd1-V4-88z"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="sxU-Vy-82A"/>
@@ -600,6 +612,7 @@
                     <connections>
                         <outlet property="enterManuallyButton" destination="coi-hk-HP6" id="mSi-gl-vll"/>
                         <outlet property="historyLabel" destination="4Zb-Z4-GDP" id="zdE-ik-WZi"/>
+                        <outlet property="multiAddButton" destination="Tqy-cY-mNc" id="m1p-SJ-ECd"/>
                         <outlet property="searchBar" destination="iOt-c8-lv9" id="sKM-i6-FsS"/>
                         <outlet property="tableView" destination="SqE-jc-cxJ" id="HIY-9e-RhM"/>
                         <segue destination="3Rt-cw-mAA" kind="show" identifier="GoToFoodDetail" id="3Q2-w7-r42"/>
@@ -719,11 +732,11 @@
             <point key="canvasLocation" x="1913" y="-558"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="3Q2-w7-r42"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="BarcodeScannerIcon" width="33" height="33"/>
         <image name="tick-icon" width="37.5" height="37.5"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="3QC-vU-HvM"/>
-    </inferredMetricsTieBreakers>
 </document>

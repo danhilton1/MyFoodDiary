@@ -22,7 +22,6 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     private var refreshControl = UIRefreshControl()
     private let formatter = DateFormatter()
     private let defaults = UserDefaults()
-    private let food = Food()
     private var totalCalories = 0
     private var remainingCalories = 0
     private var calorieArray = [Int]()

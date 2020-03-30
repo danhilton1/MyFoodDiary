@@ -38,7 +38,7 @@ class MealOverviewCell: UITableViewCell {
         
         mainView.layer.cornerRadius = 18
         mainView.layer.shadowColor = UIColor.lightGray.cgColor
-        mainView.layer.shadowOpacity = 0.2
+        mainView.layer.shadowOpacity = 0.35
         mainView.layer.shadowOffset = .zero
         mainView.layer.shadowRadius = 3
         
@@ -46,11 +46,6 @@ class MealOverviewCell: UITableViewCell {
         
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
     
     func checkDeviceAndUpdateConstraints() {
         if UIScreen.main.bounds.height < 600 {
