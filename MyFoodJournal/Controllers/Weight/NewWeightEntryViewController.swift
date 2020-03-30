@@ -93,6 +93,7 @@ class NewWeightEntryViewController: UITableViewController, UITextFieldDelegate {
          navigationItem.leftBarButtonItem = barButton
          
          navigationController?.navigationBar.barTintColor = Color.skyBlue
+        
         if #available(iOS 13.0, *) {
             navigationController?.navigationBar.standardAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         } else {

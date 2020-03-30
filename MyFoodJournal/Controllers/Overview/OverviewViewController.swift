@@ -190,17 +190,15 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             for food in allFoodEntries {
                 if food.date == formatter.string(from: date ?? Date()) && !food.isDeleted {
                     foodEntries!.append(food)
+                    totalCalsArray.append(food.calories)
                 }
             }
         }
 
-        for food in foodEntries! {
-            totalCalsArray.append(food.calories)
-        }
         var tempTotalCalories = 0
         tempTotalCalories = totalCalsArray.reduce(0, +)
         totalCalories = tempTotalCalories
-        let goalCalories = defaults.value(forKey: UserDefaultsKeys.goalCalories) as? Int ?? totalCalories
+        let goalCalories = defaults.value(forKey: UserDefaultsKeys.goalCalories) as? Int ?? 0
         remainingCalories = goalCalories - totalCalories
         remainingCaloriesLabel.text = "\(remainingCalories)"
         totalCaloriesLabel.text = "\(tempTotalCalories)"

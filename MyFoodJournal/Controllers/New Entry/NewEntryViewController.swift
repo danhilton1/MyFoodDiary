@@ -373,6 +373,7 @@ extension NewEntryViewController: UISearchBarDelegate {
         if let searchText = searchBar.text {
             var searchWords = searchText.replacingOccurrences(of: "’", with: "%27")
             searchWords = searchWords.replacingOccurrences(of: " ", with: "+")
+            searchWords = searchWords.replacingOccurrences(of: "%", with: "%25")
             searchWords = searchWords.filter("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789&/-+%".contains)
             
             SVProgressHUD.setBackgroundColor(.darkGray)
@@ -396,6 +397,7 @@ extension NewEntryViewController: UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        SVProgressHUD.dismiss()
         searchBar.text = ""
         searchBar.resignFirstResponder()
         sortedFoodCopy = sortedFood
