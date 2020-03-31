@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import Sentry
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,8 +16,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
         
+        _ = SentrySDK(options: [
+               "dsn": "https://9119aa35e5df4f3c94f3f1dc7c9876a9@sentry.io/5182666",
+               "debug": true
+           ])
         FirebaseApp.configure()
         
         return true

@@ -12,6 +12,7 @@ pod 'Firebase/Auth'
 pod 'Firebase/Firestore'
 pod 'SVProgressHUD'
 pod 'SwiftKeychainWrapper'
+pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git', :tag => '5.0.0-beta.0'
 
 end
 
@@ -25,5 +26,6 @@ pod 'Firebase/Auth'
 pod 'Firebase/Firestore'
 pod 'SVProgressHUD'
 pod 'SwiftKeychainWrapper'
+pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git', :tag => '5.0.0-beta.0'
 
 end

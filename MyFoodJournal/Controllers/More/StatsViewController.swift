@@ -24,6 +24,10 @@ class StatsViewController: UIViewController {
     @IBOutlet weak var numberOneEntriesLabel: UILabel!
     @IBOutlet weak var numberTwoEntriesLabel: UILabel!
     @IBOutlet weak var numberThreeEntriesLabel: UILabel!
+    @IBOutlet weak var backgroundViewOne: UIView!
+    @IBOutlet weak var backgroundViewTwo: UIView!
+    @IBOutlet weak var backgroundViewThree: UIView!
+    
     
     @IBOutlet weak var number3BottomConstraint: NSLayoutConstraint!
     
@@ -44,6 +48,15 @@ class StatsViewController: UIViewController {
     }
    
     func setUpViews() {
+        
+        backgroundViewOne.backgroundColor = Color.skyBlue
+        backgroundViewTwo.backgroundColor = Color.skyBlue
+        backgroundViewThree.backgroundColor = Color.skyBlue
+        backgroundViewOne.layer.cornerRadius = 18
+        backgroundViewTwo.layer.cornerRadius = 18
+        backgroundViewThree.layer.cornerRadius = 18
+        
+        
         if let foodEntries = allFood {
             if foodEntries.count < 3 {
                 numberOneFoodLabel.text = "Not enough entries made"
