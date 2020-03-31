@@ -24,7 +24,7 @@ class NewEntryViewController: UIViewController, UITableViewDelegate, UITableView
     //MARK:- Properties
     
     var date: Date?
-    var meal = Food.Meal.breakfast
+    var meal: Food.Meal?
     weak var delegate: NewEntryDelegate?
     weak var mealDelegate: NewEntryDelegate?
     var allFood: [Food]?
@@ -135,30 +135,35 @@ class NewEntryViewController: UIViewController, UITableViewDelegate, UITableView
     
     @objc func tickButtonTapped() {
         
-        if tableView.indexPathsForSelectedRows != nil {
-            let ac = UIAlertController(title: "Please select the meal you would like these foods to be entered for.", message: nil, preferredStyle: .actionSheet)
-            
-            ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-            
-            ac.addAction(UIAlertAction(title: "Breakfast", style: .default) { [weak self] (action) in
-                self?.addSelectedFoods(for: .breakfast)
-            })
-            ac.addAction(UIAlertAction(title: "Lunch", style: .default) { [weak self] (action) in
-                self?.addSelectedFoods(for: .lunch)
-            })
-            ac.addAction(UIAlertAction(title: "Dinner", style: .default) { [weak self] (action) in
-                self?.addSelectedFoods(for: .dinner)
-            })
-            ac.addAction(UIAlertAction(title: "Other", style: .default) { [weak self] (action) in
-                self?.addSelectedFoods(for: .other)
-            })
-            
-            present(ac, animated: true)
+        if let meal = meal {
+            addSelectedFoods(for: meal)
         }
         else {
-            let ac = UIAlertController(title: "No foods selected", message: "Please select a food you want to add.", preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "OK", style: .default))
-            present(ac, animated: true)
+            if tableView.indexPathsForSelectedRows != nil {
+                let ac = UIAlertController(title: "Please select the meal you would like these foods to be entered for.", message: nil, preferredStyle: .actionSheet)
+                
+                ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+                
+                ac.addAction(UIAlertAction(title: "Breakfast", style: .default) { [weak self] (action) in
+                    self?.addSelectedFoods(for: .breakfast)
+                })
+                ac.addAction(UIAlertAction(title: "Lunch", style: .default) { [weak self] (action) in
+                    self?.addSelectedFoods(for: .lunch)
+                })
+                ac.addAction(UIAlertAction(title: "Dinner", style: .default) { [weak self] (action) in
+                    self?.addSelectedFoods(for: .dinner)
+                })
+                ac.addAction(UIAlertAction(title: "Other", style: .default) { [weak self] (action) in
+                    self?.addSelectedFoods(for: .other)
+                })
+                
+                present(ac, animated: true)
+            }
+            else {
+                let ac = UIAlertController(title: "No foods selected", message: "Please select a food you want to add.", preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "OK", style: .default))
+                present(ac, animated: true)
+            }
         }
         
     }
@@ -185,6 +190,7 @@ class NewEntryViewController: UIViewController, UITableViewDelegate, UITableView
                 food.saveFood(user: user)
                 
                 delegate?.reloadFood(entry: food, new: true)
+                mealDelegate?.reloadFood(entry: food, new: true)
                 
             }
             dismissViewWithAnimation()
@@ -217,14 +223,14 @@ class NewEntryViewController: UIViewController, UITableViewDelegate, UITableView
             destVC.delegate = delegate
             destVC.mealDelegate = mealDelegate
             destVC.date = date
-            destVC.selectedSegmentIndex = meal.intValue
+            destVC.selectedSegmentIndex = meal?.intValue ?? 0
         }
         else if segue.identifier == Segues.goToBarcodeScanner {
             let destVC = segue.destination as! BarcodeScannerViewController
             destVC.date = date
             destVC.delegate = delegate
             destVC.mealDelegate = mealDelegate
-            destVC.selectedSegmentIndex = meal.intValue
+            destVC.selectedSegmentIndex = meal?.intValue ?? 0
         }
         else if segue.identifier == Segues.goToFoodDetail {
             let destVC = segue.destination as! FoodDetailViewController
@@ -233,7 +239,7 @@ class NewEntryViewController: UIViewController, UITableViewDelegate, UITableView
             destVC.delegate = delegate
             destVC.mealDelegate = mealDelegate
             destVC.date = date
-            destVC.selectedSegmentIndex = meal.intValue
+            destVC.selectedSegmentIndex = meal?.intValue ?? 0
         }
     }
 }
