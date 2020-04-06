@@ -46,6 +46,7 @@
 		377A57D2233F896100D816DD /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377A57D1233F896100D816DD /* Color.swift */; };
 		377C1C782409B361004BEF8B /* FoodDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 377C1C772409B361004BEF8B /* FoodDetail.storyboard */; };
 		377C9BFA236DBA6A008165DA /* WeightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377C9BF9236DBA6A008165DA /* WeightViewController.swift */; };
+		37801009243B2ECC00FCA46C /* DatabaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37801008243B2ECC00FCA46C /* DatabaseError.swift */; };
 		3786E4E4240ACC5B00A62FB0 /* CodableStructsFood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3786E4E3240ACC5B00A62FB0 /* CodableStructsFood.swift */; };
 		3786E4E6240ACFC000A62FB0 /* TextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3786E4E5240ACFC000A62FB0 /* TextFieldExtension.swift */; };
 		3786E4E9240ADA4300A62FB0 /* DatabaseServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3786E4E8240ADA4300A62FB0 /* DatabaseServices.swift */; };
@@ -145,6 +146,7 @@
 		377A57D1233F896100D816DD /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		377C1C772409B361004BEF8B /* FoodDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FoodDetail.storyboard; sourceTree = "<group>"; };
 		377C9BF9236DBA6A008165DA /* WeightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightViewController.swift; sourceTree = "<group>"; };
+		37801008243B2ECC00FCA46C /* DatabaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseError.swift; sourceTree = "<group>"; };
 		3786E4E3240ACC5B00A62FB0 /* CodableStructsFood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableStructsFood.swift; sourceTree = "<group>"; };
 		3786E4E5240ACFC000A62FB0 /* TextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldExtension.swift; sourceTree = "<group>"; };
 		3786E4E8240ADA4300A62FB0 /* DatabaseServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseServices.swift; sourceTree = "<group>"; };
@@ -350,6 +352,7 @@
 				3787558A240ABB7F000CA3C8 /* Extensions */,
 				37875589240ABB78000CA3C8 /* Protocols */,
 				37D5137223D4BC0D00780CD1 /* UserDefaultsKeys.swift */,
+				37801008243B2ECC00FCA46C /* DatabaseError.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -738,6 +741,7 @@
 				37F46B5423EB53BF00DA2140 /* AboutViewController.swift in Sources */,
 				377208B52291A1F8002DDA29 /* AppDelegate.swift in Sources */,
 				37A8AEB523A2DDFE002DCA43 /* Food+Firestore.swift in Sources */,
+				37801009243B2ECC00FCA46C /* DatabaseError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -937,7 +941,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7383RQWB3N;
 				INFOPLIST_FILE = MyFoodJournal/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -958,7 +962,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7383RQWB3N;
 				INFOPLIST_FILE = MyFoodJournal/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

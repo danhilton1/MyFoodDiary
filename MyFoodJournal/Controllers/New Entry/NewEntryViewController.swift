@@ -386,17 +386,23 @@ extension NewEntryViewController: UISearchBarDelegate {
             SVProgressHUD.setForegroundColor(.white)
             SVProgressHUD.show()
             
-            DatabaseServices.getItems(withKeywords: searchWords) { (success, items) in
-                if success {
-                    self.sortedFoodCopy = items
-                    self.tableView.reloadData()
-                    self.historyLabel.text = "Results"
-                    searchBar.resignFirstResponder()
-                    SVProgressHUD.dismiss()
-                }
-                else {
-                    print("Error retrieving data")
-                    SVProgressHUD.showError(withStatus: "Error retrieving items - please check your internet connection.")
+            DatabaseServices.getItems(withKeywords: searchWords) { [weak self] result in
+                guard let self = self else { return }
+                
+                switch result {
+                    
+                case .success(let foodList):
+                    self.sortedFoodCopy = foodList
+                    
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                        self.historyLabel.text = "Results"
+                        searchBar.resignFirstResponder()
+                        SVProgressHUD.dismiss()
+                    }
+                    
+                case .failure(let error):
+                    SVProgressHUD.showError(withStatus: error.rawValue)
                 }
             }
         }

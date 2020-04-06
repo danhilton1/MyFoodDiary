@@ -8,12 +8,80 @@
 
 import Foundation
 
+
 struct DatabaseServices {
     
     
-    static func getItems(withKeywords searchWords: String, completion: @escaping (Bool, [Food]) -> ()) {
+    static func retrieveDataFromBarcodeEntry(barcode: String, completion: @escaping (Result<Food, DatabaseError>) -> ()) {
         
-        var completed = false
+        let urlString = "https://world.openfoodfacts.org/api/v0/product/\(barcode).json"
+        
+        guard let url = URL(string: urlString) else {
+            completion(.failure(.invalidBarcode))
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            
+            if let _ = error {
+                completion(.failure(.unableToComplete))
+                return
+            }
+            
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                completion(.failure(.invalidResponse))
+                return
+            }
+            
+            guard let data = data else {
+                completion(.failure(.invalidBarcode))
+                return
+            }
+            
+            do {
+                let scannedFood = try JSONDecoder().decode(FoodDatabase.self, from: data)
+                let workingCopy = Food()
+                workingCopy.name = scannedFood.product.productName
+                
+                if scannedFood.product.servingSize == nil {
+                    // If no serving size information is available, use a default value of 100g
+                    workingCopy.servingSizeUnit = "g"
+                    workingCopy.calories = scannedFood.product.nutriments.calories100g
+                    workingCopy.protein = scannedFood.product.nutriments.protein100g
+                    workingCopy.carbs = scannedFood.product.nutriments.carbs100g
+                    workingCopy.fat = scannedFood.product.nutriments.fat100g
+                    workingCopy.sugar = scannedFood.product.nutriments.sugars100g ?? 0
+                    workingCopy.saturatedFat = scannedFood.product.nutriments.saturatedFat100g ?? 0
+                    workingCopy.fibre = scannedFood.product.nutriments.fibre100g ?? 0
+                }
+                else {
+                    let servingSize = scannedFood.product.servingSize ?? "100"
+                    let servingSizeNumber = Double(servingSize.filter("01234567890.".contains)) ?? 100
+                    let servingUnit = servingSize.filter("abcdefghijklmnopqrstuvwxyz".contains)
+                    workingCopy.servingSize = servingSize.filter("01234567890.".contains)
+                    workingCopy.servingSizeUnit = servingUnit
+                    workingCopy.calories = Int((Double(scannedFood.product.nutriments.calories100g) / 100) * servingSizeNumber)
+                    workingCopy.protein = ((scannedFood.product.nutriments.protein100g) / 100) * servingSizeNumber
+                    workingCopy.carbs = ((scannedFood.product.nutriments.carbs100g) / 100) * servingSizeNumber
+                    workingCopy.fat = ((scannedFood.product.nutriments.fat100g) / 100) * servingSizeNumber
+                    workingCopy.sugar = ((scannedFood.product.nutriments.sugars100g ?? 0) / 100) * servingSizeNumber
+                    workingCopy.saturatedFat = ((scannedFood.product.nutriments.saturatedFat100g ?? 0) / 100) * servingSizeNumber
+                    workingCopy.fibre = ((scannedFood.product.nutriments.fibre100g ?? 0) / 100) * servingSizeNumber
+                }
+                
+                completion(.success(workingCopy))
+                
+            }
+            catch {
+                print(error)
+                completion(.failure(.invalidBarcode))
+            }
+        }.resume()
+    }
+    
+    
+    static func getItems(withKeywords searchWords: String, completion: @escaping (Result<[Food], DatabaseError>) -> ()) {
+        
         var countryIdentifier = Locale.current.identifier
         
         if countryIdentifier == "en_GB" {
@@ -31,9 +99,24 @@ struct DatabaseServices {
         
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             
-            guard let data = data else { return }
+            if let _ = error {
+                completion(.failure(.unableToComplete))
+                return
+            }
+            
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                completion(.failure(.invalidResponse))
+                return
+            }
+            
+            guard let data = data else {
+                completion(.failure(.unableToFindItem))
+                return
+            }
             
             do {
+                // Using JSONSerialization instead of JSONDecoder as the data type retrieved from API is not always consistent
+                // so type 'Any' is required
                 if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                     if let products = json["products"] as? [[String: Any]] {
                         
@@ -44,7 +127,7 @@ struct DatabaseServices {
                                 let energy = nutrients["energy_100g"],
                                 let protein = nutrients["proteins_100g"],
                                 let carbs = nutrients["carbohydrates_100g"],
-                                let fat = nutrients["fat_100g"] {  //Unable to cast nutrients to type as JSON data can vary
+                                let fat = nutrients["fat_100g"] {  // Unable to cast nutrients to type as JSON data can vary
                                
                                 let sugar = nutrients["sugars_100g"] ?? 0.0
                                 let saturatedFat = nutrients["saturated-fat_100g"] ?? 0.0
@@ -112,26 +195,15 @@ struct DatabaseServices {
                                 }
                             }
                         }
-                        completed = true
-                        DispatchQueue.main.async {
-                            completion(true, searchFoodList)
-                        }
+                        completion(.success(searchFoodList))
                     }
                 }
             }
             catch {
                 print(error)
-                DispatchQueue.main.async {
-                    completion(false, searchFoodList)
-                }
+                completion(.failure(.unableToFindItem))
             }
         }.resume()
         
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
-            if !completed {
-                completion(false, searchFoodList)
-            }
-        }
     }
 }
