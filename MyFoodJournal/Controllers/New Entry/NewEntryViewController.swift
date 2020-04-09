@@ -10,7 +10,14 @@ import UIKit
 import Firebase
 import SVProgressHUD
 
-class NewEntryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class NewEntryViewController: UIViewController {
+    
+    enum Segues {
+        static let goToManualEntry = "GoToManualEntry"
+        static let goToBarcodeScanner = "GoToBarcodeScanner"
+        static let goToFoodDetail = "GoToFoodDetail"
+    }
+    
     
     let db = Firestore.firestore()
     
@@ -31,12 +38,6 @@ class NewEntryViewController: UIViewController, UITableViewDelegate, UITableView
     private var sortedFood = [Food]()
     private var sortedFoodCopy = [Food]()
     
-    
-    enum Segues {
-        static let goToManualEntry = "GoToManualEntry"
-        static let goToBarcodeScanner = "GoToBarcodeScanner"
-        static let goToFoodDetail = "GoToFoodDetail"
-    }
     
     //MARK:- View Methods
     
@@ -128,9 +129,7 @@ class NewEntryViewController: UIViewController, UITableViewDelegate, UITableView
         else {
             multiAddButton.setTitle("Multi-add", for: .normal)
             navigationItem.rightBarButtonItem = nil
-        }
-        
-        
+        } 
     }
     
     @objc func tickButtonTapped() {
@@ -244,9 +243,9 @@ class NewEntryViewController: UIViewController, UITableViewDelegate, UITableView
     }
 }
 
-//MARK:- Extension for table view and search bar methods
+//MARK:- Table view delege and data source
 
-extension NewEntryViewController: UISearchBarDelegate {
+extension NewEntryViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if sortedFoodCopy.count == 0 {  // If foodList is empty, return 1 cell in order to display message
@@ -345,8 +344,11 @@ extension NewEntryViewController: UISearchBarDelegate {
             }
         }
     }
-    
+}
     //MARK:- Search Bar Delegate methods
+    
+extension NewEntryViewController: UISearchBarDelegate {
+    
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = true

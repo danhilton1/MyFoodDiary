@@ -206,13 +206,13 @@
                     <navigationItem key="navigationItem" title="Overview" largeTitleDisplayMode="never" id="fqT-UL-NjE"/>
                     <connections>
                         <outlet property="dayLabel" destination="tew-nN-CFl" id="i9N-Ts-4dk"/>
-                        <outlet property="eatMeTableView" destination="f9M-MH-vt8" id="Fqc-NB-1uB"/>
                         <outlet property="goalCaloriesLabel" destination="1PB-6U-Emm" id="aJD-Qp-LZS"/>
                         <outlet property="goalCaloriesTextLabel" destination="TOj-Wq-obr" id="QoZ-lp-iz7"/>
                         <outlet property="goalCalsTextLabelHeightConstraint" destination="6aE-KH-U5r" id="ibV-mj-T95"/>
                         <outlet property="remainingCaloriesLabel" destination="DOS-Bw-q4q" id="Wjs-Ew-ghJ"/>
                         <outlet property="remainingCaloriesTextLabel" destination="6Fm-Rl-pWx" id="Vqr-yT-foq"/>
                         <outlet property="remainingCalsTextLabelHeightConstraint" destination="smK-vy-Dj3" id="tzX-kt-TV3"/>
+                        <outlet property="tableView" destination="f9M-MH-vt8" id="Fqc-NB-1uB"/>
                         <outlet property="totalCaloriesLabel" destination="sxB-vs-X79" id="wQu-bK-lUi"/>
                         <outlet property="totalCaloriesTextLabel" destination="knB-SE-ZJS" id="Cds-Z7-wRD"/>
                         <outlet property="totalCalsTextLabelHeightConstraint" destination="xQJ-7h-7hW" id="lD3-n6-EkT"/>

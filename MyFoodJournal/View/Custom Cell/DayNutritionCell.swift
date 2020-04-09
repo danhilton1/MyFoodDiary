@@ -62,10 +62,101 @@ class DayNutritionCell: UITableViewCell {
         carbsPercentLabel.textColor = Color.skyBlue
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+    
+    
+    func configurePieChart(calories: Int, protein: Double, carbs: Double, fat: Double) {
+        var protein = protein
+        var carbs = carbs
+        var fat = fat
+        let defaults = UserDefaults()
+        
+        let text = """
+                   \(calories)
+                   kcal
+                   """
+        let font = UIFont(name: "Montserrat-Medium", size: 16)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
 
-        // Configure the view for the selected state
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: font!,
+            .paragraphStyle: paragraphStyle
+        ]
+        let attributedText = NSAttributedString(string: text, attributes: attributes)
+        pieChart.centerAttributedText = attributedText
+
+        var chartDataSet: PieChartDataSet
+        if protein == 0 && carbs == 0 && fat == 0.0 {
+            chartDataSet = PieChartDataSet(entries: [PieChartDataEntry(value: 1),
+                                                         PieChartDataEntry(value: 1),
+                                                         PieChartDataEntry(value: 1)], label: nil)
+        }
+        else {
+            chartDataSet = PieChartDataSet(entries: [PieChartDataEntry(value: protein),
+                                                         PieChartDataEntry(value: carbs),
+                                                         PieChartDataEntry(value: fat)], label: nil)
+        }
+        chartDataSet.drawValuesEnabled = false
+        chartDataSet.colors = [Color.mint, Color.skyBlue, Color.salmon]
+        chartDataSet.selectionShift = 0
+        let chartData = PieChartData(dataSet: chartDataSet)
+        
+        pieChart.data = chartData
+        
+        proteinValueLabel.text = protein.removePointZeroEndingAndConvertToString() + " g"
+        carbsValueLabel.text = carbs.removePointZeroEndingAndConvertToString() + " g"
+        fatValueLabel.text = fat.removePointZeroEndingAndConvertToString() + " g"
+        
+        var goalProtein = defaults.value(forKey: UserDefaultsKeys.goalProtein) as? Double ?? 0
+        var goalCarbs = defaults.value(forKey: UserDefaultsKeys.goalCarbs) as? Double ?? 0
+        var goalFat = defaults.value(forKey: UserDefaultsKeys.goalFat) as? Double ?? 0
+        var remainingProtein = goalProtein - protein
+        var remainingCarbs = goalCarbs - carbs
+        var remainingFat = goalFat - fat
+        
+        remainingProteinLabel.text = remainingProtein.removePointZeroEndingAndConvertToString() + " g"
+        remainingCarbsLabel.text = remainingCarbs.removePointZeroEndingAndConvertToString() + " g"
+        remainingFatLabel.text = remainingFat.removePointZeroEndingAndConvertToString() + " g"
+        
+        goalProteinLabel.text = goalProtein.removePointZeroEndingAndConvertToString() + " g"
+        goalCarbsLabel.text = goalCarbs.removePointZeroEndingAndConvertToString() + " g"
+        goalFatLabel.text = goalFat.removePointZeroEndingAndConvertToString() + " g"
+        
+        var proteinPercentage = (protein / (protein + carbs + fat)) * 100
+        var carbsPercentage = (carbs / (protein + carbs + fat)) * 100
+        var fatPercentage = (fat / (protein + carbs + fat)) * 100
+        
+        if proteinPercentage.isNaN && carbsPercentage.isNaN && fatPercentage.isNaN {
+            proteinPercentLabel.text = "0"
+            carbsPercentLabel.text = "0"
+            fatPercentLabel.text = "0"
+        }
+        else {
+            proteinPercentLabel.text = proteinPercentage.removePointZeroEndingAndConvertToString()
+            carbsPercentLabel.text = carbsPercentage.removePointZeroEndingAndConvertToString()
+            fatPercentLabel.text = fatPercentage.removePointZeroEndingAndConvertToString()
+        }
+        
+        if UIScreen.main.bounds.height < 600 {
+            pieChartWidthConstraint.constant = 150
+            pieChartHeightConstraint.constant = 150
+            proteinKeyWidthConstraint.constant = 15
+            proteinKeyHeightConstraint.constant = 15
+            goalProteinLabelCenterXConstraint.isActive = false
+            
+            proteinTextLabel.font = proteinTextLabel.font.withSize(14)
+            carbsTextLabel.font = carbsTextLabel.font.withSize(14)
+            fatTextLabel.font = fatTextLabel.font.withSize(14)
+            proteinValueLabel.font = proteinValueLabel.font.withSize(14)
+            carbsValueLabel.font = carbsValueLabel.font.withSize(14)
+            fatValueLabel.font = fatValueLabel.font.withSize(14)
+            goalProteinLabel.font = goalProteinLabel.font.withSize(14)
+            goalCarbsLabel.font = goalCarbsLabel.font.withSize(14)
+            goalFatLabel.font = goalFatLabel.font.withSize(14)
+            remainingProteinLabel.font = remainingProteinLabel.font.withSize(14)
+            remainingCarbsLabel.font = remainingCarbsLabel.font.withSize(14)
+            remainingFatLabel.font = remainingFatLabel.font.withSize(14)
+        }
     }
     
 }

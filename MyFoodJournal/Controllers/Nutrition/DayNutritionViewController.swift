@@ -18,45 +18,15 @@ class DayNutritionViewController: UIViewController, UITableViewDataSource, UITab
     let defaults = UserDefaults()
     
     var foodList: [Food]?
-    var calories = 0
     
-    var protein: Double {
-        get { getTotalValueOfNutrient(.protein) }
-        set { }
-    }
-    var carbs: Double {
-        get { getTotalValueOfNutrient(.carbs) }
-        set { }
-    }
-    var fat: Double {
-        get { getTotalValueOfNutrient(.fat) }
-        set { }
-    }
-    var sugar: Double {
-        get { getTotalValueOfNutrient(.sugar) }
-        set { }
-    }
-    var saturatedFat: Double {
-        get { getTotalValueOfNutrient(.saturatedFat) }
-        set { }
-    }
-    var fibre: Double {
-        get { getTotalValueOfNutrient(.fibre) }
-        set { }
-    }
+    var calories = 0
+    var protein = 0.0
+    var carbs = 0.0
+    var fat = 0.0
+    var sugar = 0.0
+    var saturatedFat = 0.0
+    var fibre = 0.0
 
-    var proteinPercentage: Double {
-        get { (protein / (protein + carbs + fat)) * 100 }
-        set { }
-    }
-    var carbsPercentage: Double {
-        get { (carbs / (protein + carbs + fat)) * 100 }
-        set { }
-    }
-    var fatPercentage: Double {
-        get { (fat / (protein + carbs + fat)) * 100 }
-        set { }
-    }
 
     //MARK:- View Methods
     
@@ -64,7 +34,7 @@ class DayNutritionViewController: UIViewController, UITableViewDataSource, UITab
         super.viewDidLoad()
         
         setUpTableView()
-        
+        getTotalValuesOfNutrients()
     }
     
     func setUpTableView() {
@@ -78,56 +48,33 @@ class DayNutritionViewController: UIViewController, UITableViewDataSource, UITab
     //MARK:- Data Methods
     
     func reloadFood() {
+        getTotalValuesOfNutrients()
         tableView.reloadData()
     }
 
-    func getTotalValueOfNutrient(_ nutrient: macroNutrient) -> Double {
-        var nutrientArray = [Double]()
-        for food in foodList! {
-            switch nutrient {
-            case .protein:
-                nutrientArray.append(food.protein)
-            case .carbs:
-                nutrientArray.append(food.carbs)
-            case .sugar:
-                nutrientArray.append(food.sugar)
-            case .fat:
-                nutrientArray.append(food.fat)
-            case .saturatedFat:
-                nutrientArray.append(food.saturatedFat)
-            default:
-                nutrientArray.append(food.fibre)
-            }
-        }
-        return nutrientArray.reduce(0, +)
-    }
-    
-    
-    enum macroNutrient {
-        case protein
-        case carbs
-        case fat
-        case sugar
-        case saturatedFat
-        case fibre
+    func getTotalValuesOfNutrients() {
+        calories = 0
+        protein = 0.0
+        carbs = 0.0
+        fat = 0.0
+        sugar = 0.0
+        saturatedFat = 0.0
+        fibre = 0.0
         
-        var stringValue: String {
-            switch self {
-            case .protein:
-                return "protein"
-            case .carbs:
-                return "carbs"
-            case .fat:
-                return "fat"
-            case .sugar:
-                return "sugar"
-            case .saturatedFat:
-                return "saturatedFat"
-            case .fibre:
-                return "fibre"
+        if let foods = foodList {
+            for food in foods {
+                calories += food.calories
+                protein += food.protein
+                carbs += food.carbs
+                sugar += food.sugar
+                fat += food.fat
+                saturatedFat += food.saturatedFat
+                fibre += food.fibre
             }
         }
     }
+    
+    
 
     //MARK:- Tableview Data Source/Delegate Methods
     
@@ -164,89 +111,7 @@ class DayNutritionViewController: UIViewController, UITableViewDataSource, UITab
         if indexPath.row == 0 && indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "DayNutritionCell", for: indexPath) as! DayNutritionCell
             
-            let text = """
-                       \(calories)
-                       kcal
-                       """
-            let font = UIFont(name: "Montserrat-Medium", size: 16)
-            let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.alignment = .center
-
-            let attributes: [NSAttributedString.Key: Any] = [
-                .font: font!,
-                .paragraphStyle: paragraphStyle
-            ]
-            let attributedText = NSAttributedString(string: text, attributes: attributes)
-            cell.pieChart.centerAttributedText = attributedText
-
-            var chartDataSet: PieChartDataSet
-            if protein == 0 && carbs == 0 && fat == 0.0 {
-                chartDataSet = PieChartDataSet(entries: [PieChartDataEntry(value: 1),
-                                                             PieChartDataEntry(value: 1),
-                                                             PieChartDataEntry(value: 1)], label: nil)
-            }
-            else {
-                chartDataSet = PieChartDataSet(entries: [PieChartDataEntry(value: protein),
-                                                             PieChartDataEntry(value: carbs),
-                                                             PieChartDataEntry(value: fat)], label: nil)
-            }
-            chartDataSet.drawValuesEnabled = false
-            chartDataSet.colors = [Color.mint, Color.skyBlue, Color.salmon]
-            chartDataSet.selectionShift = 0
-            let chartData = PieChartData(dataSet: chartDataSet)
-            
-            cell.pieChart.data = chartData
-            
-            cell.proteinValueLabel.text = protein.removePointZeroEndingAndConvertToString() + " g"
-            cell.carbsValueLabel.text = carbs.removePointZeroEndingAndConvertToString() + " g"
-            cell.fatValueLabel.text = fat.removePointZeroEndingAndConvertToString() + " g"
-            
-            var goalProtein = defaults.value(forKey: UserDefaultsKeys.goalProtein) as? Double ?? 0
-            var goalCarbs = defaults.value(forKey: UserDefaultsKeys.goalCarbs) as? Double ?? 0
-            var goalFat = defaults.value(forKey: UserDefaultsKeys.goalFat) as? Double ?? 0
-            var remainingProtein = goalProtein - protein
-            var remainingCarbs = goalCarbs - carbs
-            var remainingFat = goalFat - fat
-            
-            cell.remainingProteinLabel.text = remainingProtein.removePointZeroEndingAndConvertToString() + " g"
-            cell.remainingCarbsLabel.text = remainingCarbs.removePointZeroEndingAndConvertToString() + " g"
-            cell.remainingFatLabel.text = remainingFat.removePointZeroEndingAndConvertToString() + " g"
-            
-            cell.goalProteinLabel.text = goalProtein.removePointZeroEndingAndConvertToString() + " g"
-            cell.goalCarbsLabel.text = goalCarbs.removePointZeroEndingAndConvertToString() + " g"
-            cell.goalFatLabel.text = goalFat.removePointZeroEndingAndConvertToString() + " g"
-            
-            if proteinPercentage.isNaN && carbsPercentage.isNaN && fatPercentage.isNaN {
-                cell.proteinPercentLabel.text = "0"
-                cell.carbsPercentLabel.text = "0"
-                cell.fatPercentLabel.text = "0"
-            }
-            else {
-                cell.proteinPercentLabel.text = proteinPercentage.removePointZeroEndingAndConvertToString()
-                cell.carbsPercentLabel.text = carbsPercentage.removePointZeroEndingAndConvertToString()
-                cell.fatPercentLabel.text = fatPercentage.removePointZeroEndingAndConvertToString()
-            }
-            
-            if UIScreen.main.bounds.height < 600 {
-                cell.pieChartWidthConstraint.constant = 150
-                cell.pieChartHeightConstraint.constant = 150
-                cell.proteinKeyWidthConstraint.constant = 15
-                cell.proteinKeyHeightConstraint.constant = 15
-                cell.goalProteinLabelCenterXConstraint.isActive = false
-                
-                cell.proteinTextLabel.font = cell.proteinTextLabel.font.withSize(14)
-                cell.carbsTextLabel.font = cell.carbsTextLabel.font.withSize(14)
-                cell.fatTextLabel.font = cell.fatTextLabel.font.withSize(14)
-                cell.proteinValueLabel.font = cell.proteinValueLabel.font.withSize(14)
-                cell.carbsValueLabel.font = cell.carbsValueLabel.font.withSize(14)
-                cell.fatValueLabel.font = cell.fatValueLabel.font.withSize(14)
-                cell.goalProteinLabel.font = cell.goalProteinLabel.font.withSize(14)
-                cell.goalCarbsLabel.font = cell.goalCarbsLabel.font.withSize(14)
-                cell.goalFatLabel.font = cell.goalFatLabel.font.withSize(14)
-                cell.remainingProteinLabel.font = cell.remainingProteinLabel.font.withSize(14)
-                cell.remainingCarbsLabel.font = cell.remainingCarbsLabel.font.withSize(14)
-                cell.remainingFatLabel.font = cell.remainingFatLabel.font.withSize(14)
-            }
+            cell.configurePieChart(calories: calories, protein: protein, carbs: carbs, fat: fat)
             
             return cell
         }

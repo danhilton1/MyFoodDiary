@@ -73,4 +73,40 @@ class MealOverviewCell: UITableViewCell {
         }
     }
     
+    
+    func setUpPieChart(section1 protein: Double, section2 carbs: Double, section3 fat: Double) {
+        
+        pieChart.legend.enabled = false
+        pieChart.holeRadiusPercent = 0.5
+        pieChart.highlightPerTapEnabled = false
+        pieChart.rotationEnabled = false
+        
+        // If no user entries/data then set default equal values of pie chart to display equal sections
+        if protein == 0 && carbs == 0 && fat == 0 {
+            
+            let chartDataSet = PieChartDataSet(entries: [PieChartDataEntry(value: 1.0),
+                                                         PieChartDataEntry(value: 1.0),
+                                                         PieChartDataEntry(value: 1.0)], label: nil)
+            chartDataSet.drawValuesEnabled = false
+            chartDataSet.colors = [Color.mint, Color.skyBlue, Color.salmon]
+            chartDataSet.selectionShift = 0
+            let chartData = PieChartData(dataSet: chartDataSet)
+            
+            pieChart.data = chartData
+            
+        } else {
+            // Set pie chart data to the total values of protein, carbs and fat from user's entries
+            let pieChartEntries = [PieChartDataEntry(value: protein),
+                                   PieChartDataEntry(value: carbs),
+                                   PieChartDataEntry(value: fat)]
+            let chartDataSet = PieChartDataSet(entries: pieChartEntries, label: nil)
+            chartDataSet.drawValuesEnabled = false
+            chartDataSet.colors = [Color.mint, Color.skyBlue, Color.salmon]
+            chartDataSet.selectionShift = 0
+            let chartData = PieChartData(dataSet: chartDataSet)
+            
+            pieChart.data = chartData
+        }
+    }
+    
 }

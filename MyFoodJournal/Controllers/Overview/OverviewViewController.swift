@@ -10,7 +10,7 @@ import UIKit
 import Charts
 import Firebase
 
-class OverviewViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NewEntryDelegate {
+class OverviewViewController: UIViewController {
 
     
     //MARK: - Properties
@@ -18,25 +18,18 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     var date: Date?   //  Required to be set before VC presented
     var foodEntries: [Food]?
     var allFood: [Food]?
-    private var totalCalsArray = [Int]()
+
     private var refreshControl = UIRefreshControl()
     private let formatter = DateFormatter()
     private let defaults = UserDefaults()
-    private var totalCalories = 0
-    private var remainingCalories = 0
-    private var calorieArray = [Int]()
-    private var proteinArray = [Double]()
-    private var carbsArray = [Double]()
-    private var fatArray = [Double]()
-    private var calories = 0
-    private var protein = 0.0
-    private var carbs = 0.0
-    private var fat = 0.0
+    private let datePicker = UIDatePicker()
+    private let toolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
+    private let dimView = UIView()
     
     override var canBecomeFirstResponder: Bool {
         return true
     }
-    private let datePicker = UIDatePicker()
+    
     override var inputView: UIView? {
         datePicker.date = date ?? Date()
         return self.datePicker
@@ -44,14 +37,11 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     override var inputAccessoryView: UIView? {
         return self.toolbar
     }
-    private let toolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
-       
-    private let dimView = UIView()
     
     
     //IBOutlets
     @IBOutlet weak var dayLabel: UILabel!
-    @IBOutlet weak var eatMeTableView: UITableView!
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var totalCaloriesTextLabel: UILabel!
     @IBOutlet weak var totalCaloriesLabel: UILabel!
     @IBOutlet weak var goalCaloriesTextLabel: UILabel!
@@ -82,7 +72,6 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         super.viewWillAppear(true)
         
         loadFoodData()
-        configureTotalCaloriesLabel()
         presentingViewController?.tabBarController?.tabBar.isHidden = false
         tabBarController?.tabBar.isHidden = false
     }
@@ -102,7 +91,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         }
         setUpTableView()
         refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
-        eatMeTableView.addSubview(refreshControl)
+        tableView.addSubview(refreshControl)
         datePicker.datePickerMode = .date
         datePicker.locale = Locale.current
         
@@ -111,10 +100,10 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     private func setUpTableView() {
-        eatMeTableView.delegate = self
-        eatMeTableView.dataSource = self
-        eatMeTableView.separatorStyle = .none
-        eatMeTableView.register(UINib(nibName: "MealOverviewCell", bundle: nil), forCellReuseIdentifier: "mealOverviewCell")
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.separatorStyle = .none
+        tableView.register(UINib(nibName: "MealOverviewCell", bundle: nil), forCellReuseIdentifier: "mealOverviewCell")
     }
     
     private func setUpToolBar() {
@@ -141,9 +130,14 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-    private func configureTotalCaloriesLabel() {
+    private func configureCalorieLabels(totalCalories: Int) {
+        
         let goalCalories = defaults.value(forKey: UserDefaultsKeys.goalCalories) as? Int ?? 0
+        let remainingCalories = goalCalories - totalCalories
+        totalCaloriesLabel.text = "\(totalCalories)"
         goalCaloriesLabel.text = "\(goalCalories)"
+        remainingCaloriesLabel.text = "\(remainingCalories)"
+        
         if totalCalories < (goalCalories - 500) || totalCalories > (goalCalories + 500) || goalCalories == 0 {
             totalCaloriesLabel.textColor = Color.salmon
             remainingCaloriesLabel.textColor = Color.salmon
@@ -173,8 +167,8 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         }
         else if UIScreen.main.bounds.height < 700 {
             let adjustForTabbarInsets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: self.tabBarController!.tabBar.frame.height / 2, right: 0)
-            self.eatMeTableView.contentInset = adjustForTabbarInsets
-            self.eatMeTableView.scrollIndicatorInsets = adjustForTabbarInsets
+            self.tableView.contentInset = adjustForTabbarInsets
+            self.tableView.scrollIndicatorInsets = adjustForTabbarInsets
         }
     }
     
@@ -184,30 +178,20 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         
         formatter.dateFormat = "E, d MMM"
         
+        var calories = 0
         foodEntries = [Food]()
         
         if let allFoodEntries = allFood {
             for food in allFoodEntries {
                 if food.date == formatter.string(from: date ?? Date()) && !food.isDeleted {
                     foodEntries!.append(food)
-                    totalCalsArray.append(food.calories)
+                    calories += food.calories
                 }
             }
         }
 
-        var tempTotalCalories = 0
-        tempTotalCalories = totalCalsArray.reduce(0, +)
-        totalCalories = tempTotalCalories
-        let goalCalories = defaults.value(forKey: UserDefaultsKeys.goalCalories) as? Int ?? 0
-        remainingCalories = goalCalories - totalCalories
-        remainingCaloriesLabel.text = "\(remainingCalories)"
-        totalCaloriesLabel.text = "\(tempTotalCalories)"
-        configureTotalCaloriesLabel()
-        totalCalsArray = []
-        tempTotalCalories = 0
-        
-        eatMeTableView.reloadData()
-
+        configureCalorieLabels(totalCalories: calories)
+        tableView.reloadData()
     }
     
     @objc func refresh() {
@@ -218,22 +202,22 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     //MARK: - Methods to Update UI with user's entry data
     
     
-    private func getTotalValueOfMealData(food: [Food]?, meal: Food.Meal, cell: MealOverviewCell) {
+    private func getNutritionValuesAndConfigureCell(forMeal meal: Food.Meal, cell: MealOverviewCell) {
         // Updates the total amount of cals and macros for user entries
         
         // Checks the meal type and then appends each food property (cals, carbs, ..) to corresponding array
-
-        if let foodList = food {
-            switch meal {
-            case .breakfast:
-                retrieveNutritionData(meal: Food.Meal.breakfast.stringValue, foodList: foodList)
-            case .lunch:
-                retrieveNutritionData(meal: Food.Meal.lunch.stringValue, foodList: foodList)
-            case .dinner:
-                retrieveNutritionData(meal: Food.Meal.dinner.stringValue, foodList: foodList)
-            default:
-                retrieveNutritionData(meal: Food.Meal.other.stringValue, foodList: foodList)
-            }
+        var calories = 0
+        var protein = 0.0
+        var carbs = 0.0
+        var fat = 0.0
+        
+        guard let foodList = foodEntries else { return }
+        let filteredList = foodList.filter { $0.meal == meal.stringValue }
+        for food in filteredList {
+            calories += food.calories
+            protein += food.protein
+            carbs += food.carbs
+            fat += food.fat
         }
         
         cell.calorieLabel.text = "\(calories) kcal"
@@ -241,69 +225,8 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         cell.carbsLabel.text = carbs.removePointZeroEndingAndConvertToString() + " g"
         cell.fatLabel.text = fat.removePointZeroEndingAndConvertToString() + " g"
         
-        setUpPieChart(cell: cell, section1: protein, section2: carbs, section3: fat)
+        cell.setUpPieChart(section1: protein, section2: carbs, section3: fat)
         
-        calorieArray = []
-        proteinArray = []
-        carbsArray = []
-        fatArray = []
-        calories = 0
-        protein = 0
-        carbs = 0
-        fat = 0
-    }
-    
-    private func retrieveNutritionData(meal: String, foodList: [Food]) {
-        
-        for food in foodList {
-            if food.meal == meal {
-                calorieArray.append(food.calories)
-                proteinArray.append(food.protein)
-                carbsArray.append(food.carbs)
-                fatArray.append(food.fat)
-                }
-        }
-        for i in 0..<calorieArray.count {
-            calories += calorieArray[i]
-            protein += proteinArray[i]
-            carbs += carbsArray[i]
-            fat += fatArray[i]
-        }
-    }
-    
-    func setUpPieChart(cell: MealOverviewCell, section1 protein: Double, section2 carbs: Double, section3 fat: Double) {
-        
-        cell.pieChart.legend.enabled = false
-        cell.pieChart.holeRadiusPercent = 0.5
-        cell.pieChart.highlightPerTapEnabled = false
-        cell.pieChart.rotationEnabled = false
-        
-        // If no user entries/data then set default equal values of pie chart to display equal sections
-        if protein == 0 && carbs == 0 && fat == 0 {
-            
-            let chartDataSet = PieChartDataSet(entries: [PieChartDataEntry(value: 1.0),
-                                                         PieChartDataEntry(value: 1.0),
-                                                         PieChartDataEntry(value: 1.0)], label: nil)
-            chartDataSet.drawValuesEnabled = false
-            chartDataSet.colors = [Color.mint, Color.skyBlue, Color.salmon]
-            chartDataSet.selectionShift = 0
-            let chartData = PieChartData(dataSet: chartDataSet)
-            
-            cell.pieChart.data = chartData
-            
-        } else {
-            // Set pie chart data to the total values of protein, carbs and fat from user's entries
-            let pieChartEntries = [PieChartDataEntry(value: protein),
-                                   PieChartDataEntry(value: carbs),
-                                   PieChartDataEntry(value: fat)]
-            let chartDataSet = PieChartDataSet(entries: pieChartEntries, label: nil)
-            chartDataSet.drawValuesEnabled = false
-            chartDataSet.colors = [Color.mint, Color.skyBlue, Color.salmon]
-            chartDataSet.selectionShift = 0
-            let chartData = PieChartData(dataSet: chartDataSet)
-            
-            cell.pieChart.data = chartData
-        }
     }
     
     
@@ -344,20 +267,20 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         
         UIView.animate(withDuration: 0.35, delay: 0, options: .curveEaseInOut, animations: {
             if self.date! > previousDate! {
-                self.eatMeTableView.frame = self.eatMeTableView.frame.offsetBy(dx: -self.eatMeTableView.frame.width, dy: 0)
+                self.tableView.frame = self.tableView.frame.offsetBy(dx: -self.tableView.frame.width, dy: 0)
             }
             else if self.date! < previousDate! {
-                self.eatMeTableView.frame = self.eatMeTableView.frame.offsetBy(dx: self.eatMeTableView.frame.width, dy: 0)
+                self.tableView.frame = self.tableView.frame.offsetBy(dx: self.tableView.frame.width, dy: 0)
             }
-            var viewRightFrame = self.eatMeTableView.frame
+            var viewRightFrame = self.tableView.frame
             viewRightFrame.origin.x += viewRightFrame.size.width
-            var viewLeftFrame = self.eatMeTableView.frame
+            var viewLeftFrame = self.tableView.frame
             viewLeftFrame.origin.x -= viewLeftFrame.size.width
             if self.date! > previousDate! {
-                self.eatMeTableView.frame = viewLeftFrame
+                self.tableView.frame = viewLeftFrame
             }
             else if self.date! < previousDate! {
-                self.eatMeTableView.frame = viewRightFrame
+                self.tableView.frame = viewRightFrame
             }
             
         }) { (success) in
@@ -397,7 +320,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             self.defaults.setValue(Int(ac.textFields![0].text ?? "0"), forKey: "GoalCalories")
             self.goalCaloriesLabel.text = "\(self.defaults.value(forKey: "GoalCalories") ?? 0)"
             self.loadFoodData()
-            self.configureTotalCaloriesLabel()
+//            self.configureCalorieLabels()
             let parentVC = self.parent as? OverviewPageViewController
             parentVC?.setViewControllers([self], direction: .forward, animated: false, completion: nil)
         }))
@@ -406,8 +329,81 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         present(ac, animated: true)
     }
     
-    //MARK:- NewEntryDelegate protocol method
+
+    //MARK:- Configure date method
     
+    func configureWith(date: Date) {
+        self.date = date
+    }
+    
+    
+    //MARK:- Segue Methods
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+        if segue.identifier ==  "goToMealDetail" {
+            
+            let destVC = segue.destination as! MealDetailViewController
+            destVC.delegate = self
+            destVC.date = date
+            destVC.allFood = allFood
+            
+            if let indexPath = tableView.indexPathForSelectedRow {
+                
+                if indexPath.section == 0 {
+                    filterFoodForMealDetail(meal: .breakfast, destVC: destVC)
+                }
+                else if indexPath.section == 1 {
+                    filterFoodForMealDetail(meal: .lunch, destVC: destVC)
+                }
+                else if indexPath.section == 2 {
+                    filterFoodForMealDetail(meal: .dinner, destVC: destVC)
+                }
+                else if indexPath.section == 3 {
+                    filterFoodForMealDetail(meal: .other, destVC: destVC)
+                }
+            }
+        }
+        else if segue.identifier == "GoToNutrition" {
+            let navController = segue.destination as! UINavigationController
+            let destVC = navController.viewControllers.first as! NutritionViewController
+            destVC.allFood = allFood
+            destVC.date = date
+        }
+    }
+    
+    func filterFoodForMealDetail(meal: Food.Meal, destVC: MealDetailViewController) {
+        
+        destVC.navigationItem.title = meal.stringValue
+        destVC.meal = meal
+        
+        var sortedFood = [Food]()
+
+        var foodDictionary = [String: Food]()
+        for food in foodEntries! {
+            if food.meal == meal.stringValue && !food.isDeleted {
+                foodDictionary[food.name!] = food
+            }
+        }
+        sortedFood = foodDictionary.values.sorted { (food1, food2) -> Bool in
+            guard
+                let food1Date = food1.dateCreated,
+                let food2Date = food2.dateCreated
+            else {
+                return false
+            }
+            return food1Date < food2Date
+        }
+        
+        destVC.selectedFoodList = sortedFood
+        
+    }
+    
+}
+
+//MARK:- NewEntryDelege method
+
+extension OverviewViewController: NewEntryDelegate {
     
     func reloadFood(entry: Food?, new: Bool) {
         if let food = entry {
@@ -452,81 +448,11 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         parentVC?.setViewControllers([self], direction: .forward, animated: false, completion: nil)
     }
     
-    //MARK:- Configure date method
-    
-    func configureWith(date: Date) {
-        self.date = date
-    }
-    
-    
-    //MARK:- Segue Methods
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
-        if segue.identifier ==  "goToMealDetail" {
-            
-            let destVC = segue.destination as! MealDetailViewController
-            destVC.delegate = self
-            destVC.date = date
-            destVC.allFood = allFood
-            
-            if let indexPath = eatMeTableView.indexPathForSelectedRow {
-                
-                if indexPath.section == 0 {
-                    filterFoodForMealDetail(meal: Food.Meal.breakfast, destVC: destVC)
-                }
-                else if indexPath.section == 1 {
-                    filterFoodForMealDetail(meal: Food.Meal.lunch, destVC: destVC)
-                }
-                else if indexPath.section == 2 {
-                    filterFoodForMealDetail(meal: Food.Meal.dinner, destVC: destVC)
-                }
-                else if indexPath.section == 3 {
-                    filterFoodForMealDetail(meal: Food.Meal.other, destVC: destVC)
-                }
-            }
-        }
-        else if segue.identifier == "GoToNutrition" {
-            let navController = segue.destination as! UINavigationController
-            let destVC = navController.viewControllers.first as! NutritionViewController
-            destVC.allFood = allFood
-            destVC.date = date
-            destVC.calories = totalCalories
-        }
-    }
-    
-    func filterFoodForMealDetail(meal: Food.Meal, destVC: MealDetailViewController) {
-        
-        destVC.navigationItem.title = meal.stringValue
-        destVC.meal = meal
-        
-        var sortedFood = [Food]()
-
-        var foodDictionary = [String: Food]()
-        for food in foodEntries! {
-            if food.meal == meal.stringValue && !food.isDeleted {
-                foodDictionary[food.name!] = food
-            }
-        }
-        sortedFood = foodDictionary.values.sorted { (food1, food2) -> Bool in
-            guard
-                let food1Date = food1.dateCreated,
-                let food2Date = food2.dateCreated
-            else {
-                return false
-            }
-            return food1Date < food2Date
-        }
-        
-        destVC.selectedFoodList = sortedFood
-        
-    }
-    
 }
 
 //MARK: - Tableview Data Source/Delegate Methods
 
-extension OverviewViewController {
+extension OverviewViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -607,13 +533,13 @@ extension OverviewViewController {
         switch indexPath.section {
             
         case 0:
-            getTotalValueOfMealData(food: foodEntries, meal: .breakfast, cell: cell)
+            getNutritionValuesAndConfigureCell(forMeal: .breakfast, cell: cell)
         case 1:
-            getTotalValueOfMealData(food: foodEntries, meal: .lunch, cell: cell)
+            getNutritionValuesAndConfigureCell(forMeal: .lunch, cell: cell)
         case 2:
-            getTotalValueOfMealData(food: foodEntries, meal: .dinner, cell: cell)
+            getNutritionValuesAndConfigureCell(forMeal: .dinner, cell: cell)
         case 3:
-            getTotalValueOfMealData(food: foodEntries, meal: .other, cell: cell)
+            getNutritionValuesAndConfigureCell(forMeal: .other, cell: cell)
         default:
             cell.calorieLabel.text = "0"
             cell.proteinLabel.text = "0"

@@ -42,8 +42,6 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         navigationController?.setNavigationBarHidden(false, animated: true)
         
         setUpCameraDisplay()
-
-        view.addSubview(activityIndicator)
         setUpActivityIndicator()
 
         if let food = food {
@@ -57,29 +55,11 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
     
     
     override func viewWillAppear(_ animated: Bool) {
-        // Start running the camera session again if user navigates back to this VC again after scanning an item
         super.viewWillAppear(true)
+        // Start running the camera session again if user navigates back to this VC again after scanning an item
         dimmedView.removeFromSuperview()
         session.startRunning()
         presentingViewController?.tabBarController?.tabBar.isHidden = true
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        presentingViewController?.tabBarController?.tabBar.isHidden = false
-    }
-    
-    
-    
-    @IBAction func cancelPressed(_ sender: UIBarButtonItem) {
-        navigationController?.popViewController(animated: true)
-    }
-    
-    private func setUpActivityIndicator() {
-        activityIndicator.style = .whiteLarge
-        activityIndicator.frame.size = CGSize(width: 100, height: 100)
-        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-        activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
     
     
@@ -94,73 +74,72 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                 return
             }
             let input = try AVCaptureDeviceInput(device: captureDevice)
+            let output = AVCaptureMetadataOutput()
             session.addInput(input)
+            session.addOutput(output)
+            
+            output.setMetadataObjectsDelegate(self, queue: .main)
+            // Set the barcode types the camera can scan
+            output.metadataObjectTypes = [AVMetadataObject.ObjectType.ean13, AVMetadataObject.ObjectType.ean8, AVMetadataObject.ObjectType.upce]
+            
+            let video = AVCaptureVideoPreviewLayer(session: session)
+            video.videoGravity = AVLayerVideoGravity.resizeAspectFill
+            cameraView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+            cameraView.topAnchor.constraint(equalTo: view.topAnchor, constant: 60).isActive = true
+            cameraView.bottomAnchor.constraint(equalTo: enterBarcodeButton.topAnchor).isActive = true
+            video.frame = cameraView.layer.bounds
+            
+            cameraView.layer.addSublayer(video)
+            
+            configureCameraUIElements()
+            
+            session.startRunning()
         }
         catch {
+            displayErrorAlert(message: "There was a problem connecting to the camera. To use this feature, please make sure camera access is permitted.")
             print(error)
         }
-        
-        let output = AVCaptureMetadataOutput()
-        session.addOutput(output)
-        
-        output.setMetadataObjectsDelegate(self, queue: .main)
-        // Set the barcode types the camera can scan
-        output.metadataObjectTypes = [AVMetadataObject.ObjectType.ean13, AVMetadataObject.ObjectType.ean8, AVMetadataObject.ObjectType.upce]
-        
-        let video = AVCaptureVideoPreviewLayer(session: session)
-        video.videoGravity = AVLayerVideoGravity.resizeAspectFill
-        cameraView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        cameraView.topAnchor.constraint(equalTo: view.topAnchor, constant: 60).isActive = true
-        cameraView.bottomAnchor.constraint(equalTo: enterBarcodeButton.topAnchor).isActive = true
-        video.frame = cameraView.layer.bounds
-        
-        cameraView.layer.addSublayer(video)
-        
-        configureCameraUIElements()
-        
-        session.startRunning()
-        
     }
     
     
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         
-        if metadataObjects.count != 0 {    // Check if there is a scanned barcode
-            if let object = metadataObjects.first as? AVMetadataMachineReadableCodeObject {
-                if object.type == AVMetadataObject.ObjectType.ean13 ||
-                    object.type == AVMetadataObject.ObjectType.ean8 ||
-                    object.type == AVMetadataObject.ObjectType.upce {   // Check the barcode type is EAN13, EAN8 or UPC-E
+        // Check if there is a scanned barcode
+        if metadataObjects.count != 0, let object = metadataObjects.first as? AVMetadataMachineReadableCodeObject {
+
+            if object.type == AVMetadataObject.ObjectType.ean13 ||
+                object.type == AVMetadataObject.ObjectType.ean8 ||
+                object.type == AVMetadataObject.ObjectType.upce {   // Check the barcode type is EAN13, EAN8 or UPC-E
+                
+                session.stopRunning()
+                dimViewAndShowLoading()  // Dim the view while loading
+                
+                guard let barcode = object.stringValue else { return }
+                
+                DatabaseServices.retrieveDataFromBarcodeEntry(barcode: barcode) { [weak self] result in
+                    guard let self = self else { return }
                     
-                    session.stopRunning()
-                    dimViewAndShowLoading()  // Dim the view while loading
-                    
-                    guard let barcode = object.stringValue else { return }
-                    print(barcode)
-                    DatabaseServices.retrieveDataFromBarcodeEntry(barcode: barcode) { [weak self] result in
-                        guard let self = self else { return }
+                    switch result {
                         
-                        switch result {
-                            
-                        case .success(let food):
-                            self.workingCopy = food
-                            
-                            DispatchQueue.main.async {
-                                self.activityIndicator.stopAnimating()
-                                self.dimmedView.removeFromSuperview()
-                                self.performSegue(withIdentifier: "goToFoodDetail", sender: nil)
-                            }
-                            
-                        case .failure(let error):
-                            self.displayErrorAlert(message: error.rawValue)
-                            
+                    case .success(let food):
+                        self.workingCopy = food
+                        
+                        DispatchQueue.main.async {
+                            self.activityIndicator.stopAnimating()
+                            self.dimmedView.removeFromSuperview()
+                            self.performSegue(withIdentifier: "goToFoodDetail", sender: nil)
                         }
+                        
+                    case .failure(let error):
+                        self.displayErrorAlert(message: error.rawValue)
+                        
                     }
                 }
-                else {
-                    print("Invalid barcode type")
-                    displayErrorAlert(message: "This barcode type is not valid. Please try again or try searching for the item.")
-                    session.stopRunning()
-                }
+            }
+            else {
+                print("Invalid barcode type")
+                displayErrorAlert(message: "This barcode type is not valid. Please try again or try searching for the item.")
+                session.stopRunning()
             }
         }
         else {
@@ -222,6 +201,16 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
     
     
     //MARK: - View and UI Methods
+    
+    private func setUpActivityIndicator() {
+        view.addSubview(activityIndicator)
+        activityIndicator.style = .whiteLarge
+        activityIndicator.frame.size = CGSize(width: 100, height: 100)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+    }
+    
     
     private func configureCameraErrorLabel() {
         let errorLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 60))
@@ -293,7 +282,6 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
             self.present(alertController, animated: true)
             self.activityIndicator.stopAnimating()
         }
-        
     }
     
     @objc func torchButtonTapped(sender: UIButton) {
@@ -318,6 +306,11 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         } catch {
             print(error)
         }
+    }
+    
+    
+    @IBAction func cancelPressed(_ sender: UIBarButtonItem) {
+        navigationController?.popViewController(animated: true)
     }
     
     

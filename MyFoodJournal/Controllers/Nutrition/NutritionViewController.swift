@@ -37,7 +37,7 @@ class NutritionViewController: UIViewController {
     var endOfWeekDate: Date?
     var dateCopy: Date?
     var monthChartLabels = [String]()
-    var calories = 0
+//    var calories = 0
     
     private let formatter = DateFormatter()
     
@@ -105,13 +105,14 @@ class NutritionViewController: UIViewController {
     //MARK: - Set Data Methods
     
     func setFoodList(date: Date?) {
-
+        
         foodList = [Food]()
         for food in allFood! {
             if food.date == formatter.string(from: date ?? Date()) && !food.isDeleted {
                 foodList!.append(food)
             }
         }
+        
     }
     
     func setFoodListCopy(date: Date?) {
@@ -130,7 +131,7 @@ class NutritionViewController: UIViewController {
         monthView.alpha = 0
         let dayVC = children.first as? DayNutritionViewController
         dayVC?.foodList = foodList
-        dayVC?.calories = calories
+        dayVC?.getTotalValuesOfNutrients()
     }
     
     //MARK: - Set Subview Methods
@@ -363,15 +364,8 @@ class NutritionViewController: UIViewController {
             setFoodList(date: yesterday)
             date = yesterday
             
-            var totalCalsArray = [Int]()
-            for food in foodList! {
-                totalCalsArray.append(food.calories)
-            }
-            calories = totalCalsArray.reduce(0, +)
-            
             let dayVC = children.first as? DayNutritionViewController
             dayVC?.foodList = foodList
-            dayVC?.calories = calories
             
             UIView.animate(withDuration: 0.35) {
                 self.dateLabel.alpha = 0
@@ -437,16 +431,8 @@ class NutritionViewController: UIViewController {
             setFoodList(date: tomorrow)
             date = tomorrow
             
-            var totalCalsArray = [Int]()
-            for food in foodList! {
-                totalCalsArray.append(food.calories)
-            }
-            
-            calories = totalCalsArray.reduce(0, +)
-            
             let dayVC = children.first as? DayNutritionViewController
             dayVC?.foodList = foodList
-            dayVC?.calories = calories
             
             UIView.animate(withDuration: 0.25) {
                 self.dateLabel.alpha = 0
