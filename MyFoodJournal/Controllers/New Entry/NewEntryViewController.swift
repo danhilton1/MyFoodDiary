@@ -37,6 +37,9 @@ class NewEntryViewController: UIViewController {
     var allFood: [Food]?
     private var sortedFood = [Food]()
     private var sortedFoodCopy = [Food]()
+    private var isSearching = false
+    private var isDisplayingSearchResults = false
+    private var isDeletingAnEntry = false
     
     
     //MARK:- View Methods
@@ -50,6 +53,12 @@ class NewEntryViewController: UIViewController {
         sortedFoodCopy = sortedFood
         
         setUpTableView()
+        
+        if let foods = allFood {
+            if foods.count < 2 {
+                multiAddButton.isHidden = true
+            }
+        }
         
     }
     
@@ -92,19 +101,22 @@ class NewEntryViewController: UIViewController {
     }
     
     func setUpSortedFoodList() {
+        guard let foods = allFood else { return }
+        
         var foodDictionary = [String: Food]()
-        for food in allFood! {
+        for food in foods {
             foodDictionary[food.name!] = food
         }
-        sortedFood = foodDictionary.values.sorted { (food1, food2) -> Bool in
-            guard
-                let food1Date = food1.dateCreated,
-                let food2Date = food2.dateCreated
-            else {
-                return false
-            }
-            return food1Date > food2Date
-        }
+        sortedFood = foodDictionary.values.sorted { $0.dateCreated! > $1.dateCreated! }
+//        sortedFood = foodDictionary.values.sorted { (food1, food2) -> Bool in
+//            guard
+//                let food1Date = food1.dateCreated,
+//                let food2Date = food2.dateCreated
+//            else {
+//                return false
+//            }
+//            return food1Date > food2Date
+//        }
     }
 
     //MARK:- Button Methods
@@ -233,7 +245,7 @@ class NewEntryViewController: UIViewController {
         }
         else if segue.identifier == Segues.goToFoodDetail {
             let destVC = segue.destination as! FoodDetailViewController
-            guard let indexPath = tableView.indexPathForSelectedRow else { return }
+            guard let indexPath = tableView.indexPathForSelectedRow, !sortedFoodCopy.isEmpty else { return }
             destVC.food = sortedFoodCopy[indexPath.row]
             destVC.delegate = delegate
             destVC.mealDelegate = mealDelegate
@@ -247,12 +259,17 @@ class NewEntryViewController: UIViewController {
 
 extension NewEntryViewController: UITableViewDelegate, UITableViewDataSource {
     
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if sortedFoodCopy.count == 0 {  // If foodList is empty, return 1 cell in order to display message
+        
+        if sortedFoodCopy.count == 0 && !isDeletingAnEntry {  // If foodList is empty, return 1 cell in order to display message
             return 1
         }
-        return sortedFoodCopy.count
+        else {
+            return sortedFoodCopy.count
+        }
     }
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let defaultCell = UITableViewCell()
@@ -260,7 +277,9 @@ extension NewEntryViewController: UITableViewDelegate, UITableViewDataSource {
        
         if sortedFoodCopy.count == 0 {
             tableView.separatorStyle = .none
-            if historyLabel.text == "History" {
+            defaultCell.isUserInteractionEnabled = false
+            multiAddButton.isHidden = true
+            if historyLabel.text == "History" && !isSearching {
                 defaultCell.textLabel?.text = "No food logged."
             }
             else {
@@ -288,6 +307,7 @@ extension NewEntryViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if !tableView.isEditing {
             performSegue(withIdentifier: Segues.goToFoodDetail, sender: nil)
@@ -295,9 +315,11 @@ extension NewEntryViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
+        return isDisplayingSearchResults ? false : true
     }
+    
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
@@ -308,6 +330,7 @@ extension NewEntryViewController: UITableViewDelegate, UITableViewDataSource {
             ac.addAction(UIAlertAction(title: "Delete", style: .destructive) { [weak self] (action) in
                 guard let strongSelf = self else { return }
                 
+                strongSelf.isDeletingAnEntry = true
                 let currentNav = strongSelf.parent as! UINavigationController
                 let overviewNav = currentNav.presentingViewController as! UINavigationController
                 let overviewPVC = overviewNav.viewControllers.first as! OverviewPageViewController
@@ -324,14 +347,19 @@ extension NewEntryViewController: UITableViewDelegate, UITableViewDataSource {
                     }
                     index += 1
                 }
+                if (strongSelf.allFood?.count ?? 0) < 2 {
+                    strongSelf.multiAddButton.isHidden = true
+                }
                 overviewVC.loadFoodData()
                 strongSelf.sortedFoodCopy.remove(at: indexPath.row)
+                strongSelf.sortedFood.remove(at: indexPath.row)
                 strongSelf.tableView.deleteRows(at: [indexPath], with: .automatic)
-                
+                strongSelf.isDeletingAnEntry = false
             })
             present(ac, animated: true)
         }
     }
+    
     
     func deleteFirestoreFoodDocument(withName name: String, uuid: String) {
         guard let user = Auth.auth().currentUser?.uid else { return }
@@ -361,6 +389,7 @@ extension NewEntryViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
 
         if searchText != "" {
+            isSearching = true
             sortedFoodCopy = []
             for food in sortedFood {
                 if (food.name?.lowercased().contains(searchBar.text!.lowercased()))! {
@@ -370,11 +399,17 @@ extension NewEntryViewController: UISearchBarDelegate {
             tableView.reloadData()
         }
         else {
+            isSearching = false
+            isDisplayingSearchResults = false
             historyLabel.text = "History"
             sortedFoodCopy = sortedFood
+            if sortedFoodCopy.count > 1 {
+                multiAddButton.isHidden = false
+            }
             tableView.reloadData()
         }
     }
+    
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
@@ -397,6 +432,8 @@ extension NewEntryViewController: UISearchBarDelegate {
                     self.sortedFoodCopy = foodList
                     
                     DispatchQueue.main.async {
+                        self.multiAddButton.isHidden = true
+                        self.isDisplayingSearchResults = true
                         self.tableView.reloadData()
                         self.historyLabel.text = "Results"
                         searchBar.resignFirstResponder()
@@ -410,14 +447,19 @@ extension NewEntryViewController: UISearchBarDelegate {
         }
     }
     
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         SVProgressHUD.dismiss()
         searchBar.text = ""
         searchBar.resignFirstResponder()
+        historyLabel.text = "History"
         sortedFoodCopy = sortedFood
-        if historyLabel.text == "Results" {
-            historyLabel.text = "History"
+        isSearching = false
+        isDisplayingSearchResults = false
+        if sortedFoodCopy.count > 1 {
+            multiAddButton.isHidden = false
         }
+
         tableView.reloadData()
     }
     
