@@ -9,27 +9,6 @@
 import Foundation
 import Firebase
 
-enum FoodsCollection {
-    static let collection = "foods"
-    static let uuid = "uuid"
-    static let name = "name"
-    static let meal = "meal"
-    static let date = "date"
-    static let dateCreated = "dateCreated"
-    static let dateLastEdited = "dateLastEdited"
-    static let servingSize = "servingSize"
-    static let servingSizeUnit = "servingSizeUnit"
-    static let serving = "serving"
-    static let calories = "calories"
-    static let protein = "protein"
-    static let carbs = "carbs"
-    static let fat = "fat"
-    static let sugar = "sugar"
-    static let saturatedFat = "saturatedFat"
-    static let fibre = "fibre"
-    static let isDeleted = "isDeleted"
-}
-
 private let db = Firestore.firestore()
 
 
@@ -37,30 +16,31 @@ extension Food {
 
     convenience init(snapshot: QueryDocumentSnapshot) {
         self.init()
+        let FC = FoodConstants.self
         let foodDictionary = snapshot.data()
-        self.uuid = foodDictionary["uuid"] as! String
-        self.name = foodDictionary["name"] as? String
-        self.meal = foodDictionary["meal"] as? String
-        self.date = foodDictionary["date"] as? String
-        let dateCreated = foodDictionary["dateCreated"] as? Timestamp
+        self.uuid = foodDictionary[FC.uuid] as! String
+        self.name = foodDictionary[FC.name] as? String
+        self.meal = foodDictionary[FC.meal] as? String
+        self.date = foodDictionary[FC.date] as? String
+        let dateCreated = foodDictionary[FC.dateCreated] as? Timestamp
         self.dateCreated = dateCreated?.dateValue()
-        let dateLastEdited = foodDictionary["dateLastEdited"] as? Timestamp
+        let dateLastEdited = foodDictionary[FC.dateLastEdited] as? Timestamp
         self.dateLastEdited = dateLastEdited?.dateValue()
-        self.servingSize = "\(foodDictionary["servingSize"] ?? "100")"
-        self.servingSizeUnit = foodDictionary["servingSizeUnit"] as? String ?? "g"
-        self.serving = (foodDictionary["serving"] as? Double) ?? 1
-        self.calories = foodDictionary["calories"] as! Int
-        self.protein = foodDictionary["protein"] as! Double
-        self.carbs = foodDictionary["carbs"] as! Double
-        self.fat = foodDictionary["fat"] as! Double
-        self.sugar = foodDictionary["sugar"] as? Double ?? 0
-        self.saturatedFat = foodDictionary["saturatedFat"] as? Double ?? 0
-        self.fibre = foodDictionary["fibre"] as? Double ?? 0
-        self.isDeleted = foodDictionary["isDeleted"] as! Bool
+        self.servingSize = "\(foodDictionary[FC.servingSize] ?? "100")"
+        self.servingSizeUnit = foodDictionary[FC.servingSizeUnit] as? String ?? "g"
+        self.serving = (foodDictionary[FC.serving] as? Double) ?? 1
+        self.calories = foodDictionary[FC.calories] as! Int
+        self.protein = foodDictionary[FC.protein] as! Double
+        self.carbs = foodDictionary[FC.carbs] as! Double
+        self.fat = foodDictionary[FC.fat] as! Double
+        self.sugar = foodDictionary[FC.sugar] as? Double ?? 0
+        self.saturatedFat = foodDictionary[FC.saturatedFat] as? Double ?? 0
+        self.fibre = foodDictionary[FC.fibre] as? Double ?? 0
+        self.isDeleted = foodDictionary[FC.isDeleted] as! Bool
     }
     
     func saveFood(user: String) {
-        let fc = FoodsCollection.self
+        let fc = FoodConstants.self
         let name = self.name?.replacingOccurrences(of: "/", with: "")
         db.collection("users").document(user).collection(fc.collection).document("\(name!) \(self.uuid)").setData([
             fc.uuid: self.uuid,
@@ -90,7 +70,7 @@ extension Food {
     }
     
     
-    static func downloadAllFood(user: String, anonymous: Bool, completion: @escaping ([Food]) -> ()) {
+    static func downloadAllFood(user: String, anonymous: Bool, completion: @escaping (Result<[Food],DatabaseError>) -> ()) {
         
         let calendar = Calendar.current
         let defaultDateComponents = DateComponents(calendar: calendar, timeZone: .current, year: 2019, month: 1, day: 1)
@@ -100,8 +80,10 @@ extension Food {
         
         
         db.collection("users").document(user).collection("foods").order(by: "dateLastEdited").getDocuments(source: .cache) { (foods, error) in
+            
             if let error = error {
                 print("Error getting documents: \(error)")
+                completion(.failure(.unableToDownloadItems))
             }
             else {
                 for foodDocument in foods!.documents {
@@ -120,6 +102,7 @@ extension Food {
                         .whereField("dateLastEdited", isGreaterThan: dateOfMostRecentEntry?.addingTimeInterval(1) ?? calendar.date(from: defaultDateComponents)!)
                         .order(by: "dateLastEdited")
                         .getDocuments() { (foods, error) in
+                            
                             if let error = error {
                                 print("Error getting documents: \(error)")
                             }
@@ -178,7 +161,7 @@ extension Food {
                     }
                 }
                 dispatchGroup.notify(queue: .main) {
-                    completion(allFood)
+                    completion(.success(allFood))
                 }
             }
         }

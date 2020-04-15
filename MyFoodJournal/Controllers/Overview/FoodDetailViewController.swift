@@ -202,7 +202,7 @@ class FoodDetailViewController: UITableViewController {
         
         if isEditingExistingEntry {
             
-            let fc = FoodsCollection.self
+            let fc = FoodConstants.self
             let name = food.name?.replacingOccurrences(of: "/", with: "")
             let foodEntry = db.collection("users").document(user).collection(fc.collection).document("\(name!) \(food.uuid)")
             

@@ -9,13 +9,6 @@
 import Foundation
 import Firebase
 
-enum WeightCollection {
-    static let weight = "weight"
-    static let unit = "unit"
-    static let date = "date"
-    static let dateString = "dateString"
-    static let dateLastEdited = "dateLastEdited"
-}
 
 private let db = Firestore.firestore()
 
@@ -23,19 +16,21 @@ extension Weight {
     
     convenience init(snapshot: QueryDocumentSnapshot) {
         self.init()
+        let WC = WeightConstants.self
         let weightDictionary = snapshot.data()
-        self.weight = weightDictionary["weight"] as? Double ?? 0
-        self.unit = weightDictionary["unit"] as? String ?? "kg"
-        guard let date = weightDictionary["date"] as? Timestamp else { return }
+        self.weight = weightDictionary[WC.weight] as? Double ?? 0
+        self.unit = weightDictionary[WC.unit] as? String ?? "kg"
+        guard let date = weightDictionary[WC.date] as? Timestamp else { return }
         self.date = date.dateValue()
-        self.dateString = weightDictionary["dateString"] as? String
-        let dateLastEdited = weightDictionary["dateLastEdited"] as? Timestamp
+        self.dateString = weightDictionary[WC.dateString] as? String
+        let dateLastEdited = weightDictionary[WC.dateLastEdited] as? Timestamp
         self.dateLastEdited = dateLastEdited?.dateValue()
     }
     
+    
     func saveWeight(user: String) {
         
-        let wc = WeightCollection.self
+        let wc = WeightConstants.self
         db.collection("users").document(user).collection(wc.weight).document("\(self.dateString!)").setData([
             wc.weight: self.weight,
             wc.unit: self.unit,
@@ -51,15 +46,17 @@ extension Weight {
         }
     }
     
-    static func downloadAllWeight(user: String, anonymous: Bool, completion: @escaping ([Weight]) -> ()) {
+    
+    static func downloadAllWeight(user: String, anonymous: Bool, completion: @escaping (Result<[Weight],DatabaseError>) -> ()) {
         
         let calendar = Calendar.current
         let defaultDateComponents = DateComponents(calendar: calendar, timeZone: .current, year: 2019, month: 1, day: 1)
         var allWeight = [Weight]()
         var dateOfMostRecentEntry: Date?
         let dispatchGroup = DispatchGroup()
+        let WC = WeightConstants.self
         
-        db.collection("users").document(user).collection("weight").order(by: "dateLastEdited").getDocuments(source: .cache) {
+        db.collection("users").document(user).collection(WC.weight).order(by: WC.dateLastEdited).getDocuments(source: .cache) {
             (weight, error) in
             
             if let error = error {
@@ -78,12 +75,14 @@ extension Weight {
                     
                     dateOfMostRecentEntry = allWeight.last?.dateLastEdited
  
-                    db.collection("users").document(user).collection("weight")
-                        .whereField("dateLastEdited", isGreaterThan: dateOfMostRecentEntry?.addingTimeInterval(1) ?? calendar.date(from: defaultDateComponents)!)
-                        .order(by: "dateLastEdited")
+                    db.collection("users").document(user).collection(WC.weight)
+                        .whereField(WC.dateLastEdited, isGreaterThan: dateOfMostRecentEntry?.addingTimeInterval(1) ?? calendar.date(from: defaultDateComponents)!)
+                        .order(by: WC.dateLastEdited)
                         .getDocuments() { (weight, error) in
+                            
                             if let error = error {
                                 print("Error getting documents: \(error)")
+                                completion(.failure(.unableToDownloadItems))
                             }
                             else {
                                 
@@ -119,7 +118,7 @@ extension Weight {
                     }
                 }
                 dispatchGroup.notify(queue: .main) {
-                    completion(allWeight)
+                    completion(.success(allWeight))
                 }
             }
         }

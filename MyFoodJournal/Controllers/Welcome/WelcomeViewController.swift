@@ -229,17 +229,33 @@ class WelcomeViewController: UIViewController {
     //MARK:- Load Data Methods
     
     func loadAllFoodData(user: String, anonymous: Bool) {
-        Food.downloadAllFood(user: user, anonymous: anonymous) { (allFood) in
-            self.allFood = allFood
-            self.foodDispatchGroup.leave()
+        Food.downloadAllFood(user: user, anonymous: anonymous) { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let allFood):
+                self.allFood = allFood
+                self.foodDispatchGroup.leave()
+            case .failure(let error):
+                SVProgressHUD.showError(withStatus: error.rawValue)
+            }
+            
         }
     }
     
     func loadAllWeightData(user: String, anonymous: Bool, completed: @escaping FinishedDownload) {
-        Weight.downloadAllWeight(user: user, anonymous: anonymous) { (allWeight) in
-            self.allWeight = allWeight
-            self.weightDispatchGroup.leave()
-            completed()
+        Weight.downloadAllWeight(user: user, anonymous: anonymous) { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case.success(let allWeight):
+                self.allWeight = allWeight
+                self.weightDispatchGroup.leave()
+                completed()
+            case .failure(let error):
+                SVProgressHUD.showError(withStatus: error.rawValue)
+            }
+            
         }
     }
     

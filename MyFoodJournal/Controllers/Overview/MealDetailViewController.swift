@@ -252,10 +252,10 @@ extension MealDetailViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete {
-            let fc = FoodsCollection.self
+            let fc = FoodConstants.self
             guard let user = Auth.auth().currentUser?.uid else { return }
             guard let food = selectedFoodList?[indexPath.section] else { return }
-            let foodRef = db.collection("users").document(user).collection(FoodsCollection.collection).document("\(food.name!) \(food.uuid)")
+            let foodRef = db.collection("users").document(user).collection(fc.collection).document("\(food.name!) \(food.uuid)")
             
             foodRef.updateData([
                 fc.isDeleted: true,
