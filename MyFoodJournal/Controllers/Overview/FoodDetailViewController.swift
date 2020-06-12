@@ -61,9 +61,7 @@ class FoodDetailViewController: UITableViewController {
             workingCopy = food.copy()
         }
         setUpCells()
-        
         formatter.dateFormat = "E, d MMM"
-        
         checkDeviceAndUpdateLayout()
         
     }
@@ -81,7 +79,6 @@ class FoodDetailViewController: UITableViewController {
     }
     
     private func dismissViewWithAnimation() {
-        
         let transition: CATransition = CATransition()
         transition.duration = 0.4
         transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
@@ -92,11 +89,9 @@ class FoodDetailViewController: UITableViewController {
             self.delegate?.reloadFood(entry: nil, new: true)
             self.presentingViewController?.tabBarController?.tabBar.isHidden = false
         })
-        
     }
     
     private func setUpCells() {
-        
         tableView.tableFooterView = UIView()
         tableView.keyboardDismissMode = .interactive
         tableView.allowsSelection = false

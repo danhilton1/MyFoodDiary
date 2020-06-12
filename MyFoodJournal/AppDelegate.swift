@@ -23,6 +23,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
            ])
         FirebaseApp.configure()
         
+        if #available(iOS 13.0, *) {
+            UINavigationBarAppearance().backgroundColor = Color.skyBlue
+            UITabBar.appearance().tintColor = Color.skyBlue
+        } else {
+            UITabBar.appearance().tintColor = Color.skyBlue
+            UINavigationBar.appearance().backgroundColor = Color.skyBlue
+            UINavigationBar.appearance().tintColor = Color.skyBlue
+        }
+        
+        
+        
         return true
     }
 

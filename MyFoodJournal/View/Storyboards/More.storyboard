@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wi8-hs-nFs">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wi8-hs-nFs">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,7 +23,8 @@
         <scene sceneID="rhF-fK-bwt">
             <objects>
                 <navigationController id="wi8-hs-nFs" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="more" id="xAV-5Q-pzT"/>
+                    <tabBarItem key="tabBarItem" title="" image="SettingsIconTab" selectedImage="SettingsIconTab" id="xAV-5Q-pzT"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="dGn-EG-aHx">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -833,6 +834,7 @@
     </scenes>
     <resources>
         <image name="AppLogoBlueBackground" width="341" height="341"/>
+        <image name="SettingsIconTab" width="30" height="30"/>
         <image name="UserIcon" width="33" height="33"/>
         <image name="envelope" catalog="system" width="128" height="93"/>
     </resources>

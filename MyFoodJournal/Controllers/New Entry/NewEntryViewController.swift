@@ -82,12 +82,14 @@ class NewEntryViewController: UIViewController {
         let barButton = UIBarButtonItem(customView: dismissButton)
         navigationItem.leftBarButtonItem = barButton
         
-        navigationController?.navigationBar.barTintColor = Color.skyBlue
+        
         
         if #available(iOS 13.0, *) {
             navigationController?.navigationBar.standardAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+            navigationController?.navigationBar.standardAppearance.backgroundColor = Color.skyBlue
         } else {
             navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+            navigationController?.navigationBar.barTintColor = Color.skyBlue
         }
     }
     
@@ -108,15 +110,6 @@ class NewEntryViewController: UIViewController {
             foodDictionary[food.name!] = food
         }
         sortedFood = foodDictionary.values.sorted { $0.dateCreated! > $1.dateCreated! }
-//        sortedFood = foodDictionary.values.sorted { (food1, food2) -> Bool in
-//            guard
-//                let food1Date = food1.dateCreated,
-//                let food2Date = food2.dateCreated
-//            else {
-//                return false
-//            }
-//            return food1Date > food2Date
-//        }
     }
 
     //MARK:- Button Methods
@@ -145,7 +138,6 @@ class NewEntryViewController: UIViewController {
     }
     
     @objc func tickButtonTapped() {
-        
         if let meal = meal {
             addSelectedFoods(for: meal)
         }
@@ -154,7 +146,6 @@ class NewEntryViewController: UIViewController {
                 let ac = UIAlertController(title: "Please select the meal you would like these foods to be entered for.", message: nil, preferredStyle: .actionSheet)
                 
                 ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-                
                 ac.addAction(UIAlertAction(title: "Breakfast", style: .default) { [weak self] (action) in
                     self?.addSelectedFoods(for: .breakfast)
                 })
@@ -167,7 +158,6 @@ class NewEntryViewController: UIViewController {
                 ac.addAction(UIAlertAction(title: "Other", style: .default) { [weak self] (action) in
                     self?.addSelectedFoods(for: .other)
                 })
-                
                 present(ac, animated: true)
             }
             else {
@@ -176,11 +166,10 @@ class NewEntryViewController: UIViewController {
                 present(ac, animated: true)
             }
         }
-        
     }
     
+    
     func addSelectedFoods(for meal: Food.Meal) {
-        
         guard let user = Auth.auth().currentUser?.uid else { return }
         let formatter = DateFormatter()
         formatter.dateFormat = "E, d MMM"
@@ -202,7 +191,6 @@ class NewEntryViewController: UIViewController {
                 
                 delegate?.reloadFood(entry: food, new: true)
                 mealDelegate?.reloadFood(entry: food, new: true)
-                
             }
             dismissViewWithAnimation()
         }
@@ -211,8 +199,8 @@ class NewEntryViewController: UIViewController {
             ac.addAction(UIAlertAction(title: "OK", style: .default))
             present(ac, animated: true)
         }
-        
     }
+    
     
     func dismissViewWithAnimation() {
         let transition: CATransition = CATransition()
@@ -228,7 +216,6 @@ class NewEntryViewController: UIViewController {
     //MARK:- Segue Method
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         if segue.identifier == Segues.goToManualEntry {
             let destVC = segue.destination as! ManualEntryViewController
             destVC.delegate = delegate
@@ -261,7 +248,6 @@ extension NewEntryViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         if sortedFoodCopy.count == 0 && !isDeletingAnEntry {  // If foodList is empty, return 1 cell in order to display message
             return 1
         }

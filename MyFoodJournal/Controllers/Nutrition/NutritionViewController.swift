@@ -77,6 +77,11 @@ class NutritionViewController: UIViewController {
         monthVC = children.last as? MonthNutritionViewController
         dateLabel.text = dateAsString
         
+        if #available(iOS 13.0, *) {
+        } else {
+            segmentedControl.tintColor = Color.skyBlue
+        }
+        
         if UIScreen.main.bounds.height < 600 {
             dateLabelWidthConstraint.constant = 200
             dateLabel.font = dateLabel.font.withSize(16)

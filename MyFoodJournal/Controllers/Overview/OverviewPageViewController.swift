@@ -26,7 +26,13 @@ class OverviewPageViewController: UIPageViewController, UIPageViewControllerData
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.navigationBar.barTintColor = Color.skyBlue
+        if #available(iOS 13.0, *) {
+            navigationController?.navigationBar.standardAppearance.backgroundColor = Color.skyBlue
+        } else {
+            navigationController?.navigationBar.barTintColor = Color.skyBlue
+//            navigationController?.navigationBar.backgroundColor = Color.skyBlue
+        }
+        
         navigationItem.leftBarButtonItems = nil
         dataSource = self
         formatter.dateFormat = "E, d MMM"
